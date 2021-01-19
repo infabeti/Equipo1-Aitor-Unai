@@ -1,28 +1,31 @@
 package Vista;
 
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import Controlador.ControladorPanelPedidos;
-import java.awt.SystemColor;
+import Controlador.ControladorPanelTickets;
 
-public class PanelPedidos extends JPanel {
+public class PanelTickets extends JPanel {
 
-	private ControladorPanelPedidos controladorPanelPedidos;
+	private ControladorPanelTickets controladorPanelTickets;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
-
-	public PanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
+	
+	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
 		setBackground(SystemColor.activeCaption);
 
-		this.controladorPanelPedidos = controladorPanelPedidos;
+		this.controladorPanelTickets = controladorPanelTickets;
 
 		setLayout(null);
 
-		lblTextoPanel = new JLabel("PANEL PEDIDOS");
+		lblTextoPanel = new JLabel("PANEL TICKETS");
 		lblTextoPanel.setFont(new Font("Tahoma", Font.PLAIN, 31));
 		lblTextoPanel.setBounds(0, 0, 450, 67);
 		add(lblTextoPanel);
@@ -37,15 +40,16 @@ public class PanelPedidos extends JPanel {
 
 	}
 	private void initializeEvents() {
-		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelPedidos));
+		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelTickets));
 	}
 	
-	private ActionListener listenerBotonVolver(ControladorPanelPedidos controladorPanelPedidos) {
+	private ActionListener listenerBotonVolver(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Volver");
-				controladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
+				controladorPanelTickets.accionadoBottonVolverPanelPrincipal();
 			}
 		};
 	}
+
 }

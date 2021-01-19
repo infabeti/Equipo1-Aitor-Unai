@@ -8,7 +8,7 @@ public class Vista extends JFrame{
 
 	public Vista() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(200, 200, 600, 500);
 	}
 	
 	public void mostrarPanel(JPanel panel) {

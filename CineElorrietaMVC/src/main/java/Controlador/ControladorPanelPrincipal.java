@@ -27,6 +27,18 @@ public class ControladorPanelPrincipal {
 		this.controlador.navegarPanelPedidos();
 	}
 	
+	public void accionadoBottonMostrarPanelAprovisionamiento() {
+		this.controlador.navegarPanelAprovisionamiento();
+	}
+	
+	public void accionadoBottonMostrarPanelTickets() {
+		this.controlador.navegarPanelTickets();
+	}
+	
+	public void accionadoBottonMostrarPanelFacturas() {
+		this.controlador.navegarPanelFacturas();
+	}
+	
 	/*public void accionadoBottonMostrarPanelGeneros() {
 		this.controlador.navegarPanelGeneros();
 	}*/

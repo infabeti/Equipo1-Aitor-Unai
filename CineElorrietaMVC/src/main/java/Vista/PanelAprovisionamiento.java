@@ -1,28 +1,34 @@
 package Vista;
 
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import Controlador.ControladorPanelPedidos;
-import java.awt.SystemColor;
 
-public class PanelPedidos extends JPanel {
+import Controlador.ControladorPanelAprovisionamiento;
 
-	private ControladorPanelPedidos controladorPanelPedidos;
+
+
+public class PanelAprovisionamiento extends JPanel {
+
+	private ControladorPanelAprovisionamiento controladorPanelAprovisionamiento;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
-
-	public PanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
+	
+	
+	public PanelAprovisionamiento(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
+		
 		setBackground(SystemColor.activeCaption);
 
-		this.controladorPanelPedidos = controladorPanelPedidos;
+		this.controladorPanelAprovisionamiento = controladorPanelAprovisionamiento;
 
 		setLayout(null);
 
-		lblTextoPanel = new JLabel("PANEL PEDIDOS");
+		lblTextoPanel = new JLabel("PANEL APROVISIONAMIENTO");
 		lblTextoPanel.setFont(new Font("Tahoma", Font.PLAIN, 31));
 		lblTextoPanel.setBounds(0, 0, 450, 67);
 		add(lblTextoPanel);
@@ -37,15 +43,16 @@ public class PanelPedidos extends JPanel {
 
 	}
 	private void initializeEvents() {
-		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelPedidos));
+		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelAprovisionamiento));
 	}
 	
-	private ActionListener listenerBotonVolver(ControladorPanelPedidos controladorPanelPedidos) {
+	private ActionListener listenerBotonVolver(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Volver");
-				controladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
+				controladorPanelAprovisionamiento.accionadoBottonVolverPanelPrincipal();
 			}
 		};
 	}
+
 }

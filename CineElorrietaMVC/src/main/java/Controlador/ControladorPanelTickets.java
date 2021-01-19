@@ -2,26 +2,27 @@ package Controlador;
 
 import Modelo.Modelo;
 import Vista.PanelPedidos;
+import Vista.PanelTickets;
 import Vista.Vista;
 
-public class ControladorPanelPedidos {
+public class ControladorPanelTickets {
 
 	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
 	@SuppressWarnings("unused")
 	private Controlador controlador;
-	private PanelPedidos panelPedidos;
+	private PanelTickets panelTickets;
 	
-	public ControladorPanelPedidos(Modelo modelo, Vista vista, Controlador controlador) {
+	public ControladorPanelTickets(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;	
 	}
 	
-	public void mostrarPanelPedidos() {
-		this.panelPedidos = new PanelPedidos(this);
-		this.vista.mostrarPanel(this.panelPedidos);
+	public void mostrarPanelTickets() {
+		this.panelTickets = new PanelTickets(this);
+		this.vista.mostrarPanel(this.panelTickets);
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {

@@ -1,6 +1,5 @@
 package App;
 import Controlador.Controlador;
-import Modelo.*;
 import Modelo.Modelo;
 import Vista.Vista;
 
@@ -13,8 +12,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		modelo = new Modelo();    
-		vista = new Vista();
-                
+		vista = new Vista();              
 		controlador = new Controlador(modelo, vista);
 	}
 
