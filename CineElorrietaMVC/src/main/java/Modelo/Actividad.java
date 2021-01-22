@@ -34,4 +34,6 @@ public class Actividad {
 		this.local = local;
 	}
 	
+	public Actividad() {}
+	
 }
