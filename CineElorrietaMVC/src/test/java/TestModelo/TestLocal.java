@@ -1,8 +1,6 @@
 package TestModelo;
 
-import Modelo.Local;
-import Modelo.Actividad;
-import Modelo.ListaActividades;
+import Modelo.*;
 import java.sql.Date;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -14,7 +12,12 @@ public class TestLocal {
 	private Actividad a1 = new Actividad(11, fecha, "Primero");
 	private Actividad a2 = new Actividad(34, fecha, "Segundo");
 	private ListaActividades lista = new ListaActividades();
-	private Local loc = new Local(lista, "46564187J", "Primero", "Calle Pepito", "Restaurante");
+	private Producto p1 = new Producto("Prod1",fecha, "Unproducto", 1, 3);
+	private Producto p2 = new Producto("Prod2", fecha, "Otroproducto",2,4);
+	private ProductoTienda pt1 = new ProductoTienda(p1, 3);
+	private ProductoTienda pt2 = new ProductoTienda(p2, 9);
+	private ListaProdTienda listaP = new ListaProdTienda();
+	private Local loc = new Local(lista, listaP, "46564187J", "Primero", "Calle Pepito", "Restaurante");
 	
 	@Test
 	public void testAnnadir() {
@@ -57,4 +60,43 @@ public class TestLocal {
 		assertTrue(test);
 	}
 	
+	@Test
+	public void testAnnadirProd() {
+		boolean test = loc.addProdTienda(pt1);
+		assertTrue(test);
+		test = loc.addProdTienda(pt2);
+		//A partir de aquí se intenta hacer un test sobre la excepción
+		int i = 2;
+		while(i<256) {
+			loc.addProdTienda(pt1);
+			i++;
+		}
+		test = loc.addProdTienda(pt1);
+		assertFalse(test);
+	}
+	
+	@Test
+	public void testBuscarProd() {
+		loc.addProdTienda(pt1);
+		ProductoTienda test = loc.buscarProdTienda("Prod1");
+		assertEquals(pt1.getProd().getNombre(),test.getProd().getNombre());
+		test = loc.buscarProdTienda("asdfasdfsdf");
+		assertNull(test);
+	}
+	
+	
+	@Test
+	public void testEliminarProd() {
+		loc.addProdTienda(pt1);
+		boolean test = loc.eliminarProdTienda("Prod1");
+		assertTrue(test);
+		test = loc.eliminarProdTienda("Prod1");
+		assertFalse(test);
+		ProductoTienda testprod = loc.buscarProdTienda("Prod1");
+		assertNull(testprod);
+		loc.addProdTienda(pt1);
+		loc.addProdTienda(pt2);
+		test = loc.eliminarProdTienda("Prod1");
+		assertTrue(test);
+	}
 }
