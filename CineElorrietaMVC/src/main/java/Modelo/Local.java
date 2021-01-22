@@ -7,6 +7,7 @@ public class Local {
 	private String direccion;
 	private String tipoNegocio;
 	private ListaActividades listaAct;
+	private ListaProdTienda listaProd;
 	
 	public Local() {}
 	
@@ -58,6 +59,14 @@ public class Local {
 		this.listaAct = listaAct;
 	}
 	
+	public ListaProdTienda getListaProd() {
+		return listaProd;
+	}
+
+	public void setListaProd(ListaProdTienda listaProd) {
+		this.listaProd = listaProd;
+	}
+
 	public boolean addActividad(Actividad act) {
 		boolean ok = listaAct.annadirActividad(act);
 		return ok;
@@ -69,6 +78,20 @@ public class Local {
 	
 	public boolean eliminarActividad(int numTransaccion) {
 		boolean ok = listaAct.eliminarTransaccion(numTransaccion);
+		return ok;
+	}
+	
+	public boolean addProdTienda(ProductoTienda prod) {
+		boolean ok = listaProd.annadirProductoTienda(prod);
+		return ok;
+	}
+	
+	public ProductoTienda buscarProdTienda(String nombre) {
+		return listaProd.buscarProductoTienda(nombre);
+	}
+	
+	public boolean eliminarProdTienda(String nombre) {
+		boolean ok = listaProd.eliminarProductoTienda(nombre);
 		return ok;
 	}
 	
