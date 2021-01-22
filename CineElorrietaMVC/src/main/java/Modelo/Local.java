@@ -11,7 +11,7 @@ public class Local {
 	public Local() {}
 	
 	public Local(ListaActividades listaAct, String NIF, String nombre, String direccion, String tipoNegocio) {
-		this.setListaAct(listaAct);
+		this.listaAct = listaAct;
 		this.NIF = NIF;
 		this.nombre = nombre;
 		this.direccion = direccion;
