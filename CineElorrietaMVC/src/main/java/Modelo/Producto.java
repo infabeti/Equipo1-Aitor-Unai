@@ -48,5 +48,12 @@ public class Producto {
 		this.tipo = tipo;
 	}
 	
+	@Override
+	public String toString() {
+		return this.getNombre();
+		
+	}
+	
+	
 	
 }

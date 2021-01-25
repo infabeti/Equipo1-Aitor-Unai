@@ -4,8 +4,6 @@ import java.sql.Date;
 
 public class Pedido extends Actividad {
 
-	
-	
 	private String domicilio;
 	
 	public Pedido(int numTransaccion, Date fecha, String local) {
@@ -36,5 +34,9 @@ public class Pedido extends Actividad {
 	public void setDomicilio(String domicilio) {
 		this.domicilio = domicilio;
 	}
+	
+	
+	
+	
 
 }

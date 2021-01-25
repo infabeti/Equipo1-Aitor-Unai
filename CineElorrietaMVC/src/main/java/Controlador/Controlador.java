@@ -1,5 +1,9 @@
 package Controlador;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import Modelo.Modelo;
 import Vista.Vista;
 
@@ -12,12 +16,14 @@ public class Controlador {
 	private ControladorPanelAprovisionamiento controladorPanelAprovisionamiento;
 	private ControladorPanelFacturas controladorPanelFacturas;
 	private ControladorPanelTickets controladorPanelTickets;
+	private ControladorPanelProductos controladorPanelProductos;
 	
 	
 	public Controlador(Modelo modelo, Vista vista) {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controladorPanelPrincipal = new ControladorPanelPrincipal(this.modelo, this.vista, this);
+		this.controladorPanelProductos = new ControladorPanelProductos(this.modelo, this.vista, this);
 		this.controladorPanelPedidos = new ControladorPanelPedidos(this.modelo, this.vista, this);
 		this.controladorPanelAprovisionamiento = new ControladorPanelAprovisionamiento(this.modelo, this.vista, this);
 		this.controladorPanelFacturas = new ControladorPanelFacturas(this.modelo, this.vista, this);
@@ -45,9 +51,20 @@ public class Controlador {
 		this.controladorPanelFacturas.mostrarPanelFacturas();
 	}
 	
+	public void navegarPanelProductos() {
+		System.out.println("Navegar panel Productos");
+		this.controladorPanelProductos.mostrarPanelProductos();
+	}
+	
 	public void navegarPanelTickets() {
 		System.out.println("Navegar panel Pedidos");
 		this.controladorPanelTickets.mostrarPanelTickets();
+	}
+	
+	public static String getFechaHoraSys() {
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
+		Date date = new Date();
+		return dateFormat.format(date);
 	}
 	
 	
