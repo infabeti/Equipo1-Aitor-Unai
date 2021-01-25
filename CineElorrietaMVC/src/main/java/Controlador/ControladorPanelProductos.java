@@ -14,7 +14,7 @@ public class ControladorPanelProductos {
 	private Controlador controlador;
 	private PanelProductos panelProductos;
 	private String[] listaProductos;
-	
+	private LineaPedido[] arrProdSeleccionados;
 	
 	
 	public ControladorPanelProductos(Modelo modelo, Vista vista, Controlador controlador) {
@@ -36,6 +36,7 @@ public class ControladorPanelProductos {
 		listaProductos = modelo.getListaProductos();
 		return listaProductos;
 	}
+	
 	
 	
 	

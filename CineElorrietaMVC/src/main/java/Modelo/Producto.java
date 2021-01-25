@@ -17,6 +17,11 @@ public class Producto {
 		this.precioVenta = precioVenta;
 	}
 	
+	public Producto()
+	{
+		this.nombre="DEFAULT";
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -47,13 +52,5 @@ public class Producto {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	@Override
-	public String toString() {
-		return this.getNombre();
-		
-	}
-	
-	
 	
 }

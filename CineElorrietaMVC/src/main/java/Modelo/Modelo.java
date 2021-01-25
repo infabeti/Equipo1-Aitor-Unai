@@ -1,10 +1,12 @@
 package Modelo;
 
 import java.sql.Date;
+import java.util.Iterator;
 
 public class Modelo {
 
 	private Producto[] listaProductos;
+	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
 
 	public Modelo() {
 
@@ -12,14 +14,26 @@ public class Modelo {
 
 	}
 
+	public LineaPedido[] getArrProdSeleccionados() {
+		return arrProdSeleccionados;
+	}
+
+	public void setArrProdSeleccionados(LineaPedido[] arrProdSeleccionados) {
+		this.arrProdSeleccionados = arrProdSeleccionados;
+	}
+
+	public void setListaProductos(Producto[] listaProductos) {
+		this.listaProductos = listaProductos;
+	}
+
 	public String[] getListaProductos() {
-		
+
 		String listaProductosString[] = new String[listaProductos.length];
-		
+
 		for (int i = 0; i < listaProductos.length; i++) {
 			listaProductosString[i] = listaProductos[i].getNombre();
 		}
-		
+
 		return listaProductosString;
 	}
 
@@ -34,4 +48,20 @@ public class Modelo {
 
 		return listadoProductos;
 	}
+	
+
+	public Producto devolverProductoPorString(String nombre) {
+
+		Producto[] listadoProductos = productosAlmacenados();
+		for (int i = 0; i < listadoProductos.length; i++) {
+			if (nombre.equalsIgnoreCase(listadoProductos[i].getNombre())) {
+				return listadoProductos[i];
+			}
+
+		}
+
+		return null;
+
+	}
+
 }

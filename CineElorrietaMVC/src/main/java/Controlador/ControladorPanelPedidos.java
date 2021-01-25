@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.Modelo;
+import Modelo.Producto;
 import Vista.PanelPedidos;
 import Vista.Vista;
 
@@ -12,6 +13,7 @@ public class ControladorPanelPedidos {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelPedidos panelPedidos;
+	private String[] listaProductos;
 	
 	public ControladorPanelPedidos(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -32,6 +34,16 @@ public class ControladorPanelPedidos {
 		this.controlador.navegarPanelProductos();
 	}
 	
+	public String[] pasarListaProductos() {
+		listaProductos = modelo.getListaProductos();
+		return listaProductos;
+	}
 	
+	public Producto devolverProducto(String input) {
+		
+		Producto p1 = modelo.devolverProductoPorString(input);
+		return p1;
+		
+	}
 	
 }
