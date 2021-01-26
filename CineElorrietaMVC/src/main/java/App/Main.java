@@ -8,6 +8,7 @@ import Modelo.Modelo;
 import Modelo.Producto;
 import Vista.Vista;
 
+
 public class Main {
 	
 	private static Modelo modelo;

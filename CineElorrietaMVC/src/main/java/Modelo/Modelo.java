@@ -3,11 +3,13 @@ package Modelo;
 import java.sql.Date;
 import java.util.Iterator;
 
+
 public class Modelo {
 
 	private Producto[] listaProductos;
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-
+	Conexion conexion = new Conexion();
+	
 	public Modelo() {
 
 		listaProductos = productosAlmacenados();
