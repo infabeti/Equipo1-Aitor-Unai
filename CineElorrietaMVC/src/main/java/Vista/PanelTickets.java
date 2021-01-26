@@ -29,6 +29,9 @@ public class PanelTickets extends JPanel {
 	private JList listaAnnadidos;
 	private JScrollPane scrollPane;
 	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
+	private JScrollPane scrollPane_1;
+	private JTextField textField_1;
+	private JLabel lblCantidad;
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -48,21 +51,17 @@ public class PanelTickets extends JPanel {
 		add(btnVolver);
 		
 		textField = new JTextField();
-		textField.setBounds(107, 91, 114, 19);
+		textField.setBounds(112, 57, 114, 19);
 		add(textField);
 		textField.setColumns(10);
 		
 		lblTransaccion = new JLabel("Transaccion");
-		lblTransaccion.setBounds(0, 93, 102, 15);
+		lblTransaccion.setBounds(0, 60, 102, 15);
 		add(lblTransaccion);
 		
 		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setBounds(69, 249, 117, 25);
 		add(btnFinalizar);
-		
-		listaProductos = new JList(controladorPanelTickets.cogerListaProductos());
-		listaProductos.setBounds(270, 58, 153, 146);
-		add(listaProductos);
 		
 		btnAnadir = new JButton("Añadir");
 		btnAnadir.setBounds(292, 226, 117, 25);
@@ -74,6 +73,22 @@ public class PanelTickets extends JPanel {
 		
 		listaAnnadidos = new JList(listaPAnnadidos);
 		scrollPane.setViewportView(listaAnnadidos);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(270, 58, 153, 146);
+		add(scrollPane_1);
+		
+		listaProductos = new JList(controladorPanelTickets.cogerListaProductos());
+		scrollPane_1.setViewportView(listaProductos);
+		
+		lblCantidad = new JLabel("Cantidad");
+		lblCantidad.setBounds(10, 94, 46, 14);
+		add(lblCantidad);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(112, 88, 86, 20);
+		add(textField_1);
+		textField_1.setColumns(10);
 		
 		initializeEvents();
 
@@ -100,7 +115,15 @@ public class PanelTickets extends JPanel {
 				String producto = (String) listaProductos.getSelectedValue();
 				System.out.println("Producto " + producto);
 				producto = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
-				listaPAnnadidos.addElement(producto);
+				int cantidad = 1;
+				String texto = textField_1.getText();
+				try {
+					cantidad = Integer.parseInt(texto);
+				}
+				catch(Exception e) {
+					System.out.println("El campo cantidad no contiene un entero");
+				}
+				listaPAnnadidos.addElement(cantidad +  " " +producto);
 			}
 		};
 	}
