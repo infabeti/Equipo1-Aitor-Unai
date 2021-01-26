@@ -41,7 +41,7 @@ public class LineaPedido {
 	
 	 @Override
 	 public String toString() {
-		return this.producto.getNombre() + " Cantidad " + this.getCantidad() + " total: " + this.getTotal();
+		return this.getCantidad() + " x " + this.producto.getNombre() + " " + this.getTotal() + "€";
 		 
 	 }
 

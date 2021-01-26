@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.LineaPedido;
 import Modelo.Modelo;
 import Modelo.Producto;
 import Vista.PanelPedidos;
@@ -44,6 +45,11 @@ public class ControladorPanelPedidos {
 		Producto p1 = modelo.devolverProductoPorString(input);
 		return p1;
 		
+	}
+	
+	public String accionadoBotonAnnadirProducto(LineaPedido l1) {
+		
+		return l1.toString();
 	}
 	
 }

@@ -7,13 +7,16 @@ import java.text.NumberFormat;
 import java.util.Iterator;
 
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import Controlador.Controlador;
 import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelProductos;
+import Controlador.ControladorPanelTickets;
 import Modelo.LineaPedido;
 import Modelo.Modelo;
 import Modelo.Producto;
@@ -36,8 +39,11 @@ public class PanelPedidos extends JPanel {
 	private JTextField textFieldLocal;
 	private JTextField textField;
 	private JList productosAlmacenados = new JList();
-	private JList productosSeleccionados = new JList();
+	private JList listaAnnadidos;
+	private JScrollPane scrollPane;
+	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
 	private JFormattedTextField TextFieldCantidad;
+	private JButton btnSeleccionar;
 	
 
 	public PanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
@@ -101,7 +107,7 @@ public class PanelPedidos extends JPanel {
 
 		productosAlmacenados = new JList(controladorPanelPedidos.pasarListaProductos());
 		productosAlmacenados.setBackground(SystemColor.activeCaption);
-		productosAlmacenados.setBounds(17, 260, 144, 135);
+		productosAlmacenados.setBounds(17, 271, 144, 135);
 		add(productosAlmacenados);
 
 		JLabel lblCantidad = new JLabel("Cantidad: \r\n");
@@ -124,26 +130,28 @@ public class PanelPedidos extends JPanel {
 		add(TextFieldCantidad);
 		TextFieldCantidad.setText("1");
 
-		JButton btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(productosAlmacenados.getSelectedValue());
-				System.out.println(TextFieldCantidad.getText());
-				
-				System.out.println(controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()));
-				
-				LineaPedido l1 = new LineaPedido(
-						controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()), 
-						Integer.parseInt(TextFieldCantidad.getText()),
-						controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()).getPrecioVenta() * Integer.parseInt(TextFieldCantidad.getText())
-						);
-				
-				System.out.println(l1.toString());
-
-			}
-		});
+		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setBounds(139, 411, 113, 33);
 		add(btnSeleccionar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(261, 271, 194, 110);
+		add(scrollPane);
+		
+		listaAnnadidos = new JList(listaPAnnadidos);
+		scrollPane.setViewportView(listaAnnadidos);
+		
+		JLabel lblProd = new JLabel("Productos disponibles\r\n");
+		lblProd.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblProd.setBounds(17, 240, 187, 23);
+		add(lblProd);
+		
+		JLabel lblProdAdd = new JLabel("Productos a\u00F1adidos\r\n");
+		lblProdAdd.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblProdAdd.setBounds(268, 240, 187, 23);
+		add(lblProdAdd);
+		
+		
 
 		initializeEvents();
 
@@ -152,6 +160,34 @@ public class PanelPedidos extends JPanel {
 
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelPedidos));
+		this.btnSeleccionar.addActionListener(listenerBotonSeleccionar(this.controladorPanelPedidos));
+	}
+	
+	private ActionListener listenerBotonSeleccionar(ControladorPanelPedidos controladorPanelPedidos) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//System.out.println(productosAlmacenados.getSelectedValue());
+				//System.out.println(TextFieldCantidad.getText());
+				
+				//System.out.println(controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()));
+				
+				LineaPedido l1 = new LineaPedido(
+						controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()), 
+						Integer.parseInt(TextFieldCantidad.getText()),
+						controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()).getPrecioVenta() * Integer.parseInt(TextFieldCantidad.getText())
+						);
+				
+				System.out.println(l1.toString());
+				/*System.out.println("Ejecutando evento Boton Seleccionar");
+				String producto = (String) listaProductos.getSelectedValue();
+				System.out.println("Producto " + producto);
+				*/
+				
+				String producto = controladorPanelPedidos.accionadoBotonAnnadirProducto(l1);
+				listaPAnnadidos.addElement(producto);
+			}
+		};
 	}
 
 	private ActionListener listenerBotonVolver(ControladorPanelPedidos controladorPanelPedidos) {
