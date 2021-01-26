@@ -1,7 +1,6 @@
 package Controlador;
 
 import Modelo.Modelo;
-import Vista.PanelPedidos;
 import Vista.PanelTickets;
 import Vista.Vista;
 import Modelo.Producto;
