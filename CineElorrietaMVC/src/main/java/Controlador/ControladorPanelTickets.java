@@ -37,10 +37,11 @@ public class ControladorPanelTickets {
 		return lista;
 	}
 	
-	public void accionadoBotonAnnadirProducto(String producto) {
+	public String accionadoBotonAnnadirProducto(String producto) {
 		Producto prod = modelo.devolverProductoPorString(producto);
 		listaProductos[punt] = prod;
 		punt++;
+		return prod.toString();
 	}
 	
 	public void accionadoBotonCrearTicket() {

@@ -5,6 +5,7 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelTickets;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class PanelTickets extends JPanel {
 
@@ -24,6 +26,9 @@ public class PanelTickets extends JPanel {
 	private JLabel lblTransaccion;
 	private JList listaProductos;
 	private JButton btnAnadir;
+	private JList listaAnnadidos;
+	private JScrollPane scrollPane;
+	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -52,7 +57,7 @@ public class PanelTickets extends JPanel {
 		add(lblTransaccion);
 		
 		btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setBounds(68, 208, 117, 25);
+		btnFinalizar.setBounds(69, 249, 117, 25);
 		add(btnFinalizar);
 		
 		listaProductos = new JList(controladorPanelTickets.cogerListaProductos());
@@ -62,6 +67,13 @@ public class PanelTickets extends JPanel {
 		btnAnadir = new JButton("Añadir");
 		btnAnadir.setBounds(292, 226, 117, 25);
 		add(btnAnadir);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(30, 119, 196, 112);
+		add(scrollPane);
+		
+		listaAnnadidos = new JList(listaPAnnadidos);
+		scrollPane.setViewportView(listaAnnadidos);
 		
 		initializeEvents();
 
@@ -87,7 +99,8 @@ public class PanelTickets extends JPanel {
 				System.out.println("Ejecutando evento Boton Añadir");
 				String producto = (String) listaProductos.getSelectedValue();
 				System.out.println("Producto " + producto);
-				controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
+				producto = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
+				listaPAnnadidos.addElement(producto);
 			}
 		};
 	}
