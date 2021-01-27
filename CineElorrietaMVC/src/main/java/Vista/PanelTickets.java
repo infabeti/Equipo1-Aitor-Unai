@@ -42,53 +42,67 @@ public class PanelTickets extends JPanel {
 		setLayout(null);
 
 		lblTextoPanel = new JLabel("PANEL TICKETS");
-		lblTextoPanel.setFont(new Font("Tahoma", Font.PLAIN, 31));
+		lblTextoPanel.setFont(new Font("Arial", Font.PLAIN, 31));
 		lblTextoPanel.setBounds(0, 0, 450, 67);
 		add(lblTextoPanel);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(425, 374, 89, 23);
+		btnVolver.setBounds(508, 451, 89, 23);
 		add(btnVolver);
 		
 		textField = new JTextField();
-		textField.setBounds(112, 57, 114, 19);
+		textField.setBounds(120, 76, 114, 19);
 		add(textField);
 		textField.setColumns(10);
 		
 		lblTransaccion = new JLabel("Transaccion");
-		lblTransaccion.setBounds(0, 60, 102, 15);
+		lblTransaccion.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblTransaccion.setBounds(30, 78, 102, 15);
 		add(lblTransaccion);
 		
 		btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setBounds(69, 249, 117, 25);
+		btnFinalizar.setBounds(30, 410, 117, 25);
 		add(btnFinalizar);
 		
-		btnAnadir = new JButton("Añadir");
-		btnAnadir.setBounds(292, 226, 117, 25);
+		btnAnadir = new JButton("Seleccionar\r\n");
+		btnAnadir.setBounds(401, 261, 117, 25);
 		add(btnAnadir);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(30, 119, 196, 112);
+		scrollPane.setBounds(30, 244, 296, 153);
 		add(scrollPane);
 		
 		listaAnnadidos = new JList(listaPAnnadidos);
+		listaAnnadidos.setBackground(SystemColor.activeCaption);
 		scrollPane.setViewportView(listaAnnadidos);
 		
 		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(270, 58, 153, 146);
+		scrollPane_1.setBounds(380, 90, 150, 160);
 		add(scrollPane_1);
 		
 		listaProductos = new JList(controladorPanelTickets.cogerListaProductos());
+		listaProductos.setBackground(SystemColor.activeCaption);
 		scrollPane_1.setViewportView(listaProductos);
 		
 		lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(10, 94, 46, 14);
+		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblCantidad.setBounds(30, 124, 92, 22);
 		add(lblCantidad);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(112, 88, 86, 20);
+		textField_1.setBounds(120, 126, 86, 20);
 		add(textField_1);
 		textField_1.setColumns(10);
+		
+		JLabel lblProdDisp = new JLabel("Productos");
+		lblProdDisp.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblProdDisp.setBounds(401, 57, 92, 22);
+		add(lblProdDisp);
+		
+		JLabel lblProductosSeleccionados = new JLabel("Productos Seleccionados");
+		lblProductosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblProductosSeleccionados.setBounds(71, 209, 244, 22);
+		add(lblProductosSeleccionados);
 		
 		initializeEvents();
 

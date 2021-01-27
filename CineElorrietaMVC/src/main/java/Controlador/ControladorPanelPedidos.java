@@ -31,9 +31,6 @@ public class ControladorPanelPedidos {
 		this.controlador.navegarPanelPrincipal();
 	}
 	
-	public void accionadoBottonmostrarPanelProductos() {
-		this.controlador.navegarPanelProductos();
-	}
 	
 	public String[] pasarListaProductos() {
 		listaProductos = modelo.getListaProductos();

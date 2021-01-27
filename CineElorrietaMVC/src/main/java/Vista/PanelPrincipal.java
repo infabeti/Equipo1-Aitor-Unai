@@ -30,27 +30,32 @@ public class PanelPrincipal extends JPanel {
 			setLayout(null);
 			
 			btnPedidos = new JButton("Pedidos");
-			btnPedidos.setBounds(50, 112, 112, 36);
+			btnPedidos.setFont(new Font("Arial", Font.BOLD, 15));
+			btnPedidos.setBounds(50, 112, 127, 57);
 			add(btnPedidos);
 			
 			btnTickets = new JButton("Tickets");
-			btnTickets.setBounds(369, 112, 118, 36);
+			btnTickets.setFont(new Font("Arial", Font.BOLD, 15));
+			btnTickets.setBounds(439, 112, 127, 57);
 			add(btnTickets);
 			
 			btnFacturas = new JButton("Facturas");
-			btnFacturas.setBounds(50, 159, 112, 36);
+			btnFacturas.setFont(new Font("Arial", Font.BOLD, 15));
+			btnFacturas.setBounds(50, 187, 127, 57);
 			add(btnFacturas);
 			
 			btnAprovisionamiento = new JButton("Aprovisionamiento");
-			btnAprovisionamiento.setBounds(184, 248, 184, 33);
+			btnAprovisionamiento.setFont(new Font("Arial", Font.BOLD, 15));
+			btnAprovisionamiento.setBounds(206, 136, 198, 59);
 			add(btnAprovisionamiento);
 			
 			btnComandas = new JButton("Comandas");
-			btnComandas.setBounds(369, 159, 118, 36);
+			btnComandas.setFont(new Font("Arial", Font.BOLD, 15));
+			btnComandas.setBounds(439, 187, 127, 57);
 			add(btnComandas);
 			
 			lblTextoPanel = new JLabel("PANEL PRINCIPAL");
-			lblTextoPanel.setFont(new Font("Tahoma", Font.PLAIN, 31));
+			lblTextoPanel.setFont(new Font("Arial", Font.PLAIN, 31));
 			lblTextoPanel.setBounds(0, 0, 450, 67);
 			add(lblTextoPanel);
 			

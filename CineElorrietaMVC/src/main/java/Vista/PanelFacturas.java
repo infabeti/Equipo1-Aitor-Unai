@@ -31,6 +31,8 @@ public class PanelFacturas extends JPanel {
 	private DefaultListModel<String> annadidos = new DefaultListModel<String>();
 	private JButton btnAnnadir;
 	private JButton btnFinalizar;
+	private JLabel lblProdDisp;
+	private JLabel lblProductosSeleccionados;
 
 	public PanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {
 		setBackground(SystemColor.activeCaption);
@@ -45,61 +47,67 @@ public class PanelFacturas extends JPanel {
 		add(lblTextoPanel);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(425, 374, 89, 23);
+		btnVolver.setBounds(497, 399, 89, 23);
 		add(btnVolver);
 		
 		textNIF = new JTextField();
-		textNIF.setBounds(102, 64, 113, 20);
+		textNIF.setBounds(131, 64, 113, 20);
 		add(textNIF);
 		textNIF.setColumns(10);
 		
 		textNombre = new JTextField();
-		textNombre.setBounds(102, 95, 113, 20);
+		textNombre.setBounds(131, 94, 113, 20);
 		add(textNombre);
 		textNombre.setColumns(10);
 		
 		textApellido = new JTextField();
-		textApellido.setBounds(102, 126, 113, 20);
+		textApellido.setBounds(131, 125, 113, 20);
 		add(textApellido);
 		textApellido.setColumns(10);
 		
 		textTransaccion = new JTextField();
-		textTransaccion.setBounds(102, 157, 113, 20);
+		textTransaccion.setBounds(131, 156, 113, 20);
 		add(textTransaccion);
 		textTransaccion.setColumns(10);
 		
 		JLabel lblNIF = new JLabel("NIF");
-		lblNIF.setBounds(10, 67, 46, 14);
+		lblNIF.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNIF.setBounds(25, 63, 67, 20);
 		add(lblNIF);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 98, 46, 14);
+		lblNombre.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNombre.setBounds(25, 95, 82, 17);
 		add(lblNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(10, 129, 46, 14);
+		lblApellido.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblApellido.setBounds(25, 126, 82, 17);
 		add(lblApellido);
 		
 		JLabel lblTransaccion = new JLabel("Transaccion");
-		lblTransaccion.setBounds(10, 160, 57, 14);
+		lblTransaccion.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblTransaccion.setBounds(25, 157, 98, 17);
 		add(lblTransaccion);
 		
 		JScrollPane scrollPaneProductos = new JScrollPane();
-		scrollPaneProductos.setBounds(260, 64, 162, 171);
+		scrollPaneProductos.setBounds(380, 90, 150, 160);
 		add(scrollPaneProductos);
 		
 		listaProductos = new JList(controladorPanelFacturas.cogerListaProductos());
+		listaProductos.setBackground(SystemColor.activeCaption);
 		scrollPaneProductos.setViewportView(listaProductos);
 		
 		JScrollPane scrollPaneAnnadidos = new JScrollPane();
-		scrollPaneAnnadidos.setBounds(10, 185, 162, 67);
+		scrollPaneAnnadidos.setBounds(30, 244, 296, 153);
 		add(scrollPaneAnnadidos);
 		
 		listaAnnadidos = new JList(annadidos);
+		listaAnnadidos.setBackground(SystemColor.activeCaption);
 		scrollPaneAnnadidos.setViewportView(listaAnnadidos);
 		
-		btnAnnadir = new JButton("Annadir");
-		btnAnnadir.setBounds(333, 246, 89, 23);
+		btnAnnadir = new JButton("Seleccionar");
+		btnAnnadir.setBounds(400, 288, 106, 30);
 		add(btnAnnadir);
 		
 		btnFinalizar = new JButton("Finalizar");
@@ -107,13 +115,24 @@ public class PanelFacturas extends JPanel {
 		add(btnFinalizar);
 		
 		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(182, 188, 46, 14);
+		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblCantidad.setBounds(390, 261, 82, 14);
 		add(lblCantidad);
 		
 		textCantidad = new JTextField();
-		textCantidad.setBounds(177, 213, 51, 20);
+		textCantidad.setBounds(457, 257, 51, 20);
 		add(textCantidad);
 		textCantidad.setColumns(10);
+		
+		lblProdDisp = new JLabel("Productos");
+		lblProdDisp.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblProdDisp.setBounds(414, 50, 92, 22);
+		add(lblProdDisp);
+		
+		lblProductosSeleccionados = new JLabel("Productos Seleccionados");
+		lblProductosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblProductosSeleccionados.setBounds(68, 211, 244, 22);
+		add(lblProductosSeleccionados);
 		
 		
 

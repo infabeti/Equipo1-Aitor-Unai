@@ -15,7 +15,6 @@ import javax.swing.JScrollPane;
 
 import Controlador.Controlador;
 import Controlador.ControladorPanelPedidos;
-import Controlador.ControladorPanelProductos;
 import Controlador.ControladorPanelTickets;
 import Modelo.LineaPedido;
 import Modelo.Modelo;
