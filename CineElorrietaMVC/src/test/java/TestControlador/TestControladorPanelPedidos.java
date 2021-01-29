@@ -1,15 +1,27 @@
 package TestControlador;
 
 import static org.junit.Assert.assertEquals;
-import org.mockito.*;
 
-import java.sql.Date;
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import java.sql.Date;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import Modelo.LineaPedido;
+import Modelo.Modelo;
 import Modelo.Producto;
 
+//Mockito Runner para junit
+//@RunWith(MockitoJUnitRunner.class)
 public class TestControladorPanelPedidos {
 
 	private Date fecha = new Date(0); 
@@ -24,10 +36,28 @@ public class TestControladorPanelPedidos {
 		
 	}
 	
+	@Mock
+	 Modelo modeloMock = new Modelo();	
+	
+	
+	/*@Before
+	public void Init() {
+		when(modeloMock.devolverProductoPorString("Prod1")).thenReturn(p1);
+		
+	}*/
+	
+	
+	
 	@Test
 	public void TestdevolverProducto() {
 		
+		when(modeloMock.devolverProductoPorString("Prod1")).thenReturn(p1);
 		
+		String input = p1.getNombre(); //Prod1
+		
+		Producto prod1 = modeloMock.devolverProductoPorString(input);
+
+		assertEquals(prod1, p1);
 		
 	}
 	
