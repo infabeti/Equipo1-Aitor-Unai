@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -11,7 +12,7 @@ public class Modelo {
 	private Producto[] listaProductos;
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
 	private Conexion conexion = new Conexion();
-	private Producto[] listaProductosTemporal = new Producto[0];//Esta lista se usa para guardar los productos de la actividad actual
+	private ArrayList<Producto> listaProd  = new ArrayList();//Esta lista se usa para guardar los productos de la actividad actual
 	
 	public Modelo() {
 
@@ -76,17 +77,11 @@ public class Modelo {
 	}
 	
 	public void addProductoTemporal(Producto prod) { //Añade un producto temporal
-		Producto[] lProd = new Producto[listaProductosTemporal.length + 1];
-		for(int i = 0; i<listaProductosTemporal.length; i++) {
-			lProd[i] = listaProductosTemporal[i];
-		}
-		lProd[lProd.length] = prod;
-		listaProductosTemporal = lProd;
+		listaProd.add(prod);
 	}
 	
 	public void limpiarListaTemporal() {//Resetea la lista de productos temporales
-		Producto[] lProd = new Producto[0];
-		listaProductosTemporal = lProd;
+		listaProd.clear();
 	}
 
 }

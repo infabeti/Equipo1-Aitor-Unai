@@ -43,6 +43,7 @@ public class PanelPedidos extends JPanel {
 	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
 	private JFormattedTextField TextFieldCantidad;
 	private JButton btnSeleccionar;
+	private JLabel lblError;
 	
 
 	public PanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
@@ -101,7 +102,7 @@ public class PanelPedidos extends JPanel {
 
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(17, 199, 487, 30);
+		textField.setBounds(17, 200, 487, 30);
 		add(textField);
 
 		productosAlmacenados = new JList(controladorPanelPedidos.pasarListaProductos());
@@ -150,6 +151,10 @@ public class PanelPedidos extends JPanel {
 		lblProdAdd.setBounds(268, 240, 187, 23);
 		add(lblProdAdd);
 		
+		lblError = new JLabel("");
+		lblError.setBounds(12, 473, 330, 15);
+		add(lblError);
+		
 		
 
 		initializeEvents();
@@ -173,11 +178,13 @@ public class PanelPedidos extends JPanel {
 				String texto = textField.getText();
 				try {
 					cantidad = Integer.parseInt(texto);
+					listaPAnnadidos.addElement(cantidad + " " + producto);
 				}
 				catch(Exception e) {
 					System.out.println("El campo cantidad contiene un error");
+					lblError.setText("No se ha introducido una cantidad");
 				}
-				listaPAnnadidos.addElement(cantidad + " " + producto);
+				
 			}
 		};
 	}

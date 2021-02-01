@@ -32,6 +32,7 @@ public class PanelTickets extends JPanel {
 	private JScrollPane scrollPane_1;
 	private JTextField textField_1;
 	private JLabel lblCantidad;
+	private JLabel lblError;
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -104,6 +105,10 @@ public class PanelTickets extends JPanel {
 		lblProductosSeleccionados.setBounds(71, 209, 244, 22);
 		add(lblProductosSeleccionados);
 		
+		lblError = new JLabel("");
+		lblError.setBounds(30, 166, 332, 31);
+		add(lblError);
+		
 		initializeEvents();
 
 	}
@@ -133,11 +138,12 @@ public class PanelTickets extends JPanel {
 				String texto = textField_1.getText();
 				try {
 					cantidad = Integer.parseInt(texto);
+					listaPAnnadidos.addElement(cantidad +  " " +producto);
 				}
 				catch(Exception e) {
 					System.out.println("El campo cantidad no contiene un entero");
+					lblError.setText("No se ha introducido una cantidad");
 				}
-				listaPAnnadidos.addElement(cantidad +  " " +producto);
 			}
 		};
 	}

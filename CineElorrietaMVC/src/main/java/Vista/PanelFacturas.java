@@ -33,6 +33,7 @@ public class PanelFacturas extends JPanel {
 	private JButton btnFinalizar;
 	private JLabel lblProdDisp;
 	private JLabel lblProductosSeleccionados;
+	private JLabel lblError;
 
 	public PanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {
 		setBackground(SystemColor.activeCaption);
@@ -107,7 +108,7 @@ public class PanelFacturas extends JPanel {
 		scrollPaneAnnadidos.setViewportView(listaAnnadidos);
 		
 		btnAnnadir = new JButton("Seleccionar");
-		btnAnnadir.setBounds(400, 288, 106, 30);
+		btnAnnadir.setBounds(390, 319, 128, 30);
 		add(btnAnnadir);
 		
 		btnFinalizar = new JButton("Finalizar");
@@ -133,6 +134,10 @@ public class PanelFacturas extends JPanel {
 		lblProductosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblProductosSeleccionados.setBounds(68, 211, 244, 22);
 		add(lblProductosSeleccionados);
+		
+		lblError = new JLabel("");
+		lblError.setBounds(344, 287, 277, 15);
+		add(lblError);
 		
 		
 
@@ -164,11 +169,13 @@ public class PanelFacturas extends JPanel {
 				String texto = textCantidad.getText();
 				try {
 					cantidad = Integer.parseInt(texto);
+					annadidos.addElement(cantidad +  " " +producto);
 				}
 				catch(Exception e) {
 					System.out.println("El campo cantidad no contiene un entero");
+					lblError.setText("No se ha introducido una cantidad");
 				}
-				annadidos.addElement(cantidad +  " " +producto);
+				
 			}
 		};
 	}
