@@ -17,37 +17,41 @@ public class Producto {
 		this.precioVenta = precioVenta;
 	}
 	
+	public Producto(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public Producto()
 	{
 		this.nombre="DEFAULT";
 	}
 	
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	public double getPrecioCompra() {
-		return precioCompra;
+		return this.precioCompra;
 	}
 	public void setPrecioCompra(double precioCompra) {
 		this.precioCompra = precioCompra;
 	}
 	public double getPrecioVenta() {
-		return precioVenta;
+		return this.precioVenta;
 	}
 	public void setPrecioVenta(double precioVenta) {
 		this.precioVenta = precioVenta;
 	}
 	public Date getFechaCaducidad() {
-		return fechaCaducidad;
+		return this.fechaCaducidad;
 	}
 	public void setFechaCaducidad(Date fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 	public String getTipo() {
-		return tipo;
+		return this.tipo;
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;

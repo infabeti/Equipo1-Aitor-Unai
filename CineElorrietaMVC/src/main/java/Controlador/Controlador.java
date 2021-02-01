@@ -55,11 +55,5 @@ public class Controlador {
 		this.controladorPanelTickets.mostrarPanelTickets();
 	}
 	
-	public static String getFechaHoraSys() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-	
 	
 }

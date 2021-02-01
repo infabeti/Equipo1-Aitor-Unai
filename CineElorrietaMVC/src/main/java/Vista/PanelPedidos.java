@@ -81,7 +81,7 @@ public class PanelPedidos extends JPanel {
 		textFieldFecha.setColumns(10);
 		textFieldFecha.setBounds(458, 73, 106, 30);
 		add(textFieldFecha);
-		textFieldFecha.setText(Controlador.getFechaHoraSys());
+		textFieldFecha.setText(this.controladorPanelPedidos.devolverFechaHora());
 		textFieldFecha.setEditable(false);
 
 		JLabel lblLocal = new JLabel("Local:\r\n");
@@ -117,10 +117,10 @@ public class PanelPedidos extends JPanel {
 		NumberFormat format = NumberFormat.getInstance();
 	    NumberFormatter formatter = new NumberFormatter(format);
 	    formatter.setValueClass(Integer.class);
-	    formatter.setMinimum(0); //valor mínimo
-	    formatter.setMaximum(Integer.MAX_VALUE); //valor máximo
+	    formatter.setMinimum(0); //valor mï¿½nimo
+	    formatter.setMaximum(Integer.MAX_VALUE); //valor mï¿½ximo
 	    formatter.setAllowsInvalid(false);
-	    // Si quieres comprobar que sea válido, cada vez que se pulse una tecla
+	    // Si quieres comprobar que sea vï¿½lido, cada vez que se pulse una tecla
 	    formatter.setCommitsOnValidEdit(true);
 		
 		TextFieldCantidad = new JFormattedTextField(formatter);
@@ -165,26 +165,19 @@ public class PanelPedidos extends JPanel {
 	private ActionListener listenerBotonSeleccionar(ControladorPanelPedidos controladorPanelPedidos) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				//System.out.println(productosAlmacenados.getSelectedValue());
-				//System.out.println(TextFieldCantidad.getText());
-				
-				//System.out.println(controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()));
-				
-				LineaPedido l1 = new LineaPedido(
-						controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()), 
-						Integer.parseInt(TextFieldCantidad.getText()),
-						controladorPanelPedidos.devolverProducto((String) productosAlmacenados.getSelectedValue()).getPrecioVenta() * Integer.parseInt(TextFieldCantidad.getText())
-						);
-				
-				System.out.println(l1.toString());
-				/*System.out.println("Ejecutando evento Boton Seleccionar");
-				String producto = (String) listaProductos.getSelectedValue();
+				System.out.println("Ejecutando evento Boton Seleccionar");
+				String producto = (String) productosAlmacenados.getSelectedValue();
 				System.out.println("Producto " + producto);
-				*/
-				
-				String producto = controladorPanelPedidos.accionadoBotonAnnadirProducto(l1);
-				listaPAnnadidos.addElement(producto);
+				producto = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto);
+				int cantidad = 1;
+				String texto = textField.getText();
+				try {
+					cantidad = Integer.parseInt(texto);
+				}
+				catch(Exception e) {
+					System.out.println("El campo cantidad contiene un error");
+				}
+				listaPAnnadidos.addElement(cantidad + " " + producto);
 			}
 		};
 	}

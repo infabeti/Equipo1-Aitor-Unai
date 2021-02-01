@@ -13,8 +13,6 @@ public class ControladorPanelFacturas {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelFacturas panelFacturas;
-	private Producto[] listaProductos = new Producto[256];
-	private int punt = 0;
 	
 	public ControladorPanelFacturas(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -34,12 +32,11 @@ public class ControladorPanelFacturas {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
+		modelo.limpiarListaTemporal();
 	}
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
 		Producto prod = modelo.devolverProductoPorString(producto);
-		listaProductos[punt] = prod;
-		punt++;
 		return prod.toString();
 	}
 	

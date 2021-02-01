@@ -2,6 +2,8 @@ package TestModelo;
 
 import Modelo.*;
 import java.sql.Date;
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -11,34 +13,24 @@ public class TestLocal {
 	private Date fecha = new Date(0); //Fecha de tipo Date para insertar en las actividades
 	private Actividad a1 = new Actividad(11, fecha, "Primero");
 	private Actividad a2 = new Actividad(34, fecha, "Segundo");
-	private ListaActividades lista = new ListaActividades();
 	private Producto p1 = new Producto("Prod1",fecha, "Unproducto", 1, 3);
 	private Producto p2 = new Producto("Prod2", fecha, "Otroproducto",2,4);
 	private ProductoTienda pt1 = new ProductoTienda(p1, 3);
 	private ProductoTienda pt2 = new ProductoTienda(p2, 9);
-	private ListaProdTienda listaP = new ListaProdTienda();
-	private Local loc = new Local(lista, listaP, "46564187J", "Primero", "Calle Pepito", "Restaurante");
+	private Local loc = new Local("46564187J", "Primero", "Calle Pepito", "Restaurante");
 	
 	@Test
-	public void testAnnadir() {
+	public void testAnnadirActividad() {
 		boolean test = loc.addActividad(a1);
 		assertTrue(test);
 		test = loc.addActividad(a2);
 		assertTrue(test);
-		//A partir de aquí se intenta hacer un test sobre la excepción
-		int i = 2;
-		while(i<256) {
-			loc.addActividad(a1);
-			i++;
-		}
-		test = loc.addActividad(a1);
-		assertFalse(test);
-		//Funciona
 	}
 	
 	@Test
-	public void testBuscar() {
+	public void testBuscarActividad() {
 		loc.addActividad(a1);
+		System.out.println(loc.getListaAct().toString());
 		Actividad test = loc.buscarActividad(11);
 		assertEquals(a1.getNumTransaccion(), test.getNumTransaccion());
 		test = loc.buscarActividad(98);
@@ -46,7 +38,7 @@ public class TestLocal {
 	}
 	
 	@Test
-	public void testEliminar() {
+	public void testEliminarActividad() {
 		loc.addActividad(a1);
 		boolean test = loc.eliminarActividad(11);
 		assertTrue(test);
@@ -65,14 +57,7 @@ public class TestLocal {
 		boolean test = loc.addProdTienda(pt1);
 		assertTrue(test);
 		test = loc.addProdTienda(pt2);
-		//A partir de aquí se intenta hacer un test sobre la excepción
-		int i = 2;
-		while(i<256) {
-			loc.addProdTienda(pt1);
-			i++;
-		}
-		test = loc.addProdTienda(pt1);
-		assertFalse(test);
+		assertTrue(test);
 	}
 	
 	@Test

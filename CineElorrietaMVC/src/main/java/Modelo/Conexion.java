@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-	private String nombreBd="reto3";
-	private String usuario="root";
-	private String password="elorrieta";
-	private String url="jdbc:mysql://localhost:33060/"+nombreBd+"?useUnicode=true&use"
+	private static final String NOMBREBD="reto3";
+	private static final String USUARIO="root";
+	private static final String PASSWORD="elorrieta";
+	private static final String URL="jdbc:mysql://localhost:33060/"+NOMBREBD+"?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
 			+ "serverTimezone=UTC";
 
@@ -19,14 +19,14 @@ public class Conexion {
 			//obtener el driver
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//obtener la conexion
-			conn=DriverManager.getConnection(url,usuario,password);
+			conn=DriverManager.getConnection(URL,USUARIO,PASSWORD);
 			if (conn==null) {
-				System.out.println("******************NO SE PUDO CONECTAR "+nombreBd);
+				System.out.println("******************NO SE PUDO CONECTAR "+NOMBREBD);
 				System.exit(0);
 			}
 			else
 			{
-				System.out.println("Conectado correctamente a la base de datos " + nombreBd + " con el usuario " + usuario);
+				System.out.println("Conectado correctamente a la base de datos " + NOMBREBD + " con el usuario " + USUARIO);
 			}
 		}
 		catch (ClassNotFoundException e) {
@@ -34,7 +34,7 @@ public class Conexion {
 			System.exit(0);
 		} catch (SQLException e) {
 			System.out.println("ocurre una SQLException: "+e.getMessage());
-			System.out.println("Verifique que Mysql esté encendido...");
+			System.out.println("Verifique que Mysql estï¿½ encendido...");
 			System.exit(0);
 		}
 	}

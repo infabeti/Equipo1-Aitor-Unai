@@ -33,4 +33,14 @@ public class TestProductoTienda {
 		assertEquals(esperado, res);
 	}
 	
+	@Test
+	public void testEquals() {
+		boolean test = pt1.equals(pt2);
+		assertFalse(test);
+		test = pt1.equals(pt1);
+		assertTrue(test);
+		ProductoTienda pt3 = pt1;
+		test = pt1.equals(pt3);
+		assertTrue(test);
+	}
 }

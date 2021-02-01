@@ -16,7 +16,7 @@ public class LineaPedido {
 
 
 	public int getCantidad() {
-		return cantidad;
+		return this.cantidad;
 	}
 
 	public void setCantidad(int cantidad) {
@@ -24,7 +24,7 @@ public class LineaPedido {
 	}
 
 	public double getTotal() {
-		return total;
+		return this.total;
 	}
 
 	public void setTotal(double total) {
@@ -32,7 +32,7 @@ public class LineaPedido {
 	}
 
 	public Producto getProducto() {
-		return producto;
+		return this.producto;
 	}
 
 	public void setProducto(Producto producto) {
@@ -41,7 +41,7 @@ public class LineaPedido {
 	
 	 @Override
 	 public String toString() {
-		return this.getCantidad() + " x " + this.producto.getNombre() + " " + this.getTotal() + "€";
+		return this.getCantidad() + " x " + this.producto.getNombre() + " " + this.getTotal() + "ï¿½";
 		 
 	 }
 

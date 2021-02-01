@@ -39,8 +39,4 @@ public class ControladorPanelPrincipal {
 		this.controlador.navegarPanelFacturas();
 	}
 	
-	/*public void accionadoBottonMostrarPanelGeneros() {
-		this.controlador.navegarPanelGeneros();
-	}*/
-	
 }

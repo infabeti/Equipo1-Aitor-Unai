@@ -29,6 +29,7 @@ public class ControladorPanelPedidos {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
+		modelo.limpiarListaTemporal();
 	}
 	
 	
@@ -44,9 +45,14 @@ public class ControladorPanelPedidos {
 		
 	}
 	
-	public String accionadoBotonAnnadirProducto(LineaPedido l1) {
-		
-		return l1.toString();
+	public String accionadoBotonAnnadirProducto(String producto) {
+		Producto prod = modelo.devolverProductoPorString(producto);
+		modelo.addProductoTemporal(prod);
+		return producto.toString();
+	}
+	
+	public String devolverFechaHora() {
+		return modelo.getFechaHoraSys();
 	}
 	
 }

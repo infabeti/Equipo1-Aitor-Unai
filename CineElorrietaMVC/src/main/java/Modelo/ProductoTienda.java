@@ -5,8 +5,6 @@ public class ProductoTienda {
 	private Producto prod;
 	private int cantidad = 0;
 	
-	public ProductoTienda() {}
-	
 	public ProductoTienda(Producto prod) {
 		this.prod = prod;
 	}
@@ -17,7 +15,7 @@ public class ProductoTienda {
 	}
 
 	public Producto getProd() {
-		return prod;
+		return this.prod;
 	}
 
 	public void setProd(Producto prod) {
@@ -25,7 +23,7 @@ public class ProductoTienda {
 	}
 
 	public int getCantidad() {
-		return cantidad;
+		return this.cantidad;
 	}
 
 	public void setCantidad(int cantidad) {
@@ -52,6 +50,27 @@ public class ProductoTienda {
 			devolver = this.cantidad;
 		}
 		return devolver;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) { 
+            return true; 
+        }
+		
+		if (!(o instanceof ProductoTienda)) { 
+            return false; 
+        }
+		
+		ProductoTienda prod = (ProductoTienda) o;
+		
+		return this.getProd().getNombre() == prod.getProd().getNombre();
+		
+	}
+	
+	@Override
+	public String toString() {
+		return this.prod.toString() + " Cantidad:" + cantidad;
 	}
 	
 }

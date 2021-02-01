@@ -1,19 +1,20 @@
 package Modelo;
 
+import java.util.ArrayList;
+
 public class Local {
 	
 	private String NIF;
 	private String nombre;
 	private String direccion;
 	private String tipoNegocio;
-	private ListaActividades listaAct;
-	private ListaProdTienda listaProd;
+	private ArrayList<Actividad> listaAct = new ArrayList<Actividad>();
+	private ArrayList<ProductoTienda> listaProd = new ArrayList<ProductoTienda>();
+	
 	
 	public Local() {}
 	
-	public Local(ListaActividades listaAct,ListaProdTienda listaProd, String NIF, String nombre, String direccion, String tipoNegocio) {
-		this.listaAct = listaAct;
-		this.listaProd = listaProd;
+	public Local(String NIF, String nombre, String direccion, String tipoNegocio) {
 		this.NIF = NIF;
 		this.nombre = nombre;
 		this.direccion = direccion;
@@ -21,15 +22,15 @@ public class Local {
 	}
 
 	public String getNIF() {
-		return NIF;
+		return this.NIF;
 	}
 
-	public void setNIF(String nIF) {
-		NIF = nIF;
+	public void setNIF(String NIF) {
+		this.NIF = NIF;
 	}
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -37,7 +38,7 @@ public class Local {
 	}
 
 	public String getDireccion() {
-		return direccion;
+		return this.direccion;
 	}
 
 	public void setDireccion(String direccion) {
@@ -45,55 +46,68 @@ public class Local {
 	}
 
 	public String getTipoNegocio() {
-		return tipoNegocio;
+		return this.tipoNegocio;
 	}
 
 	public void setTipoNegocio(String tipoNegocio) {
 		this.tipoNegocio = tipoNegocio;
 	}
-
-	public ListaActividades getListaAct() {
-		return listaAct;
-	}
-
-	public void setListaAct(ListaActividades listaAct) {
-		this.listaAct = listaAct;
+	
+	public ArrayList<Actividad> getListaAct(){
+		return this.listaAct;
 	}
 	
-	public ListaProdTienda getListaProd() {
-		return listaProd;
-	}
-
-	public void setListaProd(ListaProdTienda listaProd) {
-		this.listaProd = listaProd;
-	}
-
 	public boolean addActividad(Actividad act) {
-		boolean ok = listaAct.annadirActividad(act);
-		return ok;
-	}
-	
-	public Actividad buscarActividad(int numTransaccion) {
-		return listaAct.buscarTransaccion(numTransaccion);
-	}
-	
-	public boolean eliminarActividad(int numTransaccion) {
-		boolean ok = listaAct.eliminarTransaccion(numTransaccion);
+		boolean ok = listaAct.add(act);
 		return ok;
 	}
 	
 	public boolean addProdTienda(ProductoTienda prod) {
-		boolean ok = listaProd.annadirProductoTienda(prod);
+		boolean ok = listaProd.add(prod);
 		return ok;
+	}
+	
+	public Actividad buscarActividad(int numTransaccion) {
+		Actividad act = new Actividad(numTransaccion);
+		int indice = listaAct.indexOf(act);
+		if(indice >=0) {
+			act = listaAct.get(indice);
+		}
+		else {
+			act = null;
+		}
+		return act;
 	}
 	
 	public ProductoTienda buscarProdTienda(String nombre) {
-		return listaProd.buscarProductoTienda(nombre);
+		Producto prod = new Producto(nombre);
+		ProductoTienda prodT = new ProductoTienda(prod);
+		int indice = listaProd.indexOf(prodT);
+		if(indice >= 0) {
+			prodT = listaProd.get(indice);
+		}
+		else {
+			prodT = null;
+		}
+		return prodT;
 	}
 	
-	public boolean eliminarProdTienda(String nombre) {
-		boolean ok = listaProd.eliminarProductoTienda(nombre);
+	public boolean eliminarActividad(int numTransaccion) {
+		Actividad act = buscarActividad(numTransaccion);
+		boolean ok = false;
+		if(act != null) {
+			ok = listaAct.remove(act);
+		}
 		return ok;
 	}
 	
+	public boolean eliminarProdTienda(String nombre) {
+		ProductoTienda prod = buscarProdTienda(nombre);
+		boolean ok = false;
+		if(prod != null) {
+			ok = listaProd.remove(prod);
+		}
+		return ok;
+	}
+		
 }

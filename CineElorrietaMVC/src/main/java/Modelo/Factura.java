@@ -9,7 +9,7 @@ public class Factura extends Actividad {
 	private String apellido;
 
 	public String getNif() {
-		return nif;
+		return this.nif;
 	}
 
 	public void setNif(String nif) {
@@ -17,7 +17,7 @@ public class Factura extends Actividad {
 	}
 
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
@@ -25,7 +25,7 @@ public class Factura extends Actividad {
 	}
 
 	public String getApellido() {
-		return apellido;
+		return this.apellido;
 	}
 
 	public void setApellido(String apellido) {

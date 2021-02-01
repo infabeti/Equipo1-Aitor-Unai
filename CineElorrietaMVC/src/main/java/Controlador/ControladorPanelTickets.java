@@ -13,8 +13,6 @@ public class ControladorPanelTickets {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelTickets panelTickets;
-	private Producto[] listaProductos = new Producto[256];
-	private int punt = 0;
 	
 	public ControladorPanelTickets(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -29,6 +27,7 @@ public class ControladorPanelTickets {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
+		modelo.limpiarListaTemporal();
 	}
 	
 	public String[] cogerListaProductos() { 
@@ -38,8 +37,7 @@ public class ControladorPanelTickets {
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
 		Producto prod = modelo.devolverProductoPorString(producto);
-		listaProductos[punt] = prod;
-		punt++;
+		modelo.addProductoTemporal(prod);
 		return prod.toString();
 	}
 	
