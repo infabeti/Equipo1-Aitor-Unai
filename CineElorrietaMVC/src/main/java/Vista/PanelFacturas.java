@@ -34,6 +34,10 @@ public class PanelFacturas extends JPanel {
 	private JLabel lblProdDisp;
 	private JLabel lblProductosSeleccionados;
 	private JLabel lblError;
+	private JTextField textLocal;
+	private JTextField textFecha;
+	private JLabel lblLocal;
+	private JLabel lblFecha;
 
 	public PanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {
 		setBackground(SystemColor.activeCaption);
@@ -138,6 +142,24 @@ public class PanelFacturas extends JPanel {
 		lblError = new JLabel("");
 		lblError.setBounds(344, 287, 277, 15);
 		add(lblError);
+		
+		textLocal = new JTextField();
+		textLocal.setBounds(706, 94, 114, 19);
+		add(textLocal);
+		textLocal.setColumns(10);
+		
+		textFecha = new JTextField();
+		textFecha.setBounds(706, 156, 114, 19);
+		add(textFecha);
+		textFecha.setColumns(10);
+		
+		lblLocal = new JLabel("Local");
+		lblLocal.setBounds(592, 96, 70, 15);
+		add(lblLocal);
+		
+		lblFecha = new JLabel("Fecha");
+		lblFecha.setBounds(592, 158, 70, 15);
+		add(lblFecha);
 		
 		
 

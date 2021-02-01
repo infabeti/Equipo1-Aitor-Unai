@@ -33,6 +33,8 @@ public class PanelTickets extends JPanel {
 	private JTextField textField_1;
 	private JLabel lblCantidad;
 	private JLabel lblError;
+	private JTextField textLocal;
+	private JTextField textFecha;
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -108,6 +110,24 @@ public class PanelTickets extends JPanel {
 		lblError = new JLabel("");
 		lblError.setBounds(30, 166, 332, 31);
 		add(lblError);
+		
+		textLocal = new JTextField();
+		textLocal.setBounds(642, 76, 114, 19);
+		add(textLocal);
+		textLocal.setColumns(10);
+		
+		textFecha = new JTextField();
+		textFecha.setBounds(642, 126, 114, 19);
+		add(textFecha);
+		textFecha.setColumns(10);
+		
+		JLabel lblLocal = new JLabel("Local");
+		lblLocal.setBounds(554, 78, 70, 15);
+		add(lblLocal);
+		
+		JLabel lblFecha = new JLabel("Fecha");
+		lblFecha.setBounds(554, 128, 70, 15);
+		add(lblFecha);
 		
 		initializeEvents();
 
