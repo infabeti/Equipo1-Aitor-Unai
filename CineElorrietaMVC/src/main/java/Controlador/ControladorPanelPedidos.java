@@ -55,4 +55,8 @@ public class ControladorPanelPedidos {
 		return modelo.getFechaHoraSys();
 	}
 	
+	public void accionadoBotonEliminar(int pos) {
+		modelo.eliminiarProductoTemporal(pos);
+	}
+	
 }

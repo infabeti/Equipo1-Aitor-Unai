@@ -15,6 +15,7 @@ import Controlador.ControladorPanelPedidos;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import java.awt.Color;
 
 public class PanelFacturas extends JPanel {
 
@@ -38,6 +39,7 @@ public class PanelFacturas extends JPanel {
 	private JTextField textFecha;
 	private JLabel lblLocal;
 	private JLabel lblFecha;
+	private JButton btnEliminar;
 
 	public PanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {
 		setBackground(SystemColor.activeCaption);
@@ -100,7 +102,7 @@ public class PanelFacturas extends JPanel {
 		add(scrollPaneProductos);
 		
 		listaProductos = new JList(controladorPanelFacturas.cogerListaProductos());
-		listaProductos.setBackground(SystemColor.activeCaption);
+		listaProductos.setBackground(Color.WHITE);
 		scrollPaneProductos.setViewportView(listaProductos);
 		
 		JScrollPane scrollPaneAnnadidos = new JScrollPane();
@@ -108,7 +110,7 @@ public class PanelFacturas extends JPanel {
 		add(scrollPaneAnnadidos);
 		
 		listaAnnadidos = new JList(annadidos);
-		listaAnnadidos.setBackground(SystemColor.activeCaption);
+		listaAnnadidos.setBackground(Color.WHITE);
 		scrollPaneAnnadidos.setViewportView(listaAnnadidos);
 		
 		btnAnnadir = new JButton("Seleccionar");
@@ -161,6 +163,10 @@ public class PanelFacturas extends JPanel {
 		lblFecha.setBounds(592, 158, 70, 15);
 		add(lblFecha);
 		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(25, 409, 117, 25);
+		add(btnEliminar);
+		
 		
 
 		initializeEvents();
@@ -169,6 +175,7 @@ public class PanelFacturas extends JPanel {
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelFacturas));
 		this.btnAnnadir.addActionListener(listenerBotonAnnadir(this.controladorPanelFacturas));
+		this.btnEliminar.addActionListener(listenerBotonEliminar(this.controladorPanelFacturas));
 	}
 	
 	private ActionListener listenerBotonVolver(ControladorPanelFacturas controladorPanelFacturas) {
@@ -184,20 +191,46 @@ public class PanelFacturas extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Annadir");
-				String producto = (String) listaProductos.getSelectedValue();
-				System.out.println("Producto " + producto);
-				producto = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
-				int cantidad = 1;
-				String texto = textCantidad.getText();
+				boolean existeProd = false;
+				String producto = "";
 				try {
-					cantidad = Integer.parseInt(texto);
-					annadidos.addElement(cantidad +  " " +producto);
+					producto = (String) listaProductos.getSelectedValue();
+					System.out.println("Producto " + producto);
+					producto = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
+					existeProd = true;
 				}
 				catch(Exception e) {
-					System.out.println("El campo cantidad no contiene un entero");
-					lblError.setText("No se ha introducido una cantidad");
+					System.out.println("No se ha seleccionado un producto");
+					lblError.setText("No se ha escogido un producto");
 				}
-				
+				String texto = textCantidad.getText();
+				if (existeProd) {
+					try {
+						int cantidad = Integer.parseInt(texto);
+						annadidos.addElement(cantidad +  " " +producto);
+					}
+					catch(Exception e) {
+						System.out.println("El campo cantidad no contiene un entero");
+						lblError.setText("No se ha introducido una cantidad");
+					}
+				}
+			}
+		};
+	}
+	
+	private ActionListener listenerBotonEliminar(ControladorPanelFacturas controladorPanelFacturas) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Eliminar");
+				try {
+					int pos = listaAnnadidos.getSelectedIndex();
+					controladorPanelFacturas.accionadoBotonEliminar(pos);
+					annadidos.remove(pos);	
+				}
+				catch(Exception e) {
+					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+					lblError.setText("No se pudo eliminar");
+				}
 			}
 		};
 	}

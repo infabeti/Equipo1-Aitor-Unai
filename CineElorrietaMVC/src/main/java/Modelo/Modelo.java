@@ -12,7 +12,7 @@ public class Modelo {
 	private Producto[] listaProductos;
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
 	private Conexion conexion = new Conexion();
-	private ArrayList<Producto> listaProd  = new ArrayList();//Esta lista se usa para guardar los productos de la actividad actual
+	private ArrayList<Producto> listaProd  = new ArrayList<Producto>(); 
 	
 	public Modelo() {
 
@@ -76,12 +76,16 @@ public class Modelo {
 		return dateFormat.format(date);
 	}
 	
-	public void addProductoTemporal(Producto prod) { //Añade un producto temporal
+	public void addProductoTemporal(Producto prod) { 
 		listaProd.add(prod);
 	}
 	
-	public void limpiarListaTemporal() {//Resetea la lista de productos temporales
+	public void limpiarListaTemporal() {
 		listaProd.clear();
+	}
+	
+	public void eliminiarProductoTemporal(int pos) {
+		listaProd.remove(pos);
 	}
 
 }

@@ -45,4 +45,8 @@ public class ControladorPanelTickets {
 		
 	}
 	
+	public void accionadoBotonEliminar(int pos) {
+		modelo.eliminiarProductoTemporal(pos);
+	}
+	
 }

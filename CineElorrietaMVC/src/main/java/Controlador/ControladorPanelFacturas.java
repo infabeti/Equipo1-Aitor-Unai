@@ -40,4 +40,7 @@ public class ControladorPanelFacturas {
 		return prod.toString();
 	}
 	
+	public void accionadoBotonEliminar(int pos) {
+		modelo.eliminiarProductoTemporal(pos);
+	}
 }

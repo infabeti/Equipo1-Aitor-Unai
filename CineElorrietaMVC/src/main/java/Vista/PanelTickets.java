@@ -35,6 +35,7 @@ public class PanelTickets extends JPanel {
 	private JLabel lblError;
 	private JTextField textLocal;
 	private JTextField textFecha;
+	private JButton btnEliminar;
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -129,6 +130,10 @@ public class PanelTickets extends JPanel {
 		lblFecha.setBounds(554, 128, 70, 15);
 		add(lblFecha);
 		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(198, 410, 117, 25);
+		add(btnEliminar);
+		
 		initializeEvents();
 
 	}
@@ -136,6 +141,7 @@ public class PanelTickets extends JPanel {
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelTickets));
 		this.btnAnadir.addActionListener(listenerBotonAnadir(this.controladorPanelTickets));
+		this.btnEliminar.addActionListener(listenerBotonEliminar(this.controladorPanelTickets));
 	}
 	
 	private ActionListener listenerBotonVolver(ControladorPanelTickets controladorPanelTickets) {
@@ -150,19 +156,46 @@ public class PanelTickets extends JPanel {
 	private ActionListener listenerBotonAnadir(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento Boton Añadir");
-				String producto = (String) listaProductos.getSelectedValue();
-				System.out.println("Producto " + producto);
-				producto = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
-				int cantidad = 1;
-				String texto = textField_1.getText();
+				System.out.println("Ejecutando evento Boton Annadir");
+				boolean existeProd = false;
+				String producto = "";
 				try {
-					cantidad = Integer.parseInt(texto);
-					listaPAnnadidos.addElement(cantidad +  " " +producto);
+					producto = (String) listaProductos.getSelectedValue();
+					System.out.println("Producto " + producto);
+					producto = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
+					existeProd = true;
 				}
 				catch(Exception e) {
-					System.out.println("El campo cantidad no contiene un entero");
-					lblError.setText("No se ha introducido una cantidad");
+					System.out.println("No se ha seleccionado un producto");
+					lblError.setText("No se ha escogido un producto");
+				}
+				String texto = textField_1.getText();
+				if (existeProd) {
+					try {
+						int cantidad = Integer.parseInt(texto);
+						listaPAnnadidos.addElement(cantidad +  " " +producto);
+					}
+					catch(Exception e) {
+						System.out.println("El campo cantidad no contiene un entero");
+						lblError.setText("No se ha introducido una cantidad");
+					}
+				}
+			}
+		};
+	}
+	
+	private ActionListener listenerBotonEliminar(ControladorPanelTickets controladorPanelTickets) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento boton eliminar");
+				try {
+					int pos = listaAnnadidos.getSelectedIndex();
+					controladorPanelTickets.accionadoBotonEliminar(pos);
+					listaPAnnadidos.remove(pos);
+				}
+				catch(Exception e) {
+					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+					lblError.setText("No se pudo eliminar");
 				}
 			}
 		};
