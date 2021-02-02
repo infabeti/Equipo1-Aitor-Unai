@@ -9,7 +9,7 @@ import Vista.Vista;
 
 public class Controlador {
 
-	private Modelo modelo;
+	private static Modelo modelo;
 	private Vista vista;
 	private ControladorPanelPrincipal controladorPanelPrincipal;
 	private ControladorPanelPedidos controladorPanelPedidos;
@@ -55,5 +55,7 @@ public class Controlador {
 		this.controladorPanelTickets.mostrarPanelTickets();
 	}
 	
-	
+	public static double devolverPrecioProducto(String nombre) {
+		return modelo.precioProductoString(nombre);
+	}
 }

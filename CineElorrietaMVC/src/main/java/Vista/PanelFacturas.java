@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controlador.Controlador;
 import Controlador.ControladorPanelFacturas;
 import Controlador.ControladorPanelPedidos;
 import javax.swing.JTextField;
@@ -40,6 +41,8 @@ public class PanelFacturas extends JPanel {
 	private JLabel lblLocal;
 	private JLabel lblFecha;
 	private JButton btnEliminar;
+	private JLabel lblTotal;
+	private JTextField textTotal;
 
 	public PanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {
 		setBackground(SystemColor.activeCaption);
@@ -167,6 +170,17 @@ public class PanelFacturas extends JPanel {
 		btnEliminar.setBounds(25, 409, 117, 25);
 		add(btnEliminar);
 		
+		lblTotal = new JLabel("Total");
+		lblTotal.setBounds(160, 414, 70, 15);
+		add(lblTotal);
+		
+		textTotal = new JTextField();
+		textTotal.setEditable(false);
+		textTotal.setBounds(212, 412, 114, 19);
+		add(textTotal);
+		textTotal.setColumns(10);
+		textTotal.setText("0");
+		
 		
 
 		initializeEvents();
@@ -193,10 +207,11 @@ public class PanelFacturas extends JPanel {
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
+				String productoAnadir = "";
 				try {
 					producto = (String) listaProductos.getSelectedValue();
 					System.out.println("Producto " + producto);
-					producto = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
+					productoAnadir = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
 					existeProd = true;
 				}
 				catch(Exception e) {
@@ -207,7 +222,10 @@ public class PanelFacturas extends JPanel {
 				if (existeProd) {
 					try {
 						int cantidad = Integer.parseInt(texto);
-						annadidos.addElement(cantidad +  " " +producto);
+						annadidos.addElement(cantidad +  " " +productoAnadir);
+						double total = Double.parseDouble(textTotal.getText());
+						double precioTotalProducto = cantidad * Controlador.devolverPrecioProducto(producto);
+						textTotal.setText(String.valueOf(total + precioTotalProducto));
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");

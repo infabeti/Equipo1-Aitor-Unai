@@ -11,7 +11,7 @@ public class Modelo {
 
 	private Producto[] listaProductos;
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-	private Conexion conexion = new Conexion();
+	//private Conexion conexion = new Conexion();
 	private ArrayList<Producto> listaProd  = new ArrayList<Producto>(); 
 	
 	public Modelo() {
@@ -68,6 +68,11 @@ public class Modelo {
 
 		return null;
 
+	}
+	
+	public double precioProductoString(String nombre) {
+		Producto prod = devolverProductoPorString(nombre);
+		return prod.getPrecioVenta();
 	}
 	
 	public static String getFechaHoraSys() {

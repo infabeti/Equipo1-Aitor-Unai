@@ -46,6 +46,7 @@ public class PanelPedidos extends JPanel {
 	private JButton btnSeleccionar;
 	private JLabel lblError;
 	private JButton btnEliminar;
+	private JTextField textTotal;
 	
 
 	public PanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
@@ -161,6 +162,17 @@ public class PanelPedidos extends JPanel {
 		btnEliminar.setBounds(467, 267, 117, 25);
 		add(btnEliminar);
 		
+		JLabel lblTotal = new JLabel("Total");
+		lblTotal.setBounds(271, 393, 70, 15);
+		add(lblTotal);
+		
+		textTotal = new JTextField();
+		textTotal.setEditable(false);
+		textTotal.setBounds(327, 393, 114, 19);
+		add(textTotal);
+		textTotal.setColumns(10);
+		textTotal.setText("0");
+		
 		
 
 		initializeEvents();
@@ -180,10 +192,11 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
+				String productoAnadir = "";
 				try {
 					producto = (String) productosAlmacenados.getSelectedValue();
 					System.out.println("Producto " + producto);
-					producto = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto);
+					productoAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto);
 					existeProd = true;
 				}
 				catch(Exception e) {
@@ -191,16 +204,21 @@ public class PanelPedidos extends JPanel {
 					lblError.setText("No se ha escogido un producto");
 				}
 				String texto = TextFieldCantidad.getText();
+				int cantidad = 0;
 				if (existeProd) {
 					try {
-						int cantidad = Integer.parseInt(texto);
-						listaPAnnadidos.addElement(cantidad +  " " +producto);
+						cantidad = Integer.parseInt(texto);
+						listaPAnnadidos.addElement(cantidad +  " " +productoAnadir);
+						double total = Double.parseDouble(textTotal.getText());
+						double precioTotalProducto = cantidad * Controlador.devolverPrecioProducto(producto);
+						textTotal.setText(String.valueOf(total + precioTotalProducto));
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
 						lblError.setText("No se ha introducido una cantidad");
 					}
 				}
+				
 			}
 		};
 	}
