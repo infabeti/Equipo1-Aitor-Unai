@@ -205,9 +205,19 @@ public class PanelTickets extends JPanel {
 	private ActionListener listenerBotonEliminar(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento boton eliminar");
+				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
+					String eliminar = listaPAnnadidos.get(pos);
+					int punt = 0;
+					for(int i = 0; eliminar.charAt(i)!= ' ';i++) {
+						punt = i;
+					}
+					punt++;
+					int cantidad = Integer.parseInt(eliminar.substring(0, punt));
+					double precio = Controlador.devolverPrecioProducto(pos);
+					double total = Double.parseDouble(textTotal.getText());
+					textTotal.setText(String.valueOf(total - (precio * cantidad)));
 					controladorPanelTickets.accionadoBotonEliminar(pos);
 					listaPAnnadidos.remove(pos);
 				}

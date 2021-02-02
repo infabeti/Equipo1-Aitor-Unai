@@ -58,4 +58,8 @@ public class Controlador {
 	public static double devolverPrecioProducto(String nombre) {
 		return modelo.precioProductoString(nombre);
 	}
+	
+	public static double devolverPrecioProducto(int pos) {
+		return modelo.precioProductoPos(pos);
+	}
 }

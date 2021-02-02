@@ -238,6 +238,16 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
+					String eliminar = listaPAnnadidos.get(pos);
+					int punt = 0;
+					for(int i = 0; eliminar.charAt(i)!= ' ';i++) {
+						punt = i;
+					}
+					punt++;
+					int cantidad = Integer.parseInt(eliminar.substring(0, punt));
+					double precio = Controlador.devolverPrecioProducto(pos);
+					double total = Double.parseDouble(textTotal.getText());
+					textTotal.setText(String.valueOf(total - (precio * cantidad)));
 					controladorPanelPedidos.accionadoBotonEliminar(pos);
 					listaPAnnadidos.remove(pos);
 				}

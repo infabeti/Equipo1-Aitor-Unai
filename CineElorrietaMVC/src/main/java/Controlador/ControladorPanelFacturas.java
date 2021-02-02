@@ -37,10 +37,11 @@ public class ControladorPanelFacturas {
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
 		Producto prod = modelo.devolverProductoPorString(producto);
+		modelo.addProductoTemporal(prod);
 		return prod.toString();
 	}
 	
 	public void accionadoBotonEliminar(int pos) {
-		modelo.eliminiarProductoTemporal(pos);
+		modelo.eliminarProductoTemporal(pos);
 	}
 }

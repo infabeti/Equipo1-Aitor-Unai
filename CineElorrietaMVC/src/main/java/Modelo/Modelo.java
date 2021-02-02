@@ -75,6 +75,11 @@ public class Modelo {
 		return prod.getPrecioVenta();
 	}
 	
+	public double precioProductoPos(int pos) {
+		Producto prod = listaProd.get(pos);
+		return prod.getPrecioVenta();
+	}
+	
 	public static String getFechaHoraSys() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		Date date = new Date(0);
@@ -89,8 +94,9 @@ public class Modelo {
 		listaProd.clear();
 	}
 	
-	public void eliminiarProductoTemporal(int pos) {
+	public void eliminarProductoTemporal(int pos) {
 		listaProd.remove(pos);
 	}
+	
 
 }
