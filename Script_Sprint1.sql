@@ -30,12 +30,17 @@ Transaccion int primary key,
 constraint fk_TransaccionTicket foreign key (Transaccion) references actividad (Transaccion) on update cascade
 );
 
+create table comprador(
+NIF char(9) primary key,
+Nombre varchar(15) not null,
+Apellido varchar(20) not null
+);
+
 create table factura(
 Transaccion int primary key,
 NIF char(9) not null,
-Nombre varchar(15) not null,
-Apellido varchar(20) not null,
-constraint fk_TransaccionFactura foreign key (Transaccion) references ticket (Transaccion) on update cascade
+constraint fk_TransaccionFactura foreign key (Transaccion) references ticket (Transaccion) on update cascade,
+constraint fk_NIFComprador foreign key (NIF) references comprador (NIF) on update cascade
 );
 
 create table pedido(
