@@ -56,7 +56,7 @@ public class ControladorPanelPedidos {
 	}
 	
 	public void accionadoBotonEliminar(int pos) {
-		modelo.eliminiarProductoTemporal(pos);
+		modelo.eliminarProductoTemporal(pos);
 	}
 	
 }

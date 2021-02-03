@@ -11,7 +11,7 @@ public class Modelo {
 
 	private Producto[] listaProductos;
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-	private Conexion conexion = new Conexion();
+	//private Conexion conexion = new Conexion();
 	private ArrayList<Producto> listaProd  = new ArrayList<Producto>(); 
 	
 	public Modelo() {
@@ -70,6 +70,16 @@ public class Modelo {
 
 	}
 	
+	public double precioProductoString(String nombre) {
+		Producto prod = devolverProductoPorString(nombre);
+		return prod.getPrecioVenta();
+	}
+	
+	public double precioProductoPos(int pos) {
+		Producto prod = listaProd.get(pos);
+		return prod.getPrecioVenta();
+	}
+	
 	public static String getFechaHoraSys() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		Date date = new Date(0);
@@ -84,8 +94,9 @@ public class Modelo {
 		listaProd.clear();
 	}
 	
-	public void eliminiarProductoTemporal(int pos) {
+	public void eliminarProductoTemporal(int pos) {
 		listaProd.remove(pos);
 	}
+	
 
 }

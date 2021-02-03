@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controlador.Controlador;
 import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelTickets;
 import javax.swing.JTextField;
@@ -36,6 +37,8 @@ public class PanelTickets extends JPanel {
 	private JTextField textLocal;
 	private JTextField textFecha;
 	private JButton btnEliminar;
+	private JLabel lblTotal;
+	private JTextField textTotal;
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -134,6 +137,17 @@ public class PanelTickets extends JPanel {
 		btnEliminar.setBounds(198, 410, 117, 25);
 		add(btnEliminar);
 		
+		lblTotal = new JLabel("Total");
+		lblTotal.setBounds(344, 309, 70, 15);
+		add(lblTotal);
+		
+		textTotal = new JTextField();
+		textTotal.setEditable(false);
+		textTotal.setBounds(338, 352, 114, 19);
+		add(textTotal);
+		textTotal.setColumns(10);
+		textTotal.setText("0");
+		
 		initializeEvents();
 
 	}
@@ -159,10 +173,11 @@ public class PanelTickets extends JPanel {
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
+				String productoAnadir = "";
 				try {
 					producto = (String) listaProductos.getSelectedValue();
 					System.out.println("Producto " + producto);
-					producto = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
+					productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
 					existeProd = true;
 				}
 				catch(Exception e) {
@@ -173,7 +188,10 @@ public class PanelTickets extends JPanel {
 				if (existeProd) {
 					try {
 						int cantidad = Integer.parseInt(texto);
-						listaPAnnadidos.addElement(cantidad +  " " +producto);
+						listaPAnnadidos.addElement(cantidad +  " " +productoAnadir);
+						double total = Double.parseDouble(textTotal.getText());
+						double precioTotalProducto = cantidad * Controlador.devolverPrecioProducto(producto);
+						textTotal.setText(String.valueOf(total + precioTotalProducto));
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -187,9 +205,19 @@ public class PanelTickets extends JPanel {
 	private ActionListener listenerBotonEliminar(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento boton eliminar");
+				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
+					String eliminar = listaPAnnadidos.get(pos);
+					int punt = 0;
+					for(int i = 0; eliminar.charAt(i)!= ' ';i++) {
+						punt = i;
+					}
+					punt++;
+					int cantidad = Integer.parseInt(eliminar.substring(0, punt));
+					double precio = Controlador.devolverPrecioProducto(pos);
+					double total = Double.parseDouble(textTotal.getText());
+					textTotal.setText(String.valueOf(total - (precio * cantidad)));
 					controladorPanelTickets.accionadoBotonEliminar(pos);
 					listaPAnnadidos.remove(pos);
 				}
