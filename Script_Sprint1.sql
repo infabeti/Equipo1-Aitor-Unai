@@ -14,15 +14,9 @@ TipoNegocio enum ('BAR', 'CAFETERIA', 'RESTAURANTE') not null
 create table actividad(
 Transaccion int primary key,
 Fecha date not null,
-TotalOperacion float not null
-);
-
-create table lineaActividad(
+TotalOperacion float not null,
 NIF char(9) not null,
-Transaccion int not null,
-constraint pk_lineaActividad primary key (NIF, Transaccion),
-constraint fk_NIF foreign key (NIF) references establecimiento (NIF) on update cascade,
-constraint fk_Transaccion foreign key (Transaccion) references actividad (Transaccion) on update cascade
+constraint fk_actividadNIF foreign key (NIF) references establecimiento (NIF) on update cascade
 );
 
 create table ticket(
