@@ -39,6 +39,10 @@ public class ControladorPanelPrincipal {
 		this.controlador.navegarPanelFacturas();
 	}
 	
+	public void accionadoBottonDesconectarPanelPrincipal() {
+		this.controlador.navegarPanelLogin();
+}
+
 	/*public void accionadoBottonMostrarPanelGeneros() {
 		this.controlador.navegarPanelGeneros();
 	}*/

@@ -2,6 +2,7 @@
 
 import javax.swing.JPanel;
 
+import Controlador.ControladorLogin;
 import Controlador.ControladorPanelPrincipal;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,6 +21,8 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnAprovisionamiento;
 	private JButton btnComandas;
 	private JLabel lblTextoPanel;
+	private JButton btnDesconectar;
+
 
 	public PanelPrincipal(ControladorPanelPrincipal controladorPanelPrincipal) {
 		setBackground(SystemColor.activeCaption);
@@ -59,10 +62,10 @@ public class PanelPrincipal extends JPanel {
 			lblTextoPanel.setBounds(0, 0, 450, 67);
 			add(lblTextoPanel);
 			
-			
-			
+			btnDesconectar = new JButton("Desconectar");
+			btnDesconectar.setBounds(50, 304, 127, 23);
+			add(btnDesconectar);
 			initializeEvents();
-		
 		
 	}
 	
@@ -71,6 +74,8 @@ public class PanelPrincipal extends JPanel {
 		this.btnAprovisionamiento.addActionListener(listenerBotonAprovisionamiento(this.controladorPanelPrincipal));
 		this.btnTickets.addActionListener(listenerBotonTickets(this.controladorPanelPrincipal));
 		this.btnFacturas.addActionListener(listenerBotonFacturas(this.controladorPanelPrincipal));
+		this.btnDesconectar.addActionListener(listenerBotonDesconectar(this.controladorPanelPrincipal));
+
 	}
 	
 	private ActionListener listenerBotonPedidos(ControladorPanelPrincipal controladorPanelPrincipal) {
@@ -100,6 +105,14 @@ public class PanelPrincipal extends JPanel {
 		};
 	}
 	
+	private ActionListener listenerBotonDesconectar(ControladorPanelPrincipal controladorPanelPrincipal) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Desconectar");
+				controladorPanelPrincipal.accionadoBottonDesconectarPanelPrincipal();
+			}
+		};
+}
 	private ActionListener listenerBotonFacturas(ControladorPanelPrincipal controladorPanelPrincipal) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

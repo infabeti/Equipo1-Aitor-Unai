@@ -22,8 +22,4 @@ public class Main {
 		controlador = new Controlador(modelo, vista);
 		
 	}
-
-			
-			
-
 }
