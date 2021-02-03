@@ -8,6 +8,13 @@ public class Actividad {
 	private Date fecha;
 	private String local;
 	
+	public Actividad(int numTransaccion, Date fecha, String local)
+	{
+		this.numTransaccion = numTransaccion;
+		this.fecha = fecha;
+		this.local = local;
+	}
+	
 	public int getNumTransaccion() {
 		return this.numTransaccion;
 	}
@@ -24,13 +31,6 @@ public class Actividad {
 		return this.local;
 	}
 	public void setLocal(String local) {
-		this.local = local;
-	}
-	
-	public Actividad(int numTransaccion, Date fecha, String local)
-	{
-		this.numTransaccion = numTransaccion;
-		this.fecha = fecha;
 		this.local = local;
 	}
 	

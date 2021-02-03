@@ -7,6 +7,14 @@ public class Factura extends Actividad {
 	private String nif;
 	private String nombre;
 	private String apellido;
+	
+	public Factura(int numTransaccion, Date fecha, String local, String nif, String nombre, String apellido) {
+		super(numTransaccion, fecha, local);
+		this.nif = nif;
+		this.nombre = nombre;
+		this.apellido = apellido;
+	}
+
 
 	public String getNif() {
 		return this.nif;
@@ -32,11 +40,5 @@ public class Factura extends Actividad {
 		this.apellido = apellido;
 	}
 
-	public Factura(int numTransaccion, Date fecha, String local, String nif, String nombre, String apellido) {
-		super(numTransaccion, fecha, local);
-		this.nif = nif;
-		this.nombre = nombre;
-		this.apellido = apellido;
-	}
 
 }

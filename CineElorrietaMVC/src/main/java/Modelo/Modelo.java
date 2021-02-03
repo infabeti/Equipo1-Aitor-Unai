@@ -4,15 +4,14 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class Modelo {
 
 	private Producto[] listaProductos;
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-	//private Conexion conexion = new Conexion();
-	private ArrayList<Producto> listaProd  = new ArrayList<Producto>(); 
+	private Conexion conexion = new Conexion();
+	private ListaProductos listaTemporal = new ListaProductos();
 	
 	public Modelo() {
 
@@ -76,7 +75,7 @@ public class Modelo {
 	}
 	
 	public double precioProductoPos(int pos) {
-		Producto prod = listaProd.get(pos);
+		Producto prod = listaTemporal.cogerProducto(pos);
 		return prod.getPrecioVenta();
 	}
 	
@@ -87,15 +86,15 @@ public class Modelo {
 	}
 	
 	public void addProductoTemporal(Producto prod) { 
-		listaProd.add(prod);
+		listaTemporal.addProductoTemporal(prod);
 	}
 	
 	public void limpiarListaTemporal() {
-		listaProd.clear();
+		listaTemporal.limpiarListTemporal();
 	}
 	
 	public void eliminarProductoTemporal(int pos) {
-		listaProd.remove(pos);
+		listaTemporal.cogerProducto(pos);
 	}
 	
 

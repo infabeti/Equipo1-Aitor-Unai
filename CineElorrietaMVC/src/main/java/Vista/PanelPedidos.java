@@ -195,7 +195,6 @@ public class PanelPedidos extends JPanel {
 				String productoAnadir = "";
 				try {
 					producto = (String) productosAlmacenados.getSelectedValue();
-					System.out.println("Producto " + producto);
 					productoAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto);
 					existeProd = true;
 				}
@@ -203,15 +202,11 @@ public class PanelPedidos extends JPanel {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
 				}
-				String texto = TextFieldCantidad.getText();
-				int cantidad = 0;
+				String cantidad = TextFieldCantidad.getText();
+				listaPAnnadidos.addElement(controladorPanelPedidos.cantidadProducto(cantidad, productoAnadir));
 				if (existeProd) {
 					try {
-						cantidad = Integer.parseInt(texto);
-						listaPAnnadidos.addElement(cantidad +  " " +productoAnadir);
-						double total = Double.parseDouble(textTotal.getText());
-						double precioTotalProducto = cantidad * Controlador.devolverPrecioProducto(producto);
-						textTotal.setText(String.valueOf(total + precioTotalProducto));
+						textTotal.setText(controladorPanelPedidos.cantidadTotal(cantidad, textTotal.getText(), productoAnadir));
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -238,18 +233,9 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
-					String eliminar = listaPAnnadidos.get(pos);
-					int punt = 0;
-					for(int i = 0; eliminar.charAt(i)!= ' ';i++) {
-						punt = i;
-					}
-					punt++;
-					int cantidad = Integer.parseInt(eliminar.substring(0, punt));
-					double precio = Controlador.devolverPrecioProducto(pos);
-					double total = Double.parseDouble(textTotal.getText());
-					textTotal.setText(String.valueOf(total - (precio * cantidad)));
-					controladorPanelPedidos.accionadoBotonEliminar(pos);
+					String total = controladorPanelPedidos.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos), textTotal.getText());
 					listaPAnnadidos.remove(pos);
+					textTotal.setText(total);
 				}
 				catch(Exception e) {
 					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");

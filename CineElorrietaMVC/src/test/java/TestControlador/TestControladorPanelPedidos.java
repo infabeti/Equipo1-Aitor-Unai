@@ -39,15 +39,6 @@ public class TestControladorPanelPedidos {
 	@Mock
 	 Modelo modeloMock = new Modelo();	
 	
-	
-	/*@Before
-	public void Init() {
-		when(modeloMock.devolverProductoPorString("Prod1")).thenReturn(p1);
-		
-	}*/
-	
-	
-	
 	@Test
 	public void TestdevolverProducto() {
 		
