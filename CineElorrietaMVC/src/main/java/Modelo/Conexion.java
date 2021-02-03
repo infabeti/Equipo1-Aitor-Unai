@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-	private static final String NOMBREBD="reto3";
-	private static final String USUARIO="root";
-	private static final String PASSWORD="elorrieta";
-	private static final String URL="jdbc:mysql://localhost:33060/"+NOMBREBD+"?useUnicode=true&use"
+	private final String NOMBREBD="reto3";
+	private final String USUARIO="root";
+	private final String PASSWORD="elorrieta";
+	private final String URL="jdbc:mysql://localhost:33060/"+NOMBREBD+"?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
 			+ "serverTimezone=UTC";
 
