@@ -3,6 +3,10 @@ package Vista;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.Iterator;
 
@@ -19,6 +23,7 @@ import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelPrincipal;
 import Controlador.ControladorPanelRegistro;
 import Controlador.ControladorPanelTickets;
+import Modelo.Conexion;
 import Modelo.LineaPedido;
 import Modelo.Modelo;
 import Modelo.Producto;
@@ -26,20 +31,28 @@ import Modelo.Producto;
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
 
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.text.NumberFormatter;
+
+import com.mysql.cj.xdevapi.Statement;
+import com.sun.jdi.connect.spi.Connection;
+
 import javax.swing.JLayeredPane;
 import javax.swing.JPasswordField;
 
 public class PanelLogin extends JPanel {
 
+<<<<<<< HEAD
 	private ControladorLogin controladorPanelPedidos;
 	private ControladorPanelRegistro controladorPanelRegistro;
+=======
+>>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
 	private JLabel lblTextoPanel;
 	private JTextField textFieldNomUsuario;
-	private JTextField textFieldContraseña;
+	private JTextField textFieldpassword;
 	private ControladorLogin controlador;
 	private JButton btnAceptar;
 	private JButton btnRegistro;
@@ -73,6 +86,13 @@ public class PanelLogin extends JPanel {
 		lblLocal.setBounds(28, 122, 113, 23);
 		add(lblLocal);
 
+<<<<<<< HEAD
+=======
+		textFieldpassword = new JTextField();
+		textFieldpassword.setColumns(10);
+		textFieldpassword.setBounds(139, 120, 220, 30);
+		add(textFieldpassword);
+>>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
 		
 		passwordFieldContrasena = new JPasswordField();
 		passwordFieldContrasena.setBounds(125, 114, 219, 28);
@@ -100,9 +120,31 @@ private ActionListener listenerBotonAceptar(ControladorLogin controladorLogin) {
 	return new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			System.out.println("Ejecutando evento Boton Aceptar");
-			controladorLogin.accionadoBottonAceptarPanelPrincipal();
+			
+			 String userName = textFieldNomUsuario.getText();
+			 String password = textFieldpassword.getText();
+			
+		if (controlador.login(userName, password)) {
+			
+			JOptionPane.showMessageDialog(null, "Logueado correctamente");
+            controlador.accionadoBottonAceptarPanelPrincipal();
+		}
+		else
+		{
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+
+		}
+			 
+             
+
+
+				
+
+			 
+			
 		}
 	};
+<<<<<<< HEAD
 }	
 
 private ActionListener listenerBotonRegistro(ControladorLogin controladorLogin) {
@@ -113,5 +155,38 @@ private ActionListener listenerBotonRegistro(ControladorLogin controladorLogin) 
 		}
 	};
 }
+=======
+}
+
+/*public void actionPerformed(ActionEvent e) {
+    String userName = textField.getText();
+    String password = passwordField.getText();
+    try {
+        Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/swing_demo",
+            "root", "root");
+
+        PreparedStatement st = (PreparedStatement) connection
+            .prepareStatement("Select name, password from student where name=? and password=?");
+
+        st.setString(1, userName);
+        st.setString(2, password);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            dispose();
+            UserHome ah = new UserHome(userName);
+            ah.setTitle("Welcome");
+            ah.setVisible(true);
+            JOptionPane.showMessageDialog(btnNewButton, "You have successfully logged in");
+        } else {
+            JOptionPane.showMessageDialog(btnNewButton, "Wrong Username & Password");
+        }
+    } catch (SQLException sqlException) {
+        sqlException.printStackTrace();
+    }
+}
+});*/
+
+
+>>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
 }
 		

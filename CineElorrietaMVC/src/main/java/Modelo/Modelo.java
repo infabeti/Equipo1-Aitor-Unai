@@ -8,10 +8,15 @@ public class Modelo {
 
 	private Producto[] listaProductos;
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-	Conexion conexion = new Conexion();
 	private String usuario;
 	private String local;
 	private char tipoLocal;
+	
+	//Conexion a BBDD
+	Conexion conexion = new Conexion();
+	
+	//obtenemos la conexion en el formato que necesitamos para hacer consultas
+	java.sql.Connection conexionConn =  conexion.getConn();
 	
 	public Modelo() {
 
