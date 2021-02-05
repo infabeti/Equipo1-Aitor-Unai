@@ -8,7 +8,7 @@ public class Conexion {
 	private String nombreBd="reto3";
 	private String usuario="root";
 	private String password="elorrieta";
-	private String url="jdbc:mysql://localhost:3306/"+nombreBd+"?useUnicode=true&use"
+	private String url="jdbc:mysql://localhost:33060/"+nombreBd+"?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&"
 			+ "serverTimezone=UTC";
 

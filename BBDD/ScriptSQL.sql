@@ -4,11 +4,6 @@ use reto3;
 
 /*Local cambiado por establecimiento porque local es una palabra reservada en SQL*/
 
-create table empleado(
-DNI char(9) primary key,
-Nombre varchar(20) not null,
-Apellido varchar(25) not null
-);
 
 create table establecimiento(
 NIF char(9) primary key,
@@ -17,20 +12,13 @@ Direccion varchar(40) not null,
 TipoNegocio enum ('BAR', 'CAFETERIA', 'RESTAURANTE') not null
 );
 
-create table trabajador(
-DNI char(9) not null,
-NIF char(9) not null,
-constraint pk_trabajador primary key (NIF, DNI),
-constraint fk_NIF_trabajador foreign key (NIF) references establecimiento (NIF) on update cascade,
-constraint fk_DNI_trabajador foreign key (DNI) references empleado (DNI) on update cascade
-);
 
-create table administrador(
-DNI char(9) not null,
+create table empleado(
+DNI char(9) primary key,
+Nombre varchar(20) not null,
+Apellido varchar(25) not null,
 NIF char(9) not null,
-constraint pk_trabajador primary key (NIF, DNI),
-constraint fk_NIF_administrador foreign key (NIF) references establecimiento (NIF) on update cascade,
-constraint fk_DNI_administrador foreign key (DNI) references empleado (DNI) on update cascade
+constraint fk_NIF_empleado foreign key (NIF) references establecimiento (NIF) on update cascade
 );
 
 create table actividad(
