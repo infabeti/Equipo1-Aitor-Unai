@@ -1,5 +1,12 @@
 package Controlador;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import Modelo.Conexion;
 import Modelo.LineaPedido;
 import Modelo.Modelo;
 import Modelo.Producto;
@@ -15,6 +22,7 @@ public class ControladorLogin {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelLogin panelLogin;
+	private Conexion conexion = new Conexion();
 	
 	public ControladorLogin(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -29,6 +37,14 @@ public class ControladorLogin {
 
 	public void accionadoBottonAceptarPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
+	}
+	
+	public boolean login(String userName,String password) {
+		
+		boolean res = conexion.login(userName, password);
+		
+		return res;
+		
 	}
 	
 }
