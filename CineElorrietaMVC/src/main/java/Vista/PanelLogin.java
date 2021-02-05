@@ -17,6 +17,7 @@ import Controlador.Controlador;
 import Controlador.ControladorLogin;
 import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelPrincipal;
+import Controlador.ControladorPanelRegistro;
 import Controlador.ControladorPanelTickets;
 import Modelo.LineaPedido;
 import Modelo.Modelo;
@@ -30,15 +31,20 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JLayeredPane;
+import javax.swing.JPasswordField;
 
 public class PanelLogin extends JPanel {
 
 	private ControladorLogin controladorPanelPedidos;
+	private ControladorPanelRegistro controladorPanelRegistro;
 	private JLabel lblTextoPanel;
 	private JTextField textFieldNomUsuario;
 	private JTextField textFieldContraseña;
 	private ControladorLogin controlador;
 	private JButton btnAceptar;
+	private JButton btnRegistro;
+	private JPasswordField passwordFieldContraseña;
+	private JPasswordField passwordFieldContrasena;
 	
 	public PanelLogin(ControladorLogin controladorLogin) {
 		setBackground(SystemColor.activeCaption);
@@ -49,7 +55,7 @@ public class PanelLogin extends JPanel {
 
 		lblTextoPanel = new JLabel("PANEL LOGIN");
 		lblTextoPanel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblTextoPanel.setBounds(195, 23, 187, 46);
+		lblTextoPanel.setBounds(28, 23, 187, 46);
 		add(lblTextoPanel);
 
 		JLabel lblNumTrans = new JLabel("Nombre de usuario:");
@@ -58,7 +64,7 @@ public class PanelLogin extends JPanel {
 		add(lblNumTrans);
 
 		textFieldNomUsuario = new JTextField();
-		textFieldNomUsuario.setBounds(195, 78, 164, 30);
+		textFieldNomUsuario.setBounds(180, 78, 164, 30);
 		add(textFieldNomUsuario);
 		textFieldNomUsuario.setColumns(10);
 
@@ -67,23 +73,27 @@ public class PanelLogin extends JPanel {
 		lblLocal.setBounds(28, 122, 113, 23);
 		add(lblLocal);
 
-		textFieldContraseña = new JTextField();
-		textFieldContraseña.setColumns(10);
-		textFieldContraseña.setBounds(139, 120, 220, 30);
-		add(textFieldContraseña);
 		
+		passwordFieldContrasena = new JPasswordField();
+		passwordFieldContrasena.setBounds(125, 114, 219, 28);
+		add(passwordFieldContrasena);
+	
 		btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(270, 166, 89, 23);
+		btnAceptar.setBounds(352, 247, 89, 23);
 		add(btnAceptar);
-
+		
+		btnRegistro= new JButton("Registro");
+		btnRegistro.setBounds(96, 247, 89, 23);
+		add(btnRegistro);
+		
 		initializeEvents();
 	
-}
-	
-
+}	
 
 private void initializeEvents() {
 	this.btnAceptar.addActionListener(listenerBotonAceptar(this.controlador));
+	this.btnRegistro.addActionListener(listenerBotonRegistro(this.controlador));
+
 }
 
 private ActionListener listenerBotonAceptar(ControladorLogin controladorLogin) {
@@ -93,5 +103,15 @@ private ActionListener listenerBotonAceptar(ControladorLogin controladorLogin) {
 			controladorLogin.accionadoBottonAceptarPanelPrincipal();
 		}
 	};
-}}
+}	
+
+private ActionListener listenerBotonRegistro(ControladorLogin controladorLogin) {
+	return new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.println("Ejecutando evento Boton Registro");
+			controladorLogin.accionadoBottonRegistroPanelLogin();
+		}
+	};
+}
+}
 		

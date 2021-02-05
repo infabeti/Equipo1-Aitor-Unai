@@ -5,6 +5,7 @@ import Modelo.Modelo;
 import Modelo.Producto;
 import Vista.PanelLogin;
 import Vista.PanelPedidos;
+import Vista.PanelRegistro;
 import Vista.Vista;
 
 public class ControladorLogin {
@@ -15,6 +16,7 @@ public class ControladorLogin {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelLogin panelLogin;
+	private PanelRegistro panelRegistro;
 	
 	public ControladorLogin(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -31,4 +33,8 @@ public class ControladorLogin {
 		this.controlador.navegarPanelPrincipal();
 	}
 	
+	
+	public void accionadoBottonRegistroPanelLogin() {
+		this.controlador.navegarPanelRegistro();
+	}
 }
