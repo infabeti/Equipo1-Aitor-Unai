@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Vista.PanelTickets;
 import Vista.Vista;
@@ -27,7 +28,8 @@ public class ControladorPanelTickets {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		modelo.limpiarListaTemporal();
+		ListaProductos listaProd = modelo.getListaTemporal();
+		listaProd.limpiarListTemporal();
 	}
 	
 	public String[] cogerListaProductos() { 
@@ -38,8 +40,9 @@ public class ControladorPanelTickets {
 	//M�todos para la l�gica de a�adir un producto
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
+		ListaProductos listaProd = modelo.getListaTemporal();
 		Producto prod = modelo.devolverProductoPorString(producto);
-		modelo.addProductoTemporal(prod);
+		listaProd.addProductoTemporal(prod);
 		return prod.toString();
 	}
 	
@@ -57,7 +60,8 @@ public class ControladorPanelTickets {
 	//M�todo para la l�gica de eliminar un producto
 	
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
-		modelo.eliminarProductoTemporal(pos);
+		ListaProductos listaProd = modelo.getListaTemporal();
+		listaProd.eliminarProductoTemporal(pos);
 		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = Controlador.devolverPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);

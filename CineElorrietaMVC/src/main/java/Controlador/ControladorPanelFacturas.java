@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.Modelo;
 import Modelo.Producto;
+import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
 
@@ -32,12 +33,14 @@ public class ControladorPanelFacturas {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		modelo.limpiarListaTemporal();
+		ListaProductos listaProd = modelo.getListaTemporal();
+		listaProd.limpiarListTemporal();
 	}
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
+		ListaProductos listaProd = modelo.getListaTemporal();
 		Producto prod = modelo.devolverProductoPorString(producto);
-		modelo.addProductoTemporal(prod);
+		listaProd.addProductoTemporal(prod);
 		return prod.toString();
 	}
 	
@@ -53,7 +56,8 @@ public class ControladorPanelFacturas {
 	}
 	
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
-		modelo.eliminarProductoTemporal(pos);
+		ListaProductos listaProd = modelo.getListaTemporal();
+		listaProd.eliminarProductoTemporal(pos);
 		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = Controlador.devolverPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);

@@ -3,7 +3,6 @@ package Modelo;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 
 public class Modelo {
@@ -18,6 +17,23 @@ public class Modelo {
 		listaProductos = productosAlmacenados();
 
 	}
+	
+	public void setConexion(Conexion conexion){
+		this.conexion = conexion;
+	}
+	
+	public Conexion getConexion() {
+		return this.conexion;
+	}
+	
+	public void setListaTemporal(ListaProductos listaTemporal) {
+		this.listaTemporal = listaTemporal;
+	}
+	
+	public ListaProductos getListaTemporal() {
+		return this.listaTemporal;
+	}
+
 
 	public LineaPedido[] getArrProdSeleccionados() {
 		return arrProdSeleccionados;
@@ -83,18 +99,6 @@ public class Modelo {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		Date date = new Date(0);
 		return dateFormat.format(date);
-	}
-	
-	public void addProductoTemporal(Producto prod) { 
-		listaTemporal.addProductoTemporal(prod);
-	}
-	
-	public void limpiarListaTemporal() {
-		listaTemporal.limpiarListTemporal();
-	}
-	
-	public void eliminarProductoTemporal(int pos) {
-		listaTemporal.cogerProducto(pos);
 	}
 	
 	public int cogerCantidadString(String linea) {

@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.LineaPedido;
+import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Producto;
 import Vista.PanelPedidos;
@@ -29,7 +30,8 @@ public class ControladorPanelPedidos {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		modelo.limpiarListaTemporal();
+		ListaProductos listaProd = modelo.getListaTemporal();
+		listaProd.limpiarListTemporal();
 	}
 	
 	
@@ -50,9 +52,10 @@ public class ControladorPanelPedidos {
 	}
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
+		ListaProductos listaProd = modelo.getListaTemporal();
 		Producto prod = modelo.devolverProductoPorString(producto);
-		modelo.addProductoTemporal(prod);
-		return producto.toString();
+		listaProd.addProductoTemporal(prod);
+		return prod.toString();
 	}
 	
 	public String cantidadProducto(String cantidad, String productoAnadir) {
@@ -67,7 +70,8 @@ public class ControladorPanelPedidos {
 	}
 	
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
-		modelo.eliminarProductoTemporal(pos);
+		ListaProductos listaProd = modelo.getListaTemporal();
+		listaProd.eliminarProductoTemporal(pos);
 		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = Controlador.devolverPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
