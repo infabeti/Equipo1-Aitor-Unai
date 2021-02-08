@@ -26,23 +26,22 @@ create table actividad(
 Transaccion int primary key,
 Fecha date not null,
 TotalOperacion float not null,
-NIF char(9),
+NIF char(9) not null,
 constraint fk_NIF_actividad foreign key (NIF) references establecimiento (NIF) on update cascade
 );
 
-/* Si no se especifica en los booleanos su valor, al tener not null automaticamente será false*/
 create table alimento(
 CodigoAlimento int primary key,
 Nombre varchar(40) not null,
 Tipo enum ('BEBIDA', 'COMIDA', 'OTROS')  not null,
-FecPed date not null,
-PCompra float not null,
-PVenta float not null,
-vegetariano boolean not null,
-marisco boolean not null,
-vegano boolean not null,
-gluten boolean not null,
-FrutosSecos boolean not null
+FeCad date,
+PCompra float not null default false,
+PVenta float not null  default false,
+vegetariano boolean not null  default false,
+marisco boolean not null default false,
+vegano boolean not null default false,
+gluten boolean not null default false,
+FrutosSecos boolean not null default false
 );
 
 create table stock(
@@ -72,7 +71,7 @@ Cantidad int not null,
 PrecioFinal float not null,
 TotalProducto float AS (Cantidad * PrecioFinal), /*Atributo calculado*/
 constraint pk_lineaproducto primary key (Transaccion, CodigoAlimento),
-constraint fk_lineaproducto_codigoAlimento foreign key (CodigoAlimento) references alimento (CodigoAlimento) on update cascade,
+constraint fk_lineaproducto_codigoAlimento foreign key (CodigoAlimento) references producto (CodigoAlimento) on update cascade,
 constraint fk_lineaproducto_transaccion foreign key (Transaccion) references actividad (Transaccion) on update cascade
 );
 
