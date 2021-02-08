@@ -46,12 +46,10 @@ public class PanelLogin extends JPanel {
 
 	private JLabel lblTextoPanel;
 	private JTextField textFieldNomUsuario;
-	private JTextField textFieldpassword;
+	private JPasswordField textFieldpassword;
 	private ControladorLogin controlador;
 	private JButton btnAceptar;
 	private JButton btnRegistro;
-	private JPasswordField passwordFieldContraseña;
-	private JPasswordField passwordFieldContrasena;
 	
 	public PanelLogin(ControladorLogin controladorLogin) {
 		setBackground(SystemColor.activeCaption);
@@ -81,7 +79,7 @@ public class PanelLogin extends JPanel {
 		add(lblLocal);
 
 
-		textFieldpassword = new JTextField();
+		textFieldpassword = new JPasswordField();
 		textFieldpassword.setColumns(10);
 		textFieldpassword.setBounds(139, 120, 220, 30);
 		add(textFieldpassword);
@@ -89,7 +87,7 @@ public class PanelLogin extends JPanel {
 		
 
 	
-		btnAceptar = new JButton("Aceptar");
+		btnAceptar = new JButton("LOGIN");
 		btnAceptar.setBounds(352, 247, 89, 23);
 		add(btnAceptar);
 		
@@ -110,7 +108,7 @@ private void initializeEvents() {
 private ActionListener listenerBotonAceptar(ControladorLogin controladorLogin) {
 	return new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("Ejecutando evento Boton Aceptar");
+			System.out.println("Ejecutando evento Boton LOGIN");
 			
 			 String userName = textFieldNomUsuario.getText();
 			 String password = textFieldpassword.getText();
@@ -126,12 +124,7 @@ private ActionListener listenerBotonAceptar(ControladorLogin controladorLogin) {
 
 		}
 			 
-             
-
-
-				
-
-			 
+       
 			
 		}
 	};

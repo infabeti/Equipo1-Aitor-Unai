@@ -26,6 +26,7 @@ import Modelo.Producto;
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
 
 import javax.swing.JFormattedTextField.AbstractFormatter;
@@ -35,14 +36,17 @@ import javax.swing.JPasswordField;
 
 public class PanelRegistro extends JPanel {
 
-	private ControladorLogin controladorPanelPedidos;
-	private ControladorPanelRegistro controladorPanelRegistro;
+	
 	private JLabel lblTextoPanel;
-	private JTextField textFieldNomUsuario;
-	private JTextField textFieldContraseña;
+	private JTextField textNIF;
+	private JPasswordField passwordContrasena;
 	private ControladorPanelRegistro controlador;
 	private JButton btnVolver;
-	private JPasswordField passwordFieldContraseña;
+	private JButton btnRegistrar;
+	private JTextField textDNI;
+	private JTextField textNombre;
+	private JTextField textApellido;
+
 	
 	public PanelRegistro(ControladorPanelRegistro controladorPanelRegistro) {
 		setBackground(SystemColor.activeCaption);
@@ -53,23 +57,65 @@ public class PanelRegistro extends JPanel {
 
 		lblTextoPanel = new JLabel("PANEL REGISTRO:");
 		lblTextoPanel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblTextoPanel.setBounds(28, 22, 187, 46);
+		lblTextoPanel.setBounds(191, 22, 187, 46);
 		add(lblTextoPanel);
 		
 		JLabel lblNIF = new JLabel("NIF:");
 		lblNIF.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblNIF.setBounds(28, 79, 187, 23);
+		lblNIF.setBounds(33, 225, 48, 23);
 		add(lblNIF);
 
-		textFieldNomUsuario = new JTextField();
-		textFieldNomUsuario.setBounds(153, 77, 164, 30);
-		add(textFieldNomUsuario);
-		textFieldNomUsuario.setColumns(10);
+		textNIF = new JTextField();
+		textNIF.setBounds(78, 228, 192, 20);
+		add(textNIF);
+		textNIF.setColumns(10);
 	
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(301, 220, 89, 23);
+		btnVolver.setBounds(137, 330, 89, 23);
 		add(btnVolver);
-
+		
+		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setBounds(33, 330, 89, 23);
+		add(btnRegistrar);
+		
+		JLabel lblDNI = new JLabel("DNI:");
+		lblDNI.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblDNI.setBounds(330, 79, 81, 30);
+		add(lblDNI);
+		
+		JLabel lblContraseña = new JLabel("Contrase\u00F1a:");
+		lblContraseña.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblContraseña.setBounds(33, 259, 127, 23);
+		add(lblContraseña);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblNombre.setBounds(28, 82, 89, 24);
+		add(lblNombre);
+		
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblApellido.setBounds(28, 117, 106, 20);
+		add(lblApellido);
+		
+		textDNI = new JTextField();
+		textDNI.setBounds(371, 86, 141, 20);
+		add(textDNI);
+		textDNI.setColumns(10);
+		
+		textNombre = new JTextField();
+		textNombre.setBounds(101, 86, 169, 20);
+		add(textNombre);
+		textNombre.setColumns(10);
+		
+		textApellido = new JTextField();
+		textApellido.setBounds(101, 120, 169, 20);
+		add(textApellido);
+		textApellido.setColumns(10);
+		
+	    passwordContrasena = new JPasswordField();
+		passwordContrasena.setBounds(137, 262, 133, 20);
+		add(passwordContrasena);
 	
 		initializeEvents();
 		
@@ -77,6 +123,7 @@ public class PanelRegistro extends JPanel {
 
 private void initializeEvents() {
 	this.btnVolver.addActionListener(listenerBotonVolver(this.controlador));
+	this.btnRegistrar.addActionListener(listenerBotonRegistrar(this.controlador));
 }
 
 
@@ -84,9 +131,31 @@ private ActionListener listenerBotonVolver(ControladorPanelRegistro controladorP
 	return new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			System.out.println("Ejecutando evento Boton Volver");
-			controladorPanelRegistro.accionadoBottonVolverPanelRegistro();
+			controlador.accionadoBottonVolverPanelRegistro();
 		}
 	};
 }	
+
+
+private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controladorPanelRegistro) {
+	return new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.println("Ejecutando evento Boton Registrar");
+
+			 String NIF = textNIF.getText();
+			
+		if (controladorPanelRegistro.registro(NIF)) {
+			
+			JOptionPane.showMessageDialog(null, "Registrado correctamente");
+			controladorPanelRegistro.accionadoBottonRegistrarPanelRegistro();
+		}
+		else
+		{
+           JOptionPane.showMessageDialog(null, "Te has registrado de manera errónea");
+
+		}
+		}
+};	
+}
 }
 		

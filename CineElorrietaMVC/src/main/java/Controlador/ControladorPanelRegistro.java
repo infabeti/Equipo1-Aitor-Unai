@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Conexion;
 import Modelo.LineaPedido;
 import Modelo.Modelo;
 import Modelo.Producto;
@@ -16,6 +17,7 @@ public class ControladorPanelRegistro {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelRegistro panelRegistro;
+	private Conexion conexion = new Conexion();
 	
 	public ControladorPanelRegistro(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -29,5 +31,18 @@ public class ControladorPanelRegistro {
 	}
 	public void accionadoBottonVolverPanelRegistro() {
 		this.controlador.navegarPanelLogin();
-}
 	}
+	
+	public void accionadoBottonRegistrarPanelRegistro() {
+		this.controlador.navegarPanelLogin();
+	}
+	
+public boolean registro(String NIF) {
+		
+	boolean res = conexion.registro(NIF);
+	
+	return res;
+	
+		
+	}
+}

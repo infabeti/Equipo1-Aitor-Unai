@@ -12,7 +12,7 @@ public class Conexion {
 	private String nombreBd = "reto3";
 	private String usuario = "root";
 	private String password = "elorrieta";
-	private String url = "jdbc:mysql://localhost:33060/" + nombreBd + "?useUnicode=true&use"
+	private String url = "jdbc:mysql://localhost:3306/" + nombreBd + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private String user, pass;
@@ -108,4 +108,28 @@ public class Conexion {
 		}
 		return false;
 	}
+	public boolean registro(String NIF) {
+		try {
+			Conexion conexion = new Conexion();
+			java.sql.Connection conexionConn = conexion.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("Select nif from empleado where NIF=?");
+			
+			st.setString(1, NIF);
+
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return false;
 }
+	}
