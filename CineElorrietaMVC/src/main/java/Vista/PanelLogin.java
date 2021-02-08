@@ -45,11 +45,6 @@ import javax.swing.JPasswordField;
 
 public class PanelLogin extends JPanel {
 
-<<<<<<< HEAD
-	private ControladorLogin controladorPanelPedidos;
-	private ControladorPanelRegistro controladorPanelRegistro;
-=======
->>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
 	private JLabel lblTextoPanel;
 	private JTextField textFieldNomUsuario;
 	private JTextField textFieldpassword;
@@ -86,17 +81,14 @@ public class PanelLogin extends JPanel {
 		lblLocal.setBounds(28, 122, 113, 23);
 		add(lblLocal);
 
-<<<<<<< HEAD
-=======
+
 		textFieldpassword = new JTextField();
 		textFieldpassword.setColumns(10);
 		textFieldpassword.setBounds(139, 120, 220, 30);
 		add(textFieldpassword);
->>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
+
 		
-		passwordFieldContrasena = new JPasswordField();
-		passwordFieldContrasena.setBounds(125, 114, 219, 28);
-		add(passwordFieldContrasena);
+
 	
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(352, 247, 89, 23);
@@ -144,7 +136,6 @@ private ActionListener listenerBotonAceptar(ControladorLogin controladorLogin) {
 			
 		}
 	};
-<<<<<<< HEAD
 }	
 
 private ActionListener listenerBotonRegistro(ControladorLogin controladorLogin) {
@@ -155,7 +146,7 @@ private ActionListener listenerBotonRegistro(ControladorLogin controladorLogin) 
 		}
 	};
 }
-=======
+
 }
 
 /*public void actionPerformed(ActionEvent e) {
@@ -187,6 +178,4 @@ private ActionListener listenerBotonRegistro(ControladorLogin controladorLogin) 
 });*/
 
 
->>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
-}
-		
+

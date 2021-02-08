@@ -23,11 +23,8 @@ public class ControladorLogin {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelLogin panelLogin;
-<<<<<<< HEAD
-	private PanelRegistro panelRegistro;
-=======
 	private Conexion conexion = new Conexion();
->>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
+
 	
 	public ControladorLogin(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -44,12 +41,12 @@ public class ControladorLogin {
 		this.controlador.navegarPanelPrincipal();
 	}
 	
-<<<<<<< HEAD
+
 	
 	public void accionadoBottonRegistroPanelLogin() {
 		this.controlador.navegarPanelRegistro();
 	}
-=======
+
 	public boolean login(String userName,String password) {
 		
 		boolean res = conexion.login(userName, password);
@@ -57,6 +54,5 @@ public class ControladorLogin {
 		return res;
 		
 	}
-	
->>>>>>> 9456ca6984a5308110fccd8139bbe54d8abaada1
+
 }
