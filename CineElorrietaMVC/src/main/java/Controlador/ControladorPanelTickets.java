@@ -35,7 +35,7 @@ public class ControladorPanelTickets {
 		return lista;
 	}
 	
-	//Métodos para la lógica de añadir un producto
+	//Mï¿½todos para la lï¿½gica de aï¿½adir un producto
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
 		Producto prod = modelo.devolverProductoPorString(producto);
@@ -43,7 +43,7 @@ public class ControladorPanelTickets {
 		return prod.toString();
 	}
 	
-	public String cantidadProducto(String cantidad, String productoAnadir) { //Este método crea el mensaje para añadir en la lista de añadidos, el cual se creaba antes en la propia vista
+	public String cantidadProducto(String cantidad, String productoAnadir) { //Este mï¿½todo crea el mensaje para aï¿½adir en la lista de aï¿½adidos, el cual se creaba antes en la propia vista
 		return cantidad + " " + productoAnadir;
  	}
 	
@@ -54,16 +54,11 @@ public class ControladorPanelTickets {
 		return String.valueOf(totalDouble + precioTotalProducto);
 	}
 	
-	//Método para la lógica de eliminar un producto
+	//Mï¿½todo para la lï¿½gica de eliminar un producto
 	
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
 		modelo.eliminarProductoTemporal(pos);
-		int punt = 0;
-		for(int i = 0; eliminar.charAt(i)!= ' ';i++) {
-			punt = i;
-		}
-		punt++;
-		int cantidad = Integer.parseInt(eliminar.substring(0, punt));
+		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = Controlador.devolverPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));

@@ -41,7 +41,7 @@ public class ControladorPanelFacturas {
 		return prod.toString();
 	}
 	
-	public String cantidadProducto(String cantidad, String productoAnadir) { //Este método crea el mensaje para añadir en la lista de añadidos, el cual se creaba antes en la propia vista
+	public String cantidadProducto(String cantidad, String productoAnadir) { //Este mï¿½todo crea el mensaje para aï¿½adir en la lista de aï¿½adidos, el cual se creaba antes en la propia vista
 		return cantidad + " " + productoAnadir;
  	}
 	
@@ -54,12 +54,7 @@ public class ControladorPanelFacturas {
 	
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
 		modelo.eliminarProductoTemporal(pos);
-		int punt = 0;
-		for(int i = 0; eliminar.charAt(i)!= ' ';i++) {
-			punt = i;
-		}
-		punt++;
-		int cantidad = Integer.parseInt(eliminar.substring(0, punt));
+		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = Controlador.devolverPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));

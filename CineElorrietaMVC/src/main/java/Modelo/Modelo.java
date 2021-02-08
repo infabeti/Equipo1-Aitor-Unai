@@ -97,5 +97,15 @@ public class Modelo {
 		listaTemporal.cogerProducto(pos);
 	}
 	
+	public int cogerCantidadString(String linea) {
+		int punt = 0;
+		for(int i = 0; linea.charAt(i)!= ' ';i++) {
+			punt = i;
+		}
+		punt++;
+		int cantidad = Integer.parseInt(linea.substring(0, punt));
+		return cantidad;
+	}
+	
 
 }

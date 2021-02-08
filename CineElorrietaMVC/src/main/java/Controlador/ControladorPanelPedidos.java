@@ -68,12 +68,7 @@ public class ControladorPanelPedidos {
 	
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
 		modelo.eliminarProductoTemporal(pos);
-		int punt = 0;
-		for(int i = 0; eliminar.charAt(i)!= ' ';i++) {
-			punt = i;
-		}
-		punt++;
-		int cantidad = Integer.parseInt(eliminar.substring(0, punt));
+		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = Controlador.devolverPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
