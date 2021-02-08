@@ -90,11 +90,6 @@ public class Modelo {
 		return prod.getPrecioVenta();
 	}
 	
-	public double precioProductoPos(int pos) {
-		Producto prod = listaTemporal.cogerProducto(pos);
-		return prod.getPrecioVenta();
-	}
-	
 	public static String getFechaHoraSys() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		Date date = new Date(0);

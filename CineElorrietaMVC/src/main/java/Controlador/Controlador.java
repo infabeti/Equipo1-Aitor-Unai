@@ -49,7 +49,6 @@ public class Controlador {
 		this.controladorPanelFacturas.mostrarPanelFacturas();
 	}
 	
-	
 	public void navegarPanelTickets() {
 		System.out.println("Navegar panel Pedidos");
 		this.controladorPanelTickets.mostrarPanelTickets();
@@ -59,7 +58,4 @@ public class Controlador {
 		return modelo.precioProductoString(nombre);
 	}
 	
-	public static double devolverPrecioProducto(int pos) {
-		return modelo.precioProductoPos(pos);
-	}
 }

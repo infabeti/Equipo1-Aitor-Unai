@@ -57,11 +57,11 @@ public class ControladorPanelFacturas {
 	
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
 		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.eliminarProductoTemporal(pos);
 		int cantidad = modelo.cogerCantidadString(eliminar);
-		double precio = Controlador.devolverPrecioProducto(pos);
+		double precio = listaProd.getPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
+		listaProd.eliminarProductoTemporal(pos);
 		return totalStr;
 	}
 }
