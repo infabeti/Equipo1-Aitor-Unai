@@ -36,10 +36,10 @@ public class TestControladorPanelPedidos {
 		
 	}
 	
-	@Mock
+	/*@Mock
 	 Modelo modeloMock = new Modelo();	
 	
-	@Test
+	/@Test
 	public void TestdevolverProducto() {
 		
 		when(modeloMock.devolverProductoPorString("Prod1")).thenReturn(p1);
@@ -50,7 +50,7 @@ public class TestControladorPanelPedidos {
 
 		assertEquals(prod1, p1);
 		
-	}
+	}*/
 	
 	
 }

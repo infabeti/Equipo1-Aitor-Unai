@@ -54,8 +54,4 @@ public class Controlador {
 		this.controladorPanelTickets.mostrarPanelTickets();
 	}
 	
-	public static double devolverPrecioProducto(String nombre) {
-		return modelo.precioProductoString(nombre);
-	}
-	
 }

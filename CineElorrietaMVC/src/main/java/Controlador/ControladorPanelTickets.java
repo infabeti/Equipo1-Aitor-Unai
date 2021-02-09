@@ -32,17 +32,19 @@ public class ControladorPanelTickets {
 		listaProd.limpiarListTemporal();
 	}
 	
-	public String[] cogerListaProductos() { 
-		String[] lista = this.modelo.getListaProductos();
+	public String[] cogerListaProductos() {
+		ListaProductos listaProd = this.modelo.getListaProductos();
+		String[] lista = listaProd.getListaProductosString();
 		return lista;
 	}
 	
 	//M�todos para la l�gica de a�adir un producto
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		Producto prod = modelo.devolverProductoPorString(producto);
-		listaProd.addProductoTemporal(prod);
+		ListaProductos listaProd = modelo.getListaProductos();
+		Producto prod = listaProd.devolverProductoPorString(producto);
+		ListaProductos listaTemporal = modelo.getListaTemporal();
+		listaTemporal.addProductoTemporal(prod);
 		return prod.toString();
 	}
 	
@@ -51,9 +53,11 @@ public class ControladorPanelTickets {
  	}
 	
 	public String cantidadTotal(String cantidad, String total, String producto) {
+		System.out.println(producto);
+		ListaProductos listaProd = this.modelo.getListaProductos();
 		int cantidadInt = Integer.parseInt(cantidad);
 		double totalDouble = Double.parseDouble(total);
-		double precioTotalProducto = cantidadInt * Controlador.devolverPrecioProducto(producto);
+		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
 		return String.valueOf(totalDouble + precioTotalProducto);
 	}
 	

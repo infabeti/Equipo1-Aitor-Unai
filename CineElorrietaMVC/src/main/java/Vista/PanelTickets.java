@@ -179,6 +179,7 @@ public class PanelTickets extends JPanel {
 				boolean existeProd = false;
 				String producto = "";
 				String productoAnadir = "";
+				String cantidad = textField_1.getText();
 				try {
 					producto = (String) listaProductos.getSelectedValue(); //Necesito hacer aquí el cast porque getSelectedValue() devuelve un objeto por lo que no se le puede pasar directamente a accionadoBotonAnadirProducto
 					productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
@@ -188,11 +189,10 @@ public class PanelTickets extends JPanel {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
 				}
-				String cantidad = textField_1.getText();
-				listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
 				if (existeProd) {
 					try {
-						textTotal.setText(controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), productoAnadir));
+						listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
+						textTotal.setText(controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");

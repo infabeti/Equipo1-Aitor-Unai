@@ -208,6 +208,7 @@ public class PanelFacturas extends JPanel {
 				boolean existeProd = false;
 				String producto = "";
 				String productoAnadir = "";
+				String cantidad = textCantidad.getText();
 				try {
 					producto = (String) listaProductos.getSelectedValue();
 					productoAnadir = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
@@ -217,11 +218,10 @@ public class PanelFacturas extends JPanel {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
 				}
-				String cantidad = textCantidad.getText();
-				annadidos.addElement(controladorPanelFacturas.cantidadProducto(cantidad, productoAnadir));
 				if (existeProd) {
 					try {
-						textTotal.setText(controladorPanelFacturas.cantidadTotal(cantidad,  textTotal.getText(), productoAnadir));
+						annadidos.addElement(controladorPanelFacturas.cantidadProducto(cantidad, productoAnadir));
+						textTotal.setText(controladorPanelFacturas.cantidadTotal(cantidad,  textTotal.getText(), producto));
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");

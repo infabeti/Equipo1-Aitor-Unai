@@ -7,24 +7,24 @@ import java.text.SimpleDateFormat;
 
 public class Modelo {
 
-	private Producto[] listaProductos;
+	private ListaProductos listaProductos = new ListaProductos();
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-	private Conexion conexion = new Conexion();
+	//private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
 	
 	public Modelo() {
-
-		listaProductos = productosAlmacenados();
+		
+		productosAlmacenados();
 
 	}
 	
-	public void setConexion(Conexion conexion){
+	/*public void setConexion(Conexion conexion){
 		this.conexion = conexion;
 	}
 	
 	public Conexion getConexion() {
 		return this.conexion;
-	}
+	}*/
 	
 	public void setListaTemporal(ListaProductos listaTemporal) {
 		this.listaTemporal = listaTemporal;
@@ -34,6 +34,13 @@ public class Modelo {
 		return this.listaTemporal;
 	}
 
+	public void setListaProductos(ListaProductos listaProductos) {
+		this.listaProductos = listaProductos;
+	}
+	
+	public ListaProductos getListaProductos() {
+		return this.listaProductos;
+	}
 
 	public LineaPedido[] getArrProdSeleccionados() {
 		return arrProdSeleccionados;
@@ -43,51 +50,15 @@ public class Modelo {
 		this.arrProdSeleccionados = arrProdSeleccionados;
 	}
 
-	public void setListaProductos(Producto[] listaProductos) {
-		this.listaProductos = listaProductos;
-	}
-
-	public String[] getListaProductos() {
-
-		String listaProductosString[] = new String[listaProductos.length];
-
-		for (int i = 0; i < listaProductos.length; i++) {
-			listaProductosString[i] = listaProductos[i].getNombre();
-		}
-
-		return listaProductosString;
-	}
-
-	public Producto[] productosAlmacenados() {
+	public void productosAlmacenados() {
 
 		Date date = new Date(0);
 
 		Producto p1 = new Producto("Bocata", date, "comida", 1.00, 1.50);
 		Producto p2 = new Producto("Coca-Cola", date, "bebida", 0.35, 1.50);
 
-		Producto[] listadoProductos = { p1, p2 };
-
-		return listadoProductos;
-	}
-	
-
-	public Producto devolverProductoPorString(String nombre) {
-
-		Producto[] listadoProductos = productosAlmacenados();
-		for (int i = 0; i < listadoProductos.length; i++) {
-			if (nombre.equalsIgnoreCase(listadoProductos[i].getNombre())) {
-				return listadoProductos[i];
-			}
-
-		}
-
-		return null;
-
-	}
-	
-	public double precioProductoString(String nombre) {
-		Producto prod = devolverProductoPorString(nombre);
-		return prod.getPrecioVenta();
+		listaProductos.addProductoTemporal(p1);
+		listaProductos.addProductoTemporal(p2);
 	}
 	
 	public static String getFechaHoraSys() {

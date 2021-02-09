@@ -27,7 +27,8 @@ public class ControladorPanelFacturas {
 	}
 	
 	public String[] cogerListaProductos() { 
-		String[] lista = this.modelo.getListaProductos();
+		ListaProductos listaProd = this.modelo.getListaProductos();
+		String[] lista = listaProd.getListaProductosString();
 		return lista;
 	}
 
@@ -38,9 +39,10 @@ public class ControladorPanelFacturas {
 	}
 	
 	public String accionadoBotonAnnadirProducto(String producto) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		Producto prod = modelo.devolverProductoPorString(producto);
-		listaProd.addProductoTemporal(prod);
+		ListaProductos listaProd = modelo.getListaProductos();
+		Producto prod = listaProd.devolverProductoPorString(producto);
+		ListaProductos listaTemporal = modelo.getListaTemporal();
+		listaTemporal.addProductoTemporal(prod);
 		return prod.toString();
 	}
 	
@@ -49,9 +51,10 @@ public class ControladorPanelFacturas {
  	}
 	
 	public String cantidadTotal(String cantidad, String total, String producto) {
+		ListaProductos listaProd = this.modelo.getListaProductos();
 		int cantidadInt = Integer.parseInt(cantidad);
 		double totalDouble = Double.parseDouble(total);
-		double precioTotalProducto = cantidadInt * Controlador.devolverPrecioProducto(producto);
+		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
 		return String.valueOf(totalDouble + precioTotalProducto);
 	}
 	

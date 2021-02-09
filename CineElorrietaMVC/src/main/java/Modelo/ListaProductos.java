@@ -30,4 +30,28 @@ public class ListaProductos {
 		return cogerProducto(pos).getPrecioVenta();
 	}
 	
+	public String[] getListaProductosString() {
+		String listaProductosString[] = new String[listaProd.size()];
+		
+		for(int i = 0; i < listaProd.size(); i++) {
+			listaProductosString[i] = listaProd.get(i).getNombre();
+		}
+		
+		return listaProductosString;
+	}
+	
+	public Producto devolverProductoPorString(String nombre) {
+		for (int i = 0; i < listaProd.size(); i++) {
+			if(listaProd.get(i).getNombre() == nombre) {
+				return listaProd.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public double precioProductoString(String nombre) {
+		System.out.println(nombre);
+		Producto prod = this.devolverProductoPorString(nombre);
+		return prod.getPrecioVenta();
+	}
 }
