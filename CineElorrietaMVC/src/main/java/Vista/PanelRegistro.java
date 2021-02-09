@@ -33,6 +33,8 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JLayeredPane;
 import javax.swing.JPasswordField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PanelRegistro extends JPanel {
 
@@ -99,6 +101,36 @@ public class PanelRegistro extends JPanel {
 		add(lblApellido);
 		
 		textDNI = new JTextField();
+		textDNI.addKeyListener(new KeyAdapter() {
+	
+//para validar que sean solo 9 caracteres//
+			@Override
+	public void keyTyped(KeyEvent e) {
+			
+			char validar=e.getKeyChar();
+	
+			if (textDNI.getText().length() >=9) 
+			{
+				e.consume();
+		           JOptionPane.showMessageDialog(null, "Inserte únicamente 9 caracteres");
+				}	
+			}		
+	});
+		
+		/*para validar que sean solo numeros(sin la letra final del dni)
+@Override
+	public void keyTyped(KeyEvent e) {
+		
+	char validar=e.getKeyChar();
+
+	if (Character.isLetter(validar) || textDNI.getText().length() >=9) {
+		e.consume();
+	    JOptionPane.showMessageDialog(null, "Inserte el DNI, sin la letra final");
+			}	
+		}		
+});
+	*/
+		
 		textDNI.setBounds(371, 86, 141, 20);
 		add(textDNI);
 		textDNI.setColumns(10);
@@ -142,19 +174,22 @@ private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controlad
 		public void actionPerformed(ActionEvent arg0) {
 			System.out.println("Ejecutando evento Boton Registrar");
 
-			 String NIF = textNIF.getText();
 			
+		
+			
+			 String NIF = textNIF.getText();
+			 
 		if (controladorPanelRegistro.registro(NIF)) {
 			
-			JOptionPane.showMessageDialog(null, "Registrado correctamente");
+			JOptionPane.showMessageDialog(null, "Registro correcto");
 			controladorPanelRegistro.accionadoBottonRegistrarPanelRegistro();
 		}
 		else
 		{
-           JOptionPane.showMessageDialog(null, "Te has registrado de manera errónea");
+           JOptionPane.showMessageDialog(null, "Registro incorrecto");
 
 		}
-		}
+	}
 };	
 }
 }
