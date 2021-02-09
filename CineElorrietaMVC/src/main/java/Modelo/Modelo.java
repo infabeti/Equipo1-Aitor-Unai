@@ -9,7 +9,7 @@ public class Modelo {
 
 	private ListaProductos listaProductos = new ListaProductos();
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-	//private Conexion conexion = new Conexion();
+	private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
 	
 	public Modelo() {
@@ -18,13 +18,13 @@ public class Modelo {
 
 	}
 	
-	/*public void setConexion(Conexion conexion){
+	public void setConexion(Conexion conexion){
 		this.conexion = conexion;
 	}
 	
 	public Conexion getConexion() {
 		return this.conexion;
-	}*/
+	}
 	
 	public void setListaTemporal(ListaProductos listaTemporal) {
 		this.listaTemporal = listaTemporal;
