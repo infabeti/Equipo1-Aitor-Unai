@@ -1,8 +1,13 @@
 package App;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import Controlador.Controlador;
-import Modelo.*;
 import Modelo.Modelo;
+import Modelo.Producto;
 import Vista.Vista;
+
 
 public class Main {
 	
@@ -13,9 +18,12 @@ public class Main {
 	
 	public static void main(String[] args) {
 		modelo = new Modelo();    
-		vista = new Vista();
-                
+		vista = new Vista();              
 		controlador = new Controlador(modelo, vista);
+		
 	}
+
+			
+			
 
 }
