@@ -85,10 +85,10 @@ public class PanelRegistro extends JPanel {
 		lblDNI.setBounds(330, 79, 81, 30);
 		add(lblDNI);
 		
-		JLabel lblContraseña = new JLabel("Contrase\u00F1a:");
-		lblContraseña.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblContraseña.setBounds(33, 259, 127, 23);
-		add(lblContraseña);
+		JLabel lblContrasenna = new JLabel("Contrase\u00F1a:");
+		lblContrasenna.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblContrasenna.setBounds(33, 259, 127, 23);
+		add(lblContrasenna);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 17));
@@ -113,7 +113,7 @@ public class PanelRegistro extends JPanel {
 			if (textDNI.getText().length() >=9) 
 			{
 				e.consume();
-		           JOptionPane.showMessageDialog(null, "Inserte únicamente 9 caracteres");
+		           JOptionPane.showMessageDialog(null, "Inserte ï¿½nicamente 9 caracteres");
 			}	
 		}		
 	});
