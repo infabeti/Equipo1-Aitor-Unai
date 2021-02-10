@@ -69,7 +69,7 @@ public class PanelLogin extends JPanel {
 		add(lblNumTrans);
 
 		textFieldNomUsuario = new JTextField();
-		textFieldNomUsuario.setBounds(180, 78, 164, 30);
+		textFieldNomUsuario.setBounds(198, 78, 220, 30);
 		add(textFieldNomUsuario);
 		textFieldNomUsuario.setColumns(10);
 
@@ -81,7 +81,7 @@ public class PanelLogin extends JPanel {
 
 		textFieldpassword = new JPasswordField();
 		textFieldpassword.setColumns(10);
-		textFieldpassword.setBounds(139, 120, 220, 30);
+		textFieldpassword.setBounds(198, 120, 220, 30);
 		add(textFieldpassword);
 
 		

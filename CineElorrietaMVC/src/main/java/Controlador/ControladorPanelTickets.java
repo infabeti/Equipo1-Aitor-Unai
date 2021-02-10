@@ -25,6 +25,10 @@ public class ControladorPanelTickets {
 		this.panelTickets = new PanelTickets(this);
 		this.vista.mostrarPanel(this.panelTickets);
 	}
+	
+	public String devolverFechaHora() {
+		return modelo.getFechaHoraSys();
+	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
