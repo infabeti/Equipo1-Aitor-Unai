@@ -21,6 +21,10 @@ public class ControladorPanelFacturas {
 		this.controlador = controlador;	
 	}
 	
+	public String devolverFechaHora() {
+		return modelo.getFechaHoraSys();
+	}
+	
 	public void mostrarPanelFacturas() {
 		this.panelFacturas = new PanelFacturas(this);
 		this.vista.mostrarPanel(this.panelFacturas);

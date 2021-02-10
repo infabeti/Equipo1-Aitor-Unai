@@ -4,9 +4,11 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,6 +16,7 @@ import Controlador.Controlador;
 import Controlador.ControladorPanelFacturas;
 import Controlador.ControladorPanelPedidos;
 import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import java.awt.Color;
@@ -26,6 +29,7 @@ public class PanelFacturas extends JPanel {
 	private JTextField textNIF;
 	private JTextField textNombre;
 	private JTextField textApellido;
+	private JTextField textFieldFecha;
 	private JTextField textTransaccion;
 	private JTextField textCantidad;
 	private JList listaProductos;
@@ -37,7 +41,6 @@ public class PanelFacturas extends JPanel {
 	private JLabel lblProductosSeleccionados;
 	private JLabel lblError;
 	private JTextField textLocal;
-	private JTextField textFecha;
 	private JLabel lblLocal;
 	private JLabel lblFecha;
 	private JButton btnEliminar;
@@ -56,8 +59,15 @@ public class PanelFacturas extends JPanel {
 		lblTextoPanel.setBounds(0, 0, 450, 67);
 		add(lblTextoPanel);
 		
+		textFieldFecha = new JTextField();
+		textFieldFecha.setColumns(10);
+		textFieldFecha.setBounds(400, 108, 106, 30);
+		add(textFieldFecha);
+		textFieldFecha.setText(this.controladorPanelFacturas.devolverFechaHora());
+		textFieldFecha.setEditable(false);
+		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(497, 399, 89, 23);
+		btnVolver.setBounds(561, 531, 89, 23);
 		add(btnVolver);
 		
 		textNIF = new JTextField();
@@ -101,7 +111,7 @@ public class PanelFacturas extends JPanel {
 		add(lblTransaccion);
 		
 		JScrollPane scrollPaneProductos = new JScrollPane();
-		scrollPaneProductos.setBounds(380, 90, 150, 160);
+		scrollPaneProductos.setBounds(380, 240, 150, 160);
 		add(scrollPaneProductos);
 		
 		listaProductos = new JList(controladorPanelFacturas.cogerListaProductos());
@@ -117,26 +127,37 @@ public class PanelFacturas extends JPanel {
 		scrollPaneAnnadidos.setViewportView(listaAnnadidos);
 		
 		btnAnnadir = new JButton("Seleccionar");
-		btnAnnadir.setBounds(390, 319, 128, 30);
+		btnAnnadir.setBounds(400, 442, 128, 30);
 		add(btnAnnadir);
 		
 		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setBounds(66, 263, 89, 23);
 		add(btnFinalizar);
 		
+		NumberFormat format = NumberFormat.getInstance();
+	    NumberFormatter formatter = new NumberFormatter(format);
+	    formatter.setValueClass(Integer.class);
+	    formatter.setMinimum(0); //valor m�nimo
+	    formatter.setMaximum(Integer.MAX_VALUE); //valor m�ximo
+	    formatter.setAllowsInvalid(false);
+	    // Si quieres comprobar que sea v�lido, cada vez que se pulse una tecla
+	    formatter.setCommitsOnValidEdit(true);
+		
+	    textCantidad = new JFormattedTextField(formatter);
+	    textCantidad.setFont(new Font("Arial", Font.PLAIN, 12));
+	    textCantidad.setBounds(479, 411, 51, 20);
+		add(textCantidad);
+		textCantidad.setText("1");
+		
 		JLabel lblCantidad = new JLabel("Cantidad");
 		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCantidad.setBounds(390, 261, 82, 14);
+		lblCantidad.setBounds(390, 411, 82, 14);
 		add(lblCantidad);
-		
-		textCantidad = new JTextField();
-		textCantidad.setBounds(457, 257, 51, 20);
-		add(textCantidad);
-		textCantidad.setColumns(10);
+	
 		
 		lblProdDisp = new JLabel("Productos");
 		lblProdDisp.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblProdDisp.setBounds(414, 50, 92, 22);
+		lblProdDisp.setBounds(401, 211, 92, 22);
 		add(lblProdDisp);
 		
 		lblProductosSeleccionados = new JLabel("Productos Seleccionados");
@@ -145,38 +166,36 @@ public class PanelFacturas extends JPanel {
 		add(lblProductosSeleccionados);
 		
 		lblError = new JLabel("");
-		lblError.setBounds(344, 287, 277, 15);
+		lblError.setBounds(533, 277, 277, 15);
 		add(lblError);
 		
 		textLocal = new JTextField();
-		textLocal.setBounds(706, 94, 114, 19);
+		textLocal.setBounds(400, 64, 114, 19);
 		add(textLocal);
 		textLocal.setColumns(10);
 		
-		textFecha = new JTextField();
-		textFecha.setBounds(706, 156, 114, 19);
-		add(textFecha);
-		textFecha.setColumns(10);
-		
 		lblLocal = new JLabel("Local");
-		lblLocal.setBounds(592, 96, 70, 15);
+		lblLocal.setBounds(326, 67, 70, 15);
+		lblLocal.setFont(new Font("Arial", Font.PLAIN, 15));
 		add(lblLocal);
 		
 		lblFecha = new JLabel("Fecha");
-		lblFecha.setBounds(592, 158, 70, 15);
+		lblFecha.setBounds(326, 115, 70, 15);
+		lblFecha.setFont(new Font("Arial", Font.PLAIN, 15));
 		add(lblFecha);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(25, 409, 117, 25);
+		btnEliminar.setBounds(110, 408, 117, 25);
 		add(btnEliminar);
 		
-		lblTotal = new JLabel("Total");
-		lblTotal.setBounds(160, 414, 70, 15);
+		lblTotal = new JLabel("Total:");
+		lblTotal.setBounds(30, 457, 70, 15);
+		lblTotal.setFont(new Font("Arial", Font.PLAIN, 15));
 		add(lblTotal);
 		
 		textTotal = new JTextField();
 		textTotal.setEditable(false);
-		textTotal.setBounds(212, 412, 114, 19);
+		textTotal.setBounds(79, 453, 114, 19);
 		add(textTotal);
 		textTotal.setColumns(10);
 		textTotal.setText("0");

@@ -1,8 +1,10 @@
 package Modelo;
 
+
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class Modelo {
@@ -72,9 +74,9 @@ public class Modelo {
 		listaProductos.addProductoTemporal(p2);
 	}
 	
-	public static String getFechaHoraSys() {
+	public String getFechaHoraSys() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
-		Date date = new Date(0);
+		Date date = new Date(Calendar.getInstance().getTime().getTime());
 		return dateFormat.format(date);
 	}
 	
