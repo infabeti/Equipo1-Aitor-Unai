@@ -11,10 +11,7 @@ public class Modelo {
 
 	private ListaProductos listaProductos = new ListaProductos();
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
-
-	private String usuario;
-	private String local;
-	private char tipoLocal;
+	private Usuario user;
 	
 	//Conexion a BBDD
 
@@ -90,46 +87,13 @@ public class Modelo {
 		return cantidad;
 	}
 	
-
-	public void usuarioLocal(String usuario, String local, char tipoLocal) { //Para guardar el usuario, local y tipo de local
-		this.usuario = usuario;
-		this.local = local;
-		this.tipoLocal = tipoLocal;
+	public Usuario getUser() {
+		return this.user;
 	}
 	
-	public void eliminarUsuarioLocal() {//Metodo para desloguear
-		this.usuario = "";
-		this.local = "";
-		this.tipoLocal = ' ';
+	public void setUser(Usuario user) {
+		this.user = user;
 	}
 	
-	//Métodos para devolver los atributos de arriba
-	
-	public String getUsuario() {
-		return this.usuario;
-	}
-	
-	public String getLocal() {
-		return this.local;
-	}
-	
-	public char getTipoLocal() {
-		return this.tipoLocal;
-	}
-	
-	public String getTipoLocalCompleto() {
-		String tipo = "";
-		if(this.tipoLocal == 'b' || this.tipoLocal == 'B') {
-			tipo = "Bar";
-		}
-		else if(this.tipoLocal == 'c' || this.tipoLocal == 'C') {
-			tipo = "Cafeteria";
-		}
-		else if(this.tipoLocal == 'r' || this.tipoLocal == 'R') {
-			tipo = "Restaurante";
-		}
-		return tipo;
-	}
-
 
 }
