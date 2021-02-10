@@ -31,6 +31,7 @@ import java.awt.Color;
 
 public class PanelPedidos extends JPanel {
 
+	private static final long serialVersionUID = -6410388862910126406L;
 	private ControladorPanelPedidos controladorPanelPedidos;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
@@ -134,7 +135,7 @@ public class PanelPedidos extends JPanel {
 		TextFieldCantidad.setText("1");
 
 		btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setBounds(139, 411, 113, 33);
+		btnSeleccionar.setBounds(48, 455, 113, 33);
 		add(btnSeleccionar);
 		
 		scrollPane = new JScrollPane();

@@ -64,8 +64,7 @@ public class Conexion {
 
 	public boolean login(String userName, String password) {
 		try {
-			Conexion conexion1 = new Conexion();
-			java.sql.Connection conexionConn = conexion1.getConn();
+			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
@@ -90,8 +89,8 @@ public class Conexion {
 
 	public boolean registro(String NIF) {
 		try {
-			Conexion conexion = new Conexion();
-			java.sql.Connection conexionConn = conexion.getConn();
+			
+			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)

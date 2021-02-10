@@ -23,7 +23,7 @@ public class ControladorLogin {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelLogin panelLogin;
-	private Conexion conexion = new Conexion();
+
 
 	public ControladorLogin(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -46,7 +46,7 @@ public class ControladorLogin {
 
 	public boolean login(String userName, String password) {
 
-		boolean res = conexion.login(userName, password);
+		boolean res = this.modelo.getConexion().login(userName, password);
 
 		return res;
 

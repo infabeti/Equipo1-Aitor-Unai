@@ -17,7 +17,7 @@ public class ControladorPanelRegistro {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelRegistro panelRegistro;
-	private Conexion conexion = new Conexion();
+
 
 	public ControladorPanelRegistro(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -41,7 +41,7 @@ public class ControladorPanelRegistro {
 
 	public boolean registro(String NIF) {
 
-		boolean res = conexion.registro(NIF);
+		boolean res = this.modelo.getConexion().registro(NIF);
 
 		return res;
 
