@@ -45,4 +45,18 @@ public boolean registro(String NIF) {
 	
 		
 	}
+public static boolean comprobarDni() {
+	
+	String dni ="";
+	String letraMayuscula ="";
+	
+	if(dni.length() !=9 || Character.isLetter(this.dni.charArt(8)) == false) {
+		return false;
 }
+	letraMayuscula = (this.dni.substring(8).toUpperCase();
+	if(soloNumeros()=true && letraDNI().equals(letraMayuscula)) {
+		
+	}
+		
+	}
+	

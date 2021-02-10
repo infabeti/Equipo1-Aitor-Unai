@@ -104,6 +104,7 @@ public class PanelRegistro extends JPanel {
 		textDNI.addKeyListener(new KeyAdapter() {
 	
 //para validar que sean solo 9 caracteres//
+			
 			@Override
 	public void keyTyped(KeyEvent e) {
 			
@@ -113,8 +114,8 @@ public class PanelRegistro extends JPanel {
 			{
 				e.consume();
 		           JOptionPane.showMessageDialog(null, "Inserte únicamente 9 caracteres");
-				}	
-			}		
+			}	
+		}		
 	});
 		
 		/*para validar que sean solo numeros(sin la letra final del dni)
@@ -173,10 +174,6 @@ private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controlad
 	return new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			System.out.println("Ejecutando evento Boton Registrar");
-
-			
-		
-			
 			 String NIF = textNIF.getText();
 			 
 		if (controladorPanelRegistro.registro(NIF)) {
