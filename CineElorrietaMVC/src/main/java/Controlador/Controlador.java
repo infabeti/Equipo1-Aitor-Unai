@@ -1,15 +1,11 @@
 package Controlador;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import Modelo.Modelo;
 import Vista.Vista;
 
 public class Controlador {
 
-	private static Modelo modelo;
+	private Modelo modelo;
 	private Vista vista;
 	private ControladorPanelPrincipal controladorPanelPrincipal;
 	private ControladorPanelPedidos controladorPanelPedidos;

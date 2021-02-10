@@ -27,21 +27,33 @@ public class TestActividades { //Testea los m�todos no constructores, getters 
 	private Actividad mockAct = mock(Actividad.class);
 	
 	@Test
-	public void testDomicilio() {
+	public void testDomicilioFalse() {
 		boolean res = p1.esDomicilio();
 		assertFalse(res);
-		res = p2.esDomicilio();
+	}
+	
+	@Test
+	public void testDomicilioTrue() {
+		boolean res = p2.esDomicilio();
 		assertTrue(res);
 	}
 	
 	@Test
-	public void testEquals() {
+	public void testEqualsTrue1() {
 		when(mockAct.getNumTransaccion()).thenReturn(11);
 		boolean res = act.equals(mockAct);
 		assertTrue(res);
-		res = act.equals(p1);
+	}
+	
+	@Test
+	public void testEqualsTrue2() {
+		boolean res = act.equals(p1);
 		assertTrue(res);
-		res = act.equals(p2);
+	}
+	
+	@Test
+	public void testEqualsFalse() {
+		boolean res = act.equals(p2);
 		assertFalse(res);
 	}
 	
