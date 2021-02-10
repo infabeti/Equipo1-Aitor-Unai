@@ -18,45 +18,46 @@ public class ControladorPanelRegistro {
 	private Controlador controlador;
 	private PanelRegistro panelRegistro;
 	private Conexion conexion = new Conexion();
-	
+
 	public ControladorPanelRegistro(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
-		this.controlador = controlador;	
+		this.controlador = controlador;
 	}
+
 	public void mostrarPanelRegistro() {
 		this.panelRegistro = new PanelRegistro(this);
 		this.vista.mostrarPanel(this.panelRegistro);
-	
+
 	}
+
 	public void accionadoBottonVolverPanelRegistro() {
 		this.controlador.navegarPanelLogin();
 	}
-	
+
 	public void accionadoBottonRegistrarPanelRegistro() {
 		this.controlador.navegarPanelLogin();
 	}
-	
-public boolean registro(String NIF) {
-		
-	boolean res = conexion.registro(NIF);
-	
-	return res;
-	
-		
+
+	public boolean registro(String NIF) {
+
+		boolean res = conexion.registro(NIF);
+
+		return res;
+
 	}
-public static boolean comprobarDni() {
+
+	/*public static boolean comprobarDni() {
 	
 	String dni ="";
 	String letraMayuscula ="";
 	
 	if(dni.length() !=9 || Character.isLetter(this.dni.charArt(8)) == false) {
 		return false;
-}
+	}
 	letraMayuscula = (this.dni.substring(8).toUpperCase();
 	if(soloNumeros()=true && letraDNI().equals(letraMayuscula)) {
 		
-	}
+	}*/
 		
 	}
-	

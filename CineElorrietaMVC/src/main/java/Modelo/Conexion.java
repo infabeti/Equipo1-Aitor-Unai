@@ -43,7 +43,7 @@ public class Conexion {
 				System.exit(0);
 			} else {
 				System.out.println(
-						"Conectado correctamente a la base de datos " + NOMBREBD + " con el usuario " + usuario);
+						"Conectado correctamente a la base de datos " + NOMBREBD + " con el usuario " + USUARIO);
 			}
 
 		} catch (ClassNotFoundException e) {
