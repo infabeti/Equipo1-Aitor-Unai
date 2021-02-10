@@ -10,11 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controlador.Controlador;
 import Controlador.ControladorPanelFacturas;
 import Controlador.ControladorPanelPedidos;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import java.awt.Color;
 
 public class PanelFacturas extends JPanel {
 
@@ -33,6 +35,14 @@ public class PanelFacturas extends JPanel {
 	private JButton btnFinalizar;
 	private JLabel lblProdDisp;
 	private JLabel lblProductosSeleccionados;
+	private JLabel lblError;
+	private JTextField textLocal;
+	private JTextField textFecha;
+	private JLabel lblLocal;
+	private JLabel lblFecha;
+	private JButton btnEliminar;
+	private JLabel lblTotal;
+	private JTextField textTotal;
 
 	public PanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {
 		setBackground(SystemColor.activeCaption);
@@ -95,7 +105,7 @@ public class PanelFacturas extends JPanel {
 		add(scrollPaneProductos);
 		
 		listaProductos = new JList(controladorPanelFacturas.cogerListaProductos());
-		listaProductos.setBackground(SystemColor.activeCaption);
+		listaProductos.setBackground(Color.WHITE);
 		scrollPaneProductos.setViewportView(listaProductos);
 		
 		JScrollPane scrollPaneAnnadidos = new JScrollPane();
@@ -103,11 +113,11 @@ public class PanelFacturas extends JPanel {
 		add(scrollPaneAnnadidos);
 		
 		listaAnnadidos = new JList(annadidos);
-		listaAnnadidos.setBackground(SystemColor.activeCaption);
+		listaAnnadidos.setBackground(Color.WHITE);
 		scrollPaneAnnadidos.setViewportView(listaAnnadidos);
 		
 		btnAnnadir = new JButton("Seleccionar");
-		btnAnnadir.setBounds(400, 288, 106, 30);
+		btnAnnadir.setBounds(390, 319, 128, 30);
 		add(btnAnnadir);
 		
 		btnFinalizar = new JButton("Finalizar");
@@ -134,6 +144,43 @@ public class PanelFacturas extends JPanel {
 		lblProductosSeleccionados.setBounds(68, 211, 244, 22);
 		add(lblProductosSeleccionados);
 		
+		lblError = new JLabel("");
+		lblError.setBounds(344, 287, 277, 15);
+		add(lblError);
+		
+		textLocal = new JTextField();
+		textLocal.setBounds(706, 94, 114, 19);
+		add(textLocal);
+		textLocal.setColumns(10);
+		
+		textFecha = new JTextField();
+		textFecha.setBounds(706, 156, 114, 19);
+		add(textFecha);
+		textFecha.setColumns(10);
+		
+		lblLocal = new JLabel("Local");
+		lblLocal.setBounds(592, 96, 70, 15);
+		add(lblLocal);
+		
+		lblFecha = new JLabel("Fecha");
+		lblFecha.setBounds(592, 158, 70, 15);
+		add(lblFecha);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(25, 409, 117, 25);
+		add(btnEliminar);
+		
+		lblTotal = new JLabel("Total");
+		lblTotal.setBounds(160, 414, 70, 15);
+		add(lblTotal);
+		
+		textTotal = new JTextField();
+		textTotal.setEditable(false);
+		textTotal.setBounds(212, 412, 114, 19);
+		add(textTotal);
+		textTotal.setColumns(10);
+		textTotal.setText("0");
+		
 		
 
 		initializeEvents();
@@ -142,6 +189,7 @@ public class PanelFacturas extends JPanel {
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelFacturas));
 		this.btnAnnadir.addActionListener(listenerBotonAnnadir(this.controladorPanelFacturas));
+		this.btnEliminar.addActionListener(listenerBotonEliminar(this.controladorPanelFacturas));
 	}
 	
 	private ActionListener listenerBotonVolver(ControladorPanelFacturas controladorPanelFacturas) {
@@ -157,18 +205,47 @@ public class PanelFacturas extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Annadir");
-				String producto = (String) listaProductos.getSelectedValue();
-				System.out.println("Producto " + producto);
-				producto = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
-				int cantidad = 1;
-				String texto = textCantidad.getText();
+				boolean existeProd = false;
+				String producto = "";
+				String productoAnadir = "";
+				String cantidad = textCantidad.getText();
 				try {
-					cantidad = Integer.parseInt(texto);
+					producto = (String) listaProductos.getSelectedValue();
+					productoAnadir = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
+					existeProd = true;
 				}
 				catch(Exception e) {
-					System.out.println("El campo cantidad no contiene un entero");
+					System.out.println("No se ha seleccionado un producto");
+					lblError.setText("No se ha escogido un producto");
 				}
-				annadidos.addElement(cantidad +  " " +producto);
+				if (existeProd) {
+					try {
+						annadidos.addElement(controladorPanelFacturas.cantidadProducto(cantidad, productoAnadir));
+						textTotal.setText(controladorPanelFacturas.cantidadTotal(cantidad,  textTotal.getText(), producto));
+					}
+					catch(Exception e) {
+						System.out.println("El campo cantidad no contiene un entero");
+						lblError.setText("No se ha introducido una cantidad");
+					}
+				}
+			}
+		};
+	}
+	
+	private ActionListener listenerBotonEliminar(ControladorPanelFacturas controladorPanelFacturas) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento eliminar");
+				try {
+					int pos = listaAnnadidos.getSelectedIndex();
+					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos), textTotal.getText());
+					annadidos.remove(pos);
+					textTotal.setText(total);
+				}
+				catch(Exception e) {
+					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+					lblError.setText("No se pudo eliminar");
+				}
 			}
 		};
 	}

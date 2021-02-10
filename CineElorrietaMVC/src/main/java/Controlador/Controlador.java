@@ -1,9 +1,5 @@
 package Controlador;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import Modelo.Modelo;
 import Vista.Vista;
 
@@ -67,17 +63,9 @@ public class Controlador {
 		this.controladorPanelFacturas.mostrarPanelFacturas();
 	}
 	
-	
 	public void navegarPanelTickets() {
 		System.out.println("Navegar panel Pedidos");
 		this.controladorPanelTickets.mostrarPanelTickets();
 	}
-	
-	public static String getFechaHoraSys() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
-		Date date = new Date();
-		return dateFormat.format(date);
-	}
-	
 	
 }

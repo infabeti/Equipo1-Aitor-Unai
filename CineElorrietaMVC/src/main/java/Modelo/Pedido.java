@@ -17,7 +17,7 @@ public class Pedido extends Actividad {
 	}
 
 	public boolean esDomicilio() {
-		if(domicilio != null)
+		if(this.domicilio != null)
 		{
 			return true;
 		}
@@ -28,7 +28,7 @@ public class Pedido extends Actividad {
 	}
 
 	public String getDomicilio() {
-		return domicilio;
+		return this.domicilio;
 	}
 
 	public void setDomicilio(String domicilio) {

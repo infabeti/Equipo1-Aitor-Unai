@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controlador.Controlador;
 import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelTickets;
 import javax.swing.JTextField;
@@ -32,6 +33,12 @@ public class PanelTickets extends JPanel {
 	private JScrollPane scrollPane_1;
 	private JTextField textField_1;
 	private JLabel lblCantidad;
+	private JLabel lblError;
+	private JTextField textLocal;
+	private JTextField textFecha;
+	private JButton btnEliminar;
+	private JLabel lblTotal;
+	private JTextField textTotal;
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -104,6 +111,43 @@ public class PanelTickets extends JPanel {
 		lblProductosSeleccionados.setBounds(71, 209, 244, 22);
 		add(lblProductosSeleccionados);
 		
+		lblError = new JLabel("");
+		lblError.setBounds(30, 166, 332, 31);
+		add(lblError);
+		
+		textLocal = new JTextField();
+		textLocal.setBounds(642, 76, 114, 19);
+		add(textLocal);
+		textLocal.setColumns(10);
+		
+		textFecha = new JTextField();
+		textFecha.setBounds(642, 126, 114, 19);
+		add(textFecha);
+		textFecha.setColumns(10);
+		
+		JLabel lblLocal = new JLabel("Local");
+		lblLocal.setBounds(554, 78, 70, 15);
+		add(lblLocal);
+		
+		JLabel lblFecha = new JLabel("Fecha");
+		lblFecha.setBounds(554, 128, 70, 15);
+		add(lblFecha);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(198, 410, 117, 25);
+		add(btnEliminar);
+		
+		lblTotal = new JLabel("Total");
+		lblTotal.setBounds(344, 309, 70, 15);
+		add(lblTotal);
+		
+		textTotal = new JTextField();
+		textTotal.setEditable(false);
+		textTotal.setBounds(338, 352, 114, 19);
+		add(textTotal);
+		textTotal.setColumns(10);
+		textTotal.setText("0");
+		
 		initializeEvents();
 
 	}
@@ -111,6 +155,7 @@ public class PanelTickets extends JPanel {
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelTickets));
 		this.btnAnadir.addActionListener(listenerBotonAnadir(this.controladorPanelTickets));
+		this.btnEliminar.addActionListener(listenerBotonEliminar(this.controladorPanelTickets));
 	}
 	
 	private ActionListener listenerBotonVolver(ControladorPanelTickets controladorPanelTickets) {
@@ -125,19 +170,57 @@ public class PanelTickets extends JPanel {
 	private ActionListener listenerBotonAnadir(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento Boton AÃ±adir");
-				String producto = (String) listaProductos.getSelectedValue();
-				System.out.println("Producto " + producto);
-				producto = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
-				int cantidad = 1;
-				String texto = textField_1.getText();
+				/*Este es el mínimo de lógica que puede haber (va para todos las vistas)
+				 * En el primer try catch necesita hacer un cast a String ya que no se puede pasar el valor directo
+				 * de getSelectedValue()
+				 * existeProd necesita estar para asegurarse de que se añade primero el producto antes de seguir 
+				 * Todos estos comentarios valen para las tres vistas*/
+				System.out.println("Ejecutando evento Boton Annadir");
+				boolean existeProd = false;
+				String producto = "";
+				String productoAnadir = "";
+				String cantidad = textField_1.getText();
 				try {
-					cantidad = Integer.parseInt(texto);
+					producto = (String) listaProductos.getSelectedValue(); //Necesito hacer aquí el cast porque getSelectedValue() devuelve un objeto por lo que no se le puede pasar directamente a accionadoBotonAnadirProducto
+					productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
+					existeProd = true;
 				}
 				catch(Exception e) {
-					System.out.println("El campo cantidad no contiene un entero");
+					System.out.println("No se ha seleccionado un producto");
+					lblError.setText("No se ha escogido un producto");
 				}
-				listaPAnnadidos.addElement(cantidad +  " " +producto);
+				if (existeProd) {
+					try {
+						listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
+						textTotal.setText(controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
+					}
+					catch(Exception e) {
+						System.out.println("El campo cantidad no contiene un entero");
+						lblError.setText("No se ha introducido una cantidad");
+					}
+				}
+			}
+		};
+	}
+	
+	private ActionListener listenerBotonEliminar(ControladorPanelTickets controladorPanelTickets) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento eliminar");
+				try {
+					/*Este es el mínimo de lógica necesaria en la vista para eliminar un elemento
+					 * Primero se coge el índice seleccionado, luego se le pasa al controlador junto al string que representa
+					 * El producto a eliminar y el total actual
+					 * Se elimina el producto de la lista y luego se cambia el total por el devuelto por el controlador */
+					int pos = listaAnnadidos.getSelectedIndex();
+					String total = controladorPanelTickets.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos), textTotal.getText());
+					listaPAnnadidos.remove(pos);
+					textTotal.setText(total);
+				}
+				catch(Exception e) {
+					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionÃ³ ningÃºn producto");
+					lblError.setText("No se pudo eliminar");
+				}
 			}
 		};
 	}

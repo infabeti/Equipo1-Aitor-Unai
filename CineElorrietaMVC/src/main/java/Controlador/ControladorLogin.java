@@ -25,13 +25,12 @@ public class ControladorLogin {
 	private PanelLogin panelLogin;
 	private Conexion conexion = new Conexion();
 
-	
 	public ControladorLogin(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
-		this.controlador = controlador;	
+		this.controlador = controlador;
 	}
-	
+
 	public void mostrarPanelLogin() {
 		this.panelLogin = new PanelLogin(this);
 		this.vista.mostrarPanel(this.panelLogin);
@@ -40,19 +39,17 @@ public class ControladorLogin {
 	public void accionadoBottonAceptarPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
 	}
-	
 
-	
 	public void accionadoBottonRegistroPanelLogin() {
 		this.controlador.navegarPanelRegistro();
 	}
 
-	public boolean login(String userName,String password) {
-		
+	public boolean login(String userName, String password) {
+
 		boolean res = conexion.login(userName, password);
-		
+
 		return res;
-		
+
 	}
 
 }

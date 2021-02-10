@@ -9,13 +9,15 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-	private String nombreBd = "reto3";
-	private String usuario = "root";
-	private String password = "elorrieta";
-	private String url = "jdbc:mysql://localhost:3306/" + nombreBd + "?useUnicode=true&use"
+
+	// constructor de la clase
+
+	private final String NOMBREBD = "reto3";
+	private final String USUARIO = "root";
+	private final String PASSWORD = "elorrieta";
+	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
-	private String user, pass;
 	private Connection conn = null;
 
 	public Connection getConn() {
@@ -28,18 +30,22 @@ public class Conexion {
 
 	// constructor de la clase
 	public Conexion() {
+
 		try {
 			// obtener el driver
 			Class.forName("com.mysql.cj.jdbc.Driver");
+
 			// obtener la conexion
-			conn = DriverManager.getConnection(url, usuario, password);
+			conn = DriverManager.getConnection(URL, USUARIO, PASSWORD);
 			if (conn == null) {
-				System.out.println("******************NO SE PUDO CONECTAR " + nombreBd);
+				System.out.println("******************NO SE PUDO CONECTAR " + NOMBREBD);
+
 				System.exit(0);
 			} else {
 				System.out.println(
-						"Conectado correctamente a la base de datos " + nombreBd + " con el usuario " + usuario);
+						"Conectado correctamente a la base de datos " + NOMBREBD + " con el usuario " + usuario);
 			}
+
 		} catch (ClassNotFoundException e) {
 			System.out.println("ocurre una ClassNotFoundException : " + e.getMessage());
 			System.exit(0);
@@ -47,35 +53,8 @@ public class Conexion {
 			System.out.println("ocurre una SQLException: " + e.getMessage());
 			System.out.println("Verifique que Mysql esté encendido...");
 			System.exit(0);
+
 		}
-	}
-
-	public Conexion(String user, String pass) {
-		try {
-			// obtener el driver
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			// obtener la conexion
-			conn = DriverManager.getConnection(url, user, pass);
-			if (conn == null) {
-				System.out.println("******************NO SE PUDO CONECTAR " + nombreBd);
-				System.exit(0);
-			} else {
-				System.out.println(
-						"Conectado correctamente a la base de datos " + nombreBd + " con el usuario " + usuario);
-			}
-		} catch (ClassNotFoundException e) {
-			System.out.println("ocurre una ClassNotFoundException : " + e.getMessage());
-			System.exit(0);
-		} catch (SQLException e) {
-			System.out.println("ocurre una SQLException: " + e.getMessage());
-			System.out.println("Verifique que Mysql esté encendido...");
-			System.exit(0);
-		}
-	}
-
-	public Connection getConnection() {
-		return conn;
-
 	}
 
 	public void desconectar() {
@@ -108,6 +87,7 @@ public class Conexion {
 		}
 		return false;
 	}
+
 	public boolean registro(String NIF) {
 		try {
 			Conexion conexion = new Conexion();
@@ -116,7 +96,7 @@ public class Conexion {
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement("Select nif from empleado where NIF=?");
-			
+
 			st.setString(1, NIF);
 
 			ResultSet rs = st.executeQuery();
@@ -131,5 +111,5 @@ public class Conexion {
 			sqlException.printStackTrace();
 		}
 		return false;
-}
 	}
+}

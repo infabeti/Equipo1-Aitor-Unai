@@ -1,22 +1,60 @@
 package TestModelo;
 
-import Modelo.*;
-import java.sql.Date;
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
-import org.junit.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-public class TestActividades { //Testea los métodos no constructores, getters o setters de las clases que heredan de actividad (de momento solo esDomicilio())
+import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import java.sql.Date;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import Modelo.*;
+
+//@RunWith(MockitoJUnitRunner.class)
+
+public class TestActividades { //Testea los mï¿½todos no constructores, getters o setters de las clases que heredan de actividad (de momento solo esDomicilio())
 	
 	private Date fecha = new Date(0); //Fecha de tipo Date para insertar en las actividades
 	private Pedido p1 = new Pedido(11, fecha, "Primero");
 	private Pedido p2 = new Pedido(34, fecha, "Segundo", "Casa");
+	private Actividad act = new Actividad(11, fecha, "Primero");
+	private Actividad mockAct = mock(Actividad.class);
 	
 	@Test
-	public void testDomicilio() {
+	public void testDomicilioFalse() {
 		boolean res = p1.esDomicilio();
 		assertFalse(res);
-		res = p2.esDomicilio();
+	}
+	
+	@Test
+	public void testDomicilioTrue() {
+		boolean res = p2.esDomicilio();
 		assertTrue(res);
+	}
+	
+	@Test
+	public void testEqualsTrue1() {
+		when(mockAct.getNumTransaccion()).thenReturn(11);
+		boolean res = act.equals(mockAct);
+		assertTrue(res);
+	}
+	
+	@Test
+	public void testEqualsTrue2() {
+		boolean res = act.equals(p1);
+		assertTrue(res);
+	}
+	
+	@Test
+	public void testEqualsFalse() {
+		boolean res = act.equals(p2);
+		assertFalse(res);
 	}
 	
 }
