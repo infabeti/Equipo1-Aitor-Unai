@@ -67,7 +67,7 @@ public class Conexion {
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("Select e.nombre, es.nombre, tipoNegocio from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?");
+					.prepareStatement("Select e.nombre, es.nombre, tipoNegocio, e.NIF from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?");
 
 			st.setString(1, dni);
 			st.setString(2, password);
@@ -78,17 +78,18 @@ public class Conexion {
 				String nombre = rs.getString("nombre");
 				String local = rs.getString("es.nombre");
 				String tipoNegocio = rs.getString("tipoNegocio");
-				Usuario user = new Usuario(nombre, local, tipoNegocio);
+				String NIF = rs.getString("NIF");
+				Usuario user = new Usuario(nombre, local, tipoNegocio, NIF);
 				return user;
 			} else {
-				Usuario user =  new Usuario("", "", "");
+				Usuario user = new Usuario("", "", "", "");
 				return user ;
 			}
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
-		Usuario user = new Usuario("", "", "");
+		Usuario user = new Usuario("", "", "", "");
 		return user;
 	}
 
