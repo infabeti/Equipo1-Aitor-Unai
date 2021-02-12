@@ -25,6 +25,7 @@ public class Modelo {
 	public Modelo() {
 		
 		productosAlmacenados();
+		user = new Usuario("", "", "");
 
 	}
 	

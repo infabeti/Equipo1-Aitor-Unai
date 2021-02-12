@@ -2,6 +2,7 @@ package Controlador;
 
 import Modelo.Modelo;
 import Vista.Vista;
+import Modelo.Usuario;
 
 public class Controlador {
 
@@ -50,7 +51,10 @@ public class Controlador {
 	
 	public void navegarPanelPedidos() {
 		System.out.println("Navegar panel Pedidos");
-		this.controladorPanelPedidos.mostrarPanelPedidos();
+		Usuario user = this.modelo.getUser();
+		if(user.getTipoLocal().equals("RESTAURANTE") || user.getTipoLocal().equals("CAFETERIA")) {
+			this.controladorPanelPedidos.mostrarPanelPedidos();
+		}
 	}
 	
 	public void navegarPanelAprovisionamiento() {
@@ -66,6 +70,16 @@ public class Controlador {
 	public void navegarPanelTickets() {
 		System.out.println("Navegar panel Pedidos");
 		this.controladorPanelTickets.mostrarPanelTickets();
+	}
+	
+	public void navegarPanelComandas() {
+		System.out.println("Navegar panel Comandas");
+		Usuario user = modelo.getUser();
+		if(user.getTipoLocal().equals("RESTAURANTE")) {
+			/*Quitar cuando se cree
+			 * this.controladorPanelComandas.mostrarPanelComandas();
+			 */
+		}
 	}
 	
 	

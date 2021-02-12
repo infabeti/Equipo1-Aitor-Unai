@@ -30,7 +30,6 @@ public class Conexion {
 
 	// constructor de la clase
 	public Conexion() {
-
 		try {
 			// obtener el driver
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -51,7 +50,7 @@ public class Conexion {
 			System.exit(0);
 		} catch (SQLException e) {
 			System.out.println("ocurre una SQLException: " + e.getMessage());
-			System.out.println("Verifique que Mysql esté encendido...");
+			System.out.println("Verifique que Mysql estï¿½ encendido...");
 			System.exit(0);
 
 		}
@@ -62,13 +61,13 @@ public class Conexion {
 		System.out.println("Desconexion realizada correctamente");
 	}
 
-	public boolean login(String dni, String password) {
+	public Usuario login(String dni, String password) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("Select nombre, apellido from empleado where dni=? and contrasena=?");
+					.prepareStatement("Select e.nombre, es.nombre, tipoNegocio from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?");
 
 			st.setString(1, dni);
 			st.setString(2, password);
@@ -76,15 +75,21 @@ public class Conexion {
 			ResultSet rs = st.executeQuery();
 
 			if (rs.next()) {
-				return true;
+				String nombre = rs.getString("nombre");
+				String local = rs.getString("es.nombre");
+				String tipoNegocio = rs.getString("tipoNegocio");
+				Usuario user = new Usuario(nombre, local, tipoNegocio);
+				return user;
 			} else {
-				return false;
+				Usuario user =  new Usuario("", "", "");
+				return user ;
 			}
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
-		return false;
+		Usuario user = new Usuario("", "", "");
+		return user;
 	}
 
 	public boolean registro(String NIF) {

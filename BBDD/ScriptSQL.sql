@@ -14,7 +14,7 @@ TipoNegocio enum ('BAR', 'CAFETERIA', 'RESTAURANTE') not null
 
 create table empleado(
 DNI char(9) primary key,
-Nombre varchar(20) unique not null,
+Nombre varchar(20) not null,
 Apellido varchar(25) not null,
 contrasena varchar(18) not null,
 NIF char(9) not null,
