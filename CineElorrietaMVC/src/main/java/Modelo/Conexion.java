@@ -15,7 +15,7 @@ public class Conexion {
 	private final String NOMBREBD = "reto3";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
-	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
+	private final String URL = "jdbc:mysql://localhost:3306/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private Connection conn = null;
@@ -29,8 +29,7 @@ public class Conexion {
 	}
 
 	// constructor de la clase
-	public Conexion() {
-
+	public Conexion(Modelo modelo) {
 		try {
 			// obtener el driver
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -62,13 +61,13 @@ public class Conexion {
 		System.out.println("Desconexion realizada correctamente");
 	}
 
-	public boolean login(String dni, String password) {
+	public Usuario login(String dni, String password) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("Select nombre, apellido from empleado where dni=? and contrasena=?");
+					.prepareStatement("Select e.nombre, es.nombre, tipoNegocio from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?");
 
 			st.setString(1, dni);
 			st.setString(2, password);
@@ -76,15 +75,21 @@ public class Conexion {
 			ResultSet rs = st.executeQuery();
 
 			if (rs.next()) {
-				return true;
+				String nombre = rs.getString("nombre");
+				String local = rs.getString("es.nombre");
+				String tipoNegocio = rs.getString("tipoNegocio");
+				Usuario user = new Usuario(nombre, local, tipoNegocio);
+				return user;
 			} else {
-				return false;
+				Usuario user =  new Usuario("", "", "");
+				return user ;
 			}
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
-		return false;
+		Usuario user = new Usuario("", "", "");
+		return user;
 	}
 
 	public boolean registro(String NIF) {

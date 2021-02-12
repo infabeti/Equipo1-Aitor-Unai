@@ -15,7 +15,7 @@ public class Modelo {
 	
 	//Conexion a BBDD
 
-	private Conexion conexion = new Conexion();
+	private Conexion conexion = new Conexion(this);
 	private ListaProductos listaTemporal = new ListaProductos();
 
 	
@@ -25,6 +25,7 @@ public class Modelo {
 	public Modelo() {
 		
 		productosAlmacenados();
+		user = new Usuario("", "", "");
 
 	}
 	

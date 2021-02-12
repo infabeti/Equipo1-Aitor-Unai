@@ -52,7 +52,7 @@ public class Controlador {
 	public void navegarPanelPedidos() {
 		System.out.println("Navegar panel Pedidos");
 		Usuario user = this.modelo.getUser();
-		if(user.getTipoLocal().equals("Restaurante") || user.getTipoLocal().equals("Cafeteria")) {
+		if(user.getTipoLocal().equals("RESTAURANTE") || user.getTipoLocal().equals("CAFETERIA")) {
 			this.controladorPanelPedidos.mostrarPanelPedidos();
 		}
 	}
@@ -75,7 +75,7 @@ public class Controlador {
 	public void navegarPanelComandas() {
 		System.out.println("Navegar panel Comandas");
 		Usuario user = modelo.getUser();
-		if(user.getTipoLocal().equals("Restaurante")) {
+		if(user.getTipoLocal().equals("RESTAURANTE")) {
 			/*Quitar cuando se cree
 			 * this.controladorPanelComandas.mostrarPanelComandas();
 			 */

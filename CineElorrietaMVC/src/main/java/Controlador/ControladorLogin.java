@@ -10,6 +10,7 @@ import Modelo.Conexion;
 import Modelo.LineaPedido;
 import Modelo.Modelo;
 import Modelo.Producto;
+import Modelo.Usuario;
 import Vista.PanelLogin;
 import Vista.PanelPedidos;
 import Vista.PanelRegistro;
@@ -46,9 +47,16 @@ public class ControladorLogin {
 
 	public boolean login(String userName, String password) {
 
-		boolean res = this.modelo.getConexion().login(userName, password);
-
-		return res;
+		Usuario res = this.modelo.getConexion().login(userName, password);
+		
+		this.modelo.setUser(res);
+		
+		if(res.getNombre().equals("")) {
+			return false;
+		}
+		else {
+			return true;
+		}
 
 	}
 
