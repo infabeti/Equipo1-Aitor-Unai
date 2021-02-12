@@ -122,8 +122,8 @@ public class PanelPedidos extends JPanel {
 		NumberFormat format = NumberFormat.getInstance();
 	    NumberFormatter formatter = new NumberFormatter(format);
 	    formatter.setValueClass(Integer.class);
-	    formatter.setMinimum(0); //valor m�nimo
-	    formatter.setMaximum(Integer.MAX_VALUE); //valor m�ximo
+	    formatter.setMinimum(1); //valor m�nimo
+	    formatter.setMaximum(99); //valor m�ximo
 	    formatter.setAllowsInvalid(false);
 	    // Si quieres comprobar que sea v�lido, cada vez que se pulse una tecla
 	    formatter.setCommitsOnValidEdit(true);
@@ -156,7 +156,7 @@ public class PanelPedidos extends JPanel {
 		add(lblProdAdd);
 		
 		lblError = new JLabel("");
-		lblError.setBounds(12, 473, 330, 15);
+		lblError.setBounds(477, 303, 330, 15);
 		add(lblError);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -208,6 +208,7 @@ public class PanelPedidos extends JPanel {
 					try {
 						listaPAnnadidos.addElement(controladorPanelPedidos.cantidadProducto(cantidad, productoAnadir));
 						textTotal.setText(controladorPanelPedidos.cantidadTotal(cantidad, textTotal.getText(), producto));
+						lblError.setText("");
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -237,6 +238,7 @@ public class PanelPedidos extends JPanel {
 					String total = controladorPanelPedidos.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos), textTotal.getText());
 					listaPAnnadidos.remove(pos);
 					textTotal.setText(total);
+					lblError.setText("");
 				}
 				catch(Exception e) {
 					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");

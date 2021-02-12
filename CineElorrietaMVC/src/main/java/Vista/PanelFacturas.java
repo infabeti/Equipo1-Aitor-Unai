@@ -137,8 +137,8 @@ public class PanelFacturas extends JPanel {
 		NumberFormat format = NumberFormat.getInstance();
 	    NumberFormatter formatter = new NumberFormatter(format);
 	    formatter.setValueClass(Integer.class);
-	    formatter.setMinimum(0); //valor m�nimo
-	    formatter.setMaximum(Integer.MAX_VALUE); //valor m�ximo
+	    formatter.setMinimum(1); //valor m�nimo
+	    formatter.setMaximum(99); //valor m�ximo
 	    formatter.setAllowsInvalid(false);
 	    // Si quieres comprobar que sea v�lido, cada vez que se pulse una tecla
 	    formatter.setCommitsOnValidEdit(true);
@@ -241,6 +241,7 @@ public class PanelFacturas extends JPanel {
 					try {
 						annadidos.addElement(controladorPanelFacturas.cantidadProducto(cantidad, productoAnadir));
 						textTotal.setText(controladorPanelFacturas.cantidadTotal(cantidad,  textTotal.getText(), producto));
+						lblError.setText("");
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -260,6 +261,7 @@ public class PanelFacturas extends JPanel {
 					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos), textTotal.getText());
 					annadidos.remove(pos);
 					textTotal.setText(total);
+					lblError.setText("");
 				}
 				catch(Exception e) {
 					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");

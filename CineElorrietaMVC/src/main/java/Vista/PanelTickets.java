@@ -35,14 +35,14 @@ public class PanelTickets extends JPanel {
 	private JScrollPane scrollPane;
 	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
 	private JScrollPane scrollPane_1;
-	private JTextField textField_1;
+	private JFormattedTextField TextFieldCantidad;
 	private JLabel lblCantidad;
 	private JLabel lblError;
 	private JTextField textLocal;
-	private JTextField textFecha;
 	private JButton btnEliminar;
 	private JLabel lblTotal;
 	private JTextField textTotal;
+	private JTextField textFieldFecha;
 	
 	
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
@@ -103,13 +103,13 @@ public class PanelTickets extends JPanel {
 		NumberFormat format = NumberFormat.getInstance();
 	    NumberFormatter formatter = new NumberFormatter(format);
 	    formatter.setValueClass(Integer.class);
-	    formatter.setMinimum(0); //valor m�nimo
-	    formatter.setMaximum(Integer.MAX_VALUE); //valor m�ximo
+	    formatter.setMinimum(1); //valor m�nimo
+	    formatter.setMaximum(99); //valor m�ximo
 	    formatter.setAllowsInvalid(false);
 	    // Si quieres comprobar que sea v�lido, cada vez que se pulse una tecla
 	    formatter.setCommitsOnValidEdit(true);
 		
-		JFormattedTextField TextFieldCantidad = new JFormattedTextField(formatter);
+		TextFieldCantidad = new JFormattedTextField(formatter);
 		TextFieldCantidad.setFont(new Font("Arial", Font.PLAIN, 12));
 		TextFieldCantidad.setBounds(425, 411, 40, 27);
 		add(TextFieldCantidad);
@@ -134,7 +134,7 @@ public class PanelTickets extends JPanel {
 		add(textLocal);
 		textLocal.setColumns(10);
 		
-		JTextField textFieldFecha = new JTextField();
+		textFieldFecha = new JTextField();
 		textFieldFecha.setColumns(10);
 		textFieldFecha.setBounds(448, 71, 106, 30);
 		add(textFieldFecha);
@@ -197,7 +197,8 @@ public class PanelTickets extends JPanel {
 				boolean existeProd = false;
 				String producto = "";
 				String productoAnadir = "";
-				String cantidad = textField_1.getText();
+				String cantidad = TextFieldCantidad.getText();
+				System.out.println(cantidad);
 				try {
 					producto = (String) listaProductos.getSelectedValue(); //Necesito hacer aqu� el cast porque getSelectedValue() devuelve un objeto por lo que no se le puede pasar directamente a accionadoBotonAnadirProducto
 					productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
@@ -211,6 +212,7 @@ public class PanelTickets extends JPanel {
 					try {
 						listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
 						textTotal.setText(controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
+						lblError.setText("");
 					}
 					catch(Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -234,6 +236,7 @@ public class PanelTickets extends JPanel {
 					String total = controladorPanelTickets.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos), textTotal.getText());
 					listaPAnnadidos.remove(pos);
 					textTotal.setText(total);
+					lblError.setText("");
 				}
 				catch(Exception e) {
 					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
