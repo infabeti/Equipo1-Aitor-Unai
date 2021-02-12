@@ -32,9 +32,9 @@ public class ControladorPanelPedidos {
 	}
 	
 	public String conseguirLocal() {
-		
-		return modelo.getUser().getLocal();
-				
+
+		return modelo.getUser().getNifLocal();
+
 	}
 	
 	public void mostrarPanelPedidos() {

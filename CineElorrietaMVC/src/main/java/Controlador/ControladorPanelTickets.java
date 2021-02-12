@@ -31,6 +31,12 @@ public class ControladorPanelTickets {
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
 
 	}
+	
+	public String conseguirLocal() {
+
+		return modelo.getUser().getNifLocal();
+
+	}
 
 	public String devolverFechaHora() {
 		return modelo.getFechaHoraSys();

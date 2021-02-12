@@ -171,7 +171,7 @@ public class PanelFacturas extends JPanel {
 		add(lblError);
 		
 		textLocal = new JTextField();
-		textLocal.setBounds(400, 59, 244, 30);
+		textLocal.setBounds(400, 59, 106, 30);
 		add(textLocal);
 		textLocal.setColumns(10);
 		textLocal.setText(controladorPanelFacturas.conseguirLocal());

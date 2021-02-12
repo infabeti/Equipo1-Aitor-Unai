@@ -90,6 +90,9 @@ public class PanelPedidos extends JPanel {
 		textFieldLocal.setColumns(10);
 		textFieldLocal.setBounds(207, 115, 125, 30);
 		add(textFieldLocal);
+		textFieldLocal.setText(controladorPanelPedidos.conseguirLocal());
+		textFieldLocal.setEditable(false);
+		textFieldLocal.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JLabel lblTipoPed = new JLabel("* Solo rellenar si el pedido es a domicilio:");
 		lblTipoPed.setFont(new Font("Arial", Font.PLAIN, 17));

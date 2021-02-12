@@ -27,7 +27,7 @@ public class ControladorPanelFacturas {
 
 	public String conseguirLocal() {
 
-		return modelo.getUser().getLocal();
+		return modelo.getUser().getNifLocal();
 
 	}
 

@@ -137,6 +137,9 @@ public class PanelTickets extends JPanel {
 		textLocal.setBounds(120, 126, 114, 19);
 		add(textLocal);
 		textLocal.setColumns(10);
+		textLocal.setText(controladorPanelTickets.conseguirLocal());
+		textLocal.setEditable(false);
+		textLocal.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		textFieldFecha = new JTextField();
 		textFieldFecha.setColumns(10);
