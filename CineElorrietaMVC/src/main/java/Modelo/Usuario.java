@@ -5,11 +5,13 @@ public class Usuario {
 	private String nombre;
 	private String local;
 	private String tipoLocal;
+	private String nifLocal;
 	
-	public Usuario (String nombre, String local, String tipoLocal) {
+	public Usuario (String nombre, String local, String tipoLocal, String nifLocal) {
 		this.nombre = nombre;
 		this.local = local;
 		this.tipoLocal = tipoLocal;
+		this.nifLocal = nifLocal;
 	}
 	
 	public String getNombre() {
@@ -34,6 +36,14 @@ public class Usuario {
 	
 	public void setTipoLocal(String tipoLocal) {
 		this.tipoLocal = tipoLocal;
+	}
+
+	public String getNifLocal() {
+		return this.nifLocal;
+	}
+
+	public void setNifLocal(String nifLocal) {
+		this.nifLocal = nifLocal;
 	}
 
 }
