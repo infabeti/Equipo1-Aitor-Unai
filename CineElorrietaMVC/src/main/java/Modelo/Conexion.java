@@ -51,7 +51,7 @@ public class Conexion {
 			System.exit(0);
 		} catch (SQLException e) {
 			System.out.println("ocurre una SQLException: " + e.getMessage());
-			System.out.println("Verifique que Mysql esté encendido...");
+			System.out.println("Verifique que Mysql estï¿½ encendido...");
 			System.exit(0);
 
 		}
