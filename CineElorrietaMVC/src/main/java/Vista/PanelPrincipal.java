@@ -24,7 +24,7 @@ public class PanelPrincipal extends JPanel {
 	private JButton btnDesconectar;
 
 
-	public PanelPrincipal(ControladorPanelPrincipal controladorPanelPrincipal) {
+	public PanelPrincipal(ControladorPanelPrincipal controladorPanelPrincipal, String tipoLocal) {
 		setBackground(SystemColor.activeCaption);
 
 		
@@ -66,6 +66,14 @@ public class PanelPrincipal extends JPanel {
 			btnDesconectar.setBounds(50, 304, 127, 23);
 			add(btnDesconectar);
 			initializeEvents();
+			
+			if(tipoLocal.equals("BAR")) {
+				btnComandas.setVisible(false);
+				btnPedidos.setVisible(false);
+			}
+			else if(tipoLocal.equals("CAFETERIA")) {
+				btnComandas.setVisible(false);
+			}
 		
 	}
 	

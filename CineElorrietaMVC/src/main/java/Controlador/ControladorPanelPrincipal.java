@@ -1,6 +1,7 @@
 package Controlador;
 
 import Modelo.Modelo;
+import Modelo.Usuario;
 import Vista.PanelPrincipal;
 import Vista.Vista;
 
@@ -11,6 +12,7 @@ public class ControladorPanelPrincipal {
 	private Vista vista;
 	private Controlador controlador;
 	private PanelPrincipal panelPrincipal;
+	
 
 	public ControladorPanelPrincipal(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -19,7 +21,8 @@ public class ControladorPanelPrincipal {
 	}
 
 	public void mostrarPanelPrincipal() {
-		this.panelPrincipal = new PanelPrincipal(this);
+		Usuario user = this.modelo.getUser();
+		this.panelPrincipal = new PanelPrincipal(this, user.getTipoLocal());
 		this.vista.mostrarPanel(this.panelPrincipal);
 	}
 
