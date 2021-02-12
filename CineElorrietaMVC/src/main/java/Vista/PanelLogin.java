@@ -59,40 +59,44 @@ public class PanelLogin extends JPanel {
 		setLayout(null);
 
 		lblTextoPanel = new JLabel("PANEL LOGIN");
-		lblTextoPanel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblTextoPanel.setBounds(28, 23, 187, 46);
+		lblTextoPanel.setFont(new Font("Arial", Font.BOLD, 50));
+		lblTextoPanel.setBounds(28, 23, 412, 46);
 		add(lblTextoPanel);
 
-		JLabel lblNumTrans = new JLabel("Nombre de usuario:");
-		lblNumTrans.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblNumTrans.setBounds(28, 80, 187, 23);
-		add(lblNumTrans);
+		JLabel lbldni= new JLabel("DNI: ");
+		lbldni.setFont(new Font("Arial", Font.PLAIN, 28));
+		lbldni.setBounds(31, 129, 141, 23);
+		add(lbldni);
 
 		textFieldNomUsuario = new JTextField();
-		textFieldNomUsuario.setBounds(198, 78, 220, 30);
+		textFieldNomUsuario.setFont(new Font("Arial", Font.PLAIN, 20));
+		textFieldNomUsuario.setBounds(206, 120, 234, 46);
 		add(textFieldNomUsuario);
 		textFieldNomUsuario.setColumns(10);
 
 		JLabel lblLocal = new JLabel("Contrase\u00F1a:");
-		lblLocal.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblLocal.setBounds(28, 122, 113, 23);
+		lblLocal.setFont(new Font("Arial", Font.PLAIN, 28));
+		lblLocal.setBounds(28, 214, 169, 23);
 		add(lblLocal);
 
 
 		textFieldpassword = new JPasswordField();
+		textFieldpassword.setFont(new Font("Arial", Font.PLAIN, 20));
 		textFieldpassword.setColumns(10);
-		textFieldpassword.setBounds(198, 120, 220, 30);
+		textFieldpassword.setBounds(206, 205, 234, 46);
 		add(textFieldpassword);
 
 		
 
 	
-		btnAceptar = new JButton("LOGIN");
-		btnAceptar.setBounds(352, 247, 89, 23);
+		btnAceptar = new JButton("Login");
+		btnAceptar.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnAceptar.setBounds(57, 323, 115, 41);
 		add(btnAceptar);
 		
 		btnRegistro= new JButton("Registro");
-		btnRegistro.setBounds(96, 247, 89, 23);
+		btnRegistro.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnRegistro.setBounds(288, 323, 141, 41);
 		add(btnRegistro);
 		
 		initializeEvents();
@@ -111,7 +115,8 @@ private ActionListener listenerBotonAceptar(ControladorLogin controladorLogin) {
 			System.out.println("Ejecutando evento Boton LOGIN");
 			
 			 String userName = textFieldNomUsuario.getText();
-			 String password = textFieldpassword.getText();
+			 @SuppressWarnings("deprecation")
+			String password = textFieldpassword.getText();
 			
 		if (controlador.login(userName, password)) {
 			

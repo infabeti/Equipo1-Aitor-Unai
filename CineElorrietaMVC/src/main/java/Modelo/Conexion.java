@@ -62,15 +62,15 @@ public class Conexion {
 		System.out.println("Desconexion realizada correctamente");
 	}
 
-	public boolean login(String userName, String password) {
+	public boolean login(String dni, String password) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("Select nombre, apellido from empleado where nombre=? and contrasena=?");
+					.prepareStatement("Select nombre, apellido from empleado where dni=? and contrasena=?");
 
-			st.setString(1, userName);
+			st.setString(1, dni);
 			st.setString(2, password);
 
 			ResultSet rs = st.executeQuery();
