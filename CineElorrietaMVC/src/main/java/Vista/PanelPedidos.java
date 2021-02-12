@@ -22,6 +22,7 @@ import Modelo.Producto;
 
 import java.awt.SystemColor;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JList;
 import javax.swing.JFormattedTextField;
 
@@ -48,6 +49,7 @@ public class PanelPedidos extends JPanel {
 	private JLabel lblError;
 	private JButton btnEliminar;
 	private JTextField textTotal;
+	private JButton btnFinalizar;
 	
 
 	public PanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
@@ -63,7 +65,7 @@ public class PanelPedidos extends JPanel {
 		add(lblTextoPanel);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(494, 416, 89, 23);
+		btnVolver.setBounds(511, 512, 89, 23);
 		add(btnVolver);
 
 		JLabel lblNumTrans = new JLabel("Numero de transacci\u00F3n: \r\n");
@@ -75,7 +77,9 @@ public class PanelPedidos extends JPanel {
 		textFieldNumTrans.setBounds(207, 73, 125, 30);
 		add(textFieldNumTrans);
 		textFieldNumTrans.setColumns(10);
-		// textFieldNumTrans.setText("1");
+		textFieldNumTrans.setText(controladorPanelPedidos.leerNumTransBBDD());
+		textFieldNumTrans.setEditable(false);
+		textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JLabel lblFecha = new JLabel("Fecha y hora: ");
 		lblFecha.setFont(new Font("Arial", Font.PLAIN, 17));
@@ -174,6 +178,10 @@ public class PanelPedidos extends JPanel {
 		textTotal.setColumns(10);
 		textTotal.setText("0");
 		
+		btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.setBounds(293, 507, 109, 33);
+		add(btnFinalizar);
+		
 		
 
 		initializeEvents();
@@ -184,6 +192,7 @@ public class PanelPedidos extends JPanel {
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelPedidos));
 		this.btnSeleccionar.addActionListener(listenerBotonSeleccionar(this.controladorPanelPedidos));
+		this.btnFinalizar.addActionListener(listenerBotonFinalizar(this.controladorPanelPedidos));
 		this.btnEliminar.addActionListener(listenerBotonEliminar(this.controladorPanelPedidos));
 	}
 	
@@ -225,6 +234,18 @@ public class PanelPedidos extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Volver");
 				controladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
+			}
+		};
+	}
+	
+	private ActionListener listenerBotonFinalizar(ControladorPanelPedidos controladorPanelPedidos) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Finalizar");
+				
+				
+				
+				controladorPanelPedidos.accionadoBottonFinalizar();
 			}
 		};
 	}

@@ -1,5 +1,7 @@
 package Controlador;
 
+import javax.swing.JOptionPane;
+
 import Modelo.LineaPedido;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
@@ -23,6 +25,12 @@ public class ControladorPanelPedidos {
 		this.controlador = controlador;	
 	}
 	
+	public String leerNumTransBBDD() {
+		
+		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+		
+	}
+	
 	public void mostrarPanelPedidos() {
 		this.panelPedidos = new PanelPedidos(this);
 		this.vista.mostrarPanel(this.panelPedidos);
@@ -32,6 +40,11 @@ public class ControladorPanelPedidos {
 		this.controlador.navegarPanelPrincipal();
 		ListaProductos listaProd = modelo.getListaTemporal();
 		listaProd.limpiarListTemporal();
+	}
+	
+	public void accionadoBottonFinalizar() {
+		this.controlador.navegarPanelPrincipal();
+		JOptionPane.showMessageDialog(null, "Finalizado");
 	}
 	
 	

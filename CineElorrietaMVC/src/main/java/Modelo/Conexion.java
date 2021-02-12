@@ -89,7 +89,7 @@ public class Conexion {
 
 	public boolean registro(String NIF) {
 		try {
-			
+
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
@@ -110,5 +110,32 @@ public class Conexion {
 			sqlException.printStackTrace();
 		}
 		return false;
+	}
+
+	public int leerNumTransBBDD() {
+
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("select * from actividad;");
+
+			ResultSet rs = st.executeQuery();
+			
+
+			
+			try {
+				if (rs.next()) {
+					return rs.getInt("transaccion")+1;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return 999999;
 	}
 }
