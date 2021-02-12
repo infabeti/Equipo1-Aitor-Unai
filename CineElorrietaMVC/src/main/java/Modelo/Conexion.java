@@ -143,4 +143,33 @@ public class Conexion {
 		}
 		return 999999;
 	}
+	
+	public int leerNifLocal() {
+
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+			
+			
+			
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("select * from establecimiento ;");
+
+			ResultSet rs = st.executeQuery();
+			
+
+			
+			try {
+				if (rs.next()) {
+					return rs.getInt("transaccion")+1;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return 999999;
+	}
 }

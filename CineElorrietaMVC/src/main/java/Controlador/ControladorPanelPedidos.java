@@ -31,6 +31,12 @@ public class ControladorPanelPedidos {
 		
 	}
 	
+	public String conseguirLocal() {
+		
+		return modelo.getUser().getLocal();
+				
+	}
+	
 	public void mostrarPanelPedidos() {
 		this.panelPedidos = new PanelPedidos(this);
 		this.vista.mostrarPanel(this.panelPedidos);

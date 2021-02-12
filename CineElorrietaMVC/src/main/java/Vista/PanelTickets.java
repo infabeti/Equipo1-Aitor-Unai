@@ -16,6 +16,7 @@ import Controlador.Controlador;
 import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelTickets;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -26,7 +27,7 @@ public class PanelTickets extends JPanel {
 	private ControladorPanelTickets controladorPanelTickets;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
-	private JTextField textField;
+	private JTextField textFieldNumTrans;
 	private JButton btnFinalizar;
 	private JLabel lblTransaccion;
 	private JList listaProductos;
@@ -58,13 +59,16 @@ public class PanelTickets extends JPanel {
 		add(lblTextoPanel);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(561, 511, 89, 23);
+		btnVolver.setBounds(619, 529, 89, 23);
 		add(btnVolver);
 		
-		textField = new JTextField();
-		textField.setBounds(120, 76, 114, 19);
-		add(textField);
-		textField.setColumns(10);
+		textFieldNumTrans = new JTextField();
+		textFieldNumTrans.setBounds(120, 76, 114, 19);
+		add(textFieldNumTrans);
+		textFieldNumTrans.setColumns(10);
+		textFieldNumTrans.setText(controladorPanelTickets.leerNumTransBBDD());
+		textFieldNumTrans.setEditable(false);
+		textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		lblTransaccion = new JLabel("Transaccion");
 		lblTransaccion.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -72,7 +76,7 @@ public class PanelTickets extends JPanel {
 		add(lblTransaccion);
 		
 		btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setBounds(411, 510, 117, 25);
+		btnFinalizar.setBounds(461, 528, 117, 25);
 		add(btnFinalizar);
 		
 		btnAnadir = new JButton("Seleccionar\r\n");

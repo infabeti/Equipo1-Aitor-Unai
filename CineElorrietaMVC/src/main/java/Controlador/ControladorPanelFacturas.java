@@ -14,23 +14,35 @@ public class ControladorPanelFacturas {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelFacturas panelFacturas;
-	
+
 	public ControladorPanelFacturas(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
-		this.controlador = controlador;	
+		this.controlador = controlador;
 	}
-	
+
 	public String devolverFechaHora() {
 		return modelo.getFechaHoraSys();
 	}
-	
+
+	public String conseguirLocal() {
+
+		return modelo.getUser().getLocal();
+
+	}
+
+	public String leerNumTransBBDD() {
+
+		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+
+	}
+
 	public void mostrarPanelFacturas() {
 		this.panelFacturas = new PanelFacturas(this);
 		this.vista.mostrarPanel(this.panelFacturas);
 	}
-	
-	public String[] cogerListaProductos() { 
+
+	public String[] cogerListaProductos() {
 		ListaProductos listaProd = this.modelo.getListaProductos();
 		String[] lista = listaProd.getListaProductosString();
 		return lista;
@@ -41,7 +53,7 @@ public class ControladorPanelFacturas {
 		ListaProductos listaProd = modelo.getListaTemporal();
 		listaProd.limpiarListTemporal();
 	}
-	
+
 	public String accionadoBotonAnnadirProducto(String producto) {
 		ListaProductos listaProd = modelo.getListaProductos();
 		Producto prod = listaProd.devolverProductoPorString(producto);
@@ -49,11 +61,14 @@ public class ControladorPanelFacturas {
 		listaTemporal.addProductoTemporal(prod);
 		return prod.toString();
 	}
-	
-	public String cantidadProducto(String cantidad, String productoAnadir) { //Este m�todo crea el mensaje para a�adir en la lista de a�adidos, el cual se creaba antes en la propia vista
+
+	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para
+																				// a�adir en la lista de a�adidos,
+																				// el cual se creaba antes en la propia
+																				// vista
 		return cantidad + " " + productoAnadir;
- 	}
-	
+	}
+
 	public String cantidadTotal(String cantidad, String total, String producto) {
 		ListaProductos listaProd = this.modelo.getListaProductos();
 		int cantidadInt = Integer.parseInt(cantidad);
@@ -61,7 +76,7 @@ public class ControladorPanelFacturas {
 		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
 		return String.valueOf(totalDouble + precioTotalProducto);
 	}
-	
+
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
 		ListaProductos listaProd = modelo.getListaTemporal();
 		int cantidad = modelo.cogerCantidadString(eliminar);

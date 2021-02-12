@@ -4,29 +4,17 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.util.Iterator;
-
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import Controlador.Controlador;
 import Controlador.ControladorPanelPedidos;
-import Controlador.ControladorPanelTickets;
-import Modelo.LineaPedido;
-import Modelo.Modelo;
-import Modelo.Producto;
-
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
 import javax.swing.JFormattedTextField;
-
-import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.text.NumberFormatter;
 import java.awt.Color;
 

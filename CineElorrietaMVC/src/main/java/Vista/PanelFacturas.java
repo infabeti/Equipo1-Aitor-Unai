@@ -5,17 +5,14 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import Controlador.Controlador;
 import Controlador.ControladorPanelFacturas;
-import Controlador.ControladorPanelPedidos;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -23,6 +20,7 @@ import java.awt.Color;
 
 public class PanelFacturas extends JPanel {
 
+	private static final long serialVersionUID = -8519282282238553342L;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
 	private ControladorPanelFacturas controladorPanelFacturas;
@@ -30,7 +28,7 @@ public class PanelFacturas extends JPanel {
 	private JTextField textNombre;
 	private JTextField textApellido;
 	private JTextField textFieldFecha;
-	private JTextField textTransaccion;
+	private JTextField textFieldNumTrans;
 	private JTextField textCantidad;
 	private JList listaProductos;
 	private JList listaAnnadidos;
@@ -85,10 +83,13 @@ public class PanelFacturas extends JPanel {
 		add(textApellido);
 		textApellido.setColumns(10);
 		
-		textTransaccion = new JTextField();
-		textTransaccion.setBounds(131, 156, 113, 20);
-		add(textTransaccion);
-		textTransaccion.setColumns(10);
+		textFieldNumTrans = new JTextField();
+		textFieldNumTrans.setBounds(131, 156, 113, 20);
+		add(textFieldNumTrans);
+		textFieldNumTrans.setColumns(10);
+		textFieldNumTrans.setText(controladorPanelFacturas.leerNumTransBBDD());
+		textFieldNumTrans.setEditable(false);
+		textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblNIF = new JLabel("NIF");
 		lblNIF.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -170,9 +171,12 @@ public class PanelFacturas extends JPanel {
 		add(lblError);
 		
 		textLocal = new JTextField();
-		textLocal.setBounds(400, 64, 114, 19);
+		textLocal.setBounds(400, 59, 244, 30);
 		add(textLocal);
 		textLocal.setColumns(10);
+		textLocal.setText(controladorPanelFacturas.conseguirLocal());
+		textLocal.setEditable(false);
+		textLocal.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		lblLocal = new JLabel("Local");
 		lblLocal.setBounds(326, 67, 70, 15);
