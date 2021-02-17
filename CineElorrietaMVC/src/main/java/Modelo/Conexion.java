@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 public class Conexion {
 
 	// constructor de la clase
@@ -66,8 +64,8 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("Select e.nombre, es.nombre, tipoNegocio, e.NIF from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"Select e.nombre, es.nombre, tipoNegocio, e.NIF from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?");
 
 			st.setString(1, dni);
 			st.setString(2, password);
@@ -83,7 +81,7 @@ public class Conexion {
 				return user;
 			} else {
 				Usuario user = new Usuario("", "", "", "");
-				return user ;
+				return user;
 			}
 
 		} catch (SQLException sqlException) {
@@ -124,49 +122,42 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("select * from actividad;");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("select * from actividad;");
 
 			ResultSet rs = st.executeQuery();
-			
 
-			
 			try {
 				if (rs.next()) {
-					return rs.getInt("transaccion")+1;
+					return rs.getInt("transaccion") + 1;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			} 
+			}
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
 		return 999999;
 	}
-	
+
 	public int leerNifLocal() {
 
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
-			
-			
-			
+
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement("select * from establecimiento ;");
 
 			ResultSet rs = st.executeQuery();
-			
 
-			
 			try {
 				if (rs.next()) {
-					return rs.getInt("transaccion")+1;
+					return rs.getInt("transaccion") + 1;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-			} 
+			}
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();

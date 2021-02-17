@@ -7,12 +7,10 @@ import Vista.Vista;
 
 public class ControladorPanelPrincipal {
 
-	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
 	private Controlador controlador;
 	private PanelPrincipal panelPrincipal;
-	
 
 	public ControladorPanelPrincipal(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -22,7 +20,7 @@ public class ControladorPanelPrincipal {
 
 	public void mostrarPanelPrincipal() {
 		Usuario user = this.modelo.getUser();
-		this.panelPrincipal = new PanelPrincipal(this, user.getTipoLocal());
+		this.panelPrincipal = new PanelPrincipal(this, user.getTipoLocal(), user.getNombre(), user.getLocal());
 		this.vista.mostrarPanel(this.panelPrincipal);
 	}
 

@@ -11,17 +11,15 @@ import javax.swing.JPanel;
 
 import Controlador.ControladorPanelAprovisionamiento;
 
-
-
 public class PanelAprovisionamiento extends JPanel {
 
+	private static final long serialVersionUID = -8048832364382290273L;
 	private ControladorPanelAprovisionamiento controladorPanelAprovisionamiento;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
-	
-	
+
 	public PanelAprovisionamiento(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
-		
+
 		setBackground(SystemColor.activeCaption);
 
 		this.controladorPanelAprovisionamiento = controladorPanelAprovisionamiento;
@@ -32,20 +30,19 @@ public class PanelAprovisionamiento extends JPanel {
 		lblTextoPanel.setFont(new Font("Tahoma", Font.PLAIN, 31));
 		lblTextoPanel.setBounds(0, 0, 450, 67);
 		add(lblTextoPanel);
-		
+
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(425, 374, 89, 23);
 		add(btnVolver);
-		
-		
 
 		initializeEvents();
 
 	}
+
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelAprovisionamiento));
 	}
-	
+
 	private ActionListener listenerBotonVolver(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

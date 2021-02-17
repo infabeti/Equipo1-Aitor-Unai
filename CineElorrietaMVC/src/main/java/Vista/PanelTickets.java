@@ -12,8 +12,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Controlador.Controlador;
-import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelTickets;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -24,6 +22,8 @@ import java.awt.Color;
 
 public class PanelTickets extends JPanel {
 
+
+	private static final long serialVersionUID = -4866340972661290326L;
 	private ControladorPanelTickets controladorPanelTickets;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
