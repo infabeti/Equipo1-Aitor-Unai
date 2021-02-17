@@ -1,5 +1,7 @@
 package Controlador;
 
+import java.text.SimpleDateFormat;
+
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Vista.PanelTickets;
@@ -30,6 +32,10 @@ public class ControladorPanelTickets {
 
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
 
+	}
+	
+	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif) {
+		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
 	}
 	
 	public String conseguirLocal() {
@@ -90,6 +96,22 @@ public class ControladorPanelTickets {
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
 		listaProd.eliminarProductoTemporal(pos);
 		return totalStr;
+	}
+	
+	public String devolverFechaFormateada(String input) {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		String dateInString = input;
+		
+		try {
+
+			java.util.Date date1 = formatter.parse(dateInString);
+			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "Error";
 	}
 
 }

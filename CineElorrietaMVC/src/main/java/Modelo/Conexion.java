@@ -126,10 +126,13 @@ public class Conexion {
 
 			ResultSet rs = st.executeQuery();
 
+			int numero = 1;
+
 			try {
-				if (rs.next()) {
-					return rs.getInt("transaccion") + 1;
+				while (rs.next()) {
+					numero++;
 				}
+				return numero;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -137,7 +140,7 @@ public class Conexion {
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
-		return 999999;
+		return 1;
 	}
 
 	public int leerNifLocal() {
@@ -164,4 +167,25 @@ public class Conexion {
 		}
 		return 999999;
 	}
+
+	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into actividad "
+					+ "values(" + transaccion + ",'" + fecha + "'," + totalOperacion + ",'" + nif + "');");
+
+			try {
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+	};
 }
