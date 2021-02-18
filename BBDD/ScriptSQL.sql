@@ -149,3 +149,25 @@ constraint pk_suministro primary key (Transaccion, CodigoAlimento),
 constraint fk_suministro_CodigoAlimento foreign key (CodigoAlimento) references ingrediente (CodigoAlimento) on update cascade,
 constraint fk_suministro_transaccion foreign key (Transaccion) references aprovisionamiento (Transaccion) on update cascade
 );
+
+insert into establecimiento
+values ('12345678H', 'Bar Buenavista', 'Calle buenavista 7', 'Bar') ;
+
+insert into empleado
+values ('12312122S', 'Jon', 'Zampon','Zampon', '12345678H') ;
+
+insert into alimento 
+values(1, 'Huevo', 'Comida', '2021/02/20', '0.10', true,true,false,true,true);
+
+insert into alimento 
+values(2, 'Coca-cola', 'Bebida', null, '0.35', true,true,true,true,true);
+
+insert into alimento 
+values(3, 'Bocata de tortilla', 'Comida', '2021/02/20', '1.00', true,true,false,false,true);
+
+insert into producto
+values(2, '1.80');
+
+insert into producto
+values(3, '2');
+

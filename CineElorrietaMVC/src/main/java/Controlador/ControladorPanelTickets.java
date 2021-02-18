@@ -38,6 +38,11 @@ public class ControladorPanelTickets {
 		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
 	}
 	
+	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
+		//aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
+		//consulta a bbdd comparando el nombre para sacar el codalimento
+	}
+	
 	public String conseguirLocal() {
 
 		return modelo.getUser().getNifLocal();

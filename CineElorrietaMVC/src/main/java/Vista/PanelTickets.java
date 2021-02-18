@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -195,15 +196,31 @@ public class PanelTickets extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
 
-				System.out.println(Integer.parseInt(textFieldNumTrans.getText()));
-				System.out.println(controladorPanelTickets.devolverFechaFormateada(textFieldFecha.getText()));
-				System.out.println(Double.parseDouble(textTotal.getText()));
-				System.out.println(textLocal.getText());
+				// System.out.println(Integer.parseInt(textFieldNumTrans.getText()));
+				// System.out.println(controladorPanelTickets.devolverFechaFormateada(textFieldFecha.getText()));
+				// System.out.println(Double.parseDouble(textTotal.getText()));
+				// System.out.println(textLocal.getText());
 
 				if (Double.parseDouble(textTotal.getText()) > 0) {
+					// insertar datos en actividad
 					controladorPanelTickets.insertarTicket(Integer.parseInt(textFieldNumTrans.getText()),
 							controladorPanelTickets.devolverFechaFormateada(textFieldFecha.getText()),
 							Double.parseDouble(textTotal.getText()), textLocal.getText());
+
+					// insertar datos de productos
+					for (int i = 0; i < listaPAnnadidos.getSize(); i++) {
+
+						String textoRecogido = listaPAnnadidos.get(i);
+						String textoSpliteado[] = textoRecogido.split(" ");
+				
+						int cantidad = Integer.parseInt(textoSpliteado[0]);
+						String producto = textoSpliteado[3];
+						double precioFinal = Double.parseDouble(textoSpliteado[5].substring(0, textoSpliteado.length - 3))*cantidad;
+						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
+						
+						controladorPanelTickets.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
+					}
+
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
 					controladorPanelTickets.accionadoBottonVolverPanelPrincipal();
 
