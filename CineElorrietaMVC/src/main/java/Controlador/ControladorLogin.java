@@ -43,6 +43,7 @@ public class ControladorLogin {
 		if (res.getNombre().equals("")) {
 			return false;
 		} else {
+			modelo.actualizarListaProductosLocal();
 			return true;
 		}
 

@@ -24,7 +24,7 @@ public class Modelo {
 	
 	public Modelo() {
 		
-		productosAlmacenados();
+		//productosAlmacenados(); 
 		user = new Usuario("", "", "", "");
 
 	}
@@ -86,6 +86,10 @@ public class Modelo {
 		punt++;
 		int cantidad = Integer.parseInt(linea.substring(0, punt));
 		return cantidad;
+	}
+	
+	public void actualizarListaProductosLocal() {
+		this.listaProductos = conexion.cogerProductosLocal(user.getNifLocal());
 	}
 	
 	public Usuario getUser() {
