@@ -150,11 +150,29 @@ constraint fk_suministro_CodigoAlimento foreign key (CodigoAlimento) references 
 constraint fk_suministro_transaccion foreign key (Transaccion) references aprovisionamiento (Transaccion) on update cascade
 );
 
+/* Inserciones establecimientos */
+
 insert into establecimiento
 values ('12345678H', 'Bar Buenavista', 'Calle buenavista 7', 'Bar') ;
 
+insert into establecimiento
+values ('23456789J', 'Ristorante Fuggini', 'Gran Vía 3', 'Restaurante') ;
+
+insert into establecimiento
+values ('34567899K', 'Café Manolo', 'Montevideo 4', 'Cafeteria') ;
+
+/* Inserciones empleados */
+
 insert into empleado
 values ('12312122S', 'Jon', 'Zampon','Zampon', '12345678H') ;
+
+insert into empleado
+values ('75623142C', 'Kevin', 'Monasterio','12345', '23456789J') ;
+
+insert into empleado
+values ('85296365L', 'Maria', 'Zambrano','maria123', '34567899K') ;
+
+/* Inserciones Alimentos y productos */
 
 insert into alimento 
 values(1, 'Huevo', 'Comida', '2021/02/20', '0.10', true,true,false,true,true);
@@ -162,12 +180,80 @@ values(1, 'Huevo', 'Comida', '2021/02/20', '0.10', true,true,false,true,true);
 insert into alimento 
 values(2, 'Coca-cola', 'Bebida', null, '0.35', true,true,true,true,true);
 
+insert into producto
+values(2, 1.80);
+
 insert into alimento 
 values(3, 'Bocata de tortilla', 'Comida', '2021/02/20', '1.00', true,true,false,false,true);
 
 insert into producto
-values(2, '1.80');
+values(3, 2);
+
+insert into alimento 
+values(4, 'Caña Cerveza Rubia', 'Bebida', '2021/11/20', '0.25', true,true,true,false,true);
 
 insert into producto
-values(3, '2');
+values(4, 2.20);
+
+insert into alimento 
+values(5, 'Zurito Rubio', 'Bebida', '2021/11/20', '0.15', true,true,true,false,true);
+
+insert into producto
+values(5, 1);
+
+insert into alimento 
+values(6, 'Cerveza Radler', 'Bebida', '2021/11/20', '0.35', true,true,true,false,true);
+
+insert into producto
+values(6, 2.20);
+
+insert into alimento 
+values(7, 'Mojito', 'Bebida', '2021/11/20', '2.00', true,true,true,true,true);
+
+insert into producto
+values(7, 6);
+
+insert into alimento 
+values(8, 'Cubata', 'Bebida', '2021/11/20', '2.00', true,true,true,true,true);
+
+insert into producto
+values(8, 6);
+
+insert into alimento 
+values(9, 'Sandwich Jamón y Queso', 'Comida', '2021/03/20', '0.70', false,true,false,true,true);
+
+insert into producto
+values(9, 1.60);
+
+insert into alimento 
+values(10, 'Patatas Lays', 'Comida', '2021/12/20', '0.30', true,true,true,true,true);
+
+insert into producto
+values(10, 2);
+
+insert into alimento 
+values(11, 'Café Solo', 'Bebida', '2021/12/20', '0.15', true,true,true,true,true);
+
+insert into producto
+values(11, 1.10);
+
+insert into alimento 
+values(12, 'Café con leche', 'Bebida', '2021/12/20', '0.25', true,true,false,true,true);
+
+insert into producto
+values(12, 1.20);
+
+insert into alimento 
+values(13, 'Cola Cao', 'Bebida', '2022/12/20', '0.30', true,true,true,true,true);
+
+insert into producto
+values(13, 2);
+
+
+
+
+
+
+
+
 
