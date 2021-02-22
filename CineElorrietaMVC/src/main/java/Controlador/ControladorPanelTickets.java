@@ -41,6 +41,10 @@ public class ControladorPanelTickets {
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
 		//aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
 		//consulta a bbdd comparando el nombre para sacar el codalimento
+		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
+		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
+		
+		
 	}
 	
 	public String conseguirLocal() {

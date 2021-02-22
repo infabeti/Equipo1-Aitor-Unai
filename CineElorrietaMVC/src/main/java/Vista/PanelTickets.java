@@ -209,7 +209,7 @@ public class PanelTickets extends JPanel {
 
 					// insertar datos de productos
 					for (int i = 0; i < listaPAnnadidos.getSize(); i++) {
-
+/* CAMBIAR, ASI NO VA A FUNCIONAR POR LOS ESPACIOS */
 						String textoRecogido = listaPAnnadidos.get(i);
 						String textoSpliteado[] = textoRecogido.split(" ");
 				
