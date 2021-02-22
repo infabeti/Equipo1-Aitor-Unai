@@ -249,8 +249,28 @@ values(13, 'Cola Cao', 'Bebida', '2022/12/20', '0.30', true,true,true,true,true)
 insert into producto
 values(13, 2);
 
+/* Stock de establecimiento */
 
+insert into stock
+values('12345678H', 2, 20);
 
+insert into stock
+values('12345678H', 3, 20);
+
+insert into stock
+values('12345678H', 4, 100);
+
+insert into stock
+values('12345678H', 5, 400);
+
+insert into stock
+values('12345678H', 11, 90);
+
+insert into stock
+values('12345678H', 12, 150);
+
+insert into stock
+values('12345678H', 10, 14);
 
 
 
