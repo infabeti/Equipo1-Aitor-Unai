@@ -10,10 +10,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import Controlador.ControladorPanelPedidos;
+import Controlador.ControladorPanelTickets;
+
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.NumberFormatter;
 import java.awt.Color;
@@ -27,7 +30,7 @@ public class PanelPedidos extends JPanel {
 	private JTextField textFieldNumTrans;
 	private JTextField textFieldFecha;
 	private JTextField textFieldLocal;
-	private JTextField textField;
+	private JTextField textFieldDomicilio;
 	private JList productosAlmacenados = new JList();
 	private JList listaAnnadidos;
 	private JScrollPane scrollPane;
@@ -99,10 +102,10 @@ public class PanelPedidos extends JPanel {
 		lblTipoPed.setBounds(17, 165, 385, 23);
 		add(lblTipoPed);
 
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(17, 200, 487, 30);
-		add(textField);
+		textFieldDomicilio = new JTextField();
+		textFieldDomicilio.setColumns(10);
+		textFieldDomicilio.setBounds(17, 200, 487, 30);
+		add(textFieldDomicilio);
 
 		productosAlmacenados = new JList(controladorPanelPedidos.pasarListaProductos());
 		productosAlmacenados.setBackground(Color.WHITE);
@@ -238,15 +241,46 @@ public class PanelPedidos extends JPanel {
 		};
 	}
 	
-	private ActionListener listenerBotonFinalizar(ControladorPanelPedidos controladorPanelPedidos) {
+	private ActionListener listenerBotonFinalizar(ControladorPanelPedidos ControladorPanelPedidos) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
+
 				
-				
-				
-				controladorPanelPedidos.accionadoBottonFinalizar();
+
+				if (Double.parseDouble(textTotal.getText()) > 0) {
+					// insertar datos en actividad
+					controladorPanelPedidos.insertarActividad(Integer.parseInt(textFieldNumTrans.getText()),
+							ControladorPanelPedidos.devolverFechaFormateada(textFieldFecha.getText()),
+							Double.parseDouble(textTotal.getText()), textFieldLocal.getText());
+					
+					// insertar datos en pedido
+					controladorPanelPedidos.insertarPedido(Integer.parseInt(textFieldNumTrans.getText()), textFieldDomicilio.getText());
+
+					// insertar datos de productos
+					for (int i = 0; i < listaPAnnadidos.getSize(); i++) {
+						String textoRecogido = listaPAnnadidos.get(i);
+						String textoSpliteado[] = textoRecogido.split(" ");
+
+						int cantidad = Integer.parseInt(textoSpliteado[0]);
+
+						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
+
+						String producto = ControladorPanelPedidos.devolverNombreProducto(i);
+						double precioFinal = ControladorPanelPedidos.cogerPrecioString(producto);
+
+						ControladorPanelPedidos.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
+					}
+
+					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
+					ControladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+				}
+
 			}
+
 		};
 	}
 	

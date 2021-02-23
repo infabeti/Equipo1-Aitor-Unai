@@ -47,7 +47,7 @@ public class PanelLogin extends JPanel {
 		textFieldNomUsuario.setFont(new Font("Arial", Font.PLAIN, 20));
 		textFieldNomUsuario.setBounds(206, 120, 234, 46);
 		textFieldNomUsuario.setColumns(10);
-		textFieldNomUsuario.setText("12312122S");
+		textFieldNomUsuario.setText("75623142C");
 		add(textFieldNomUsuario);
 
 		JLabel lblLocal = new JLabel("Contrase\u00F1a:");
@@ -59,7 +59,7 @@ public class PanelLogin extends JPanel {
 		textFieldpassword.setFont(new Font("Arial", Font.PLAIN, 20));
 		textFieldpassword.setColumns(10);
 		textFieldpassword.setBounds(206, 205, 234, 46);
-		textFieldpassword.setText("zampon");
+		textFieldpassword.setText("12345");
 		add(textFieldpassword);
 
 		btnAceptar = new JButton("Login");

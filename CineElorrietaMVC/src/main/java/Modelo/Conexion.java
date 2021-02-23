@@ -14,7 +14,7 @@ public class Conexion {
 	private final String NOMBREBD = "reto3";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
-	private final String URL = "jdbc:mysql://localhost:3306/" + NOMBREBD + "?useUnicode=true&use"
+	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private Connection conn = null;
@@ -236,7 +236,7 @@ public class Conexion {
 			sqlException.printStackTrace();
 		}
 
-	};
+	}
 
 	public ListaProductos cogerProductosLocal(String NIFLocal) {
 		ListaProductos listaProd = new ListaProductos();
@@ -264,5 +264,27 @@ public class Conexion {
 			sqlException.printStackTrace();
 		}
 		return listaProd;
+	}
+
+	public void insertarPedido(int transaccion, String domicilio) {
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into pedido " + "values("
+							+ transaccion + ",'" + domicilio + "');");
+			/**************/
+			try {
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		
 	}
 }
