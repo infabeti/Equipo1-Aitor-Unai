@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -204,15 +203,16 @@ public class PanelTickets extends JPanel {
 
 					// insertar datos de productos
 					for (int i = 0; i < listaPAnnadidos.getSize(); i++) {
-/* CAMBIAR, ASI NO VA A FUNCIONAR POR LOS ESPACIOS */
 						String textoRecogido = listaPAnnadidos.get(i);
 						String textoSpliteado[] = textoRecogido.split(" ");
-				
+
 						int cantidad = Integer.parseInt(textoSpliteado[0]);
-						String producto = textoSpliteado[3];
-						double precioFinal = Double.parseDouble(textoSpliteado[5].substring(0, textoSpliteado.length - 3))*cantidad;
+
 						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-						
+
+						String producto = controladorPanelTickets.devolverNombreProducto(i);
+						double precioFinal = controladorPanelTickets.cogerPrecioString(producto);
+
 						controladorPanelTickets.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
 					}
 
@@ -241,11 +241,11 @@ public class PanelTickets extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/*
-				 * Este es el m�nimo de l�gica que puede haber (va para todos las vistas) En el
-				 * primer try catch necesita hacer un cast a String ya que no se puede pasar el
-				 * valor directo de getSelectedValue() existeProd necesita estar para asegurarse
-				 * de que se a�ade primero el producto antes de seguir Todos estos comentarios
-				 * valen para las tres vistas
+				 * Este es el m�nimo de l�gica que puede haber (va para todos las vistas) En
+				 * el primer try catch necesita hacer un cast a String ya que no se puede pasar
+				 * el valor directo de getSelectedValue() existeProd necesita estar para
+				 * asegurarse de que se a�ade primero el producto antes de seguir Todos estos
+				 * comentarios valen para las tres vistas
 				 */
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
@@ -258,7 +258,7 @@ public class PanelTickets extends JPanel {
 																			// getSelectedValue() devuelve un objeto por
 																			// lo que no se le puede pasar directamente
 																			// a accionadoBotonAnadirProducto
-					
+
 					existeProd = true;
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
@@ -266,17 +266,21 @@ public class PanelTickets extends JPanel {
 				}
 				if (existeProd) {
 					try {
-						if(controladorPanelTickets.existeProducto(producto) == -1) {
+						if (controladorPanelTickets.existeProducto(producto) == -1) {
 							productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
-							listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
+							listaPAnnadidos
+									.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
 							textTotal.setText(
 									controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
 							lblError.setText("");
-						}
-						else {
+						} else {
 							String yaAnnadido = listaPAnnadidos.get(controladorPanelTickets.existeProducto(producto));
-							listaPAnnadidos.set(controladorPanelTickets.existeProducto(producto), controladorPanelTickets.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							String total = Double.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad) * controladorPanelTickets.cogerPrecioString(producto)));
+							listaPAnnadidos.set(controladorPanelTickets.existeProducto(producto),
+									controladorPanelTickets.cambiarCantidadProductos(yaAnnadido,
+											Integer.parseInt(cantidad)));
+							String total = Double
+									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
+											* controladorPanelTickets.cogerPrecioString(producto)));
 							textTotal.setText(total);
 						}
 					} catch (Exception e) {
@@ -294,11 +298,11 @@ public class PanelTickets extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					/*
-					 * Este es el m�nimo de l�gica necesaria en la vista para eliminar un elemento
-					 * Primero se coge el �ndice seleccionado, luego se le pasa al controlador junto
-					 * al string que representa El producto a eliminar y el total actual Se elimina
-					 * el producto de la lista y luego se cambia el total por el devuelto por el
-					 * controlador
+					 * Este es el m�nimo de l�gica necesaria en la vista para eliminar un
+					 * elemento Primero se coge el �ndice seleccionado, luego se le pasa al
+					 * controlador junto al string que representa El producto a eliminar y el total
+					 * actual Se elimina el producto de la lista y luego se cambia el total por el
+					 * devuelto por el controlador
 					 */
 					int pos = listaAnnadidos.getSelectedIndex();
 					String total = controladorPanelTickets.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos),

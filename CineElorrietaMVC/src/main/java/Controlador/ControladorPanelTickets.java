@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
 
 import Modelo.ListaProductos;
 import Modelo.Modelo;
@@ -33,20 +34,19 @@ public class ControladorPanelTickets {
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
 
 	}
-	
+
 	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif) {
 		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
 	}
-	
+
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
-		//aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
-		//consulta a bbdd comparando el nombre para sacar el codalimento
+		// aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
+		// consulta a bbdd comparando el nombre para sacar el codalimento
 		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
-		
-		
+
 	}
-	
+
 	public String conseguirLocal() {
 
 		return modelo.getUser().getNifLocal();
@@ -78,26 +78,26 @@ public class ControladorPanelTickets {
 		listaTemporal.addProductoTemporal(prod);
 		return prod.toString();
 	}
-	
+
 	public int existeProducto(String producto) {
 		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
 		return pos;
 	}
-	
-	public double cogerPrecioString (String producto) {
+
+	public double cogerPrecioString(String producto) {
 		double precio = modelo.getListaTemporal().precioProductoString(producto);
 		return precio;
 	}
-	
+
 	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
-		for(int i = 0; Character.isDigit(producto.charAt(i));i++) {
+		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
 			pos = i;
 		}
-		String cantString = producto.substring(0, pos+1);
+		String cantString = producto.substring(0, pos + 1);
 		int cantidad = Integer.parseInt(cantString);
 		cantidad = cantidad + cantidadAnadir;
-		String cambiada = cantidad + producto.substring(pos+1);
+		String cambiada = cantidad + producto.substring(pos + 1);
 		return cambiada;
 	}
 
@@ -128,12 +128,12 @@ public class ControladorPanelTickets {
 		listaProd.eliminarProductoTemporal(pos);
 		return totalStr;
 	}
-	
+
 	public String devolverFechaFormateada(String input) {
-		
+
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		String dateInString = input;
-		
+
 		try {
 
 			java.util.Date date1 = formatter.parse(dateInString);
@@ -143,6 +143,15 @@ public class ControladorPanelTickets {
 			e.printStackTrace();
 		}
 		return "Error";
+	}
+	
+	public String devolverNombreProducto(int i) {
+		
+		ListaProductos listaTemporal = this.modelo.getListaTemporal();
+		
+		String[] lista = listaTemporal.getListaProductosString();		
+		
+		return lista[i];
 	}
 
 }
