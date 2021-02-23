@@ -107,11 +107,6 @@ public class PanelPedidos extends JPanel {
 		textFieldDomicilio.setBounds(17, 200, 487, 30);
 		add(textFieldDomicilio);
 
-		productosAlmacenados = new JList(controladorPanelPedidos.pasarListaProductos());
-		productosAlmacenados.setBackground(Color.WHITE);
-		productosAlmacenados.setBounds(17, 271, 144, 135);
-		add(productosAlmacenados);
-
 		JLabel lblCantidad = new JLabel("Cantidad: \r\n");
 		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblCantidad.setBounds(17, 417, 79, 17);
@@ -175,6 +170,14 @@ public class PanelPedidos extends JPanel {
 		btnFinalizar = new JButton("Finalizar");
 		btnFinalizar.setBounds(293, 507, 109, 33);
 		add(btnFinalizar);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(17, 267, 171, 135);
+		add(scrollPane_1);
+		
+				productosAlmacenados = new JList(controladorPanelPedidos.pasarListaProductos());
+				scrollPane_1.setViewportView(productosAlmacenados);
+				productosAlmacenados.setBackground(Color.WHITE);
 		
 		
 
