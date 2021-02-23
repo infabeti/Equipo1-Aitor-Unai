@@ -79,6 +79,28 @@ public class ControladorPanelPedidos {
 		return prod.toString();
 	}
 	
+	public int existeProducto(String producto) {
+		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
+		return pos;
+	}
+	
+	public double cogerPrecioString (String producto) {
+		double precio = modelo.getListaTemporal().precioProductoString(producto);
+		return precio;
+	}
+	
+	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
+		int pos = 0;
+		for(int i = 0; Character.isDigit(producto.charAt(i));i++) {
+			pos = i;
+		}
+		String cantString = producto.substring(0, pos+1);
+		int cantidad = Integer.parseInt(cantString);
+		cantidad = cantidad + cantidadAnadir;
+		String cambiada = cantidad + producto.substring(pos+1);
+		return cambiada;
+	}
+	
 	public String cantidadProducto(String cantidad, String productoAnadir) {
 		return cantidad + " " + productoAnadir;
  	}
