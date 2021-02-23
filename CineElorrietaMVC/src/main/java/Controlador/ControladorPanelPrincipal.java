@@ -1,5 +1,7 @@
 package Controlador;
 
+import javax.swing.JOptionPane;
+
 import Modelo.Modelo;
 import Modelo.Usuario;
 import Vista.PanelPrincipal;
@@ -41,7 +43,12 @@ public class ControladorPanelPrincipal {
 	}
 
 	public void accionadoBottonDesconectarPanelPrincipal() {
+		//Borramos la conexion antes de volver al panel login
+		this.modelo.getConexion().desconectar();
 		this.controlador.navegarPanelLogin();
+		
+		//Mensaje de desconexion
+		JOptionPane.showMessageDialog(null, "Desconectado correctamente");
 	}
 
 }

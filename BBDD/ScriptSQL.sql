@@ -264,6 +264,15 @@ insert into stock
 values('12345678H', 5, 400);
 
 insert into stock
+values('12345678H', 6, 100);
+
+insert into stock
+values('12345678H', 7, 58);
+
+insert into stock
+values('12345678H', 8, 69);
+
+insert into stock
 values('12345678H', 11, 90);
 
 insert into stock
@@ -271,6 +280,66 @@ values('12345678H', 12, 150);
 
 insert into stock
 values('12345678H', 10, 14);
+
+insert into stock
+values('34567899K', 2, 20);
+
+insert into stock
+values('34567899K', 3, 20);
+
+insert into stock
+values('34567899K', 4, 100);
+
+insert into stock
+values('34567899K', 5, 400);
+
+insert into stock
+values('34567899K', 6, 100);
+
+insert into stock
+values('34567899K', 7, 58);
+
+insert into stock
+values('34567899K', 8, 69);
+
+insert into stock
+values('34567899K', 11, 90);
+
+insert into stock
+values('34567899K', 12, 150);
+
+insert into stock
+values('34567899K', 10, 14);
+
+insert into stock
+values('23456789J', 2, 20);
+
+insert into stock
+values('23456789J', 3, 20);
+
+insert into stock
+values('23456789J', 4, 100);
+
+insert into stock
+values('23456789J', 5, 400);
+
+insert into stock
+values('23456789J', 6, 100);
+
+insert into stock
+values('23456789J', 7, 58);
+
+insert into stock
+values('23456789J', 8, 69);
+
+insert into stock
+values('23456789J', 11, 90);
+
+insert into stock
+values('23456789J', 12, 150);
+
+insert into stock
+values('23456789J', 10, 14);
 
 
 

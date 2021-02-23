@@ -168,22 +168,20 @@ public class Conexion {
 		}
 		return 999999;
 	}
-	
+
 	public String obtenerCodigoAlimentoProducto(String producto) {
-	
-		
+
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("select * from alimento ;");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("select * from alimento ;");
 
 			ResultSet rs = st.executeQuery();
 
 			try {
 				while (rs.next()) {
-					if(rs.getString("nombre").equalsIgnoreCase(producto)) {
+					if (rs.getString("nombre").equalsIgnoreCase(producto)) {
 						return rs.getString("codigoalimento");
 					}
 				}
@@ -217,15 +215,16 @@ public class Conexion {
 		}
 
 	};
-	
+
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into lineaproducto (codigoalimento,transaccion,cantidad,preciofinal)"
-					+ "values(" + codigoAlimento + ",'" + transaccion + "'," + cantidad + ",'" + precioFinal + "');");
-/**************/
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into lineaproducto (codigoalimento,transaccion,cantidad,preciofinal)" + "values("
+							+ codigoAlimento + ",'" + transaccion + "'," + cantidad + ",'" + precioFinal + "');");
+			/**************/
 			try {
 				st.executeUpdate();
 
@@ -238,7 +237,7 @@ public class Conexion {
 		}
 
 	};
-	
+
 	public ListaProductos cogerProductosLocal(String NIFLocal) {
 		ListaProductos listaProd = new ListaProductos();
 		try {
@@ -247,12 +246,12 @@ public class Conexion {
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
 					"Select a.Nombre, a.PCompra, p.PVenta, a.Tipo, a.FeCad from alimento a join producto p on a.CodigoAlimento = p.CodigoAlimento join stock s on a.CodigoAlimento = s.CodigoAlimento where s.NIF=?");
-			
+
 			st.setString(1, NIFLocal);
 
 			ResultSet rs = st.executeQuery();
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				String nombre = rs.getString("a.nombre");
 				double pCompra = rs.getDouble("a.PCompra");
 				double pVenta = rs.getDouble("p.PVenta");
@@ -261,10 +260,9 @@ public class Conexion {
 				Producto prod = new Producto(nombre, feCad, tipo, pCompra, pVenta);
 				listaProd.addProductoTemporal(prod);
 			}
-		}
-		catch (SQLException sqlException) {
+		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
 		return listaProd;
-		}
 	}
+}
