@@ -246,10 +246,10 @@ public class PanelTickets extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/*
-				 * Este es el mínimo de lógica que puede haber (va para todos las vistas) En el
+				 * Este es el mï¿½nimo de lï¿½gica que puede haber (va para todos las vistas) En el
 				 * primer try catch necesita hacer un cast a String ya que no se puede pasar el
 				 * valor directo de getSelectedValue() existeProd necesita estar para asegurarse
-				 * de que se añade primero el producto antes de seguir Todos estos comentarios
+				 * de que se aï¿½ade primero el producto antes de seguir Todos estos comentarios
 				 * valen para las tres vistas
 				 */
 				System.out.println("Ejecutando evento Boton Annadir");
@@ -259,11 +259,11 @@ public class PanelTickets extends JPanel {
 				String cantidad = TextFieldCantidad.getText();
 				System.out.println(cantidad);
 				try {
-					producto = (String) listaProductos.getSelectedValue(); // Necesito hacer aquí el cast porque
+					producto = (String) listaProductos.getSelectedValue(); // Necesito hacer aquï¿½ el cast porque
 																			// getSelectedValue() devuelve un objeto por
 																			// lo que no se le puede pasar directamente
 																			// a accionadoBotonAnadirProducto
-					productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
+					
 					existeProd = true;
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
@@ -271,10 +271,19 @@ public class PanelTickets extends JPanel {
 				}
 				if (existeProd) {
 					try {
-						listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
-						textTotal.setText(
-								controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
-						lblError.setText("");
+						if(controladorPanelTickets.existeProducto(producto) == -1) {
+							productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
+							listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
+							textTotal.setText(
+									controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
+							lblError.setText("");
+						}
+						else {
+							String yaAnnadido = listaPAnnadidos.get(controladorPanelTickets.existeProducto(producto));
+							listaPAnnadidos.set(controladorPanelTickets.existeProducto(producto), controladorPanelTickets.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
+							String total = Double.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad) * controladorPanelTickets.cogerPrecioString(producto)));
+							textTotal.setText(total);
+						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
 						lblError.setText("No se ha introducido una cantidad");
@@ -290,8 +299,8 @@ public class PanelTickets extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					/*
-					 * Este es el mínimo de lógica necesaria en la vista para eliminar un elemento
-					 * Primero se coge el índice seleccionado, luego se le pasa al controlador junto
+					 * Este es el mï¿½nimo de lï¿½gica necesaria en la vista para eliminar un elemento
+					 * Primero se coge el ï¿½ndice seleccionado, luego se le pasa al controlador junto
 					 * al string que representa El producto a eliminar y el total actual Se elimina
 					 * el producto de la lista y luego se cambia el total por el devuelto por el
 					 * controlador

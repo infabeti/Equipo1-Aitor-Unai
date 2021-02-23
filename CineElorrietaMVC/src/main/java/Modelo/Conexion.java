@@ -260,7 +260,6 @@ public class Conexion {
 				Date feCad = rs.getDate("a.FeCad");
 				Producto prod = new Producto(nombre, feCad, tipo, pCompra, pVenta);
 				listaProd.addProductoTemporal(prod);
-				rs.next();
 			}
 		}
 		catch (SQLException sqlException) {

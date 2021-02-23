@@ -49,6 +49,15 @@ public class ListaProductos {
 		return null;
 	}
 	
+	public int devolverPosProductoString(String nombre) { //Devuelve la posición de un producto dado su string
+		for(int i = 0; i <listaProd.size(); i++) {
+			if(listaProd.get(i).getNombre() == nombre) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	public double precioProductoString(String nombre) {
 		System.out.println(nombre);
 		Producto prod = this.devolverProductoPorString(nombre);
