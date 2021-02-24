@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class Conexion {
 
@@ -270,12 +271,24 @@ public class Conexion {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
-
+			
+			
+			
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"insert into pedido " + "values("
-							+ transaccion + ",'" + domicilio + "');");
+					"insert into pedido " + "values(?, ?)");
 			/**************/
 			try {
+				st.setInt(1, transaccion);
+				
+				if(domicilio.equalsIgnoreCase(""))
+				{
+					st.setNull(2, Types.NULL);
+				}
+				else
+				{
+					st.setString(2, domicilio);
+				}
+				
 				st.executeUpdate();
 
 			} catch (Exception e) {
