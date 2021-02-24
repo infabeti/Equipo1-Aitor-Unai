@@ -116,16 +116,58 @@ public class PanelRegistro extends JPanel {
 		textDNI.setColumns(10);
 
 		textNombre = new JTextField();
+		textNombre.addKeyListener(new KeyAdapter() {
+		
+			@Override
+		public void keyTyped(KeyEvent e) {
+
+				char validar = e.getKeyChar();
+
+				if (Character.isDigit(validar) || textNombre.getText().length() >=20) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Inserte únicamente 20 caracteres");
+				}
+			}
+		});
+
+		
 		textNombre.setBounds(101, 86, 169, 20);
 		add(textNombre);
 		textNombre.setColumns(10);
 
 		textApellido = new JTextField();
+		textApellido.addKeyListener(new KeyAdapter() {
+		
+		@Override
+		public void keyTyped(KeyEvent e) {
+			
+			char validar = e.getKeyChar();
+
+			if (Character.isDigit(validar) || textApellido.getText().length() >=25) {
+				e.consume();
+				JOptionPane.showMessageDialog(null, "Inserte únicamente 25 caracteres");
+			}
+		}
+	});
+		
 		textApellido.setBounds(101, 120, 169, 20);
 		add(textApellido);
 		textApellido.setColumns(10);
 
 		passwordContrasena = new JPasswordField();
+		passwordContrasena.addKeyListener(new KeyAdapter() {
+		
+		@Override
+		public void keyTyped(KeyEvent e) {
+	
+			if (passwordContrasena.getText().length() >= 18) {
+				e.consume();
+				JOptionPane.showMessageDialog(null, "Inserte únicamente 18 caracteres");
+			}
+		}
+	});
+		
+		
 		passwordContrasena.setBounds(137, 262, 133, 20);
 		add(passwordContrasena);
 
