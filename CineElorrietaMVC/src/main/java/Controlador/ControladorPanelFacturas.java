@@ -2,6 +2,11 @@ package Controlador;
 
 import Modelo.Modelo;
 import Modelo.Producto;
+
+import java.text.SimpleDateFormat;
+
+import javax.swing.JOptionPane;
+
 import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
@@ -61,26 +66,26 @@ public class ControladorPanelFacturas {
 		listaTemporal.addProductoTemporal(prod);
 		return prod.toString();
 	}
-	
+
 	public int existeProducto(String producto) {
 		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
 		return pos;
 	}
-	
-	public double cogerPrecioString (String producto) {
+
+	public double cogerPrecioString(String producto) {
 		double precio = modelo.getListaTemporal().precioProductoString(producto);
 		return precio;
 	}
-	
+
 	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
-		for(int i = 0; Character.isDigit(producto.charAt(i));i++) {
+		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
 			pos = i;
 		}
-		String cantString = producto.substring(0, pos+1);
+		String cantString = producto.substring(0, pos + 1);
 		int cantidad = Integer.parseInt(cantString);
 		cantidad = cantidad + cantidadAnadir;
-		String cambiada = cantidad + producto.substring(pos+1);
+		String cambiada = cantidad + producto.substring(pos + 1);
 		return cambiada;
 	}
 
@@ -107,5 +112,77 @@ public class ControladorPanelFacturas {
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
 		listaProd.eliminarProductoTemporal(pos);
 		return totalStr;
+	}
+
+	public String devolverFechaFormateada(String input) {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		String dateInString = input;
+
+		try {
+
+			java.util.Date date1 = formatter.parse(dateInString);
+			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "Error";
+	}
+
+	public String devolverNombreProducto(int i) {
+
+		ListaProductos listaTemporal = this.modelo.getListaTemporal();
+
+		String[] lista = listaTemporal.getListaProductosString();
+
+		return lista[i];
+	}
+
+	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
+
+		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
+		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
+
+	}
+
+	public boolean insertarFactura(int transaccion, String nif) {
+
+		// Comprobar si existe NIF
+		if (this.modelo.getConexion().registro(nif)) {
+			return true;
+		} else {
+
+			return false;
+		}
+		// this.modelo.getConexion().insertarFactura();
+
+	}
+
+	public boolean insertarComprador(int transaccion, String nombre, String apellido) {
+
+		// Comprobar tamano nombre y apellido
+		if (contieneSoloLetras(nombre) && contieneSoloLetras(apellido)) {
+			return true;
+		} else {
+
+			return false;
+		}
+
+	}
+
+	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
+		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
+	}
+	
+	public static boolean contieneSoloLetras(String cadena) {
+	    for (int x = 0; x < cadena.length(); x++) {
+	        char c = cadena.charAt(x);
+	        // Si no está entre a y z, ni entre A y Z, ni es un espacio
+	        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
+	            return false;
+	        }
+	    }
+	    return true;
 	}
 }
