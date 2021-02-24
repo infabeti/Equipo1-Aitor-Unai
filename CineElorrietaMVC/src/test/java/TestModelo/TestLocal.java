@@ -18,16 +18,11 @@ import org.junit.runner.RunWith;
 public class TestLocal {
 	
 	
-	private Date fecha = new Date(0); //Fecha de tipo Date para insertar en las actividades
 	private Actividad mockA1 = mock(Actividad.class);
 	private Actividad mockA2 = mock(Actividad.class);
 	private Producto mockp1 = mock(Producto.class);
-	private Producto p1 = new Producto("Prod1",fecha, "Unproducto", 1, 3);
-	private Producto p2 = new Producto("Prod2", fecha, "Otroproducto",2,4);
 	private ProductoTienda mockPt1 = mock(ProductoTienda.class);
 	private ProductoTienda mockPt2 = mock(ProductoTienda.class);
-	private ProductoTienda pt1 = new ProductoTienda(p1, 3);
-	private ProductoTienda pt2 = new ProductoTienda(p2, 9);
 	private Local loc = new Local("46564187J", "Primero", "Calle Pepito", "Restaurante");
 	
 	@Test
