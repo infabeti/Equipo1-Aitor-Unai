@@ -256,10 +256,7 @@ public class PanelPedidos extends JPanel {
 					
 					String domicilio = textFieldDomicilio.getText();
 					System.out.println("Domicilio:" + domicilio);
-					/*if(domicilio.equalsIgnoreCase("")) {
-						domicilio = null;
-						System.out.println("Entro");
-					}*/
+
 					// insertar datos en pedido
 					controladorPanelPedidos.insertarPedido(Integer.parseInt(textFieldNumTrans.getText()),
 							domicilio);
