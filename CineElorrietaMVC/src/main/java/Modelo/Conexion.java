@@ -218,14 +218,14 @@ public class Conexion {
 
 	};
 
-	public void insertarEmpleado(String DNI, String Nombre,String Apellido, String Contraseña)
+	public void insertarEmpleado(String DNI, String Nombre,String Apellido, String Contrasena)
 	{
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into empleado "
-					+ "values(" + DNI + ",'" + Nombre + "'," + Apellido + ",'" + Contraseña + "');");
+					+ "values(" + DNI + ",'" + Nombre + "'," + Apellido + ",'" + Contrasena + "');");
 
 			try {
 				st.executeUpdate();

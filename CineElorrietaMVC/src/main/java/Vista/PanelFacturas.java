@@ -237,7 +237,10 @@ public class PanelFacturas extends JPanel {
 				String cantidad = textCantidad.getText();
 				try {
 					producto = (String) listaProductos.getSelectedValue();
-					existeProd = true;
+					if(producto != null) {
+						existeProd = true;
+					}
+					
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");

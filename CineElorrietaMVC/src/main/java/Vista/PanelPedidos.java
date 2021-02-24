@@ -198,8 +198,11 @@ public class PanelPedidos extends JPanel {
 				String cantidad = TextFieldCantidad.getText();
 				try {
 					producto = (String) productosAlmacenados.getSelectedValue();
-
-					existeProd = true;
+					
+					if(producto != null) {
+						existeProd = true;
+					}
+					
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
