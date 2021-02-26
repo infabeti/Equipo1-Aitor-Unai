@@ -340,9 +340,3 @@ values('23456789J', 12, 150);
 
 insert into stock
 values('23456789J', 10, 14);
-
-
-
-
-
-

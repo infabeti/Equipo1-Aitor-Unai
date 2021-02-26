@@ -258,8 +258,9 @@ public class PanelTickets extends JPanel {
 																			// getSelectedValue() devuelve un objeto por
 																			// lo que no se le puede pasar directamente
 																			// a accionadoBotonAnadirProducto
-
-					existeProd = true;
+					if(producto !=null) {
+						existeProd = true;
+					}
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
@@ -285,6 +286,7 @@ public class PanelTickets extends JPanel {
 						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
+						e.printStackTrace();
 						lblError.setText("No se ha introducido una cantidad");
 					}
 				}

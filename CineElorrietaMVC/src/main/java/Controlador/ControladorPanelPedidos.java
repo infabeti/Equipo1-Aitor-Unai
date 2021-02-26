@@ -48,7 +48,7 @@ public class ControladorPanelPedidos {
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
 		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarListTemporal();
+		listaProd.limpiarLista();
 	}
 	
 	public void accionadoBottonFinalizar() {
@@ -78,7 +78,7 @@ public class ControladorPanelPedidos {
 		ListaProductos listaProd = modelo.getListaProductos();
 		Producto prod = listaProd.devolverProductoPorString(producto);
 		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProductoTemporal(prod);
+		listaTemporal.addProducto(prod);
 		return prod.toString();
 	}
 	
@@ -122,7 +122,7 @@ public class ControladorPanelPedidos {
 		double precio = listaProd.getPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
-		listaProd.eliminarProductoTemporal(pos);
+		listaProd.eliminarProducto(pos);
 		return totalStr;
 	}
 	

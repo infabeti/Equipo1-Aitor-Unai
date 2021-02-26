@@ -68,8 +68,8 @@ public class Modelo {
 		Producto p1 = new Producto("Bocata", date, "comida", 1.00, 1.50);
 		Producto p2 = new Producto("Coca-Cola", date, "bebida", 0.35, 1.50);
 
-		listaProductos.addProductoTemporal(p1);
-		listaProductos.addProductoTemporal(p2);
+		listaProductos.addProducto(p1);
+		listaProductos.addProducto(p2);
 	}
 	
 	public String getFechaHoraSys() {

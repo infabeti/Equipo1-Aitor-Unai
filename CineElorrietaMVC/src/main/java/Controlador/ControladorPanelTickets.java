@@ -60,7 +60,7 @@ public class ControladorPanelTickets {
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
 		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarListTemporal();
+		listaProd.limpiarLista();
 	}
 
 	public String[] cogerListaProductos() {
@@ -75,7 +75,7 @@ public class ControladorPanelTickets {
 		ListaProductos listaProd = modelo.getListaProductos();
 		Producto prod = listaProd.devolverProductoPorString(producto);
 		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProductoTemporal(prod);
+		listaTemporal.addProducto(prod);
 		return prod.toString();
 	}
 
@@ -125,7 +125,7 @@ public class ControladorPanelTickets {
 		double precio = listaProd.getPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
-		listaProd.eliminarProductoTemporal(pos);
+		listaProd.eliminarProducto(pos);
 		return totalStr;
 	}
 

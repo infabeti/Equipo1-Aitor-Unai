@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 
 public class Conexion {
@@ -15,7 +16,7 @@ public class Conexion {
 	private final String NOMBREBD = "reto3";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
-	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
+	private final String URL = "jdbc:mysql://localhost:3306/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private Connection conn = null;
@@ -217,6 +218,70 @@ public class Conexion {
 
 	};
 
+	public void insertarEmpleado(String DNI, String Nombre,String Apellido, String Contrasena)
+	{
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into empleado "
+					+ "values(" + DNI + ",'" + Nombre + "'," + Apellido + ",'" + Contrasena + "');");
+
+			try {
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+	};
+	
+	public  boolean existeDNI( String DNI){
+      
+		java.sql.Connection conexionConn = this.getConn();
+		Statement oSt = null;
+        ResultSet oRs = null;
+        String sSQL= " ";
+        boolean existeDNI= false; 
+
+        try{
+        	conexionConn.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+            sSQL = "SELECT * FROM empleado WHERE DNI='" + DNI + "'";
+
+
+            oSt = conexionConn.createStatement();
+            oRs = oSt.executeQuery(sSQL);
+
+            if(oRs.next()){
+               if(oRs.getRow() > 0){
+            	   existeDNI= true;
+               }
+            }
+
+            if (oSt != null) {oSt.close();oSt = null;}
+            if (oRs != null) {oRs.close();oRs = null;}
+        }catch(SQLException err){
+
+            oSt = null;
+            oRs = null;
+            sSQL=null;
+        }catch(Exception err){
+
+            oSt = null;
+            oRs = null;
+            sSQL=null;  
+        }finally{
+            oSt = null;
+            oRs = null;
+            sSQL=null;
+        }
+        return existeDNI;
+}
+
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
@@ -259,7 +324,7 @@ public class Conexion {
 				String tipo = rs.getString("a.Tipo");
 				Date feCad = rs.getDate("a.FeCad");
 				Producto prod = new Producto(nombre, feCad, tipo, pCompra, pVenta);
-				listaProd.addProductoTemporal(prod);
+				listaProd.addProducto(prod);
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
