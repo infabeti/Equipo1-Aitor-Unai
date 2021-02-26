@@ -42,4 +42,12 @@ public class TestConexion {
 		assertEquals("", user.getTipoLocal());
 		assertEquals("", user.getNifLocal());
 	}
+	
+	@Test
+	public void testLeerNumTrans() {
+		int test = con.leerNumTransBBDD();
+		assertEquals(1, test);
+	}
+	
+	
 }
