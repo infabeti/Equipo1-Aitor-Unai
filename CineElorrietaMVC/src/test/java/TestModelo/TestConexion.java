@@ -49,5 +49,35 @@ public class TestConexion {
 		assertEquals(1, test);
 	}
 	
+	@Test
+	public void testObtenerCodigoAlimento() {
+		String resultado = con.obtenerCodigoAlimentoProducto("Huevo");
+		assertEquals("1", resultado);
+	}
+	
+	@Test
+	public void testObtenerCodigoAlimentoFail() {
+		String resultado = con.obtenerCodigoAlimentoProducto("ASDF");
+		assertNull(resultado);
+	}
+	
+	@Test
+	public void testExisteDNI() {
+		boolean test = con.existeDNI("12312122S");
+		assertTrue(test);
+	}
+	
+	@Test
+	public void testExisteDNIFalse() {
+		boolean test = con.existeDNI("ASDF");
+		assertFalse(test);
+	}
+	
+	@Test
+	public void testCogerProductosLocal() {
+		ListaProductos lp = con.cogerProductosLocal("12345678H");
+		assertNotNull(lp);
+	}
+	
 	
 }
