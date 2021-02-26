@@ -2,7 +2,9 @@ package TestControlador;
 
 import Controlador.*;
 import Modelo.Conexion;
+import Modelo.ListaProductos;
 import Modelo.Modelo;
+import Modelo.Producto;
 import Modelo.Usuario;
 import Vista.PanelFacturas;
 import Vista.Vista;
@@ -16,11 +18,11 @@ public class TestControladorPanelFacturas {
 	private Vista vistaMock = mock(Vista.class);
 	private Controlador controladorMock = mock(Controlador.class);
 	private String resultadoEsperadoString, resultadoString;
-	private int resultadoEsperadoInt, resultadoInt;
 	private Usuario userMock = mock(Usuario.class);
 	private Conexion conexionMock = mock(Conexion.class);
-	private String[] ListaProductosMock = {"Avila","Burgos","León","Palencia","Salamanca",
-			   "Segovia","Soria","Valladolid","Zamora"};
+	private ListaProductos listaProductosMock = mock(ListaProductos.class);
+	private String[] resultadoEsperadoArrayString;
+	private String[] listaProductos;
 	 
 
 	private ControladorPanelFacturas controladorPanelFacturas = new ControladorPanelFacturas(modeloMock, vistaMock, controladorMock);
@@ -75,20 +77,41 @@ public class TestControladorPanelFacturas {
 	@Test
 	public void testMostrarPanelFacturas() {
 		
+		when(modeloMock.getConexion())
+		.thenReturn(conexionMock);
+		
+		when(modeloMock.getListaProductos())
+		.thenReturn(listaProductosMock);
+		
+		when(modeloMock.getUser())
+		.thenReturn(userMock);
+		
+		when(userMock.getNifLocal())
+		.thenReturn("pepe");
+		
 		doReturn(panelFacturasMock)
     	.when(spyControladorPanelFacturas)
     	.makePanelFacturas(any( ControladorPanelFacturas.class)); 
 		
-		when(modeloMock.getConexion())
-		.thenReturn(conexionMock);
-		
-		
-		/*when(modeloMock.getListaProductos())
-		.thenReturn(ListaProductosMock);*/
-		
 		spyControladorPanelFacturas.mostrarPanelFacturas();
-		verify(vistaMock, times(1)).mostrarPanel(panelFacturasMock);
+		verify(vistaMock).mostrarPanel(panelFacturasMock);
 		
+	}
+	
+	@Test
+	public void testCogerListaProductos() {
+		//Objeto tipo listaproductos
+		when(modeloMock.getListaProductos())
+		.thenReturn(listaProductosMock);
+		
+		//array de string
+		when(listaProductosMock.getListaProductosString())
+		.thenReturn(listaProductos);
+		
+		resultadoEsperadoArrayString = controladorPanelFacturas.cogerListaProductos();
+		
+
+		assertArrayEquals(resultadoEsperadoArrayString, listaProductos);
 	}
 	
 }

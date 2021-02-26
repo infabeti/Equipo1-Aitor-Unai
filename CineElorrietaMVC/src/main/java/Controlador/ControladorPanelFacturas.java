@@ -42,7 +42,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public void mostrarPanelFacturas() {
-		this.panelFacturas = new PanelFacturas(this);
+		this.panelFacturas = makePanelFacturas(this);
 		this.vista.mostrarPanel(this.panelFacturas);
 	}
 
