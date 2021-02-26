@@ -216,7 +216,7 @@ public class Conexion {
 			sqlException.printStackTrace();
 		}
 
-	};
+	}
 
 	public void insertarEmpleado(String DNI, String Nombre,String Apellido, String Contrasena)
 	{
@@ -238,8 +238,10 @@ public class Conexion {
 			sqlException.printStackTrace();
 		}
 
-	};
+	}
 	
+	
+
 	public  boolean existeDNI( String DNI){
       
 		java.sql.Connection conexionConn = this.getConn();
@@ -403,5 +405,33 @@ public class Conexion {
 			sqlException.printStackTrace();
 		}
 
+	}
+	
+	public void insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+		
+			
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into empleado " + "values(?, ?, ?, ?, ?)");
+			/**************/
+			try {
+				st.setString(1, dni);
+				st.setString(2, Nombre);
+				st.setString(3, Apellido);
+				st.setString(4, contrasena);
+				st.setString(5, nif);
+				
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		
 	}
 }
