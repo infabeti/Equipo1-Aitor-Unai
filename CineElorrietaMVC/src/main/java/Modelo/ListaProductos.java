@@ -80,8 +80,12 @@ public class ListaProductos {
 	}
 	
 	public double precioProductoString(String nombre) {
-		System.out.println(nombre);
 		Producto prod = this.devolverProductoPorString(nombre);
-		return prod.getPrecioVenta();
+		if(prod != null) {
+			return prod.getPrecioVenta();
+		}
+		else {
+			return -1;
+		}
 	}
 }
