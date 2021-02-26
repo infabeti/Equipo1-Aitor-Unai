@@ -217,29 +217,9 @@ public class Conexion {
 		}
 
 	};
-
-	public void insertarEmpleado(String DNI, String Nombre,String Apellido, String Contraseña)
-	{
-		try {
-			java.sql.Connection conexionConn = this.getConn();
-			PreparedStatement st = null;
-
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into empleado "
-					+ "values(" + DNI + ",'" + Nombre + "'," + Apellido + ",'" + Contraseña + "');");
-
-			try {
-				st.executeUpdate();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
-
-	};
 	
+	
+
 	public  boolean existeDNI( String DNI){
       
 		java.sql.Connection conexionConn = this.getConn();
@@ -353,6 +333,34 @@ public class Conexion {
 				{
 					st.setString(2, domicilio);
 				}
+				
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		
+	}
+	
+	public void insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+		
+			
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into empleado " + "values(?, ?, ?, ?, ?)");
+			/**************/
+			try {
+				st.setString(1, dni);
+				st.setString(2, Nombre);
+				st.setString(3, Apellido);
+				st.setString(4, contrasena);
+				st.setString(5, nif);
 				
 				st.executeUpdate();
 

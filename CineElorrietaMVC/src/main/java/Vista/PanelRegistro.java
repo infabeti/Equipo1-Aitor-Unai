@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelRegistro;
 
 import java.awt.SystemColor;
@@ -189,7 +190,7 @@ public class PanelRegistro extends JPanel {
 		};
 	}
 
-	private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controladorPanelRegistro) {
+	/*private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controladorPanelRegistro) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Registrar");
@@ -204,6 +205,31 @@ public class PanelRegistro extends JPanel {
 
 				}
 			}
+		};
+	}
+}*/
+	private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controladorPanelRegistro) {
+	return new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			System.out.println("Ejecutando evento Boton Registrar");
+
+			String nif = textNIF.getText();
+
+			if (controladorPanelRegistro.registro(nif)) {
+				
+			}
+					// insertar datos en empleado
+					controladorPanelRegistro.insertarRegistro(textDNI.getText(),
+							textNombre.getText(),
+							textApellido.getText(),
+							passwordContrasena.getText(),
+							textNIF.getText());
+
+					System.out.println("Te has registrado con en este nif: " + nif);
+		}  
+		{
+			JOptionPane.showMessageDialog(null, "Registro iniciado");
+		}
 		};
 	}
 }
