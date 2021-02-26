@@ -213,4 +213,8 @@ public class ControladorPanelFacturas {
 	    }
 	    return true;
 	}
+	
+	public PanelFacturas makePanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {
+		return new PanelFacturas(controladorPanelFacturas);
+	}
 }
