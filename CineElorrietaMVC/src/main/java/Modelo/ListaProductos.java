@@ -10,16 +10,37 @@ public class ListaProductos {
 		listaProd  = new ArrayList<Producto>();
 	}
 	
-	public void addProductoTemporal(Producto prod) {
-		listaProd.add(prod);
+	public boolean addProducto(Producto prod) {
+		try {
+			listaProd.add(prod);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
-	public void limpiarListTemporal() {
-		listaProd.clear();
+	public boolean limpiarLista() {
+		try {
+			listaProd.clear();
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
-	public void eliminarProductoTemporal(int pos) {
-		listaProd.remove(pos);
+	public boolean eliminarProducto(int pos) {
+		try {
+			listaProd.remove(pos);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public Producto cogerProducto(int pos) {

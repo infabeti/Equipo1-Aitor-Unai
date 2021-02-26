@@ -324,7 +324,7 @@ public class Conexion {
 				String tipo = rs.getString("a.Tipo");
 				Date feCad = rs.getDate("a.FeCad");
 				Producto prod = new Producto(nombre, feCad, tipo, pCompra, pVenta);
-				listaProd.addProductoTemporal(prod);
+				listaProd.addProducto(prod);
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();

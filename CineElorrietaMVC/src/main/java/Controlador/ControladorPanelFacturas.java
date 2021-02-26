@@ -56,14 +56,14 @@ public class ControladorPanelFacturas {
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
 		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarListTemporal();
+		listaProd.limpiarLista();
 	}
 
 	public String accionadoBotonAnnadirProducto(String producto) {
 		ListaProductos listaProd = modelo.getListaProductos();
 		Producto prod = listaProd.devolverProductoPorString(producto);
 		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProductoTemporal(prod);
+		listaTemporal.addProducto(prod);
 		return prod.toString();
 	}
 
@@ -110,7 +110,7 @@ public class ControladorPanelFacturas {
 		double precio = listaProd.getPrecioProducto(pos);
 		double totalDouble = Double.parseDouble(total);
 		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
-		listaProd.eliminarProductoTemporal(pos);
+		listaProd.eliminarProducto(pos);
 		return totalStr;
 	}
 
@@ -178,7 +178,7 @@ public class ControladorPanelFacturas {
 	public static boolean contieneSoloLetras(String cadena) {
 	    for (int x = 0; x < cadena.length(); x++) {
 	        char c = cadena.charAt(x);
-	        // Si no está entre a y z, ni entre A y Z, ni es un espacio
+	        // Si no estï¿½ entre a y z, ni entre A y Z, ni es un espacio
 	        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
 	            return false;
 	        }
