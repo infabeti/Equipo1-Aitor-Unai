@@ -271,24 +271,19 @@ public class Conexion {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
-			
-			
-			
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"insert into pedido " + "values(?, ?)");
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("insert into pedido " + "values(?, ?)");
 			/**************/
 			try {
 				st.setInt(1, transaccion);
-				
-				if(domicilio.equalsIgnoreCase(""))
-				{
+
+				if (domicilio.equalsIgnoreCase("")) {
 					st.setNull(2, Types.NULL);
-				}
-				else
-				{
+				} else {
 					st.setString(2, domicilio);
 				}
-				
+
 				st.executeUpdate();
 
 			} catch (Exception e) {
@@ -298,6 +293,50 @@ public class Conexion {
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
-		
+
+	}
+
+	public void insertarFactura(int transaccion, String nif) {
+
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("insert into factura " + "values(" + transaccion + ",'" + nif + "');");
+			/**************/
+			try {
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+	}
+
+	public void insertarComprador(String nif, String nombre, String apellido) {
+
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("insert into comprador " + "values('" + nif + "','" + nombre + "','" + apellido + "');");
+			/**************/
+			try {
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
 	}
 }

@@ -145,44 +145,73 @@ public class ControladorPanelFacturas {
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
 
 	}
+	
+	public void insertarFactura(int transaccion, String nif) {
+		this.modelo.getConexion().insertarFactura(transaccion, nif);
+	}
 
-	public boolean insertarFactura(int transaccion, String nif) {
+	public boolean comprobarNif(String nif) {
 
 		// Comprobar si existe NIF
-		if (this.modelo.getConexion().registro(nif)) {
-			return true;
+		System.out.println("NIF = " + nif);
+		System.out.println("Length " + nif.length());
+
+		if ((nif.length() == 9) && (nif.length() - 1 == 8)) {
+			if ((nif.charAt(nif.length() - 1) >= 'a') && (nif.charAt(nif.length() - 1) <= 'z')
+					|| (nif.charAt(nif.length() - 1) >= 'A') && (nif.charAt(nif.length() - 1) <= 'Z')) {
+
+				return true;
+			}
+			return false;
+
 		} else {
 
 			return false;
 		}
-		// this.modelo.getConexion().insertarFactura();
+		
 
 	}
 
-	public boolean insertarComprador(int transaccion, String nombre, String apellido) {
-
+	public boolean comprobarFormatoNombre(String nombre) {
 		// Comprobar tamano nombre y apellido
-		if (contieneSoloLetras(nombre) && contieneSoloLetras(apellido)) {
+		// nombre es un varchar de 20, por ello comprobamos el length
+		if (contieneSoloLetras(nombre) && nombre.length() <= 20 && nombre.length() >= 3) {
 			return true;
 		} else {
 
 			return false;
 		}
+	}
+
+	public boolean comprobarFormatoApellido(String apellido) {
+		// Comprobar tamano nombre y apellido
+		// nombre es un varchar de 20, por ello comprobamos el length
+		if (contieneSoloLetras(apellido) && apellido.length() <= 25 && apellido.length() >= 2) {
+			return true;
+		} else {
+
+			return false;
+		}
+	}
+
+	public void insertarComprador(String nif, String nombre, String apellido) {
+
+		this.modelo.getConexion().insertarComprador(nif, nombre, apellido);
 
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
 		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
 	}
-	
+
 	public static boolean contieneSoloLetras(String cadena) {
-	    for (int x = 0; x < cadena.length(); x++) {
-	        char c = cadena.charAt(x);
-	        // Si no está entre a y z, ni entre A y Z, ni es un espacio
-	        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-	            return false;
-	        }
-	    }
-	    return true;
+		for (int x = 0; x < cadena.length(); x++) {
+			char c = cadena.charAt(x);
+			// Si no está entre a y z, ni entre A y Z, ni es un espacio
+			if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
