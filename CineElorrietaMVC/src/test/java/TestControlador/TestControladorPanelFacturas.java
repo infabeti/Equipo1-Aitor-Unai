@@ -114,4 +114,19 @@ public class TestControladorPanelFacturas {
 		assertArrayEquals(resultadoEsperadoArrayString, listaProductos);
 	}
 	
+	@Test
+	public void testAccionadoBottonVolverPanelPrincipal() {
+		
+		controladorPanelFacturas = new ControladorPanelFacturas(modeloMock,
+				vistaMock, controladorMock);
+
+		when(modeloMock.getListaTemporal())
+		.thenReturn(listaProductosMock);
+		
+		controladorPanelFacturas.accionadoBottonVolverPanelPrincipal();
+		
+		verify(controladorMock, times(1)).navegarPanelPrincipal();
+		
+	}
+	
 }
