@@ -19,6 +19,7 @@ public class TestControladorPanelFacturas {
 	private Controlador controladorMock = mock(Controlador.class);
 	private String resultadoEsperadoString, resultadoString;
 	private int resultadoEsperadoInt, resultadoInt;
+	private double resultadoEsperadoDouble, resultadoDouble;
 	private Usuario userMock = mock(Usuario.class);
 	private Conexion conexionMock = mock(Conexion.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
@@ -157,6 +158,53 @@ public class TestControladorPanelFacturas {
 		resultadoEsperadoInt = 5;
 
 		assertEquals(resultadoEsperadoInt, resultadoInt);
+
+	}
+	
+
+	@Test
+	public void TestCogerPrecioString() {
+
+		
+		String llamadaMetodo = "Hello";
+		
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		
+		when(modeloMock.getListaTemporal().precioProductoString(llamadaMetodo)).thenReturn(35.54);
+		
+		resultadoDouble = controladorPanelFacturas.cogerPrecioString(llamadaMetodo);
+		
+		resultadoEsperadoDouble = 35.54;
+		
+		assertEquals(resultadoEsperadoDouble, resultadoDouble, 0);
+		
+
+	}
+	
+	@Test
+	public void TestCambiarCantidadProductos() {
+		
+		String producto = "1 - Calabaza";
+
+		resultadoString = controladorPanelFacturas.cambiarCantidadProductos(producto, 4);
+		
+		resultadoEsperadoString = "5 - Calabaza"; 
+		
+		assertEquals(resultadoEsperadoString, resultadoString);
+
+	}
+	
+	@Test
+	public void TestCantidadProducto() {
+		
+		String primer = "Hola";
+		String segun = "que tal";
+
+		resultadoString = controladorPanelFacturas.cantidadProducto(primer, segun);
+		
+		resultadoEsperadoString = primer + " " + segun; 
+		
+		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
 
