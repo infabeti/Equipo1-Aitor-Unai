@@ -1,14 +1,8 @@
 package TestModelo;
 
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import java.sql.Date;
 import org.junit.Before;
 import org.junit.Test;
