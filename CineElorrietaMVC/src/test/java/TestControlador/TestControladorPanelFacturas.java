@@ -19,6 +19,7 @@ public class TestControladorPanelFacturas {
 	private Controlador controladorMock = mock(Controlador.class);
 	private String resultadoEsperadoString, resultadoString;
 	private int resultadoEsperadoInt, resultadoInt;
+	private boolean resultadoEsperadoBoolean, resultadoBoolean;
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private Usuario userMock = mock(Usuario.class);
 	private Conexion conexionMock = mock(Conexion.class);
@@ -223,18 +224,18 @@ public class TestControladorPanelFacturas {
 		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
-	
+
 	@Test
 	public void TestAccionadoBotonEliminar() {
-		
+
 		int pos = 0;
 		String eliminar = "1 Anfeta";
 		String total = "19.0";
-		
+
 		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
-		
+
 		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
-		
+
 		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
 
 		resultadoString = controladorPanelFacturas.accionadoBotonEliminar(pos, eliminar, total);
@@ -244,12 +245,189 @@ public class TestControladorPanelFacturas {
 		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
-	
+
 	@Test
 	public void TestDevolverFechaFormateada() {
-		
-		
+
+		resultadoString = controladorPanelFacturas.devolverFechaFormateada("01/03/2021 21:12");
+
+		resultadoEsperadoString = "2021-03-01 21:12";
+
+		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
+
+	@Test
+	public void TestDevolverFechaFormateadaCatchException() throws Exception {
+
+		resultadoString = controladorPanelFacturas.devolverFechaFormateada(null);
+
+	}
+	
+	@Test
+	public void TestDevolverNombreProducto() {
+		
+		int i = 1;
+		
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		
+		String[] arrStringProductos = {"PepsiCola", "Zapatilla"};
+		
+		when(listaProductosMock.getListaProductosString()).thenReturn(arrStringProductos);
+		
+		resultadoString = controladorPanelFacturas.devolverNombreProducto(i);
+
+		resultadoEsperadoString = "Zapatilla";
+
+		assertEquals(resultadoEsperadoString, resultadoString);
+
+	}
+	
+	@Test
+	public void TestComprobarNifTRUE() {
+		
+		String nif = "12345678M";
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarNif(nif);
+
+		resultadoEsperadoBoolean = true;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarNifFALSE() {
+		
+		String nif = "ESTO NO ES UN NIF POR LO QUE ME DEVOLVERA FALSO";
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarNif(nif);
+
+		resultadoEsperadoBoolean = false;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoNombreTODOTRUE() {
+		
+		String nombre = "Pepito";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(nombre)).thenReturn(true);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoNombre(nombre);
+
+		resultadoEsperadoBoolean = true;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoNombreTODOFALSE() {
+		
+		String nombre = "1a";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(nombre)).thenReturn(false);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoNombre(nombre);
+
+		resultadoEsperadoBoolean = false;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoNombreTRUEFALSE() {
+		
+		String nombre = "asdasdasdasdasdasdasdasdasdasdasdasdad";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(nombre)).thenReturn(true);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoNombre(nombre);
+
+		resultadoEsperadoBoolean = false;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoNombreSEGUNDOIFFALSO() {
+		
+		String nombre = "ab";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(nombre)).thenReturn(true);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoNombre(nombre);
+
+		resultadoEsperadoBoolean = false;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoApellidoTODOTRUE() {
+		
+		String apellido = "Pepito";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(apellido)).thenReturn(true);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoApellido(apellido);
+
+		resultadoEsperadoBoolean = true;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoApellidoTODOFALSE() {
+		
+		String apellido = "P1";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(apellido)).thenReturn(false);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoApellido(apellido);
+
+		resultadoEsperadoBoolean = false;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoApellidoTRUEFALSE() {
+		
+		String apellido = "ALFJKSDYHWBFMDKWENJJJFIJRHDUFIWELFNUIFGIOENFGOGNM";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(apellido)).thenReturn(true);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoApellido(apellido);
+
+		resultadoEsperadoBoolean = false;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarFormatoApellidoSEGUNDOIFFALSO() {
+		
+		String apellido = "A";
+		
+		when(spyControladorPanelFacturas.contieneSoloLetras(apellido)).thenReturn(true);
+		
+		resultadoBoolean = controladorPanelFacturas.comprobarFormatoApellido(apellido);
+
+		resultadoEsperadoBoolean = false;
+		
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+
 
 }
