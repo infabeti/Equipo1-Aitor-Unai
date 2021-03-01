@@ -3,6 +3,11 @@ package Modelo;
 public class Login {
 
 	private String usuario,contra;
+	
+	public Login(String user, String contra) {
+		this.usuario = user;
+		this.contra = contra;
+	}
 
 	public String getUsuario() {
 		return usuario;
