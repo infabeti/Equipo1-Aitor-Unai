@@ -46,7 +46,7 @@ public class TestConexion {
 	@Test
 	public void testLeerNumTrans() {
 		int test = con.leerNumTransBBDD();
-		//assertEquals(1, test);
+		assertEquals(1, test);
 	}
 	
 	@Test
