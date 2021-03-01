@@ -24,6 +24,18 @@ public class ControladorPanelFacturas {
 		this.controlador = controlador;
 	}
 
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
+
 	public String devolverFechaHora() {
 		return modelo.getFechaHoraSys();
 	}
