@@ -149,9 +149,9 @@ public class TestControladorPanelFacturas {
 	public void TestExisteProducto() {
 
 		String llamadaMetodo = "Hello";
-		
+
 		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
-		
+
 		when(modeloMock.getListaTemporal().devolverPosProductoString(llamadaMetodo)).thenReturn(5);
 
 		resultadoInt = controladorPanelFacturas.existeProducto(llamadaMetodo);
@@ -160,51 +160,95 @@ public class TestControladorPanelFacturas {
 		assertEquals(resultadoEsperadoInt, resultadoInt);
 
 	}
-	
 
 	@Test
 	public void TestCogerPrecioString() {
 
-		
 		String llamadaMetodo = "Hello";
-		
+
 		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
-		
+
 		when(modeloMock.getListaTemporal().precioProductoString(llamadaMetodo)).thenReturn(35.54);
-		
+
 		resultadoDouble = controladorPanelFacturas.cogerPrecioString(llamadaMetodo);
-		
+
 		resultadoEsperadoDouble = 35.54;
-		
+
 		assertEquals(resultadoEsperadoDouble, resultadoDouble, 0);
-		
 
 	}
-	
+
 	@Test
 	public void TestCambiarCantidadProductos() {
-		
+
 		String producto = "1 - Calabaza";
 
 		resultadoString = controladorPanelFacturas.cambiarCantidadProductos(producto, 4);
-		
-		resultadoEsperadoString = "5 - Calabaza"; 
-		
+
+		resultadoEsperadoString = "5 - Calabaza";
+
 		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
-	
+
 	@Test
 	public void TestCantidadProducto() {
-		
+
 		String primer = "Hola";
 		String segun = "que tal";
 
 		resultadoString = controladorPanelFacturas.cantidadProducto(primer, segun);
-		
-		resultadoEsperadoString = primer + " " + segun; 
-		
+
+		resultadoEsperadoString = primer + " " + segun;
+
 		assertEquals(resultadoEsperadoString, resultadoString);
+
+	}
+
+	@Test
+	public void TestCantidadTotal() {
+
+		String primer = "2";
+		String segun = "3";
+		String tercer = "Coca-Cola";
+
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
+		when(listaProductosMock.precioProductoString(tercer)).thenReturn(3.0);
+
+		resultadoString = controladorPanelFacturas.cantidadTotal(primer, segun, tercer);
+
+		resultadoEsperadoString = "9.0";
+
+		assertEquals(resultadoEsperadoString, resultadoString);
+
+	}
+	
+	@Test
+	public void TestAccionadoBotonEliminar() {
+		
+		int pos = 0;
+		String eliminar = "1 Anfeta";
+		String total = "19.0";
+		
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		
+		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
+		
+		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
+
+		resultadoString = controladorPanelFacturas.accionadoBotonEliminar(pos, eliminar, total);
+
+		resultadoEsperadoString = "3.0";
+
+		assertEquals(resultadoEsperadoString, resultadoString);
+
+	}
+	
+	@Test
+	public void TestDevolverFechaFormateada() {
+		
+		
 
 	}
 
