@@ -99,17 +99,6 @@ public class PanelRegistro extends JPanel {
 			}
 		});
 
-		/*
-		 * para validar que sean solo numeros(sin la letra final del dni)
-		 * 
-		 * @Override public void keyTyped(KeyEvent e) {
-		 * 
-		 * char validar=e.getKeyChar();
-		 * 
-		 * if (Character.isLetter(validar) || textDNI.getText().length() >=9) {
-		 * e.consume(); JOptionPane.showMessageDialog(null,
-		 * "Inserte el DNI, sin la letra final"); } } });
-		 */
 
 		textDNI.setBounds(371, 86, 141, 20);
 		add(textDNI);
@@ -189,34 +178,13 @@ public class PanelRegistro extends JPanel {
 		};
 	}
 
-	/*private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controladorPanelRegistro) {
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento Boton Registrar");
-				String NIF = textNIF.getText();
-
-				if (controladorPanelRegistro.registro(NIF)) {
-
-					JOptionPane.showMessageDialog(null, "Registro correcto");
-					controladorPanelRegistro.accionadoBottonRegistrarPanelRegistro();
-				} else {
-					JOptionPane.showMessageDialog(null, "Registro incorrecto");
-
-				}
-			}
-		};
-	}
-}*/
 	private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controladorPanelRegistro) {
 	return new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			System.out.println("Ejecutando evento Boton Registrar");
 
 			String nif = textNIF.getText();
-
-			if (controladorPanelRegistro.registro(nif)) {
-				
-			}
+			
 					// insertar datos en empleado
 					controladorPanelRegistro.insertarRegistro(textDNI.getText(),
 							textNombre.getText(),

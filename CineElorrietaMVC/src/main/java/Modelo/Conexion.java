@@ -383,7 +383,7 @@ public class Conexion {
 
 	}
 	
-	public void insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
+	public boolean insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
@@ -400,13 +400,16 @@ public class Conexion {
 				st.setString(5, nif);
 				
 				st.executeUpdate();
+				return true;
 
 			} catch (Exception e) {
 				e.printStackTrace();
+				return false;
 			}
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+			return false;
 		}
 		
 	}

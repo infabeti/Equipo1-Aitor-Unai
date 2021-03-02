@@ -33,27 +33,14 @@ public class ControladorPanelRegistro {
 		this.controlador.navegarPanelLogin();
 	}
 
-	public boolean registro(String nIF) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public void insertarRegistro(String DNI, String Nombre, String Apellido, String contrasena, String nif) {
-		this.modelo.getConexion().insertarRegistro(DNI, Nombre, Apellido, contrasena, nif);
+		boolean ok = this.modelo.getConexion().insertarRegistro(DNI, Nombre, Apellido, contrasena, nif);
+		if(ok) {
+			this.controlador.navegarPanelLogin();
+		}
 	}
 	
-	
 
-	/*
-	 * public static boolean comprobarDni() {
-	 * 
-	 * String dni =""; String letraMayuscula ="";
-	 * 
-	 * if(dni.length() !=9 || Character.isLetter(this.dni.charArt(8)) == false) {
-	 * return false; } letraMayuscula = (this.dni.substring(8).toUpperCase();
-	 * if(soloNumeros()=true && letraDNI().equals(letraMayuscula)) {
-	 * 
-	 * }
-	 */
 
 }
