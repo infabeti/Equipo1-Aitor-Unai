@@ -186,12 +186,11 @@ public class ControladorPanelFacturas {
 		// Comprobar tamano nombre y apellido
 		// nombre es un varchar de 20, por ello comprobamos el length
 		if (contieneSoloLetras(nombre) && nombre.length() <= 20) {
-			if(nombre.length() >= 3)
-			{
+			if (nombre.length() >= 3) {
 				return true;
 			}
 			return false;
-			
+
 		} else {
 
 			return false;
@@ -202,8 +201,7 @@ public class ControladorPanelFacturas {
 		// Comprobar tamano nombre y apellido
 		// nombre es un varchar de 20, por ello comprobamos el length
 		if (contieneSoloLetras(apellido) && apellido.length() <= 25) {
-			if(apellido.length() >= 2)
-			{
+			if (apellido.length() >= 2) {
 				return true;
 			}
 			return false;

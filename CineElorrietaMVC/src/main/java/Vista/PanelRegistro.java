@@ -16,8 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
 import javax.swing.JPasswordField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class PanelRegistro extends JPanel {
 
@@ -83,80 +81,25 @@ public class PanelRegistro extends JPanel {
 		add(lblApellido);
 
 		textDNI = new JTextField();
-		textDNI.addKeyListener(new KeyAdapter() {
-
-//para validar que sean solo 9 caracteres//
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-
-				char validar = e.getKeyChar();
-
-				if (textDNI.getText().length() >= 9) {
-					e.consume();
-					JOptionPane.showMessageDialog(null, "Inserte ï¿½nicamente 9 caracteres");
-				}
-			}
-		});
-
 
 		textDNI.setBounds(371, 86, 141, 20);
 		add(textDNI);
 		textDNI.setColumns(10);
 
 		textNombre = new JTextField();
-		textNombre.addKeyListener(new KeyAdapter() {
-		
-			@Override
-		public void keyTyped(KeyEvent e) {
 
-				char validar = e.getKeyChar();
-
-				if (Character.isDigit(validar) || textNombre.getText().length() >=20) {
-					e.consume();
-					JOptionPane.showMessageDialog(null, "Inserte únicamente 20 caracteres");
-				}
-			}
-		});
-
-		
 		textNombre.setBounds(101, 86, 169, 20);
 		add(textNombre);
 		textNombre.setColumns(10);
 
 		textApellido = new JTextField();
-		textApellido.addKeyListener(new KeyAdapter() {
-		
-		@Override
-		public void keyTyped(KeyEvent e) {
-			
-			char validar = e.getKeyChar();
 
-			if (Character.isDigit(validar) || textApellido.getText().length() >=25) {
-				e.consume();
-				JOptionPane.showMessageDialog(null, "Inserte únicamente 25 caracteres");
-			}
-		}
-	});
-		
 		textApellido.setBounds(101, 120, 169, 20);
 		add(textApellido);
 		textApellido.setColumns(10);
 
 		passwordContrasena = new JPasswordField();
-		passwordContrasena.addKeyListener(new KeyAdapter() {
-		
-		@Override
-		public void keyTyped(KeyEvent e) {
-	
-			if (passwordContrasena.getText().length() >= 18) {
-				e.consume();
-				JOptionPane.showMessageDialog(null, "Inserte únicamente 18 caracteres");
-			}
-		}
-	});
-		
-		
+
 		passwordContrasena.setBounds(137, 262, 133, 20);
 		add(passwordContrasena);
 
@@ -173,30 +116,68 @@ public class PanelRegistro extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Volver");
-				controlador.accionadoBottonVolverPanelRegistro();
+				controladorPanelRegistro.accionadoBottonVolverPanelLogin();
 			}
 		};
 	}
 
 	private ActionListener listenerBotonRegistrar(ControladorPanelRegistro controladorPanelRegistro) {
-	return new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("Ejecutando evento Boton Registrar");
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Registrar");
 
-			String nif = textNIF.getText();
-			
+				String nombre = textNombre.getText();
+				String dni = textDNI.getText();
+				String nif = textNIF.getText();
+				String apellido = textApellido.getText();
+				@SuppressWarnings("deprecation")
+				String password = passwordContrasena.getText();
+
+				if (controladorPanelRegistro.comprobarFormatoNombre(nombre)
+						&& controladorPanelRegistro.comprobarFormatoApellido(apellido)
+						&& controladorPanelRegistro.comprobarNif(nif) && controladorPanelRegistro.comprobarNif(dni)
+						&& controladorPanelRegistro.comprobarBBDDnif(nif)
+						&& !controladorPanelRegistro.comprobarBBDDdni(dni)
+						&& controladorPanelRegistro.comprobarContraNoVacia(password))
+
+				{
 					// insertar datos en empleado
-					controladorPanelRegistro.insertarRegistro(textDNI.getText(),
-							textNombre.getText(),
-							textApellido.getText(),
-							passwordContrasena.getText(),
-							textNIF.getText());
+					controladorPanelRegistro.insertarRegistro(dni, nombre, apellido, password, nif);
 
-					System.out.println("Te has registrado con en este nif: " + nif);
-		}  
-		{
-			JOptionPane.showMessageDialog(null, "Registro iniciado");
-		}
+					JOptionPane.showMessageDialog(null, "Empleado introducido correctamente");
+					controladorPanelRegistro.accionadoBottonVolverPanelLogin();
+
+				} else {
+					if (controladorPanelRegistro.comprobarFormatoNombre(nombre) == false) {
+						JOptionPane.showMessageDialog(null,
+								"El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3");
+					}
+					if (controladorPanelRegistro.comprobarFormatoApellido(apellido) == false) {
+						JOptionPane.showMessageDialog(null,
+								"El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2");
+					}
+					if (controladorPanelRegistro.comprobarNif(dni) == false) {
+						JOptionPane.showMessageDialog(null, "El dni introducido es incorrecto");
+					}
+					if (controladorPanelRegistro.comprobarNif(nif) == false) {
+						JOptionPane.showMessageDialog(null, "El nif introducido es incorrecto");
+					}
+					if (controladorPanelRegistro.comprobarBBDDnif(nif) == false) {
+						JOptionPane.showMessageDialog(null, "El nif introducido no pertenece a ningun local");
+					}
+					if (controladorPanelRegistro.comprobarBBDDdni(dni)) {
+						JOptionPane.showMessageDialog(null, "El dni introducido ya existe en la BBDD");
+					}
+					if (controladorPanelRegistro.comprobarContraNoVacia(password) == false) {
+						JOptionPane.showMessageDialog(null, "la contraseña tiene que tener un minimo de 5 caracteres");
+					}
+				}
+
+			}
+
+			{
+				JOptionPane.showMessageDialog(null, "Registro iniciado");
+			}
 		};
 	}
 }

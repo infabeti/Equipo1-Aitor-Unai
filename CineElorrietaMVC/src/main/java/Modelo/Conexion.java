@@ -57,10 +57,10 @@ public class Conexion {
 		}
 	}
 
-	public void desconectar() {
+	/*public void desconectar() {
 		conn = null;
 		System.out.println("Desconexion realizada correctamente");
-	}
+	}*/
 
 	public Usuario login(String dni, String password) {
 		try {
@@ -94,7 +94,7 @@ public class Conexion {
 		return user;
 	}
 
-	public boolean registro(String NIF) {
+	public boolean comprobarSiExisteNIF(String nif) {
 		try {
 
 			java.sql.Connection conexionConn = this.getConn();
@@ -103,7 +103,32 @@ public class Conexion {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement("Select nif from empleado where NIF=?");
 
-			st.setString(1, NIF);
+			st.setString(1, nif);
+
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean comprobarSiExisteDNI(String dni) {
+		try {
+
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("Select dni from empleado where dni=?");
+
+			st.setString(1, dni);
 
 			ResultSet rs = st.executeQuery();
 
@@ -217,48 +242,6 @@ public class Conexion {
 	}
 	
 	
-
-	public  boolean existeDNI( String DNI){
-      
-		java.sql.Connection conexionConn = this.getConn();
-		Statement oSt = null;
-        ResultSet oRs = null;
-        String sSQL= " ";
-        boolean existeDNI= false; 
-
-        try{
-        	conexionConn.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-            sSQL = "SELECT * FROM empleado WHERE DNI='" + DNI + "'";
-
-
-            oSt = conexionConn.createStatement();
-            oRs = oSt.executeQuery(sSQL);
-
-            if(oRs.next()){
-               if(oRs.getRow() > 0){
-            	   existeDNI= true;
-               }
-            }
-
-            if (oSt != null) {oSt.close();oSt = null;}
-            if (oRs != null) {oRs.close();oRs = null;}
-        }catch(SQLException err){
-
-            oSt = null;
-            oRs = null;
-            sSQL=null;
-        }catch(Exception err){
-
-            oSt = null;
-            oRs = null;
-            sSQL=null;  
-        }finally{
-            oSt = null;
-            oRs = null;
-            sSQL=null;
-        }
-        return existeDNI;
-}
 
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
 		try {

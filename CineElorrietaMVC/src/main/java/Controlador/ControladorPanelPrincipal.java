@@ -56,7 +56,7 @@ public class ControladorPanelPrincipal {
 
 	public void accionadoBottonDesconectarPanelPrincipal() {
 		//Borramos la conexion antes de volver al panel login
-		this.modelo.getConexion().desconectar();
+		//this.modelo.getConexion().desconectar();
 		this.controlador.navegarPanelLogin();
 		
 		//Mensaje de desconexion

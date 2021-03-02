@@ -325,7 +325,7 @@ public class PanelFacturas extends JPanel {
 					if (controladorPanelFacturas.comprobarNif(textNIF.getText()) == false ) {
 						JOptionPane.showMessageDialog(null, "El nif introducido es incorrecto");
 					}
-					if (controladorPanelFacturas.comprobarFormatoApellido(textNombre.getText()) == false) {
+					if (controladorPanelFacturas.comprobarFormatoNombre(textNombre.getText()) == false) {
 						JOptionPane.showMessageDialog(null, "El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3");
 					}
 					if (controladorPanelFacturas.comprobarFormatoApellido(textApellido.getText()) == false) {
