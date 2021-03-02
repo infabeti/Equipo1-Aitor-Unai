@@ -6,10 +6,9 @@ import Vista.Vista;
 
 public class ControladorPanelAprovisionamiento {
 
-	@SuppressWarnings("unused")
+
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelAprovisionamiento panelAprovisionamiento;
 	
@@ -19,13 +18,29 @@ public class ControladorPanelAprovisionamiento {
 		this.controlador = controlador;	
 	}
 	
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
+	
 	public void mostrarPanelAprovisionamiento() {
-		this.panelAprovisionamiento = new PanelAprovisionamiento(this);
+		this.panelAprovisionamiento = makePanelAprovisionamiento(this);
 		this.vista.mostrarPanel(this.panelAprovisionamiento);
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
+	}
+	
+	public PanelAprovisionamiento makePanelAprovisionamiento(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
+		return new PanelAprovisionamiento(controladorPanelAprovisionamiento);
 	}
 	
 	

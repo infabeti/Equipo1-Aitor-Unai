@@ -13,10 +13,8 @@ import Vista.Vista;
 
 public class ControladorPanelFacturas {
 
-	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelFacturas panelFacturas;
 

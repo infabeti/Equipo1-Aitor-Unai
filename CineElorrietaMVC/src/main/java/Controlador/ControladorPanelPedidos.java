@@ -8,6 +8,7 @@ import Modelo.LineaPedido;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Producto;
+import Vista.PanelFacturas;
 import Vista.PanelPedidos;
 import Vista.Vista;
 
@@ -20,28 +21,39 @@ public class ControladorPanelPedidos {
 	private Controlador controlador;
 	private PanelPedidos panelPedidos;
 	private String[] listaProductos;
-	
+
 	public ControladorPanelPedidos(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
-		this.controlador = controlador;	
+		this.controlador = controlador;
 	}
-	
+
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
+
 	public String leerNumTransBBDD() {
-		
+
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
-		
+
 	}
-	
-	
+
 	public String conseguirLocal() {
 
 		return modelo.getUser().getNifLocal();
 
 	}
-	
+
 	public void mostrarPanelPedidos() {
-		this.panelPedidos = new PanelPedidos(this);
+		this.panelPedidos = makePanelPedidos(this);
 		this.vista.mostrarPanel(this.panelPedidos);
 	}
 
@@ -50,30 +62,17 @@ public class ControladorPanelPedidos {
 		ListaProductos listaProd = modelo.getListaTemporal();
 		listaProd.limpiarLista();
 	}
-	
-	public void accionadoBottonFinalizar() {
-		this.controlador.navegarPanelPrincipal();
-		JOptionPane.showMessageDialog(null, "Finalizado");
-	}
-	
-	
+
 	public String[] pasarListaProductos() {
 		ListaProductos listaProd = this.modelo.getListaProductos();
 		String[] lista = listaProd.getListaProductosString();
 		return lista;
 	}
-	
-	public Producto devolverProducto(String input) {
-		ListaProductos listaProd = modelo.getListaProductos();
-		Producto p1 = listaProd.devolverProductoPorString(input);
-		return p1;
-		
-	}
-	
+
 	public String devolverFechaHora() {
 		return modelo.getFechaHoraSys();
 	}
-	
+
 	public String accionadoBotonAnnadirProducto(String producto) {
 		ListaProductos listaProd = modelo.getListaProductos();
 		Producto prod = listaProd.devolverProductoPorString(producto);
@@ -81,33 +80,33 @@ public class ControladorPanelPedidos {
 		listaTemporal.addProducto(prod);
 		return prod.toString();
 	}
-	
+
 	public int existeProducto(String producto) {
 		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
 		return pos;
 	}
-	
-	public double cogerPrecioString (String producto) {
+
+	public double cogerPrecioString(String producto) {
 		double precio = modelo.getListaTemporal().precioProductoString(producto);
 		return precio;
 	}
-	
+
 	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
-		for(int i = 0; Character.isDigit(producto.charAt(i));i++) {
+		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
 			pos = i;
 		}
-		String cantString = producto.substring(0, pos+1);
+		String cantString = producto.substring(0, pos + 1);
 		int cantidad = Integer.parseInt(cantString);
 		cantidad = cantidad + cantidadAnadir;
-		String cambiada = cantidad + producto.substring(pos+1);
+		String cambiada = cantidad + producto.substring(pos + 1);
 		return cambiada;
 	}
-	
+
 	public String cantidadProducto(String cantidad, String productoAnadir) {
 		return cantidad + " " + productoAnadir;
- 	}
-	
+	}
+
 	public String cantidadTotal(String cantidad, String total, String producto) {
 		ListaProductos listaProd = this.modelo.getListaProductos();
 		int cantidadInt = Integer.parseInt(cantidad);
@@ -115,7 +114,7 @@ public class ControladorPanelPedidos {
 		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
 		return String.valueOf(totalDouble + precioTotalProducto);
 	}
-	
+
 	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
 		ListaProductos listaProd = modelo.getListaTemporal();
 		int cantidad = modelo.cogerCantidadString(eliminar);
@@ -125,7 +124,7 @@ public class ControladorPanelPedidos {
 		listaProd.eliminarProducto(pos);
 		return totalStr;
 	}
-	
+
 	public String devolverFechaFormateada(String input) {
 
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -141,35 +140,35 @@ public class ControladorPanelPedidos {
 		}
 		return "Error";
 	}
-	
+
 	public String devolverNombreProducto(int i) {
-		
+
 		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-		
-		String[] lista = listaTemporal.getListaProductosString();		
-		
+
+		String[] lista = listaTemporal.getListaProductosString();
+
 		return lista[i];
 	}
-	
+
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
 
 		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
 
 	}
-	
+
 	public void insertarPedido(int transaccion, String domicilio) {
-		
+
 		this.modelo.getConexion().insertarPedido(transaccion, domicilio);
 
 	}
-	
+
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
 		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
 	}
-	
-	
-	
-	
-	
+
+	public PanelPedidos makePanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
+		return new PanelPedidos(controladorPanelPedidos);
+	}
+
 }

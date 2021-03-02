@@ -1,20 +1,19 @@
 package Controlador;
 
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
 
 import Modelo.ListaProductos;
 import Modelo.Modelo;
+
 import Vista.PanelTickets;
 import Vista.Vista;
 import Modelo.Producto;
 
 public class ControladorPanelTickets {
 
-	@SuppressWarnings("unused")
+
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelTickets panelTickets;
 
@@ -23,9 +22,21 @@ public class ControladorPanelTickets {
 		this.vista = vista;
 		this.controlador = controlador;
 	}
+	
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
 
 	public void mostrarPanelTickets() {
-		this.panelTickets = new PanelTickets(this);
+		this.panelTickets = makePanelTickets(this);
 		this.vista.mostrarPanel(this.panelTickets);
 	}
 
@@ -152,6 +163,10 @@ public class ControladorPanelTickets {
 		String[] lista = listaTemporal.getListaProductosString();		
 		
 		return lista[i];
+	}
+	
+	public PanelTickets makePanelTickets(ControladorPanelTickets controladorPanelTickets) {
+		return new PanelTickets(controladorPanelTickets);
 	}
 
 }

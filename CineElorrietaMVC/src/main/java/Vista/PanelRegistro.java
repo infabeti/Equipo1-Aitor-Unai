@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelRegistro;
 
 import java.awt.SystemColor;

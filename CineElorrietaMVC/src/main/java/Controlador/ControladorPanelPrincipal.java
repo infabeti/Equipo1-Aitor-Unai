@@ -19,6 +19,18 @@ public class ControladorPanelPrincipal {
 		this.vista = vista;
 		this.controlador = controlador;
 	}
+	
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
 
 	public void mostrarPanelPrincipal() {
 		Usuario user = this.modelo.getUser();
