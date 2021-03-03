@@ -236,8 +236,10 @@ public class PanelFacturas extends JPanel {
 				String productoAnadir = "";
 				String cantidad = textCantidad.getText();
 				try {
+					System.out.println("Entra al primer try");
 					producto = (String) listaProductos.getSelectedValue();
 					if(producto != null) {
+						System.out.println("Existe el producto");
 						existeProd = true;
 					}
 					
@@ -248,18 +250,21 @@ public class PanelFacturas extends JPanel {
 				if (existeProd) {
 					try {
 						if (controladorPanelFacturas.existeProducto(producto) == -1) {
+							System.out.println("No existe el producto");
 							productoAnadir = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
 							annadidos.addElement(controladorPanelFacturas.cantidadProducto(cantidad, productoAnadir));
 							textTotal.setText(
-									controladorPanelFacturas.cantidadTotal(cantidad, textTotal.getText(), producto));
+									controladorPanelFacturas.cantidadTotal(cantidad, producto));
 							lblError.setText("");
 						} else {
+							System.out.println("Existe el producto");
 							String yaAnnadido = annadidos.get(controladorPanelFacturas.existeProducto(producto));
 							annadidos.set(controladorPanelFacturas.existeProducto(producto), controladorPanelFacturas
 									.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							String total = Double
+							/*String total = Double
 									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
-											* controladorPanelFacturas.cogerPrecioString(producto)));
+											* controladorPanelFacturas.cogerPrecioString(producto)));*/
+							String total = controladorPanelFacturas.cantidadTotal(cantidad, producto);
 							textTotal.setText(total);
 						}
 					} catch (Exception e) {
@@ -345,8 +350,7 @@ public class PanelFacturas extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
-					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos),
-							textTotal.getText());
+					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos));
 					annadidos.remove(pos);
 					textTotal.setText(total);
 					lblError.setText("");

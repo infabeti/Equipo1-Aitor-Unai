@@ -11,17 +11,22 @@ import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ControladorPanelFacturas {
 
 	private Modelo modelo;
 	private Vista vista;
 	private Controlador controlador;
 	private PanelFacturas panelFacturas;
+	private double total;
 
 	public ControladorPanelFacturas(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
+		this.total = 0.0;
 	}
 
 	public Modelo getModelo() {
@@ -106,20 +111,26 @@ public class ControladorPanelFacturas {
 		return cantidad + " " + productoAnadir;
 	}
 
-	public String cantidadTotal(String cantidad, String total, String producto) {
+	public String cantidadTotal(String cantidad, String producto) {
 		ListaProductos listaProd = this.modelo.getListaProductos();
 		int cantidadInt = Integer.parseInt(cantidad);
-		double totalDouble = Double.parseDouble(total);
 		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
-		return String.valueOf(totalDouble + precioTotalProducto);
+		total = total + precioTotalProducto;
+		BigDecimal bd = BigDecimal.valueOf(total);
+	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
+	    total = bd.doubleValue();
+		return String.valueOf(total);
 	}
 
-	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
+	public String accionadoBotonEliminar(int pos, String eliminar) {
 		ListaProductos listaProd = modelo.getListaTemporal();
 		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = listaProd.getPrecioProducto(pos);
-		double totalDouble = Double.parseDouble(total);
-		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
+		total = total - (precio * cantidad);
+		BigDecimal bd = BigDecimal.valueOf(total);
+	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
+	    total = bd.doubleValue();
+		String totalStr = String.valueOf(total);
 		listaProd.eliminarProducto(pos);
 		return totalStr;
 	}
