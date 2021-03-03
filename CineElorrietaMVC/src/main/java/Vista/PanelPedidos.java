@@ -241,7 +241,7 @@ public class PanelPedidos extends JPanel {
 		};
 	}
 
-	private ActionListener listenerBotonFinalizar(ControladorPanelPedidos ControladorPanelPedidos) {
+	private ActionListener listenerBotonFinalizar(ControladorPanelPedidos controladorPanelPedidos) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
@@ -249,7 +249,7 @@ public class PanelPedidos extends JPanel {
 				if (Double.parseDouble(textTotal.getText()) > 0) {
 					// insertar datos en actividad
 					controladorPanelPedidos.insertarActividad(Integer.parseInt(textFieldNumTrans.getText()),
-							ControladorPanelPedidos.devolverFechaFormateada(textFieldFecha.getText()),
+							textFieldFecha.getText(),
 							Double.parseDouble(textTotal.getText()), textFieldLocal.getText());
 
 					
@@ -269,14 +269,14 @@ public class PanelPedidos extends JPanel {
 
 						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
 
-						String producto = ControladorPanelPedidos.devolverNombreProducto(i);
-						double precioFinal = ControladorPanelPedidos.cogerPrecioString(producto);
+						String producto = controladorPanelPedidos.devolverNombreProducto(i);
+						double precioFinal = controladorPanelPedidos.cogerPrecioString(producto);
 
-						ControladorPanelPedidos.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
+						controladorPanelPedidos.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
 					}
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
-					ControladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
+					controladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes introducir articulos");

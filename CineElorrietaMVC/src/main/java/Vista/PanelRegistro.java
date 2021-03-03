@@ -133,51 +133,17 @@ public class PanelRegistro extends JPanel {
 				@SuppressWarnings("deprecation")
 				String password = passwordContrasena.getText();
 
-				if (controladorPanelRegistro.comprobarFormatoNombre(nombre)
-						&& controladorPanelRegistro.comprobarFormatoApellido(apellido)
-						&& controladorPanelRegistro.comprobarNif(nif) && controladorPanelRegistro.comprobarNif(dni)
-						&& controladorPanelRegistro.comprobarBBDDnif(nif)
-						&& !controladorPanelRegistro.comprobarBBDDdni(dni)
-						&& controladorPanelRegistro.comprobarContraNoVacia(password))
-
-				{
+				if (controladorPanelRegistro.comprobarCamposRegistro(nombre, apellido, nif, dni, password)) {
 					// insertar datos en empleado
 					controladorPanelRegistro.insertarRegistro(dni, nombre, apellido, password, nif);
 
 					JOptionPane.showMessageDialog(null, "Empleado introducido correctamente");
 					controladorPanelRegistro.accionadoBottonVolverPanelLogin();
 
-				} else {
-					if (controladorPanelRegistro.comprobarFormatoNombre(nombre) == false) {
-						JOptionPane.showMessageDialog(null,
-								"El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3");
-					}
-					if (controladorPanelRegistro.comprobarFormatoApellido(apellido) == false) {
-						JOptionPane.showMessageDialog(null,
-								"El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2");
-					}
-					if (controladorPanelRegistro.comprobarNif(dni) == false) {
-						JOptionPane.showMessageDialog(null, "El dni introducido es incorrecto");
-					}
-					if (controladorPanelRegistro.comprobarNif(nif) == false) {
-						JOptionPane.showMessageDialog(null, "El nif introducido es incorrecto");
-					}
-					if (controladorPanelRegistro.comprobarBBDDnif(nif) == false) {
-						JOptionPane.showMessageDialog(null, "El nif introducido no pertenece a ningun local");
-					}
-					if (controladorPanelRegistro.comprobarBBDDdni(dni)) {
-						JOptionPane.showMessageDialog(null, "El dni introducido ya existe en la BBDD");
-					}
-					if (controladorPanelRegistro.comprobarContraNoVacia(password) == false) {
-						JOptionPane.showMessageDialog(null, "la contraseña tiene que tener un minimo de 5 caracteres");
-					}
 				}
 
 			}
 
-			{
-				JOptionPane.showMessageDialog(null, "Registro iniciado");
-			}
 		};
 	}
 }

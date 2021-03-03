@@ -284,7 +284,7 @@ public class PanelFacturas extends JPanel {
 					
 					// insertar datos en actividad
 					controladorPanelFacturas.insertarActividad(Integer.parseInt(textFieldNumTrans.getText()),
-							controladorPanelFacturas.devolverFechaFormateada(textFieldFecha.getText()),
+							textFieldFecha.getText(),
 							Double.parseDouble(textTotal.getText()), textLocal.getText());
 					
 					// insertar datos en la tabla comprador la cual tiene transaccion, nombre y

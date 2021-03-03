@@ -11,7 +11,6 @@ import Modelo.Producto;
 
 public class ControladorPanelTickets {
 
-
 	private Modelo modelo;
 	private Vista vista;
 	private Controlador controlador;
@@ -24,7 +23,7 @@ public class ControladorPanelTickets {
 		this.controlador = controlador;
 		this.total = 0;
 	}
-	
+
 	public Modelo getModelo() {
 		return modelo;
 	}
@@ -49,7 +48,8 @@ public class ControladorPanelTickets {
 	}
 
 	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
+		String fechaFormateada = devolverFechaFormateada(fecha);
+		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
 	}
 
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
@@ -135,29 +135,20 @@ public class ControladorPanelTickets {
 
 	public String devolverFechaFormateada(String input) {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		String dateInString = input;
+		String fecha = this.modelo.getUtil().devolverFechaFormateada(input);
 
-		try {
-
-			java.util.Date date1 = formatter.parse(dateInString);
-			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "Error";
+		return fecha;
 	}
-	
+
 	public String devolverNombreProducto(int i) {
-		
+
 		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-		
-		String[] lista = listaTemporal.getListaProductosString();		
-		
+
+		String[] lista = listaTemporal.getListaProductosString();
+
 		return lista[i];
 	}
-	
+
 	public PanelTickets makePanelTickets(ControladorPanelTickets controladorPanelTickets) {
 		return new PanelTickets(controladorPanelTickets);
 	}

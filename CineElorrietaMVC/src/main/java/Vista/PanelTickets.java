@@ -190,15 +190,10 @@ public class PanelTickets extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
 
-				// System.out.println(Integer.parseInt(textFieldNumTrans.getText()));
-				// System.out.println(controladorPanelTickets.devolverFechaFormateada(textFieldFecha.getText()));
-				// System.out.println(Double.parseDouble(textTotal.getText()));
-				// System.out.println(textLocal.getText());
-
 				if (Double.parseDouble(textTotal.getText()) > 0) {
 					// insertar datos en actividad
 					controladorPanelTickets.insertarTicket(Integer.parseInt(textFieldNumTrans.getText()),
-							controladorPanelTickets.devolverFechaFormateada(textFieldFecha.getText()),
+							textFieldFecha.getText(),
 							Double.parseDouble(textTotal.getText()), textLocal.getText());
 
 					// insertar datos de productos

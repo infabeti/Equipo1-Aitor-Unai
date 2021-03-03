@@ -18,13 +18,20 @@ public class Conexion {
 	private final String CONSULTAACTIVIDAD = "select * from actividad;";
 	private final String CONSULTAALIMENTO = "select * from alimento ;";
 	private final String INSERTARACTIVIDAD = "insert into actividad " + "values(?,?,?,?);";
-	private final String INSERTAREMPLEADO = "insert into empleado " + "values(?,?,?,?);";
+	private final String INSERTAREMPLEADO = "insert into empleado " + "values(?, ?, ?, ?, ?)";
+	
+	private final String INSERTARPRODUCTOACTIVIDAD = "insert into lineaproducto (codigoalimento,transaccion,cantidad,preciofinal)"
+			+ "values(?,?,?,?);";
+	private final String CONSULTAPRODUCTOLOCAL = "Select a.Nombre, a.PCompra, p.PVenta, a.Tipo, a.FeCad from alimento a join producto p on a.CodigoAlimento = p.CodigoAlimento join stock s on a.CodigoAlimento = s.CodigoAlimento where s.NIF=?";
+	private final String INSERTARPEDIDO = "insert into pedido " + "values(?, ?)";
+	private final String INSERTARFACTURA = "insert into factura " + "values(?,?);";
+	private final String INSERTARCOMPRADOR ="insert into comprador " + "values(?,?,?);";
 
 	// constructor de la clase
 	private final String NOMBREBD = "reto3";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
-	private final String URL = "jdbc:mysql://localhost:3306/" + NOMBREBD + "?useUnicode=true&use"
+	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private Connection conn = null;
@@ -227,40 +234,18 @@ public class Conexion {
 
 	}
 
-	public void insertarEmpleado(String DNI, String Nombre, String Apellido, String Contrasena) {
-		try {
-			java.sql.Connection conexionConn = this.getConn();
-			PreparedStatement st = null;
-
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(INSERTAREMPLEADO);
-
-			st.setString(1, DNI);
-			st.setString(2, Nombre);
-			st.setString(3, Apellido);
-			st.setString(4, Contrasena);
-
-			try {
-				st.executeUpdate();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
-
-	}
 
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"insert into lineaproducto (codigoalimento,transaccion,cantidad,preciofinal)" + "values("
-							+ codigoAlimento + ",'" + transaccion + "'," + cantidad + ",'" + precioFinal + "');");
-			/**************/
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(INSERTARPRODUCTOACTIVIDAD);
+			
+			st.setString(1, codigoAlimento);
+			st.setInt(2, transaccion);
+			st.setInt(3, cantidad);
+			st.setDouble(4, cantidad);
 			try {
 				st.executeUpdate();
 
@@ -280,8 +265,7 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"Select a.Nombre, a.PCompra, p.PVenta, a.Tipo, a.FeCad from alimento a join producto p on a.CodigoAlimento = p.CodigoAlimento join stock s on a.CodigoAlimento = s.CodigoAlimento where s.NIF=?");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(CONSULTAPRODUCTOLOCAL);
 
 			st.setString(1, NIFLocal);
 
@@ -307,8 +291,7 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("insert into pedido " + "values(?, ?)");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(INSERTARPEDIDO);
 			/**************/
 			try {
 				st.setInt(1, transaccion);
@@ -337,9 +320,11 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("insert into factura " + "values(" + transaccion + ",'" + nif + "');");
-			/**************/
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(INSERTARFACTURA);
+
+			st.setInt(1, transaccion);
+			st.setString(2, nif);
+
 			try {
 				st.executeUpdate();
 
@@ -359,9 +344,12 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"insert into comprador " + "values('" + nif + "','" + nombre + "','" + apellido + "');");
-			/**************/
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(INSERTARCOMPRADOR);
+			
+			st.setString(1, nif);
+			st.setString(2, nombre);
+			st.setString(3, apellido);
+
 			try {
 				st.executeUpdate();
 
@@ -381,7 +369,7 @@ public class Conexion {
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("insert into empleado " + "values(?, ?, ?, ?, ?)");
+					.prepareStatement(INSERTAREMPLEADO);
 			/**************/
 			try {
 				st.setString(1, dni);

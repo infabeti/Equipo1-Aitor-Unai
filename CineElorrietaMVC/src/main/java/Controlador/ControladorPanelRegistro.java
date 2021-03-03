@@ -3,6 +3,8 @@ package Controlador;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import Modelo.Modelo;
 import Vista.PanelRegistro;
 import Vista.Vista;
@@ -47,39 +49,64 @@ public class ControladorPanelRegistro {
 
 	public boolean comprobarNif(String nif) {
 
-		boolean correcto = false;
-
-		Pattern pattern = Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
-
-		Matcher matcher = pattern.matcher(nif);
-
-		if (matcher.matches()) {
-
-			correcto = true;
-
-		} else {
-
-			correcto = false;
-
-		}
+		boolean correcto = this.modelo.getUtil().comprobarNif(nif);
 
 		return correcto;
 
 	}
 
-	public boolean comprobarFormatoNombre(String nombre) {
-		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 20, por ello comprobamos el length
-		if (contieneSoloLetras(nombre) && nombre.length() <= 20) {
-			if (nombre.length() >= 3) {
-				return true;
-			}
-			return false;
+	public boolean comprobarCamposRegistro(String nombre, String apellido, String nif, String dni, String password) {
 
+		boolean okNombre = comprobarFormatoNombre(nombre);
+		boolean okApellido = comprobarFormatoApellido(apellido);
+		boolean okNif = comprobarNif(nif);
+		boolean  okDni = comprobarNif(dni);
+		boolean  okComprobarBBDDnif= comprobarBBDDnif(nif);
+		boolean  okComprobarBBDDdni= comprobarBBDDdni(dni);
+		boolean  okPass= comprobarContraNoVacia(password);
+		
+		if (okNombre && okApellido && okNif
+				&& okDni && okComprobarBBDDnif && !okComprobarBBDDdni
+				&& okPass)
+
+		{
+			return true;
 		} else {
-
+			
+			if (okNombre == false) {
+				JOptionPane.showMessageDialog(null,
+						"El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3");
+			}
+			if (okApellido == false) {
+				JOptionPane.showMessageDialog(null,
+						"El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2");
+			}
+			if (okDni == false) {
+				JOptionPane.showMessageDialog(null, "El dni introducido es incorrecto");
+			}
+			if (okNif == false) {
+				JOptionPane.showMessageDialog(null, "El nif introducido es incorrecto");
+			}
+			if (okComprobarBBDDnif == false) {
+				JOptionPane.showMessageDialog(null, "El nif introducido no pertenece a ningun local");
+			}
+			if (okComprobarBBDDdni) {
+				JOptionPane.showMessageDialog(null, "El dni introducido ya existe en la BBDD");
+			}
+			if (okPass == false) {
+				JOptionPane.showMessageDialog(null, "la contraseña tiene que tener un minimo de 5 caracteres");
+			}
+			
 			return false;
 		}
+
+	}
+
+	public boolean comprobarFormatoNombre(String nombre) {
+		boolean correcto = this.modelo.getUtil().comprobarFormatoNombre(nombre);
+		
+
+		return correcto;
 	}
 
 	public boolean comprobarContraNoVacia(String pass) {
@@ -93,28 +120,15 @@ public class ControladorPanelRegistro {
 	}
 
 	public boolean comprobarFormatoApellido(String apellido) {
-		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 20, por ello comprobamos el length
-		if (contieneSoloLetras(apellido) && apellido.length() <= 25) {
-			if (apellido.length() >= 2) {
-				return true;
-			}
-			return false;
-		} else {
-
-			return false;
-		}
+		boolean correcto = this.modelo.getUtil().comprobarFormatoApellido(apellido);
+		
+		return correcto;
 	}
 
 	public boolean contieneSoloLetras(String cadena) {
-		for (int x = 0; x < cadena.length(); x++) {
-			char c = cadena.charAt(x);
-			// Si no estï¿½ entre a y z, ni entre A y Z, ni es un espacio
-			if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-				return false;
-			}
-		}
-		return true;
+		boolean correcto = this.modelo.getUtil().contieneSoloLetras(cadena);
+
+		return correcto;
 	}
 
 }

@@ -121,18 +121,9 @@ public class ControladorPanelPedidos {
 
 	public String devolverFechaFormateada(String input) {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		String dateInString = input;
-
-		try {
-
-			java.util.Date date1 = formatter.parse(dateInString);
-			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "Error";
+		String fecha = this.modelo.getUtil().devolverFechaFormateada(input);
+		
+		return fecha;
 	}
 
 	public String devolverNombreProducto(int i) {
@@ -158,7 +149,9 @@ public class ControladorPanelPedidos {
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
+		
+		String fechaFormateada = devolverFechaFormateada(fecha);
+		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
 	}
 
 	public PanelPedidos makePanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
