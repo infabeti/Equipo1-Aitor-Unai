@@ -90,7 +90,7 @@ Apellido varchar(25) not null
 
 create table factura(
 Transaccion int primary key,
-NIF char(9),
+NIF char(9) not null,
 constraint fk_factura_transaccion foreign key (Transaccion) references actividad (Transaccion) on update cascade,
 constraint fk_factura_nif foreign key (NIF) references comprador (NIF) on update cascade
 );
@@ -128,6 +128,8 @@ pvp float not null
 create table lineaplato(
 codigoplato int,
 Transaccion int,
+cantidad int not null,
+constraint ch_cantidad check(cantidad>0),
 constraint pk_lineaplato primary key (codigoplato, Transaccion),
 constraint fk_lineaplato_codigoplato foreign key (codigoplato) references plato (codigoplato) on update cascade,
 constraint fk_lineaplato_transaccion foreign key (Transaccion) references comanda (Transaccion) on update cascade
@@ -148,6 +150,13 @@ CodigoAlimento int,
 constraint pk_suministro primary key (Transaccion, CodigoAlimento),
 constraint fk_suministro_CodigoAlimento foreign key (CodigoAlimento) references ingrediente (CodigoAlimento) on update cascade,
 constraint fk_suministro_transaccion foreign key (Transaccion) references aprovisionamiento (Transaccion) on update cascade
+);
+
+create table carta(
+NIF char(9),
+codigoplato int,
+constraint fk_carta_nif foreign key (nif) references establecimiento(nif) on update cascade,
+constraint fk_carta_codigoplato foreign key (codigoplato) references plato(codigoplato) on update cascade
 );
 
 /* Inserciones establecimientos */
