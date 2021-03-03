@@ -112,27 +112,13 @@ public class ControladorPanelFacturas {
 	}
 
 	public String cantidadTotal(String cantidad, String producto) {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		int cantidadInt = Integer.parseInt(cantidad);
-		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
-		total = total + precioTotalProducto;
-		BigDecimal bd = BigDecimal.valueOf(total);
-	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
-	    total = bd.doubleValue();
+		total = this.modelo.getUtil().cantidadTotal(cantidad, producto, total);
 		return String.valueOf(total);
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		int cantidad = modelo.cogerCantidadString(eliminar);
-		double precio = listaProd.getPrecioProducto(pos);
-		total = total - (precio * cantidad);
-		BigDecimal bd = BigDecimal.valueOf(total);
-	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
-	    total = bd.doubleValue();
-		String totalStr = String.valueOf(total);
-		listaProd.eliminarProducto(pos);
-		return totalStr;
+		total = this.modelo.getUtil().accionadoBotonEliminar(pos, eliminar, total);
+		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {

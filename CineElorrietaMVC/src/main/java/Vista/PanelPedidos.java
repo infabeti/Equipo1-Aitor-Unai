@@ -211,19 +211,18 @@ public class PanelPedidos extends JPanel {
 					try {
 						if (controladorPanelPedidos.existeProducto(producto) == -1) {
 							productoAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto);
-							listaPAnnadidos
-									.addElement(controladorPanelPedidos.cantidadProducto(cantidad, productoAnadir));
+							listaPAnnadidos.addElement(controladorPanelPedidos.cantidadProducto(cantidad, productoAnadir));
 							textTotal.setText(
-									controladorPanelPedidos.cantidadTotal(cantidad, textTotal.getText(), producto));
+									controladorPanelPedidos.cantidadTotal(cantidad, producto));
 							lblError.setText("");
 						} else {
 							String yaAnnadido = listaPAnnadidos.get(controladorPanelPedidos.existeProducto(producto));
-							listaPAnnadidos.set(controladorPanelPedidos.existeProducto(producto),
-									controladorPanelPedidos.cambiarCantidadProductos(yaAnnadido,
-											Integer.parseInt(cantidad)));
-							String total = Double
+							listaPAnnadidos.set(controladorPanelPedidos.existeProducto(producto), controladorPanelPedidos
+									.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
+							/*String total = Double
 									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
-											* controladorPanelPedidos.cogerPrecioString(producto)));
+											* controladorPanelFacturas.cogerPrecioString(producto)));*/
+							String total = controladorPanelPedidos.cantidadTotal(cantidad, producto);
 							textTotal.setText(total);
 						}
 					} catch (Exception e) {
@@ -297,8 +296,7 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
-					String total = controladorPanelPedidos.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos),
-							textTotal.getText());
+					String total = controladorPanelPedidos.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos));
 					listaPAnnadidos.remove(pos);
 					textTotal.setText(total);
 					lblError.setText("");
