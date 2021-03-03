@@ -63,9 +63,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String[] cogerListaProductos() {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		String[] lista = listaProd.getListaProductosString();
-		return lista;
+		return this.modelo.getUtil().pasarListaProductos();
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
@@ -75,11 +73,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String accionadoBotonAnnadirProducto(String producto) {
-		ListaProductos listaProd = modelo.getListaProductos();
-		Producto prod = listaProd.devolverProductoPorString(producto);
-		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProducto(prod);
-		return prod.toString();
+		return this.modelo.getUtil().accionadoBotonAnnadirProducto(producto);
 	}
 
 	public int existeProducto(String producto) {
@@ -93,15 +87,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
-		int pos = 0;
-		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
-			pos = i;
-		}
-		String cantString = producto.substring(0, pos + 1);
-		int cantidad = Integer.parseInt(cantString);
-		cantidad = cantidad + cantidadAnadir;
-		String cambiada = cantidad + producto.substring(pos + 1);
-		return cambiada;
+		return this.modelo.getUtil().cambiarCantidadProductos(producto, cantidadAnadir);
 	}
 
 	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para
@@ -130,17 +116,16 @@ public class ControladorPanelFacturas {
 
 	public String devolverNombreProducto(int i) {
 
-		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-
-		String[] lista = listaTemporal.getListaProductosString();
-
-		return lista[i];
+		return this.modelo.getUtil().devolverNombreProducto(i);
 	}
 
-	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
+	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
+		String producto = devolverNombreProducto(nombreProducto);
+		double precioFinal = cogerPrecioString(producto);
+		
+		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
+		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 
 	}
 
@@ -168,6 +153,18 @@ public class ControladorPanelFacturas {
 		boolean correcto = this.modelo.getUtil().comprobarFormatoApellido(apellido);
 
 		return correcto;
+	}
+
+	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
+		boolean comprobarTotal = total > 0;
+		boolean comprobarNif = comprobarNif(nif);
+		boolean comprobarNombre = comprobarFormatoApellido(nombre);
+		boolean comprobarApellido = comprobarFormatoApellido(apellido);
+		if (comprobarTotal && comprobarNif && comprobarNombre && comprobarApellido) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void insertarComprador(String nif, String nombre, String apellido) {

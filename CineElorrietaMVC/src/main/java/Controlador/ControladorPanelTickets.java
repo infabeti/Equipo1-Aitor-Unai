@@ -77,19 +77,13 @@ public class ControladorPanelTickets {
 	}
 
 	public String[] cogerListaProductos() {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		String[] lista = listaProd.getListaProductosString();
-		return lista;
+		return this.modelo.getUtil().pasarListaProductos();
 	}
 
 	// M�todos para la l�gica de a�adir un producto
 
 	public String accionadoBotonAnnadirProducto(String producto) {
-		ListaProductos listaProd = modelo.getListaProductos();
-		Producto prod = listaProd.devolverProductoPorString(producto);
-		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProducto(prod);
-		return prod.toString();
+		return this.modelo.getUtil().accionadoBotonAnnadirProducto(producto);
 	}
 
 	public int existeProducto(String producto) {
@@ -103,15 +97,7 @@ public class ControladorPanelTickets {
 	}
 
 	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
-		int pos = 0;
-		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
-			pos = i;
-		}
-		String cantString = producto.substring(0, pos + 1);
-		int cantidad = Integer.parseInt(cantString);
-		cantidad = cantidad + cantidadAnadir;
-		String cambiada = cantidad + producto.substring(pos + 1);
-		return cambiada;
+		return this.modelo.getUtil().cambiarCantidadProductos(producto, cantidadAnadir);
 	}
 
 	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para
@@ -142,11 +128,7 @@ public class ControladorPanelTickets {
 
 	public String devolverNombreProducto(int i) {
 
-		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-
-		String[] lista = listaTemporal.getListaProductosString();
-
-		return lista[i];
+		return this.modelo.getUtil().devolverNombreProducto(i);
 	}
 
 	public PanelTickets makePanelTickets(ControladorPanelTickets controladorPanelTickets) {

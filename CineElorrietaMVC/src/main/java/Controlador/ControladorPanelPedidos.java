@@ -66,9 +66,8 @@ public class ControladorPanelPedidos {
 	}
 
 	public String[] pasarListaProductos() {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		String[] lista = listaProd.getListaProductosString();
-		return lista;
+		
+		return this.modelo.getUtil().pasarListaProductos();
 	}
 
 	public String devolverFechaHora() {
@@ -76,11 +75,7 @@ public class ControladorPanelPedidos {
 	}
 
 	public String accionadoBotonAnnadirProducto(String producto) {
-		ListaProductos listaProd = modelo.getListaProductos();
-		Producto prod = listaProd.devolverProductoPorString(producto);
-		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProducto(prod);
-		return prod.toString();
+		return this.modelo.getUtil().accionadoBotonAnnadirProducto(producto);
 	}
 
 	public int existeProducto(String producto) {
@@ -94,15 +89,7 @@ public class ControladorPanelPedidos {
 	}
 
 	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
-		int pos = 0;
-		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
-			pos = i;
-		}
-		String cantString = producto.substring(0, pos + 1);
-		int cantidad = Integer.parseInt(cantString);
-		cantidad = cantidad + cantidadAnadir;
-		String cambiada = cantidad + producto.substring(pos + 1);
-		return cambiada;
+		return this.modelo.getUtil().cambiarCantidadProductos(producto, cantidadAnadir);
 	}
 
 	public String cantidadProducto(String cantidad, String productoAnadir) {
@@ -122,17 +109,13 @@ public class ControladorPanelPedidos {
 	public String devolverFechaFormateada(String input) {
 
 		String fecha = this.modelo.getUtil().devolverFechaFormateada(input);
-		
+
 		return fecha;
 	}
 
 	public String devolverNombreProducto(int i) {
 
-		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-
-		String[] lista = listaTemporal.getListaProductosString();
-
-		return lista[i];
+		return this.modelo.getUtil().devolverNombreProducto(i);
 	}
 
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
@@ -149,7 +132,7 @@ public class ControladorPanelPedidos {
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
-		
+
 		String fechaFormateada = devolverFechaFormateada(fecha);
 		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
 	}
