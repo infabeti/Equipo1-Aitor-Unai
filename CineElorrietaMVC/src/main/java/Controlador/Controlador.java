@@ -82,5 +82,9 @@ public class Controlador {
 		}
 	}
 	
+	public ControladorPanelAprovisionamiento makeControladorPanelAprovisionamiento(Modelo modelo, Vista vista, Controlador controlador) {
+		return new ControladorPanelAprovisionamiento(this.modelo, this.vista, this);
+	}
+	
 	
 }
