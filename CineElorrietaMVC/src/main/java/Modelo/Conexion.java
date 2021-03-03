@@ -11,8 +11,16 @@ import java.sql.Types;
 
 public class Conexion {
 
-	// constructor de la clase
+	// CONSULTAS BBDD
+	private final String CONSULTALOGUEAR = "Select e.nombre, es.nombre, tipoNegocio, e.NIF from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?";
+	private final String CONSULTANIF = "Select nif from empleado where NIF=?";
+	private final String CONSULATDNI = "Select dni from empleado where dni=?";
+	private final String CONSULTAACTIVIDAD = "select * from actividad;";
+	private final String CONSULTAALIMENTO = "select * from alimento ;";
+	private final String INSERTARACTIVIDAD = "insert into actividad " + "values(?,?,?,?);";
+	private final String INSERTAREMPLEADO = "insert into empleado " + "values(?,?,?,?);";
 
+	// constructor de la clase
 	private final String NOMBREBD = "reto3";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
@@ -57,18 +65,17 @@ public class Conexion {
 		}
 	}
 
-	/*public void desconectar() {
-		conn = null;
-		System.out.println("Desconexion realizada correctamente");
-	}*/
+	/*
+	 * public void desconectar() { conn = null;
+	 * System.out.println("Desconexion realizada correctamente"); }
+	 */
 
 	public Usuario login(String dni, String password) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"Select e.nombre, es.nombre, tipoNegocio, e.NIF from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(CONSULTALOGUEAR);
 
 			st.setString(1, dni);
 			st.setString(2, password);
@@ -100,8 +107,7 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("Select nif from empleado where NIF=?");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(CONSULTANIF);
 
 			st.setString(1, nif);
 
@@ -118,15 +124,14 @@ public class Conexion {
 		}
 		return false;
 	}
-	
+
 	public boolean comprobarSiExisteDNI(String dni) {
 		try {
 
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("Select dni from empleado where dni=?");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(CONSULATDNI);
 
 			st.setString(1, dni);
 
@@ -150,7 +155,7 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("select * from actividad;");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(CONSULTAACTIVIDAD);
 
 			ResultSet rs = st.executeQuery();
 
@@ -171,14 +176,13 @@ public class Conexion {
 		return 1;
 	}
 
-
 	public String obtenerCodigoAlimentoProducto(String producto) {
 
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("select * from alimento ;");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(CONSULTAALIMENTO);
 
 			ResultSet rs = st.executeQuery();
 
@@ -203,8 +207,12 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into actividad "
-					+ "values(" + transaccion + ",'" + fecha + "'," + totalOperacion + ",'" + nif + "');");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(INSERTARACTIVIDAD);
+
+			st.setInt(1, transaccion);
+			st.setString(2, fecha);
+			st.setDouble(3, totalOperacion);
+			st.setString(4, nif);
 
 			try {
 				st.executeUpdate();
@@ -219,14 +227,17 @@ public class Conexion {
 
 	}
 
-	public void insertarEmpleado(String DNI, String Nombre,String Apellido, String Contrasena)
-	{
+	public void insertarEmpleado(String DNI, String Nombre, String Apellido, String Contrasena) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into empleado "
-					+ "values(" + DNI + ",'" + Nombre + "'," + Apellido + ",'" + Contrasena + "');");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(INSERTAREMPLEADO);
+
+			st.setString(1, DNI);
+			st.setString(2, Nombre);
+			st.setString(3, Apellido);
+			st.setString(4, Contrasena);
 
 			try {
 				st.executeUpdate();
@@ -240,8 +251,6 @@ public class Conexion {
 		}
 
 	}
-	
-	
 
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
 		try {
@@ -350,8 +359,8 @@ public class Conexion {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("insert into comprador " + "values('" + nif + "','" + nombre + "','" + apellido + "');");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into comprador " + "values('" + nif + "','" + nombre + "','" + apellido + "');");
 			/**************/
 			try {
 				st.executeUpdate();
@@ -365,15 +374,14 @@ public class Conexion {
 		}
 
 	}
-	
+
 	public boolean insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
-		
-			
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"insert into empleado " + "values(?, ?, ?, ?, ?)");
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("insert into empleado " + "values(?, ?, ?, ?, ?)");
 			/**************/
 			try {
 				st.setString(1, dni);
@@ -381,7 +389,7 @@ public class Conexion {
 				st.setString(3, Apellido);
 				st.setString(4, contrasena);
 				st.setString(5, nif);
-				
+
 				st.executeUpdate();
 				return true;
 
@@ -394,6 +402,6 @@ public class Conexion {
 			sqlException.printStackTrace();
 			return false;
 		}
-		
+
 	}
 }
