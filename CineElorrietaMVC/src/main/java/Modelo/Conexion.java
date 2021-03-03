@@ -292,6 +292,31 @@ public class Conexion {
 		}
 		return listaProd;
 	}
+	
+	public ListaProductos cogerProductosAprovisionamiento() {
+		ListaProductos listaProd = new ListaProductos();
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"Select a.Nombre, a.PCompra, a.Tipo, a.FeCad from alimento a order by a.CodigoAlimento asc");
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				String nombre = rs.getString("a.nombre");
+				double pCompra = rs.getDouble("a.PCompra");
+				String tipo = rs.getString("a.Tipo");
+				Date feCad = rs.getDate("a.FeCad");
+				Producto prod = new Producto(nombre, feCad, tipo, pCompra);
+				listaProd.addProducto(prod);
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return listaProd;
+	}
 
 	public void insertarPedido(int transaccion, String domicilio) {
 		try {
@@ -396,4 +421,57 @@ public class Conexion {
 		}
 		
 	}
+	
+	public boolean insertarAprovisionamiento(int cantidad, int codAlimento, String nifLocal) {
+		int cantidadActual = 0;
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"select Cantidad from stock where NIF = ? and CodigoAlimento = ?");
+			
+			st.setString(1,  nifLocal);
+			st.setInt(2, codAlimento);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				cantidadActual = rs.getInt("cantidad");
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+			
+			cantidad = cantidad + cantidadActual;
+		
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into stock " + "values(?, ?, ?)");
+			/**************/
+			try {
+				st.setString(1, nifLocal);
+				st.setInt(2, codAlimento);
+				st.setInt(3, cantidad);
+				
+				
+				st.executeUpdate();
+				return true;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	
+	
 }
