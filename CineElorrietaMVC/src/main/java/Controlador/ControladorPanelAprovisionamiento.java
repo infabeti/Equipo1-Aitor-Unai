@@ -1,6 +1,8 @@
 package Controlador;
 
 import Modelo.Modelo;
+import Modelo.ListaProductos;
+import Modelo.Producto;
 import Vista.PanelAprovisionamiento;
 import Vista.Vista;
 
@@ -11,6 +13,7 @@ public class ControladorPanelAprovisionamiento {
 	private Vista vista;
 	private Controlador controlador;
 	private PanelAprovisionamiento panelAprovisionamiento;
+	private ListaProductos listaP;
 	
 	public ControladorPanelAprovisionamiento(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -41,6 +44,16 @@ public class ControladorPanelAprovisionamiento {
 	
 	public PanelAprovisionamiento makePanelAprovisionamiento(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
 		return new PanelAprovisionamiento(controladorPanelAprovisionamiento);
+	}
+	
+	public String[] pasarListaProductos() {
+		listaP = modelo.getConexion().cogerProductosAprovisionamiento();
+		return listaP.getListaProductosString();
+	}
+	
+	public boolean accionadoBotonAnnadir(int cantidad, int indice) {
+		boolean realizado = modelo.getConexion().insertarAprovisionamiento(cantidad, indice+1, this.modelo.getUser().getNifLocal());
+		return realizado;
 	}
 	
 	
