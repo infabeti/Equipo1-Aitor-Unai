@@ -11,8 +11,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Controlador.ControladorPanelFacturas;
-import Controlador.ControladorPanelTickets;
-
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
@@ -34,7 +32,9 @@ public class PanelFacturas extends JPanel {
 	private JTextField textFieldFecha;
 	private JTextField textFieldNumTrans;
 	private JTextField textCantidad;
+	@SuppressWarnings("rawtypes")
 	private JList listaProductos;
+	@SuppressWarnings("rawtypes")
 	private JList listaAnnadidos;
 	private DefaultListModel<String> annadidos = new DefaultListModel<String>();
 	private JButton btnAnnadir;
@@ -302,6 +302,7 @@ public class PanelFacturas extends JPanel {
 					}
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
+					
 					controladorPanelFacturas.accionadoBottonVolverPanelPrincipal();
 
 				} else {

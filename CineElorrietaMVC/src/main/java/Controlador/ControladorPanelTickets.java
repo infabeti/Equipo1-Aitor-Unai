@@ -1,13 +1,10 @@
 package Controlador;
 
-import java.text.SimpleDateFormat;
-
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 
 import Vista.PanelTickets;
 import Vista.Vista;
-import Modelo.Producto;
 
 public class ControladorPanelTickets {
 
@@ -21,7 +18,7 @@ public class ControladorPanelTickets {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
-		this.total = 0;
+		this.total = 0.0;
 	}
 
 	public Modelo getModelo() {
@@ -52,11 +49,13 @@ public class ControladorPanelTickets {
 		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
 	}
 
-	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
-		// aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
-		// consulta a bbdd comparando el nombre para sacar el codalimento
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
+	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
+
+		String producto = devolverNombreProducto(nombreProducto);
+		double precioFinal = cogerPrecioString(producto);
+
+		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
+		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 
 	}
 
@@ -74,6 +73,7 @@ public class ControladorPanelTickets {
 		this.controlador.navegarPanelPrincipal();
 		ListaProductos listaProd = modelo.getListaTemporal();
 		listaProd.limpiarLista();
+		this.total = 0.0;
 	}
 
 	public String[] cogerListaProductos() {

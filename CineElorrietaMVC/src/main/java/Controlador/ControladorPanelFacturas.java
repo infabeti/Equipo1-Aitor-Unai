@@ -1,18 +1,10 @@
 package Controlador;
 
 import Modelo.Modelo;
-import Modelo.Producto;
-
-import java.text.SimpleDateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class ControladorPanelFacturas {
 
@@ -70,6 +62,7 @@ public class ControladorPanelFacturas {
 		this.controlador.navegarPanelPrincipal();
 		ListaProductos listaProd = modelo.getListaTemporal();
 		listaProd.limpiarLista();
+		this.total = 0.0;
 	}
 
 	public String accionadoBotonAnnadirProducto(String producto) {

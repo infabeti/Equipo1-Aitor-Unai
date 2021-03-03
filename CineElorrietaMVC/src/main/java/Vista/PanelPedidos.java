@@ -266,13 +266,9 @@ public class PanelPedidos extends JPanel {
 						String textoSpliteado[] = textoRecogido.split(" ");
 
 						int cantidad = Integer.parseInt(textoSpliteado[0]);
-
 						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
 
-						String producto = controladorPanelPedidos.devolverNombreProducto(i);
-						double precioFinal = controladorPanelPedidos.cogerPrecioString(producto);
-
-						controladorPanelPedidos.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
+						controladorPanelPedidos.insertarProductoActividad(i, transaccion, cantidad);
 					}
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");

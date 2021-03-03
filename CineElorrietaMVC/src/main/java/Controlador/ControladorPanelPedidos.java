@@ -1,26 +1,17 @@
 package Controlador;
 
-import java.text.SimpleDateFormat;
-
-import javax.swing.JOptionPane;
-
-import Modelo.LineaPedido;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
-import Modelo.Producto;
-import Vista.PanelFacturas;
+
 import Vista.PanelPedidos;
 import Vista.Vista;
 
 public class ControladorPanelPedidos {
 
-	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelPedidos panelPedidos;
-	private String[] listaProductos;
 	private double total;
 
 	public ControladorPanelPedidos(Modelo modelo, Vista vista, Controlador controlador) {
@@ -63,10 +54,11 @@ public class ControladorPanelPedidos {
 		this.controlador.navegarPanelPrincipal();
 		ListaProductos listaProd = modelo.getListaTemporal();
 		listaProd.limpiarLista();
+		this.total = 0.0;
 	}
 
 	public String[] pasarListaProductos() {
-		
+
 		return this.modelo.getUtil().pasarListaProductos();
 	}
 
@@ -118,10 +110,13 @@ public class ControladorPanelPedidos {
 		return this.modelo.getUtil().devolverNombreProducto(i);
 	}
 
-	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
+	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
+		String producto = devolverNombreProducto(nombreProducto);
+		double precioFinal = cogerPrecioString(producto);
+
+		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
+		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 
 	}
 
