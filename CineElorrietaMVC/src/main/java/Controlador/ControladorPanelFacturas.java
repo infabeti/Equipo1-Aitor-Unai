@@ -11,17 +11,22 @@ import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ControladorPanelFacturas {
 
 	private Modelo modelo;
 	private Vista vista;
 	private Controlador controlador;
 	private PanelFacturas panelFacturas;
+	private double total;
 
 	public ControladorPanelFacturas(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
+		this.total = 0.0;
 	}
 
 	public Modelo getModelo() {
@@ -106,22 +111,14 @@ public class ControladorPanelFacturas {
 		return cantidad + " " + productoAnadir;
 	}
 
-	public String cantidadTotal(String cantidad, String total, String producto) {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		int cantidadInt = Integer.parseInt(cantidad);
-		double totalDouble = Double.parseDouble(total);
-		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
-		return String.valueOf(totalDouble + precioTotalProducto);
+	public String cantidadTotal(String cantidad, String producto) {
+		total = this.modelo.getUtil().cantidadTotal(cantidad, producto, total);
+		return String.valueOf(total);
 	}
 
-	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		int cantidad = modelo.cogerCantidadString(eliminar);
-		double precio = listaProd.getPrecioProducto(pos);
-		double totalDouble = Double.parseDouble(total);
-		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
-		listaProd.eliminarProducto(pos);
-		return totalStr;
+	public String accionadoBotonEliminar(int pos, String eliminar) {
+		total = this.modelo.getUtil().accionadoBotonEliminar(pos, eliminar, total);
+		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {

@@ -12,6 +12,7 @@ public class Modelo {
 	private ListaProductos listaProductos = new ListaProductos();
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
 	private Usuario user;
+	private Utiles util;
 	
 	//Conexion a BBDD
 
@@ -26,6 +27,7 @@ public class Modelo {
 		
 		//productosAlmacenados(); 
 		user = new Usuario("", "", "", "");
+		util = new Utiles(this);
 
 	}
 	
@@ -59,6 +61,14 @@ public class Modelo {
 
 	public void setArrProdSeleccionados(LineaPedido[] arrProdSeleccionados) {
 		this.arrProdSeleccionados = arrProdSeleccionados;
+	}
+	
+	public Utiles getUtil() {
+		return this.util;
+	}
+	
+	public void setUtil(Utiles util) {
+		this.util = util;
 	}
 
 	public void productosAlmacenados() {

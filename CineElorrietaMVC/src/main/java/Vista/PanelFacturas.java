@@ -251,15 +251,17 @@ public class PanelFacturas extends JPanel {
 							productoAnadir = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
 							annadidos.addElement(controladorPanelFacturas.cantidadProducto(cantidad, productoAnadir));
 							textTotal.setText(
-									controladorPanelFacturas.cantidadTotal(cantidad, textTotal.getText(), producto));
+									controladorPanelFacturas.cantidadTotal(cantidad, producto));
 							lblError.setText("");
-						} else {
+						} else 
+						{
 							String yaAnnadido = annadidos.get(controladorPanelFacturas.existeProducto(producto));
 							annadidos.set(controladorPanelFacturas.existeProducto(producto), controladorPanelFacturas
 									.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							String total = Double
+							/*String total = Double
 									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
-											* controladorPanelFacturas.cogerPrecioString(producto)));
+											* controladorPanelFacturas.cogerPrecioString(producto)));*/
+							String total = controladorPanelFacturas.cantidadTotal(cantidad, producto);
 							textTotal.setText(total);
 						}
 					} catch (Exception e) {
@@ -345,8 +347,7 @@ public class PanelFacturas extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
-					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos),
-							textTotal.getText());
+					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos));
 					annadidos.remove(pos);
 					textTotal.setText(total);
 					lblError.setText("");
