@@ -16,11 +16,13 @@ public class ControladorPanelTickets {
 	private Vista vista;
 	private Controlador controlador;
 	private PanelTickets panelTickets;
+	private double total;
 
 	public ControladorPanelTickets(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
+		this.total = 0;
 	}
 	
 	public Modelo getModelo() {
@@ -119,25 +121,16 @@ public class ControladorPanelTickets {
 		return cantidad + " " + productoAnadir;
 	}
 
-	public String cantidadTotal(String cantidad, String total, String producto) {
-		System.out.println(producto);
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		int cantidadInt = Integer.parseInt(cantidad);
-		double totalDouble = Double.parseDouble(total);
-		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
-		return String.valueOf(totalDouble + precioTotalProducto);
+	public String accionadoBotonEliminar(int pos, String eliminar) {
+		total = this.modelo.getUtil().accionadoBotonEliminar(pos, eliminar, total);
+		return String.valueOf(total);
 	}
 
 	// M�todo para la l�gica de eliminar un producto
 
-	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		int cantidad = modelo.cogerCantidadString(eliminar);
-		double precio = listaProd.getPrecioProducto(pos);
-		double totalDouble = Double.parseDouble(total);
-		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
-		listaProd.eliminarProducto(pos);
-		return totalStr;
+	public String cantidadTotal(String cantidad, String producto) {
+		total = this.modelo.getUtil().cantidadTotal(cantidad, producto, total);
+		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {

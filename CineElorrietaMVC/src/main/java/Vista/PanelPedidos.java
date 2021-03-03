@@ -219,9 +219,6 @@ public class PanelPedidos extends JPanel {
 							String yaAnnadido = listaPAnnadidos.get(controladorPanelPedidos.existeProducto(producto));
 							listaPAnnadidos.set(controladorPanelPedidos.existeProducto(producto), controladorPanelPedidos
 									.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							/*String total = Double
-									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
-											* controladorPanelFacturas.cogerPrecioString(producto)));*/
 							String total = controladorPanelPedidos.cantidadTotal(cantidad, producto);
 							textTotal.setText(total);
 						}

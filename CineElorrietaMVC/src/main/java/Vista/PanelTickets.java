@@ -269,19 +269,15 @@ public class PanelTickets extends JPanel {
 					try {
 						if (controladorPanelTickets.existeProducto(producto) == -1) {
 							productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
-							listaPAnnadidos
-									.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
+							listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
 							textTotal.setText(
-									controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
+									controladorPanelTickets.cantidadTotal(cantidad, producto));
 							lblError.setText("");
 						} else {
 							String yaAnnadido = listaPAnnadidos.get(controladorPanelTickets.existeProducto(producto));
-							listaPAnnadidos.set(controladorPanelTickets.existeProducto(producto),
-									controladorPanelTickets.cambiarCantidadProductos(yaAnnadido,
-											Integer.parseInt(cantidad)));
-							String total = Double
-									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
-											* controladorPanelTickets.cogerPrecioString(producto)));
+							listaPAnnadidos.set(controladorPanelTickets.existeProducto(producto), controladorPanelTickets
+									.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
+							String total = controladorPanelTickets.cantidadTotal(cantidad, producto);
 							textTotal.setText(total);
 						}
 					} catch (Exception e) {
@@ -307,8 +303,7 @@ public class PanelTickets extends JPanel {
 					 * devuelto por el controlador
 					 */
 					int pos = listaAnnadidos.getSelectedIndex();
-					String total = controladorPanelTickets.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos),
-							textTotal.getText());
+					String total = controladorPanelTickets.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos));
 					listaPAnnadidos.remove(pos);
 					textTotal.setText(total);
 					lblError.setText("");
