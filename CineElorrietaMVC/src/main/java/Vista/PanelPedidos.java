@@ -173,7 +173,7 @@ public class PanelPedidos extends JPanel {
 		scrollPane_1.setBounds(17, 267, 171, 135);
 		add(scrollPane_1);
 
-		productosAlmacenados = new JList(controladorPanelPedidos.pasarListaProductos());
+		productosAlmacenados = new JList(controladorPanelPedidos.cogerListaProductos());
 		scrollPane_1.setViewportView(productosAlmacenados);
 		productosAlmacenados.setBackground(Color.WHITE);
 
