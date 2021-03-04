@@ -103,6 +103,15 @@ public class Utiles {
 		}
 	}
 	
+	public boolean comprobarCamposString(String NIF, String nombre, String apellido) {
+		if(comprobarNif(NIF) && comprobarFormatoNombre(nombre) && comprobarFormatoApellido(apellido)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public boolean contieneSoloLetras(String cadena) {
 		for (int x = 0; x < cadena.length(); x++) {
 			char c = cadena.charAt(x);

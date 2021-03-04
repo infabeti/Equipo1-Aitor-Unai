@@ -112,27 +112,10 @@ public class ControladorPanelFacturas {
 		this.modelo.getConexion().insertarFactura(transaccion, nif);
 	}
 
-	public boolean comprobarNif(String nif) {
-		boolean correcto = this.modelo.getUtil().comprobarNif(nif);
-		return correcto;
-	}
-
-	public boolean comprobarFormatoNombre(String nombre) {
-		boolean correcto = this.modelo.getUtil().comprobarFormatoNombre(nombre);
-		return correcto;
-	}
-
-	public boolean comprobarFormatoApellido(String apellido) {
-		boolean correcto = this.modelo.getUtil().comprobarFormatoApellido(apellido);
-		return correcto;
-	}
-
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
 		boolean comprobarTotal = total > 0;
-		boolean comprobarNif = comprobarNif(nif);
-		boolean comprobarNombre = comprobarFormatoApellido(nombre);
-		boolean comprobarApellido = comprobarFormatoApellido(apellido);
-		if (comprobarTotal && comprobarNif && comprobarNombre && comprobarApellido) {
+		boolean comprobarCampos = this.modelo.getUtil().comprobarCamposString(nif, nombre, apellido);
+		if (comprobarTotal && comprobarCampos) {
 			return true;
 		} else {
 			return false;

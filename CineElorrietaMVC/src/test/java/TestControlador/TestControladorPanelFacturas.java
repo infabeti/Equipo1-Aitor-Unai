@@ -260,56 +260,6 @@ public class TestControladorPanelFacturas {
 
 	}
 	
-	@Test
-	public void TestComprobarNif() {
-		
-		String nif = "123312";
-		
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
-		
-		when(utilesMock.comprobarNif(nif)).thenReturn(false);
-		
-		resultadoBoolean = controladorPanelFacturas.comprobarNif(nif); 
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-	
-	@Test
-	public void TestComprobarFormatoNombre() {
-		
-		String nombre = "joni";
-		
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
-		
-		when(utilesMock.comprobarFormatoNombre(nombre)).thenReturn(true);
-		
-		resultadoBoolean = controladorPanelFacturas.comprobarFormatoNombre(nombre); 
-
-		resultadoEsperadoBoolean = true;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-	
-	@Test
-	public void TestComprobarFormatoApellido() {
-		
-		String apellido = "Perro";
-		
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
-		
-		when(utilesMock.comprobarFormatoApellido(apellido)).thenReturn(true);
-		
-		resultadoBoolean = controladorPanelFacturas.comprobarFormatoApellido(apellido); 
-
-		resultadoEsperadoBoolean = true;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
 	
 	@Test
 	public void TestContieneSoloLetras() {

@@ -306,27 +306,13 @@ public class PanelFacturas extends JPanel {
 					controladorPanelFacturas.accionadoBottonVolverPanelPrincipal();
 
 				} else {
-					if (Double.parseDouble(textTotal.getText()) == 0) {
-						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+					if (!controladorPanelFacturas.comprobarCampos(Double.parseDouble(textTotal.getText()), textNIF.getText(), textNombre.getText(), textApellido.getText())) {
+						JOptionPane.showMessageDialog(null, "Asegurate que todos los campos son correctos");
 					}
-					if (controladorPanelFacturas.comprobarNif(textNIF.getText()) == false) {
-						JOptionPane.showMessageDialog(null, "El nif introducido es incorrecto");
-					}
-					if (controladorPanelFacturas.comprobarFormatoNombre(textNombre.getText()) == false) {
-						JOptionPane.showMessageDialog(null,
-								"El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3");
-					}
-					if (controladorPanelFacturas.comprobarFormatoApellido(textApellido.getText()) == false) {
-						JOptionPane.showMessageDialog(null,
-								"El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2");
-					}
-
 				}
-
-			}
-
+				}
 		};
-	}
+		}
 
 	private ActionListener listenerBotonEliminar(ControladorPanelFacturas controladorPanelFacturas) {
 		return new ActionListener() {
