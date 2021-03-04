@@ -24,11 +24,8 @@ public class Modelo {
 	java.sql.Connection conexionConn =  conexion.getConn();
 	
 	public Modelo() {
-		
-		//productosAlmacenados(); 
 		user = new Usuario("", "", "", "");
 		util = new Utiles(this);
-
 	}
 	
 	public void setConexion(Conexion conexion){

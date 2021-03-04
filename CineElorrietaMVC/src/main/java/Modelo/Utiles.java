@@ -25,7 +25,7 @@ public class Utiles {
 		return total;
 	}
 	
-	public String accionadoBotonAnnadirProducto(String producto) {
+	public String annadirProducto(String producto) {
 		ListaProductos listaProd = modelo.getListaProductos();
 		Producto prod = listaProd.devolverProductoPorString(producto);
 		ListaProductos listaTemporal = modelo.getListaTemporal();
@@ -46,22 +46,12 @@ public class Utiles {
 	}
 	
 	public String devolverNombreProducto(int i) {
-
 		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-
 		String[] lista = listaTemporal.getListaProductosString();
-
 		return lista[i];
 	}
-	
-	public String[] pasarListaProductos() {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		String[] lista = listaProd.getListaProductosString();
-		return lista;
-	}
 
-
-	public double accionadoBotonEliminar(int pos, String eliminar, double total) {
+	public double eliminarProducto(int pos, String eliminar, double total) {
 		ListaProductos listaProd = modelo.getListaTemporal();
 		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = listaProd.getPrecioProducto(pos);
@@ -74,25 +64,16 @@ public class Utiles {
 	}
 	
 	public boolean comprobarNif(String nif) {
-
 		boolean correcto = false;
-
 		Pattern pattern = Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
-
 		Matcher matcher = pattern.matcher(nif);
-
 		if (matcher.matches()) {
-
 			correcto = true;
-
 		} else {
 
 			correcto = false;
-
 		}
-
 		return correcto;
-
 	}
 
 	public boolean comprobarFormatoNombre(String nombre) {
@@ -103,9 +84,7 @@ public class Utiles {
 				return true;
 			}
 			return false;
-
 		} else {
-
 			return false;
 		}
 	}
@@ -136,20 +115,14 @@ public class Utiles {
 	}
 	
 	public String devolverFechaFormateada(String input) {
-
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		String dateInString = input;
-
 		try {
-
 			java.util.Date date1 = formatter.parse(dateInString);
 			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "Error";
 	}
-
-	
 }

@@ -18,7 +18,6 @@ public class ControladorPanelFacturas {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
-		this.total = 0.0;
 	}
 
 	public Modelo getModelo() {
@@ -38,15 +37,11 @@ public class ControladorPanelFacturas {
 	}
 
 	public String conseguirLocal() {
-
 		return modelo.getUser().getNifLocal();
-
 	}
 
 	public String leerNumTransBBDD() {
-
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
-
 	}
 
 	public void mostrarPanelFacturas() {
@@ -55,7 +50,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String[] cogerListaProductos() {
-		return this.modelo.getUtil().pasarListaProductos();
+		return this.modelo.getListaProductos().getListaProductosString();
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
@@ -66,11 +61,11 @@ public class ControladorPanelFacturas {
 	}
 
 	public String accionadoBotonAnnadirProducto(String producto) {
-		return this.modelo.getUtil().accionadoBotonAnnadirProducto(producto);
+		return this.modelo.getUtil().annadirProducto(producto);
 	}
 
-	public int existeProducto(String producto) {
-		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
+	public int existeProducto(String nombreProducto) {
+		int pos = modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 		return pos;
 	}
 
@@ -83,10 +78,7 @@ public class ControladorPanelFacturas {
 		return this.modelo.getUtil().cambiarCantidadProductos(producto, cantidadAnadir);
 	}
 
-	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para
-																				// a�adir en la lista de a�adidos,
-																				// el cual se creaba antes en la propia
-																				// vista
+	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para a�adir en la lista de a�adidos,el cual se creaba antes en la propiavista
 		return cantidad + " " + productoAnadir;
 	}
 
@@ -96,30 +88,24 @@ public class ControladorPanelFacturas {
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.getUtil().accionadoBotonEliminar(pos, eliminar, total);
+		total = this.modelo.getUtil().eliminarProducto(pos, eliminar, total);
 		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {
-
 		String fecha = this.modelo.getUtil().devolverFechaFormateada(input);
-
 		return fecha;
 	}
 
 	public String devolverNombreProducto(int i) {
-
 		return this.modelo.getUtil().devolverNombreProducto(i);
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
-
 		String producto = devolverNombreProducto(nombreProducto);
 		double precioFinal = cogerPrecioString(producto);
-		
 		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
-
 	}
 
 	public void insertarFactura(int transaccion, String nif) {
@@ -127,24 +113,17 @@ public class ControladorPanelFacturas {
 	}
 
 	public boolean comprobarNif(String nif) {
-
 		boolean correcto = this.modelo.getUtil().comprobarNif(nif);
-
 		return correcto;
-
 	}
 
 	public boolean comprobarFormatoNombre(String nombre) {
-
 		boolean correcto = this.modelo.getUtil().comprobarFormatoNombre(nombre);
-
 		return correcto;
 	}
 
 	public boolean comprobarFormatoApellido(String apellido) {
-
 		boolean correcto = this.modelo.getUtil().comprobarFormatoApellido(apellido);
-
 		return correcto;
 	}
 
@@ -161,9 +140,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public void insertarComprador(String nif, String nombre, String apellido) {
-
 		this.modelo.getConexion().insertarComprador(nif, nombre, apellido);
-
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
@@ -173,7 +150,6 @@ public class ControladorPanelFacturas {
 
 	public boolean contieneSoloLetras(String cadena) {
 		boolean correcto = this.modelo.getUtil().contieneSoloLetras(cadena);
-
 		return correcto;
 	}
 

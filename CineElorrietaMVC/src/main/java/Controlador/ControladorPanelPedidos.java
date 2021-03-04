@@ -18,7 +18,6 @@ public class ControladorPanelPedidos {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
-		this.total = 0.0;
 	}
 
 	public Modelo getModelo() {
@@ -34,15 +33,11 @@ public class ControladorPanelPedidos {
 	}
 
 	public String leerNumTransBBDD() {
-
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
-
 	}
 
 	public String conseguirLocal() {
-
 		return modelo.getUser().getNifLocal();
-
 	}
 
 	public void mostrarPanelPedidos() {
@@ -57,9 +52,8 @@ public class ControladorPanelPedidos {
 		this.total = 0.0;
 	}
 
-	public String[] pasarListaProductos() {
-
-		return this.modelo.getUtil().pasarListaProductos();
+	public String[] cogerListaProductos() {
+		return this.modelo.getListaProductos().getListaProductosString();
 	}
 
 	public String devolverFechaHora() {
@@ -67,11 +61,11 @@ public class ControladorPanelPedidos {
 	}
 
 	public String accionadoBotonAnnadirProducto(String producto) {
-		return this.modelo.getUtil().accionadoBotonAnnadirProducto(producto);
+		return this.modelo.getUtil().annadirProducto(producto);
 	}
 
-	public int existeProducto(String producto) {
-		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
+	public int existeProducto(String nombreProducto) {
+		int pos = modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 		return pos;
 	}
 
@@ -94,40 +88,31 @@ public class ControladorPanelPedidos {
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.getUtil().accionadoBotonEliminar(pos, eliminar, total);
+		total = this.modelo.getUtil().eliminarProducto(pos, eliminar, total);
 		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {
-
 		String fecha = this.modelo.getUtil().devolverFechaFormateada(input);
-
 		return fecha;
 	}
 
 	public String devolverNombreProducto(int i) {
-
 		return this.modelo.getUtil().devolverNombreProducto(i);
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
-
 		String producto = devolverNombreProducto(nombreProducto);
 		double precioFinal = cogerPrecioString(producto);
-
 		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
-
 	}
 
 	public void insertarPedido(int transaccion, String domicilio) {
-
 		this.modelo.getConexion().insertarPedido(transaccion, domicilio);
-
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
-
 		String fechaFormateada = devolverFechaFormateada(fecha);
 		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
 	}

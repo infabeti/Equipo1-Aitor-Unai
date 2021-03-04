@@ -72,15 +72,5 @@ public class Controlador {
 		this.controladorPanelTickets.mostrarPanelTickets();
 	}
 	
-	public void navegarPanelComandas() {
-		System.out.println("Navegar panel Comandas");
-		Usuario user = modelo.getUser();
-		if(user.getTipoLocal().equals("RESTAURANTE")) {
-			/*Quitar cuando se cree
-			 * this.controladorPanelComandas.mostrarPanelComandas();
-			 */
-		}
-	}
-	
 	
 }

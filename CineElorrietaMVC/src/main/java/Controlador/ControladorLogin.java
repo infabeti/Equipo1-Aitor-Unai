@@ -34,9 +34,9 @@ public class ControladorLogin {
 		this.controlador.navegarPanelRegistro();
 	}
 
-	public boolean login(String userName, String password) {
+	public boolean login(String user, String password) {
 
-		Usuario res = this.modelo.getConexion().login(userName, password);
+		Usuario res = this.modelo.getConexion().login(user, password);
 
 		this.modelo.setUser(res);
 

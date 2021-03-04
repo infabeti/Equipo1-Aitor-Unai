@@ -18,7 +18,6 @@ public class ControladorPanelTickets {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
-		this.total = 0.0;
 	}
 
 	public Modelo getModelo() {
@@ -39,9 +38,7 @@ public class ControladorPanelTickets {
 	}
 
 	public String leerNumTransBBDD() {
-
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
-
 	}
 
 	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif) {
@@ -50,19 +47,14 @@ public class ControladorPanelTickets {
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
-
 		String producto = devolverNombreProducto(nombreProducto);
 		double precioFinal = cogerPrecioString(producto);
-
 		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
-
 	}
 
 	public String conseguirLocal() {
-
 		return modelo.getUser().getNifLocal();
-
 	}
 
 	public String devolverFechaHora() {
@@ -77,17 +69,17 @@ public class ControladorPanelTickets {
 	}
 
 	public String[] cogerListaProductos() {
-		return this.modelo.getUtil().pasarListaProductos();
+		return this.modelo.getListaProductos().getListaProductosString();
 	}
 
 	// M�todos para la l�gica de a�adir un producto
 
 	public String accionadoBotonAnnadirProducto(String producto) {
-		return this.modelo.getUtil().accionadoBotonAnnadirProducto(producto);
+		return this.modelo.getUtil().annadirProducto(producto);
 	}
 
-	public int existeProducto(String producto) {
-		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
+	public int existeProducto(String nombreProducto) {
+		int pos = modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 		return pos;
 	}
 
@@ -108,7 +100,7 @@ public class ControladorPanelTickets {
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.getUtil().accionadoBotonEliminar(pos, eliminar, total);
+		total = this.modelo.getUtil().eliminarProducto(pos, eliminar, total);
 		return String.valueOf(total);
 	}
 
@@ -120,9 +112,7 @@ public class ControladorPanelTickets {
 	}
 
 	public String devolverFechaFormateada(String input) {
-
 		String fecha = this.modelo.getUtil().devolverFechaFormateada(input);
-
 		return fecha;
 	}
 
