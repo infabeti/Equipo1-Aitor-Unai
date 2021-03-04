@@ -120,5 +120,4 @@ public class ControladorPanelPedidos {
 	public PanelPedidos makePanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
 		return new PanelPedidos(controladorPanelPedidos);
 	}
-
 }

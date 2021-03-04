@@ -17,14 +17,11 @@ import Modelo.Conexion;
 
 import Modelo.ListaProductos;
 import Modelo.Modelo;
-import Modelo.Producto;
 import Modelo.Usuario;
 import Modelo.Utiles;
 import Vista.PanelPedidos;
 import Vista.Vista;
 
-//Mockito Runner para junit
-//@RunWith(MockitoJUnitRunner.class)
 public class TestControladorPanelPedidos {
 
 	private Modelo modeloMock = mock(Modelo.class);

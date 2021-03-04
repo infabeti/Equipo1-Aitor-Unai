@@ -17,7 +17,6 @@ import Controlador.ControladorPanelTickets;
 import Modelo.Conexion;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
-import Modelo.Producto;
 import Modelo.Usuario;
 import Modelo.Utiles;
 import Vista.PanelTickets;
