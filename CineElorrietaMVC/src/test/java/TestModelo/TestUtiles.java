@@ -42,7 +42,7 @@ public class TestUtiles {
 
 		when(productoMock.toString()).thenReturn("hola");
 
-		resultadoString = utiles.accionadoBotonAnnadirProducto("saludos");
+		resultadoString = utiles.annadirProducto("saludos");
 
 		resultadoEsperadoString = "hola";
 
@@ -96,7 +96,7 @@ public class TestUtiles {
 
 		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
 
-		resultadoDouble = utiles.accionadoBotonEliminar(pos, eliminar, total);
+		resultadoDouble = utiles.eliminarProducto(pos, eliminar, total);
 
 		resultadoEsperadoDouble = 3.0;
 
@@ -123,19 +123,6 @@ public class TestUtiles {
 
 	}
 	
-	@Test
-	public void testPasarListaProductos() {
-		// Objeto tipo listaproductos
-		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
-
-		// array de string
-		when(listaProductosMock.getListaProductosString()).thenReturn(listaProductos);
-
-		resultadoEsperadoArrayString = utiles.pasarListaProductos();
-
-		assertArrayEquals(resultadoEsperadoArrayString, listaProductos);
-	}
-
 
 	@Test
 	public void TestDevolverNombreProducto() {

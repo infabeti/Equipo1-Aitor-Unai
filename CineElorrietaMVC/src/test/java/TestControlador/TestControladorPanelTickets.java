@@ -110,9 +110,9 @@ public class TestControladorPanelTickets {
 
 	@Test
 	public void testCogerListaProductos() {
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
-
-		when(utilesMock.pasarListaProductos()).thenReturn(listaProductos);
+when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+		
+		when(listaProductosMock.getListaProductosString()).thenReturn(listaProductos);
 
 		resultadoEsperadoArrayString = controladorPanelTickets.cogerListaProductos();
 
@@ -137,7 +137,7 @@ public class TestControladorPanelTickets {
 
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
 
-		when(utilesMock.accionadoBotonAnnadirProducto("saludos")).thenReturn("bocata de calamares");
+		when(utilesMock.annadirProducto("saludos")).thenReturn("bocata de calamares");
 
 		resultadoString = controladorPanelTickets.accionadoBotonAnnadirProducto("saludos");
 
@@ -237,7 +237,7 @@ public class TestControladorPanelTickets {
 
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
 
-		when(utilesMock.accionadoBotonEliminar(pos, eliminar, pos)).thenReturn(99.0);
+		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
 
 		resultadoString = controladorPanelTickets.accionadoBotonEliminar(pos, eliminar);
 

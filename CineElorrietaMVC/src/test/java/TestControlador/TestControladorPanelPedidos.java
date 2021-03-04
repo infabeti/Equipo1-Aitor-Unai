@@ -131,7 +131,7 @@ public class TestControladorPanelPedidos {
 		
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
 		
-		when(utilesMock.accionadoBotonAnnadirProducto("saludos")).thenReturn("bocata de calamares");
+		when(utilesMock.annadirProducto("saludos")).thenReturn("bocata de calamares");
 
 		resultadoString = controladorPanelPedidos.accionadoBotonAnnadirProducto("saludos");
 
@@ -231,7 +231,7 @@ public class TestControladorPanelPedidos {
 
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
 		
-		when(utilesMock.accionadoBotonEliminar(pos, eliminar, pos)).thenReturn(99.0);
+		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
 	
 		resultadoString = controladorPanelPedidos.accionadoBotonEliminar(pos, eliminar);
 
@@ -243,11 +243,11 @@ public class TestControladorPanelPedidos {
 	
 	@Test
 	public void testPasarListaProductos() {
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		
-		when(utilesMock.pasarListaProductos()).thenReturn(listaProductos);
+		when(listaProductosMock.getListaProductosString()).thenReturn(listaProductos);
 
-		resultadoEsperadoArrayString = controladorPanelPedidos.pasarListaProductos();
+		resultadoEsperadoArrayString = controladorPanelPedidos.cogerListaProductos();
 
 		assertArrayEquals(resultadoEsperadoArrayString, listaProductos);
 	}
