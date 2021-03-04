@@ -69,13 +69,13 @@ public class ControladorPanelFacturas {
 		return pos;
 	}
 
-	public double cogerPrecioString(String producto) {
-		double precio = modelo.getListaTemporal().precioProductoString(producto);
+	public double cogerPrecioString(String nombreProducto) {
+		double precio = modelo.getListaTemporal().precioProductoString(nombreProducto);
 		return precio;
 	}
 
-	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
-		return this.modelo.getUtil().cambiarCantidadProductos(producto, cantidadAnadir);
+	public String cambiarCantidadProductos(String nombreProducto, int cantidadAnadir) {
+		return this.modelo.getUtil().cambiarCantidadProductos(nombreProducto, cantidadAnadir);
 	}
 
 	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para a�adir en la lista de a�adidos,el cual se creaba antes en la propiavista
