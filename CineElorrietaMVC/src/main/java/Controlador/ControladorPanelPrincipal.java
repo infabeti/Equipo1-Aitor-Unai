@@ -1,9 +1,9 @@
 package Controlador;
 
-import javax.swing.JOptionPane;
 
 import Modelo.Modelo;
 import Modelo.Usuario;
+
 import Vista.PanelPrincipal;
 import Vista.Vista;
 
@@ -33,18 +33,19 @@ public class ControladorPanelPrincipal {
 	}
 
 	public void mostrarPanelPrincipal() {
-		Usuario user = this.modelo.getUser();
-		this.panelPrincipal = new PanelPrincipal(this, user.getTipoLocal(), user.getNombre(), user.getLocal());
+		this.panelPrincipal = makePanelPrincipal(this);
 		this.vista.mostrarPanel(this.panelPrincipal);
 	}
 
 	public void accionadoBottonMostrarPanelPedidos() {
 		this.controlador.navegarPanelPedidos();
 	}
+	
 
 	public void accionadoBottonMostrarPanelAprovisionamiento() {
 		this.controlador.navegarPanelAprovisionamiento();
 	}
+
 
 	public void accionadoBottonMostrarPanelTickets() {
 		this.controlador.navegarPanelTickets();
@@ -59,12 +60,12 @@ public class ControladorPanelPrincipal {
 	}
 
 	public void accionadoBottonDesconectarPanelPrincipal() {
-		//Borramos la conexion antes de volver al panel login
-		//this.modelo.getConexion().desconectar();
 		this.controlador.navegarPanelLogin();
-		
-		//Mensaje de desconexion
-		JOptionPane.showMessageDialog(null, "Desconectado correctamente");
+	}
+	
+	public PanelPrincipal makePanelPrincipal(ControladorPanelPrincipal controladorPanelPrincipal) {
+		Usuario user = this.modelo.getUser();
+		return new PanelPrincipal(controladorPanelPrincipal, user.getTipoLocal(), user.getNombre(), user.getLocal());
 	}
 
 }

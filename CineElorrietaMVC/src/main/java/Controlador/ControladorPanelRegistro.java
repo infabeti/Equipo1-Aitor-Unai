@@ -9,10 +9,8 @@ import Vista.Vista;
 
 public class ControladorPanelRegistro {
 
-	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelRegistro panelRegistro;
 
@@ -21,9 +19,21 @@ public class ControladorPanelRegistro {
 		this.vista = vista;
 		this.controlador = controlador;
 	}
+	
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
 
 	public void mostrarPanelRegistro() {
-		this.panelRegistro = new PanelRegistro(this);
+		this.panelRegistro = makePanelRegistro(this);
 		this.vista.mostrarPanel(this.panelRegistro);
 
 	}
@@ -115,6 +125,10 @@ public class ControladorPanelRegistro {
 			}
 		}
 		return true;
+	}
+	
+	public PanelRegistro makePanelRegistro(ControladorPanelRegistro controladorPanelRegistro) {
+		return new PanelRegistro(controladorPanelRegistro);
 	}
 
 }
