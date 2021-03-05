@@ -2,7 +2,6 @@ package Controlador;
 
 import Modelo.Modelo;
 import Modelo.ListaProductos;
-import Modelo.Producto;
 import Vista.PanelAprovisionamiento;
 import Vista.Vista;
 

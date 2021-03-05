@@ -61,7 +61,6 @@ public class ControladorPanelTickets {
 	public String conseguirLocal() {
 
 		return modelo.getUser().getNifLocal();
-
 	}
 
 	public String devolverFechaHora() {

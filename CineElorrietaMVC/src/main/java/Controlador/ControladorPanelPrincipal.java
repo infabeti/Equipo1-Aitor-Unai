@@ -1,10 +1,9 @@
 package Controlador;
 
-import javax.swing.JOptionPane;
 
 import Modelo.Modelo;
 import Modelo.Usuario;
-import Vista.PanelAprovisionamiento;
+
 import Vista.PanelPrincipal;
 import Vista.Vista;
 

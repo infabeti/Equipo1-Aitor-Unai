@@ -8,15 +8,14 @@ public class Controlador {
 
 	private Modelo modelo;
 	private Vista vista;
-	private ControladorLogin controladorLogin;
 	private ControladorPanelPrincipal controladorPanelPrincipal;
 	private ControladorPanelPedidos controladorPanelPedidos;
 	private ControladorPanelAprovisionamiento controladorPanelAprovisionamiento;
 	private ControladorPanelFacturas controladorPanelFacturas;
 	private ControladorPanelTickets controladorPanelTickets;
 	private ControladorPanelRegistro controladorPanelRegistro;
-	
-	
+	private ControladorLogin controladorLogin;
+
 	public Controlador(Modelo modelo, Vista vista) {
 		this.modelo = modelo;
 		this.vista = vista;
@@ -31,60 +30,115 @@ public class Controlador {
 
 		this.navegarPanelLogin();
 	}
-	
+
 	public void navegarPanelLogin() {
 		System.out.println("Login de los usuarios");
-		this.controladorLogin.mostrarPanelLogin();
-		
+		controladorLoginMostrarPanelLogin();
 	}
+	
+	public void controladorLoginMostrarPanelLogin() {
+		this.controladorLogin.mostrarPanelLogin();
+	}
+
 	public void navegarPanelRegistro() {
 		System.out.println("Navegar panel de registro");
-		this.controladorPanelRegistro.mostrarPanelRegistro();
-	
+		controladorPanelRegistroMostrarPanelegistro();
 	}
-		
+	
+	public void controladorPanelRegistroMostrarPanelegistro() {
+		this.controladorPanelRegistro.mostrarPanelRegistro();
+	}
+
 	public void navegarPanelPrincipal() {
 		System.out.println("Navegar panel principal");
-		this.controladorPanelPrincipal.mostrarPanelPrincipal();
+		controladorPanelPrincipalMostrarPanelPrincipal();
 	}
 	
-	
+	public void controladorPanelPrincipalMostrarPanelPrincipal() {
+		this.controladorPanelPrincipal.mostrarPanelPrincipal();
+	}
+
 	public void navegarPanelPedidos() {
 		System.out.println("Navegar panel Pedidos");
 		Usuario user = this.modelo.getUser();
-		if(user.getTipoLocal().equals("RESTAURANTE") || user.getTipoLocal().equals("CAFETERIA")) {
-			this.controladorPanelPedidos.mostrarPanelPedidos();
+		if (user.getTipoLocal().equalsIgnoreCase("RESTAURANTE") || user.getTipoLocal().equalsIgnoreCase("CAFETERIA")) {
+			controladorPanelPedidosMostrarPanelPedidos();
 		}
 	}
 	
+	public void controladorPanelPedidosMostrarPanelPedidos() {
+		this.controladorPanelPedidos.mostrarPanelPedidos();
+	}
+
 	public void navegarPanelAprovisionamiento() {
 		System.out.println("Navegar panel Aprovisionamiento");
+		controladorPanelAprovisionamientoMostrarPanelAprovisionamiento();
+	}
+	
+	public void controladorPanelAprovisionamientoMostrarPanelAprovisionamiento() {
 		this.controladorPanelAprovisionamiento.mostrarPanelAprovisionamiento();
 	}
-	
+
 	public void navegarPanelFacturas() {
 		System.out.println("Navegar panel Facturas");
+		controladorPanelFacturasMostrarPanelFacturas();
+	}
+	
+	public void controladorPanelFacturasMostrarPanelFacturas() {
 		this.controladorPanelFacturas.mostrarPanelFacturas();
 	}
-	
+
 	public void navegarPanelTickets() {
-		System.out.println("Navegar panel Pedidos");
-		this.controladorPanelTickets.mostrarPanelTickets();
+		System.out.println("Navegar panel Tickets");
+		controladorPanelTicketsMostrarPanelTickets();
 	}
 	
+	public void controladorPanelTicketsMostrarPanelTickets() {
+		this.controladorPanelTickets.mostrarPanelTickets();
+	}
+
 	public void navegarPanelComandas() {
 		System.out.println("Navegar panel Comandas");
 		Usuario user = modelo.getUser();
-		if(user.getTipoLocal().equals("RESTAURANTE")) {
-			/*Quitar cuando se cree
-			 * this.controladorPanelComandas.mostrarPanelComandas();
+		if (user.getTipoLocal().equals("RESTAURANTE")) {
+			/*
+			 * Quitar cuando se cree this.controladorPanelComandas.mostrarPanelComandas();
 			 */
 		}
 	}
-	
-	public ControladorPanelAprovisionamiento makeControladorPanelAprovisionamiento(Modelo modelo, Vista vista, Controlador controlador) {
+
+	public ControladorPanelAprovisionamiento makeControladorPanelAprovisionamiento(Modelo modelo, Vista vista,
+			Controlador controlador) {
 		return new ControladorPanelAprovisionamiento(this.modelo, this.vista, this);
 	}
 	
+	public ControladorPanelPedidos makeControladorPanelPedidos(Modelo modelo, Vista vista,
+			Controlador controlador) {
+		return new ControladorPanelPedidos(this.modelo, this.vista, this);
+	}
 	
+	public ControladorPanelTickets makeControladorPanelTickets(Modelo modelo, Vista vista,
+			Controlador controlador) {
+		return new ControladorPanelTickets(this.modelo, this.vista, this);
+	}
+	
+	public ControladorPanelFacturas makeControladorPanelFacturas(Modelo modelo, Vista vista,
+			Controlador controlador) {
+		return new ControladorPanelFacturas(this.modelo, this.vista, this);
+	}
+	
+	public ControladorPanelRegistro makeControladorPanelRegistro(Modelo modelo, Vista vista,
+			Controlador controlador) {
+		return new ControladorPanelRegistro(this.modelo, this.vista, this);
+	}
+	
+	public ControladorPanelPrincipal makeControladorPanelPrincipal(Modelo modelo, Vista vista,
+			Controlador controlador) {
+		return new ControladorPanelPrincipal(this.modelo, this.vista, this);
+	}
+
+	public ControladorLogin makeControladorPanelLogin(Modelo modelo, Vista vista, Controlador controlador) {
+		return new ControladorLogin(this.modelo, this.vista, this);
+	}
+
 }

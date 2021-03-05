@@ -11,14 +11,14 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import Controlador.Controlador;
-import Controlador.ControladorPanelFacturas;
+
 import Controlador.ControladorPanelRegistro;
 import Modelo.Conexion;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
-import Modelo.Producto;
+
 import Modelo.Usuario;
-import Vista.PanelFacturas;
+
 import Vista.PanelRegistro;
 import Vista.Vista;
 
@@ -27,16 +27,12 @@ public class TestControladorPanelRegistro {
 	private Modelo modeloMock = mock(Modelo.class);
 	private Vista vistaMock = mock(Vista.class);
 	private Controlador controladorMock = mock(Controlador.class);
-	private String resultadoEsperadoString, resultadoString;
-	private int resultadoEsperadoInt, resultadoInt;
+
 	private boolean resultadoEsperadoBoolean, resultadoBoolean;
-	private double resultadoEsperadoDouble, resultadoDouble;
+
 	private Usuario userMock = mock(Usuario.class);
 	private Conexion conexionMock = mock(Conexion.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
-	private Producto productoMock = mock(Producto.class);
-	private String[] resultadoEsperadoArrayString;
-	private String[] listaProductos;
 
 	private ControladorPanelRegistro controladorPanelRegistro = new ControladorPanelRegistro(modeloMock, vistaMock,
 			controladorMock);
@@ -52,7 +48,7 @@ public class TestControladorPanelRegistro {
 		assertEquals(controladorPanelRegistro.getVista(), vistaMock);
 		assertEquals(controladorPanelRegistro.getModelo(), modeloMock);
 	}
-	
+
 	@Test
 	public void testMostrarPanelRegistro() {
 
@@ -71,7 +67,18 @@ public class TestControladorPanelRegistro {
 		verify(vistaMock).mostrarPanel(panelRegistroMock);
 
 	}
-	
+
+	@Test
+	public void testAccionadoBottonVolverPanelLogin() {
+
+		controladorPanelRegistro = new ControladorPanelRegistro(modeloMock, vistaMock, controladorMock);
+
+		controladorPanelRegistro.accionadoBottonVolverPanelLogin();
+
+		verify(controladorMock).navegarPanelLogin();
+
+	}
+
 	@Test
 	public void TestComprobarNifTRUE() {
 
@@ -243,7 +250,7 @@ public class TestControladorPanelRegistro {
 		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
 
 	}
-	
+
 	@Test
 	public void TestComprobarContraNoVaciaTRUE() {
 
@@ -256,7 +263,7 @@ public class TestControladorPanelRegistro {
 		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
 
 	}
-	
+
 	@Test
 	public void TestComprobarContraNoVaciaFALSE() {
 
@@ -269,5 +276,5 @@ public class TestControladorPanelRegistro {
 		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
 
 	}
-	
+
 }

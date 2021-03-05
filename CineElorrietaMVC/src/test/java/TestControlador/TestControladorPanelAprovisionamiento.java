@@ -7,9 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import org.junit.Test;
-
 import Controlador.Controlador;
 import Controlador.ControladorPanelAprovisionamiento;
 import Modelo.Conexion;
@@ -60,6 +58,17 @@ public class TestControladorPanelAprovisionamiento {
 
 		spyControladorPanelAprovisionamiento.mostrarPanelAprovisionamiento();
 		verify(vistaMock).mostrarPanel(panelAprovisionamientoMock);
+
+	}
+	
+	@Test
+	public void TestAccionadoBottonVolverPanelPrincipal() {
+
+		controladorPanelAprovisionamiento = new ControladorPanelAprovisionamiento(modeloMock, vistaMock, controladorMock);
+
+		controladorPanelAprovisionamiento.accionadoBottonVolverPanelPrincipal();
+
+		verify(controladorMock).navegarPanelPrincipal();
 
 	}
 	
