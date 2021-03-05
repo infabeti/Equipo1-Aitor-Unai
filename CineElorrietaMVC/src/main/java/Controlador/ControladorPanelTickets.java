@@ -1,5 +1,7 @@
 package Controlador;
 
+import javax.swing.DefaultListModel;
+
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 
@@ -41,9 +43,18 @@ public class ControladorPanelTickets {
 		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
 	}
 
-	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif) {
+	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif, DefaultListModel<String> lista) {
 		String fechaFormateada = devolverFechaFormateada(fecha);
 		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
+		
+		for (int i = 0; i < lista.getSize(); i++) {
+			String textoRecogido = lista.get(i);
+			String textoSpliteado[] = textoRecogido.split(" ");
+
+			int cantidad = Integer.parseInt(textoSpliteado[0]);
+			
+			insertarProductoActividad(i, transaccion, cantidad);
+		}
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {

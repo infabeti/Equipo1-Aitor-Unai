@@ -276,30 +276,9 @@ public class PanelFacturas extends JPanel {
 				// metido
 				if (controladorPanelFacturas.comprobarCampos(Double.parseDouble(textTotal.getText()), textNIF.getText(),
 						textNombre.getText(), textApellido.getText())) {
-
-					// insertar datos en actividad
-					controladorPanelFacturas.insertarActividad(Integer.parseInt(textFieldNumTrans.getText()),
-							textFieldFecha.getText(), Double.parseDouble(textTotal.getText()), textLocal.getText());
-
-					// insertar datos en la tabla comprador la cual tiene transaccion, nombre y
-					// apellido
-					controladorPanelFacturas.insertarComprador(textNIF.getText(), textNombre.getText(),
-							textApellido.getText());
-
-					// insertar datos en la tabla factura la cual solo tiene transaccion y nif
+					
 					controladorPanelFacturas.insertarFactura(Integer.parseInt(textFieldNumTrans.getText()),
-							textNIF.getText());
-
-					// insertar datos de productos
-					for (int i = 0; i < annadidos.getSize(); i++) {
-						String textoRecogido = annadidos.get(i);
-						String textoSpliteado[] = textoRecogido.split(" ");
-
-						int cantidad = Integer.parseInt(textoSpliteado[0]);
-						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-						controladorPanelFacturas.insertarProductoActividad(i, transaccion, cantidad);
-					}
+							textFieldFecha.getText(), Double.parseDouble(textTotal.getText()), textLocal.getText() , textNombre.getText(), textApellido.getText(),annadidos,textNIF.getText());
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
 					

@@ -1,6 +1,9 @@
 package Controlador;
 
 import Modelo.Modelo;
+
+import javax.swing.DefaultListModel;
+
 import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
@@ -107,11 +110,6 @@ public class ControladorPanelFacturas {
 		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 	}
-
-	public void insertarFactura(int transaccion, String nif) {
-		this.modelo.getConexion().insertarFactura(transaccion, nif);
-	}
-
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
 		boolean comprobarTotal = total > 0;
 		boolean comprobarCampos = this.modelo.getUtil().comprobarCamposString(nif, nombre, apellido);
@@ -121,14 +119,30 @@ public class ControladorPanelFacturas {
 			return false;
 		}
 	}
-
-	public void insertarComprador(String nif, String nombre, String apellido) {
-		this.modelo.getConexion().insertarComprador(nif, nombre, apellido);
-	}
-
-	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
+	
+	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre, String apellido, DefaultListModel<String> lista, String nifComprador) {
 		String fechaFormateada = devolverFechaFormateada(fecha);
-		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
+		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nifLocal);
+				
+		if(this.modelo.getConexion().comprobarSiExisteComprador(nifComprador)) {
+			System.out.println("El comprador ya existe, no se hace la insert en la tabla comprador");
+		}
+		else
+		{
+			this.modelo.getConexion().insertarComprador(nifComprador, nombre, apellido);
+		}
+		
+		
+		this.modelo.getConexion().insertarFactura(transaccion, nifComprador);
+		
+		for (int i = 0; i < lista.getSize(); i++) {
+			String textoRecogido = lista.get(i);
+			String textoSpliteado[] = textoRecogido.split(" ");
+
+			int cantidad = Integer.parseInt(textoSpliteado[0]);
+			
+			insertarProductoActividad(i, transaccion, cantidad);
+		}
 	}
 
 	public boolean contieneSoloLetras(String cadena) {

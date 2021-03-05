@@ -1,5 +1,7 @@
 package Controlador;
 
+import javax.swing.DefaultListModel;
+
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 
@@ -108,13 +110,19 @@ public class ControladorPanelPedidos {
 		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 	}
 
-	public void insertarPedido(int transaccion, String domicilio) {
-		this.modelo.getConexion().insertarPedido(transaccion, domicilio);
-	}
-
-	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
+	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif, String domicilio, DefaultListModel<String> lista) {
 		String fechaFormateada = devolverFechaFormateada(fecha);
 		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
+		this.modelo.getConexion().insertarPedido(transaccion, domicilio);
+		
+		for (int i = 0; i < lista.getSize(); i++) {
+			String textoRecogido = lista.get(i);
+			String textoSpliteado[] = textoRecogido.split(" ");
+
+			int cantidad = Integer.parseInt(textoSpliteado[0]);
+			
+			insertarProductoActividad(i, transaccion, cantidad);
+		}
 	}
 
 	public PanelPedidos makePanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
