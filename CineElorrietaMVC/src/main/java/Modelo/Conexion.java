@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Types;
 
 public class Conexion {
@@ -449,7 +448,7 @@ public class Conexion {
 			cantidad = cantidad + cantidadActual;
 		
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
-					"insert into stock " + "values(?, ?, ?)");
+					"replace into stock " + "values(?, ?, ?)");
 			/**************/
 			try {
 				st.setString(1, nifLocal);

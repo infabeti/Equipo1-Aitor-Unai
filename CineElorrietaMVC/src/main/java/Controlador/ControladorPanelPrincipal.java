@@ -1,10 +1,9 @@
 package Controlador;
 
-import javax.swing.JOptionPane;
 
 import Modelo.Modelo;
 import Modelo.Usuario;
-import Vista.PanelAprovisionamiento;
+
 import Vista.PanelPrincipal;
 import Vista.Vista;
 
@@ -54,6 +53,10 @@ public class ControladorPanelPrincipal {
 
 	public void accionadoBottonMostrarPanelFacturas() {
 		this.controlador.navegarPanelFacturas();
+	}
+	
+	public void accionadoBottonMostrarPanelComandas() {
+		this.controlador.navegarPanelComandas();
 	}
 
 	public void accionadoBottonDesconectarPanelPrincipal() {

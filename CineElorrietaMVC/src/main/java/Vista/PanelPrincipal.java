@@ -1,4 +1,4 @@
- package Vista;
+package Vista;
 
 import javax.swing.JPanel;
 
@@ -124,6 +124,7 @@ public class PanelPrincipal extends JPanel {
 		this.btnTickets.addActionListener(listenerBotonTickets(this.controladorPanelPrincipal));
 		this.btnFacturas.addActionListener(listenerBotonFacturas(this.controladorPanelPrincipal));
 		this.btnDesconectar.addActionListener(listenerBotonDesconectar(this.controladorPanelPrincipal));
+		this.btnComandas.addActionListener(listenerBotonComandas(this.controladorPanelPrincipal));
 
 	}
 	
@@ -168,6 +169,15 @@ public class PanelPrincipal extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Facturas");
 				controladorPanelPrincipal.accionadoBottonMostrarPanelFacturas();
+			}
+		};
+	}
+	
+	private ActionListener listenerBotonComandas(ControladorPanelPrincipal controladorPanelPrincipal) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Comandas");
+				controladorPanelPrincipal.accionadoBottonMostrarPanelComandas();
 			}
 		};
 	}

@@ -29,13 +29,10 @@ public class TestControladorPanelPrincipal {
 	private Conexion conexionMock = mock(Conexion.class);
 	private Usuario userMock = mock(Usuario.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
-	private Controlador spyControlador; 
 	
 	private ControladorPanelPrincipal controladorPanelPrincipal = new ControladorPanelPrincipal(modeloMock, vistaMock,
 			controladorMock);
 
-	
-		
 		// Test mostrarPanelPrincipal
 		private PanelPrincipal panelPrincipalMock = mock(PanelPrincipal.class);
 		private ControladorPanelPrincipal spyControladorPanelPrincipal = spy(
