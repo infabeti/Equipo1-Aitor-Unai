@@ -15,6 +15,7 @@ public class Controlador {
 	private ControladorPanelFacturas controladorPanelFacturas;
 	private ControladorPanelTickets controladorPanelTickets;
 	private ControladorPanelRegistro controladorPanelRegistro;
+	private ControladorPanelComandas controladorPanelComandas;
 	
 	
 	public Controlador(Modelo modelo, Vista vista) {
@@ -28,6 +29,7 @@ public class Controlador {
 		this.controladorPanelFacturas = new ControladorPanelFacturas(this.modelo, this.vista, this);
 		this.controladorPanelTickets = new ControladorPanelTickets(this.modelo, this.vista, this);
 		this.controladorPanelRegistro = new ControladorPanelRegistro(this.modelo, this.vista, this);
+		this.controladorPanelComandas = new ControladorPanelComandas(this.modelo, this.vista, this);
 
 		this.navegarPanelLogin();
 	}
@@ -76,9 +78,7 @@ public class Controlador {
 		System.out.println("Navegar panel Comandas");
 		Usuario user = modelo.getUser();
 		if(user.getTipoLocal().equals("RESTAURANTE")) {
-			/*Quitar cuando se cree
-			 * this.controladorPanelComandas.mostrarPanelComandas();
-			 */
+			 this.controladorPanelComandas.mostrarPanelComandas();
 		}
 	}
 	

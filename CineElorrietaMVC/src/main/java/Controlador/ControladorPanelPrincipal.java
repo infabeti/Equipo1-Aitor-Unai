@@ -53,6 +53,10 @@ public class ControladorPanelPrincipal {
 	public void accionadoBottonMostrarPanelFacturas() {
 		this.controlador.navegarPanelFacturas();
 	}
+	
+	public void accionadoBottonMostrarPanelComandas() {
+		this.controlador.navegarPanelComandas();
+	}
 
 	public void accionadoBottonDesconectarPanelPrincipal() {
 		//Borramos la conexion antes de volver al panel login
