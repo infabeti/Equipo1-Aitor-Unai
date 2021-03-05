@@ -194,7 +194,7 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
-				String productoAnadir = "";
+				String[] productosAnadir = new String[2];
 				String cantidad = TextFieldCantidad.getText();
 				try {
 					producto = (String) productosAlmacenados.getSelectedValue();
@@ -210,17 +210,16 @@ public class PanelPedidos extends JPanel {
 				if (existeProd) {
 					try {
 						if (controladorPanelPedidos.existeProducto(producto) == -1) {
-							productoAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto);
-							listaPAnnadidos.addElement(controladorPanelPedidos.cantidadProducto(cantidad, productoAnadir));
-							textTotal.setText(
-									controladorPanelPedidos.cantidadTotal(cantidad, producto));
+							productosAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto, cantidad);
+							listaPAnnadidos.addElement(productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 							lblError.setText("");
 						} else {
-							String yaAnnadido = listaPAnnadidos.get(controladorPanelPedidos.existeProducto(producto));
-							listaPAnnadidos.set(controladorPanelPedidos.existeProducto(producto), controladorPanelPedidos
-									.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							String total = controladorPanelPedidos.cantidadTotal(cantidad, producto);
-							textTotal.setText(total);
+							int indice = controladorPanelPedidos.existeProducto(producto);
+							String yaAnnadido = listaPAnnadidos.get(indice);
+							productosAnadir = controladorPanelPedidos.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), producto);
+							listaPAnnadidos.set(indice, productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");

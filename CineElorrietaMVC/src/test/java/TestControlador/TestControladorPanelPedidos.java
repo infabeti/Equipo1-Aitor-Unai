@@ -123,7 +123,7 @@ public class TestControladorPanelPedidos {
 
 	}
 
-	@Test
+	/*@Test
 	public void TestAccionadoBotonAnnadirProducto() {
 		
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
@@ -135,7 +135,7 @@ public class TestControladorPanelPedidos {
 		resultadoEsperadoString = "bocata de calamares";
 
 		assertEquals(resultadoEsperadoString, resultadoString);
-	}
+	}*/
 
 	@Test
 	public void TestExisteProducto() {
@@ -170,7 +170,7 @@ public class TestControladorPanelPedidos {
 
 	}
 
-	@Test
+	/*@Test
 	public void TestCambiarCantidadProductos() {
 
 		String producto = "1 - Calabaza";
@@ -185,7 +185,7 @@ public class TestControladorPanelPedidos {
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 
-	}
+	}*/
 
 	@Test
 	public void TestCantidadProducto() {

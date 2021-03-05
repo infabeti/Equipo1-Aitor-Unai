@@ -60,8 +60,12 @@ public class ControladorPanelPedidos {
 		return modelo.getFechaHoraSys();
 	}
 
-	public String accionadoBotonAnnadirProducto(String producto) {
-		return this.modelo.getUtil().annadirProducto(producto);
+	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
+		String[] devolver = new String[2];
+		String productoAnadir = this.modelo.getUtil().annadirProducto(producto);
+		devolver[0] = cantidadProducto(cantidad, productoAnadir);
+		devolver[1] = cantidadTotal(cantidad, producto);
+		return devolver;
 	}
 
 	public int existeProducto(String nombreProducto) {
@@ -74,8 +78,11 @@ public class ControladorPanelPedidos {
 		return precio;
 	}
 
-	public String cambiarCantidadProductos(String nombreProducto, int cantidadAnadir) {
-		return this.modelo.getUtil().cambiarCantidadProductos(nombreProducto, cantidadAnadir);
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
+		String[] devolver =  new String[2];
+		devolver[0] = this.modelo.getUtil().cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
+		devolver[1] = this.cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto);
+		return devolver;
 	}
 
 	public String cantidadProducto(String cantidad, String productoAnadir) {

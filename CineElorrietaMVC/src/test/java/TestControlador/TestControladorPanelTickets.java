@@ -131,7 +131,7 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 	}
 
-	@Test
+	/*@Test
 	public void TestAccionadoBotonAnnadirProducto() {
 
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
@@ -143,7 +143,7 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		resultadoEsperadoString = "bocata de calamares";
 
 		assertEquals(resultadoEsperadoString, resultadoString);
-	}
+	}*/
 
 	@Test
 	public void TestExisteProducto() {
@@ -178,7 +178,7 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 	}
 
-	@Test
+	/*@Test
 	public void TestCambiarCantidadProductos() {
 
 		String producto = "1 - Calabaza";
@@ -193,7 +193,7 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 
-	}
+	}*/
 
 	@Test
 	public void TestCantidadProducto() {
