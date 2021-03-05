@@ -169,7 +169,7 @@ public class PanelRegistro extends JPanel {
 						JOptionPane.showMessageDialog(null, "El dni introducido ya existe en la BBDD");
 					}
 					if (controladorPanelRegistro.comprobarContraNoVacia(password) == false) {
-						JOptionPane.showMessageDialog(null, "la contraseña tiene que tener un minimo de 5 caracteres");
+						JOptionPane.showMessageDialog(null, "La contraseña introducida es incorrecta");
 					}
 				}
 
