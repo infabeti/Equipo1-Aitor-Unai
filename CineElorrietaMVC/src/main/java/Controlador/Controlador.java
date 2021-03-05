@@ -14,14 +14,8 @@ public class Controlador {
 	private ControladorPanelFacturas controladorPanelFacturas;
 	private ControladorPanelTickets controladorPanelTickets;
 	private ControladorPanelRegistro controladorPanelRegistro;
-<<<<<<< HEAD
 	private ControladorPanelComandas controladorPanelComandas;
-	
-	
-=======
 	private ControladorLogin controladorLogin;
-
->>>>>>> 9d4c6edb05968cefda1802b8730e5d4f4c84b3e6
 	public Controlador(Modelo modelo, Vista vista) {
 		this.modelo = modelo;
 		this.vista = vista;
@@ -107,15 +101,8 @@ public class Controlador {
 	public void navegarPanelComandas() {
 		System.out.println("Navegar panel Comandas");
 		Usuario user = modelo.getUser();
-<<<<<<< HEAD
 		if(user.getTipoLocal().equals("RESTAURANTE")) {
 			 this.controladorPanelComandas.mostrarPanelComandas();
-=======
-		if (user.getTipoLocal().equals("RESTAURANTE")) {
-			/*
-			 * Quitar cuando se cree this.controladorPanelComandas.mostrarPanelComandas();
-			 */
->>>>>>> 9d4c6edb05968cefda1802b8730e5d4f4c84b3e6
 		}
 	}
 
