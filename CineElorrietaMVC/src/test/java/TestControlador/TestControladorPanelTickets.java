@@ -33,7 +33,7 @@ public class TestControladorPanelTickets {
 	private Usuario userMock = mock(Usuario.class);
 	private Conexion conexionMock = mock(Conexion.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
-	private String[] resultadoEsperadoArrayString;
+	private String[] resultadoEsperadoArrayString, resultadoArrayString;
 	private String[] listaProductos;
 	private Utiles utilesMock = mock(Utiles.class);
 
@@ -131,19 +131,25 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 	}
 
-	/*@Test
+	@Test
 	public void TestAccionadoBotonAnnadirProducto() {
-
+		
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
-
+		
 		when(utilesMock.annadirProducto("saludos")).thenReturn("bocata de calamares");
+		
+		when(utilesMock.cantidadTotal("1", "saludos", 0.0)).thenReturn(0.0);
 
-		resultadoString = controladorPanelTickets.accionadoBotonAnnadirProducto("saludos");
+		resultadoArrayString = controladorPanelTickets.accionadoBotonAnnadirProducto("saludos", "1");
+		
+		resultadoEsperadoArrayString = new String[2];
 
-		resultadoEsperadoString = "bocata de calamares";
+		resultadoEsperadoArrayString[0] = "1 bocata de calamares";
+		
+		resultadoEsperadoArrayString[1] = "0.0";
 
-		assertEquals(resultadoEsperadoString, resultadoString);
-	}*/
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+	}
 
 	@Test
 	public void TestExisteProducto() {
@@ -178,22 +184,26 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 	}
 
-	/*@Test
+	@Test
 	public void TestCambiarCantidadProductos() {
 
 		String producto = "1 - Calabaza";
-
+		
 		when(modeloMock.getUtil()).thenReturn(utilesMock);
-
+		
 		when(utilesMock.cambiarCantidadProductos(producto, 4)).thenReturn("ZAPATO");
+		
+		when(utilesMock.cantidadTotal("4", producto, 2.0)).thenReturn(0.0);
 
-		resultadoString = controladorPanelTickets.cambiarCantidadProductos(producto, 4);
+		resultadoArrayString = controladorPanelTickets.cambiarCantidadProductos(producto, 4, producto);
 
-		resultadoEsperadoString = "ZAPATO";
+		resultadoEsperadoArrayString = new String[2];
+		resultadoEsperadoArrayString[0]= "ZAPATO";
+		resultadoEsperadoArrayString[1] = "0.0";
 
-		assertEquals(resultadoEsperadoString, resultadoString);
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 
-	}*/
+	}
 
 	@Test
 	public void TestCantidadProducto() {
