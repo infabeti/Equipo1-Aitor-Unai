@@ -25,12 +25,13 @@ public class Conexion {
 	private final String INSERTARPEDIDO = "insert into pedido " + "values(?, ?)";
 	private final String INSERTARFACTURA = "insert into factura " + "values(?,?);";
 	private final String INSERTARCOMPRADOR = "insert into comprador " + "values(?,?,?);";
+	private final String EXISTECOMPRADOR = "select * from comprador where NIF=?;";
 
 	// constructor de la clase
 	private final String NOMBREBD = "reto3";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
-	private final String URL = "jdbc:mysql://localhost:3306/" + NOMBREBD + "?useUnicode=true&use"
+	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private Connection conn = null;
@@ -103,6 +104,27 @@ public class Conexion {
 			PreparedStatement st = null;
 
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(CONSULTANIF);
+			st.setString(1, nif);
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean comprobarSiExisteComprador(String nif) {
+		try {
+
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(EXISTECOMPRADOR);
 			st.setString(1, nif);
 			ResultSet rs = st.executeQuery();
 

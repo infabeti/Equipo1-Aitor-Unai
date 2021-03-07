@@ -194,19 +194,7 @@ public class PanelTickets extends JPanel {
 					// insertar datos en actividad
 					controladorPanelTickets.insertarTicket(Integer.parseInt(textFieldNumTrans.getText()),
 							textFieldFecha.getText(),
-							Double.parseDouble(textTotal.getText()), textLocal.getText());
-
-					// insertar datos de productos
-					for (int i = 0; i < listaPAnnadidos.getSize(); i++) {
-						String textoRecogido = listaPAnnadidos.get(i);
-						String textoSpliteado[] = textoRecogido.split(" ");
-
-
-						int cantidad = Integer.parseInt(textoSpliteado[0]);
-						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-						controladorPanelTickets.insertarProductoActividad(i, transaccion, cantidad);
-					}
+							Double.parseDouble(textTotal.getText()), textLocal.getText(),listaPAnnadidos);
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
 					controladorPanelTickets.accionadoBottonVolverPanelPrincipal();

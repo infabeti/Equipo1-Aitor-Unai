@@ -198,11 +198,11 @@ public class PanelPedidos extends JPanel {
 				String cantidad = TextFieldCantidad.getText();
 				try {
 					producto = (String) productosAlmacenados.getSelectedValue();
-					
-					if(producto != null) {
+
+					if (producto != null) {
 						existeProd = true;
 					}
-					
+
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
@@ -210,6 +210,7 @@ public class PanelPedidos extends JPanel {
 				if (existeProd) {
 					try {
 						if (controladorPanelPedidos.existeProducto(producto) == -1) {
+
 							productosAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto, cantidad);
 							listaPAnnadidos.addElement(productosAnadir[0]);
 							textTotal.setText(productosAnadir[1]);
@@ -246,29 +247,11 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento Boton Finalizar");
 
 				if (Double.parseDouble(textTotal.getText()) > 0) {
+					String domicilio = textFieldDomicilio.getText();
 					// insertar datos en actividad
 					controladorPanelPedidos.insertarActividad(Integer.parseInt(textFieldNumTrans.getText()),
-							textFieldFecha.getText(),
-							Double.parseDouble(textTotal.getText()), textFieldLocal.getText());
-
-					
-					String domicilio = textFieldDomicilio.getText();
-					System.out.println("Domicilio:" + domicilio);
-
-					// insertar datos en pedido
-					controladorPanelPedidos.insertarPedido(Integer.parseInt(textFieldNumTrans.getText()),
-							domicilio);
-
-					// insertar datos de productos
-					for (int i = 0; i < listaPAnnadidos.getSize(); i++) {
-						String textoRecogido = listaPAnnadidos.get(i);
-						String textoSpliteado[] = textoRecogido.split(" ");
-
-						int cantidad = Integer.parseInt(textoSpliteado[0]);
-						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-						controladorPanelPedidos.insertarProductoActividad(i, transaccion, cantidad);
-					}
+							textFieldFecha.getText(), Double.parseDouble(textTotal.getText()), textFieldLocal.getText(),
+							domicilio, listaPAnnadidos);
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
 					controladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
