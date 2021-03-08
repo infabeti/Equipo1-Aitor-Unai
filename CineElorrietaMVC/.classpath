@@ -15,10 +15,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-14/"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-<<<<<<< HEAD
-=======
-	<classpathentry kind="lib" path="librerias/mockito-core-3.2.4.jar"/>
-	<classpathentry kind="lib" path="conector/mysql-connector-java-8.0.23.jar"/>
->>>>>>> 8ccfd8afebc3a44f90b3eccec83a9d3db7c6a270
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
