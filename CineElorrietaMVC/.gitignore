@@ -3,3 +3,6 @@
 
 # Ignore Gradle build output directory
 build
+
+#Ignora los .class de eclipse
+.*\$.*.class
