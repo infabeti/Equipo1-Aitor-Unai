@@ -13,8 +13,23 @@ public class Modelo {
 	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
 	private Usuario user;
 	public Utiles util;
+	private Inserciones inserciones;
+	private Consultas consultas;
+	private ConsultasComprobaciones consultasComprobaciones;
 	
 	//Conexion a BBDD
+
+	public ConsultasComprobaciones getConsultasComprobaciones() {
+		return consultasComprobaciones;
+	}
+
+	public Consultas getConsultas() {
+		return consultas;
+	}
+
+	public Inserciones getInserciones() {
+		return inserciones;
+	}
 
 	private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
@@ -26,6 +41,9 @@ public class Modelo {
 	public Modelo() {
 		user = new Usuario("", "", "", "");
 		util = new Utiles(this);
+		inserciones = new Inserciones(this);
+		consultasComprobaciones = new ConsultasComprobaciones(this);
+		consultas = new Consultas(this);
 	}
 	
 	public void setConexion(Conexion conexion){
@@ -88,7 +106,7 @@ public class Modelo {
 	}
 	
 	public void actualizarListaProductosLocal() {
-		this.listaProductos = conexion.cogerProductosLocal(user.getNifLocal());
+		this.listaProductos = consultas.cogerProductosLocal(user.getNifLocal());
 	}
 	
 	public Usuario getUser() {

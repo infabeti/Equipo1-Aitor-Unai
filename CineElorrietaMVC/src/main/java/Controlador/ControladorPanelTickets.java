@@ -40,12 +40,12 @@ public class ControladorPanelTickets {
 	}
 
 	public String leerNumTransBBDD() {
-		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 
 	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif, DefaultListModel<String> lista) {
 		String fechaFormateada = devolverFechaFormateada(fecha);
-		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
+		this.modelo.getInserciones().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
 		
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoRecogido = lista.get(i);
@@ -60,8 +60,8 @@ public class ControladorPanelTickets {
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 		String producto = devolverNombreProducto(nombreProducto);
 		double precioFinal = cogerPrecioString(producto);
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
+		String codigoAlimento = this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 	}
 
 	public String conseguirLocal() {

@@ -36,7 +36,7 @@ public class ControladorLogin {
 
 	public boolean login(String user, String password) {
 
-		Usuario res = this.modelo.getConexion().login(user, password);
+		Usuario res = this.modelo.getConsultas().login(user, password);
 
 		this.modelo.setUser(res);
 

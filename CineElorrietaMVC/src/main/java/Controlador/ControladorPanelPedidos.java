@@ -35,7 +35,7 @@ public class ControladorPanelPedidos {
 	}
 
 	public String leerNumTransBBDD() {
-		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 
 	public String conseguirLocal() {
@@ -113,14 +113,14 @@ public class ControladorPanelPedidos {
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 		String producto = devolverNombreProducto(nombreProducto);
 		double precioFinal = cogerPrecioString(producto);
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
+		String codigoAlimento = this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif, String domicilio, DefaultListModel<String> lista) {
 		String fechaFormateada = devolverFechaFormateada(fecha);
-		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
-		this.modelo.getConexion().insertarPedido(transaccion, domicilio);
+		this.modelo.getInserciones().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
+		this.modelo.getInserciones().insertarPedido(transaccion, domicilio);
 		
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoRecogido = lista.get(i);

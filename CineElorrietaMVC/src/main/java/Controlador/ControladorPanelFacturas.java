@@ -44,7 +44,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String leerNumTransBBDD() {
-		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 
 	public void mostrarPanelFacturas() {
@@ -114,8 +114,8 @@ public class ControladorPanelFacturas {
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 		String producto = devolverNombreProducto(nombreProducto);
 		double precioFinal = cogerPrecioString(producto);
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(producto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
+		String codigoAlimento = this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
 	}
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
 		boolean comprobarTotal = total > 0;
@@ -129,18 +129,18 @@ public class ControladorPanelFacturas {
 	
 	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre, String apellido, DefaultListModel<String> lista, String nifComprador) {
 		String fechaFormateada = devolverFechaFormateada(fecha);
-		this.modelo.getConexion().insertarActividad(transaccion, fechaFormateada, totalOperacion, nifLocal);
+		this.modelo.getInserciones().insertarActividad(transaccion, fechaFormateada, totalOperacion, nifLocal);
 				
-		if(this.modelo.getConexion().comprobarSiExisteComprador(nifComprador)) {
+		if(this.modelo.getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
 			System.out.println("El comprador ya existe, no se hace la insert en la tabla comprador");
 		}
 		else
 		{
-			this.modelo.getConexion().insertarComprador(nifComprador, nombre, apellido);
+			this.modelo.getInserciones().insertarComprador(nifComprador, nombre, apellido);
 		}
 		
 		
-		this.modelo.getConexion().insertarFactura(transaccion, nifComprador);
+		this.modelo.getInserciones().insertarFactura(transaccion, nifComprador);
 		
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoRecogido = lista.get(i);

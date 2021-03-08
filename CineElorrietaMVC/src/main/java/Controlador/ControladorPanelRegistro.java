@@ -32,15 +32,15 @@ public class ControladorPanelRegistro {
 	}
 
 	public boolean comprobarBBDDnif(String nif) {
-		return this.modelo.getConexion().comprobarSiExisteNIF(nif);
+		return this.modelo.getConsultasComprobaciones().comprobarSiExisteNIF(nif);
 	}
 
 	public boolean comprobarBBDDdni(String dni) {
-		return this.modelo.getConexion().comprobarSiExisteDNI(dni);
+		return this.modelo.getConsultasComprobaciones().comprobarSiExisteDNI(dni);
 	}
 
 	public void insertarRegistro(String DNI, String Nombre, String Apellido, String contrasena, String nif) {
-		this.modelo.getConexion().insertarRegistro(DNI, Nombre, Apellido, contrasena, nif);
+		this.modelo.getInserciones().insertarRegistro(DNI, Nombre, Apellido, contrasena, nif);
 
 	}
 
