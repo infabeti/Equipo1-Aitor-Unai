@@ -1,17 +1,13 @@
 package Controlador;
 
-import javax.swing.JOptionPane;
-
 import Modelo.Modelo;
 import Vista.PanelRegistro;
 import Vista.Vista;
 
 public class ControladorPanelRegistro {
 
-	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelRegistro panelRegistro;
 
