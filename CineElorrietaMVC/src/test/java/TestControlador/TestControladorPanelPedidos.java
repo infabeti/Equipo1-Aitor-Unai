@@ -126,7 +126,7 @@ public class TestControladorPanelPedidos {
 	@Test
 	public void TestAccionadoBotonAnnadirProducto() {
 		
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
+		when(modeloMock.util).thenReturn(utilesMock);
 		
 		when(utilesMock.annadirProducto("saludos")).thenReturn("bocata de calamares");
 		
@@ -181,7 +181,7 @@ public class TestControladorPanelPedidos {
 
 		String producto = "1 - Calabaza";
 		
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
+		when(modeloMock.util).thenReturn(utilesMock);
 		
 		when(utilesMock.cambiarCantidadProductos(producto, 4)).thenReturn("ZAPATO");
 		
@@ -218,7 +218,7 @@ public class TestControladorPanelPedidos {
 		String segun = "3";
 		double tercer = 0;
 		
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
+		when(modeloMock.util).thenReturn(utilesMock);
 		
 		when(utilesMock.cantidadTotal(primer, segun, tercer)).thenReturn(999.0);
 
@@ -236,7 +236,7 @@ public class TestControladorPanelPedidos {
 		int pos = 0;
 		String eliminar = "1 Anfeta";
 
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
+		when(modeloMock.util).thenReturn(utilesMock);
 		
 		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
 	
@@ -264,7 +264,7 @@ public class TestControladorPanelPedidos {
 
 		String input = "colchon";
 
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
+		when(modeloMock.util).thenReturn(utilesMock);
 		
 		when(utilesMock.devolverFechaFormateada(input)).thenReturn("pedro");
 	
@@ -281,7 +281,7 @@ public class TestControladorPanelPedidos {
 		
 		int i = 2;
 		
-		when(modeloMock.getUtil()).thenReturn(utilesMock);
+		when(modeloMock.util).thenReturn(utilesMock);
 		
 		when(utilesMock.devolverNombreProducto(i)).thenReturn("solero");
 		

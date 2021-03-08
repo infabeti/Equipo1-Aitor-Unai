@@ -64,7 +64,7 @@ public class ControladorPanelPedidos {
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
 		String[] devolver = new String[2];
-		String productoAnadir = this.modelo.getUtil().annadirProducto(producto);
+		String productoAnadir = this.modelo.util.annadirProducto(producto);
 		devolver[0] = cantidadProducto(cantidad, productoAnadir);
 		devolver[1] = cantidadTotal(cantidad, producto);
 		return devolver;
@@ -82,7 +82,7 @@ public class ControladorPanelPedidos {
 
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
 		String[] devolver =  new String[2];
-		devolver[0] = this.modelo.getUtil().cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
+		devolver[0] = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
 		devolver[1] = this.cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto);
 		return devolver;
 	}
@@ -92,22 +92,22 @@ public class ControladorPanelPedidos {
 	}
 
 	public String cantidadTotal(String cantidad, String producto) {
-		total = this.modelo.getUtil().cantidadTotal(cantidad, producto, total);
+		total = this.modelo.util.cantidadTotal(cantidad, producto, total);
 		return String.valueOf(total);
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.getUtil().eliminarProducto(pos, eliminar, total);
+		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
 		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {
-		String fecha = this.modelo.getUtil().devolverFechaFormateada(input);
+		String fecha = this.modelo.util.devolverFechaFormateada(input);
 		return fecha;
 	}
 
 	public String devolverNombreProducto(int i) {
-		return this.modelo.getUtil().devolverNombreProducto(i);
+		return this.modelo.util.devolverNombreProducto(i);
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {

@@ -46,7 +46,7 @@ public class ControladorPanelRegistro {
 
 	public boolean comprobarNif(String nif) {
 
-		boolean correcto = this.modelo.getUtil().comprobarNif(nif);
+		boolean correcto = this.modelo.util.comprobarNif(nif);
 
 		return correcto;
 
@@ -97,7 +97,7 @@ public class ControladorPanelRegistro {
 	}
 
 	public boolean comprobarFormatoNombre(String nombre) {
-		boolean correcto = this.modelo.getUtil().comprobarFormatoNombre(nombre);
+		boolean correcto = this.modelo.util.comprobarFormatoNombre(nombre);
 		
 
 		return correcto;
@@ -114,13 +114,13 @@ public class ControladorPanelRegistro {
 	}
 
 	public boolean comprobarFormatoApellido(String apellido) {
-		boolean correcto = this.modelo.getUtil().comprobarFormatoApellido(apellido);
+		boolean correcto = this.modelo.util.comprobarFormatoApellido(apellido);
 		
 		return correcto;
 	}
 
 	public boolean contieneSoloLetras(String cadena) {
-		boolean correcto = this.modelo.getUtil().contieneSoloLetras(cadena);
+		boolean correcto = this.modelo.util.contieneSoloLetras(cadena);
 
 		return correcto;
 	}
