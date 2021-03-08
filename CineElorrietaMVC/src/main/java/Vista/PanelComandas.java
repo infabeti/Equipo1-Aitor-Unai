@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.SystemColor;
 import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 public class PanelComandas extends JPanel {
 
@@ -38,6 +40,13 @@ public class PanelComandas extends JPanel {
 			lblComandas.setFont(new Font("Dialog", Font.BOLD, 48));
 			lblComandas.setBounds(12, 12, 469, 63);
 			add(lblComandas);
+			
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(292, 103, 216, 298);
+			add(scrollPane);
+			
+			JList listProductos = new JList();
+			scrollPane.setViewportView(listProductos);
 			
 			initializeEvents();
 			
