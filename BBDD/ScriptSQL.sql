@@ -353,16 +353,25 @@ values('23456789J', 10, 14);
 
 
 /*TRIGGERS*/
-create trigger restar_stock_1 after insert 
-		on stock
-        for each row
-		update cantidad natural join stock
-        set cantidad = cantidad - stock;
-        
-create trigger aumentar_stock_2 after insert 
-		on stock
-        for each row
-		update cantidad natural join stock
-        set cantidad = cantidad + stock;
-        
 
+/* actualizar el stock cuando alimento se actualize*/
+/* Aumenta y reduce el stock*/
+
+ DELIMITER $$ 
+ CREATE TRIGGER actualizar_stock AFTER INSERT ON alimento 
+ FOR EACH ROW 
+   BEGIN
+       UPDATE stock SET cantidad_stock = cantidad_stock + 1 
+					WHERE CodigoAlimento = NEW.CodigoAlimento;
+  END $$    
+ DELIMITER ;  
+ 
+ 
+DELIMITER $$ 
+ CREATE TRIGGER reducir_stock AFTER INSERT ON alimento 
+ FOR EACH ROW 
+   BEGIN
+       UPDATE stock SET cantidad_stock = cantidad_stock - 1
+					WHERE CodigoAlimento = NEW.CodigoAlimento;
+  END $$    
+ DELIMITER ;
