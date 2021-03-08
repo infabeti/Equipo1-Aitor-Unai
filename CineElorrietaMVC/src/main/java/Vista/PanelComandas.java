@@ -49,9 +49,6 @@ public class PanelComandas extends JPanel {
 			scrollPane.setViewportView(listProductos);
 			
 			initializeEvents();
-			
-			
-		
 	}
 	
 	private void initializeEvents() {
