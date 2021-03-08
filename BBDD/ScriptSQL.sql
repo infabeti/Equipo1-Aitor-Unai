@@ -352,6 +352,40 @@ insert into stock
 values('23456789J', 10, 14);
 
 
+/* INSERCIONES PLATOS */
+insert into plato
+values (1,'Espaguetis a la carbonara', 11.99);
+
+insert into plato
+values (2,'Risoto de setas y hongos', 12.95);
+
+insert into plato
+values (3,'Ensalada mixta', 8.99);
+
+insert into plato
+values (4,'Ensaladilla rusa', 9.99);
+
+insert into plato
+values (5,'Milanesa de ternera con queso', 11.99);
+
+insert into plato
+values (6,'Pimientos rellenos de bacalao', 9.99);
+
+insert into plato
+values (7,'Filete de ternera con patatas panaderas', 15.99);
+
+insert into plato
+values (8,'Entrecot con pimientos y patatas', 15.99);
+
+insert into plato
+values (9,'Brownie con helado de vainilla y sirope de chocolate', 7.99);
+
+insert into plato
+values (10,'Tarta de queso', 5.99);
+
+insert into plato
+values (11,'Tarta tres chocolates', 6.99);
+
 /*TRIGGERS*/
 
 /* actualizar el stock cuando alimento se actualize*/
