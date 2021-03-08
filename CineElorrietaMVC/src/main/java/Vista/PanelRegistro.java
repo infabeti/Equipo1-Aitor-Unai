@@ -132,14 +132,18 @@ public class PanelRegistro extends JPanel {
 				String apellido = textApellido.getText();
 				@SuppressWarnings("deprecation")
 				String password = passwordContrasena.getText();
+				String mensaje = controladorPanelRegistro.comprobarCamposRegistro(nombre, apellido, nif, dni, password);
 
-				if (controladorPanelRegistro.comprobarCamposRegistro(nombre, apellido, nif, dni, password)) {
+				if (mensaje.equals("")) {
 					// insertar datos en empleado
 					controladorPanelRegistro.insertarRegistro(dni, nombre, apellido, password, nif);
 
 					JOptionPane.showMessageDialog(null, "Empleado introducido correctamente");
 					controladorPanelRegistro.accionadoBottonVolverPanelLogin();
 
+				}
+				else {
+					JOptionPane.showMessageDialog(null, mensaje);
 				}
 
 			}

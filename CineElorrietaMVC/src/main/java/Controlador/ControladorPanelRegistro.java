@@ -52,7 +52,7 @@ public class ControladorPanelRegistro {
 
 	}
 
-	public boolean comprobarCamposRegistro(String nombre, String apellido, String nif, String dni, String password) {
+	public String comprobarCamposRegistro(String nombre, String apellido, String nif, String dni, String password) {
 
 		boolean okNombre = comprobarFormatoNombre(nombre);
 		boolean okApellido = comprobarFormatoApellido(apellido);
@@ -61,40 +61,37 @@ public class ControladorPanelRegistro {
 		boolean  okComprobarBBDDnif= comprobarBBDDnif(nif);
 		boolean  okComprobarBBDDdni= comprobarBBDDdni(dni);
 		boolean  okPass= comprobarContraNoVacia(password);
+		String devolver = "";
 		
-		if (okNombre && okApellido && okNif
-				&& okDni && okComprobarBBDDnif && !okComprobarBBDDdni
-				&& okPass)
+		if (okNombre && okApellido && okNif && okDni && okComprobarBBDDnif && !okComprobarBBDDdni && okPass)
 
 		{
-			return true;
+			return devolver;
 		} else {
 			
 			if (okNombre == false) {
-				JOptionPane.showMessageDialog(null,
-						"El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3");
+				devolver = "El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3";
 			}
-			if (okApellido == false) {
-				JOptionPane.showMessageDialog(null,
-						"El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2");
+			else if (okApellido == false) {
+				devolver = "El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2";
 			}
-			if (okDni == false) {
-				JOptionPane.showMessageDialog(null, "El dni introducido es incorrecto");
+			else if (okDni == false) {
+				devolver = "El dni introducido es incorrecto";
 			}
-			if (okNif == false) {
-				JOptionPane.showMessageDialog(null, "El nif introducido es incorrecto");
+			else if (okNif == false) {
+				devolver = "El nif introducido es incorrecto";
 			}
-			if (okComprobarBBDDnif == false) {
-				JOptionPane.showMessageDialog(null, "El nif introducido no pertenece a ningun local");
+			else if (okComprobarBBDDnif == false) {
+				devolver = "El nif introducido no pertenece a ningun local";
 			}
-			if (okComprobarBBDDdni) {
-				JOptionPane.showMessageDialog(null, "El dni introducido ya existe en la BBDD");
+			else if (okComprobarBBDDdni) {
+				devolver = "El dni introducido ya existe en la BBDD";
 			}
-			if (okPass == false) {
-				JOptionPane.showMessageDialog(null, "la contraseña tiene que tener un minimo de 5 caracteres");
+			else if (okPass == false) {
+				devolver = "la contraseï¿½a tiene que tener un minimo de 5 caracteres";
 			}
 			
-			return false;
+			return devolver;
 		}
 
 	}
