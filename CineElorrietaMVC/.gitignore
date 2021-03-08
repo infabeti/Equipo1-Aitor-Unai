@@ -5,4 +5,6 @@
 build
 
 #Ignora los .class de eclipse
-.*\$.*.class
+bin/main/Vista/.*\$.*.class
+bin/main/Controlador/.*\$.*.class
+bin/main/Modelo/.*\$*.class
