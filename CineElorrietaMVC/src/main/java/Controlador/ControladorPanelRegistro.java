@@ -19,7 +19,7 @@ public class ControladorPanelRegistro {
 		this.vista = vista;
 		this.controlador = controlador;
 	}
-	
+
 	public Modelo getModelo() {
 		return modelo;
 	}
@@ -94,17 +94,21 @@ public class ControladorPanelRegistro {
 
 	public boolean comprobarContraNoVacia(String pass) {
 		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 20, por ello comprobamos el length
+		// nombre es un varchar de 18, por ello comprobamos el length y que no este vacio
+		// vacio
 		if (pass.length() >= 5) {
-			return true;
-		} else {
-			return false;
+			if (pass.length() <= 18) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 
 	public boolean comprobarFormatoApellido(String apellido) {
 		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 20, por ello comprobamos el length
+		// nombre es un varchar de 25, por ello comprobamos el length
 		if (contieneSoloLetras(apellido) && apellido.length() <= 25) {
 			if (apellido.length() >= 2) {
 				return true;
@@ -116,6 +120,20 @@ public class ControladorPanelRegistro {
 		}
 	}
 
+	public boolean comprobarFormatoDNI(String DNI) {
+		// Comprobar tamano nombre y apellido
+		// nombre es un varchar de 20, por ello comprobamos el length
+		if (contieneSoloLetras(DNI) && DNI.length() <= 9) {
+			if (DNI.length() >= 1) {
+				return true;
+			}
+			return false;
+
+		} else {
+
+			return false;
+		}
+	}
 	public boolean contieneSoloLetras(String cadena) {
 		for (int x = 0; x < cadena.length(); x++) {
 			char c = cadena.charAt(x);
@@ -126,7 +144,7 @@ public class ControladorPanelRegistro {
 		}
 		return true;
 	}
-	
+
 	public PanelRegistro makePanelRegistro(ControladorPanelRegistro controladorPanelRegistro) {
 		return new PanelRegistro(controladorPanelRegistro);
 	}
