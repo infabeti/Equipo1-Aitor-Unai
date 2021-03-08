@@ -20,7 +20,6 @@ public class ControladorPanelRegistro {
 	public void mostrarPanelRegistro() {
 		this.panelRegistro = new PanelRegistro(this);
 		this.vista.mostrarPanel(this.panelRegistro);
-
 	}
 
 	public void accionadoBottonVolverPanelLogin() {
@@ -37,15 +36,10 @@ public class ControladorPanelRegistro {
 
 	public void insertarRegistro(String DNI, String Nombre, String Apellido, String contrasena, String nif) {
 		this.modelo.getInserciones().insertarRegistro(DNI, Nombre, Apellido, contrasena, nif);
-
 	}
 
 	public boolean comprobarNif(String nif) {
-
-		boolean correcto = this.modelo.util.comprobarNif(nif);
-
-		return correcto;
-
+		return this.modelo.util.comprobarNif(nif);
 	}
 
 	public String comprobarCamposRegistro(String nombre, String apellido, String nif, String dni, String password) {
@@ -59,49 +53,39 @@ public class ControladorPanelRegistro {
 		boolean  okPass= comprobarContraNoVacia(password);
 		String devolver = "";
 		
-		if (okNombre && okApellido && okNif && okDni && okComprobarBBDDnif && !okComprobarBBDDdni && okPass)
-
-		{
+		if (okNombre && okApellido && okNif && okDni && okComprobarBBDDnif && !okComprobarBBDDdni && okPass){
 			return devolver;
 		} else {
-			
 			if (okNombre == false) {
-				devolver = "El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3";
+				devolver += "El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3";
 			}
 			else if (okApellido == false) {
-				devolver = "El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2";
+				devolver += "\nEl Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2";
 			}
 			else if (okDni == false) {
-				devolver = "El dni introducido es incorrecto";
+				devolver += "\nEl dni introducido es incorrecto";
 			}
 			else if (okNif == false) {
-				devolver = "El nif introducido es incorrecto";
+				devolver += "\nEl nif introducido es incorrecto";
 			}
 			else if (okComprobarBBDDnif == false) {
-				devolver = "El nif introducido no pertenece a ningun local";
+				devolver += "\nEl nif introducido no pertenece a ningun local";
 			}
 			else if (okComprobarBBDDdni) {
-				devolver = "El dni introducido ya existe en la BBDD";
+				devolver += "\nEl dni introducido ya existe en la BBDD";
 			}
 			else if (okPass == false) {
-				devolver = "la contrase�a tiene que tener un minimo de 5 caracteres";
+				devolver += "\nla contrase�a tiene que tener un minimo de 5 caracteres";
 			}
-			
 			return devolver;
 		}
-
 	}
 
 	public boolean comprobarFormatoNombre(String nombre) {
-		boolean correcto = this.modelo.util.comprobarFormatoNombre(nombre);
-		
-
-		return correcto;
+		return this.modelo.util.comprobarFormatoNombre(nombre);
 	}
 
 	public boolean comprobarContraNoVacia(String pass) {
-		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 20, por ello comprobamos el length
 		if (pass.length() >= 5) {
 			return true;
 		} else {
@@ -110,15 +94,10 @@ public class ControladorPanelRegistro {
 	}
 
 	public boolean comprobarFormatoApellido(String apellido) {
-		boolean correcto = this.modelo.util.comprobarFormatoApellido(apellido);
-		
-		return correcto;
+		return this.modelo.util.comprobarFormatoApellido(apellido);
 	}
 
 	public boolean contieneSoloLetras(String cadena) {
-		boolean correcto = this.modelo.util.contieneSoloLetras(cadena);
-
-		return correcto;
+		return this.modelo.util.contieneSoloLetras(cadena);
 	}
-
 }

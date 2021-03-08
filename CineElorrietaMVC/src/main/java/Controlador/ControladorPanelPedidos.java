@@ -71,13 +71,11 @@ public class ControladorPanelPedidos {
 	}
 
 	public int existeProducto(String nombreProducto) {
-		int pos = modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
-		return pos;
+		return modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
 
 	public double cogerPrecioString(String nombreProducto) {
-		double precio = modelo.getListaTemporal().precioProductoString(nombreProducto);
-		return precio;
+		return modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
 
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
@@ -92,18 +90,15 @@ public class ControladorPanelPedidos {
 	}
 
 	public String cantidadTotal(String cantidad, String producto) {
-		total = this.modelo.util.cantidadTotal(cantidad, producto, total);
-		return String.valueOf(total);
+		return String.valueOf(this.modelo.util.cantidadTotal(cantidad, producto, total));
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
-		return String.valueOf(total);
+		return String.valueOf(this.modelo.util.eliminarProducto(pos, eliminar, total));
 	}
 
 	public String devolverFechaFormateada(String input) {
-		String fecha = this.modelo.util.devolverFechaFormateada(input);
-		return fecha;
+		return this.modelo.util.devolverFechaFormateada(input);
 	}
 
 	public String devolverNombreProducto(int i) {
@@ -123,12 +118,8 @@ public class ControladorPanelPedidos {
 		this.modelo.getInserciones().insertarPedido(transaccion, domicilio);
 		
 		for (int i = 0; i < lista.getSize(); i++) {
-			String textoRecogido = lista.get(i);
-			String textoSpliteado[] = textoRecogido.split(" ");
-
-			int cantidad = Integer.parseInt(textoSpliteado[0]);
-			
-			insertarProductoActividad(i, transaccion, cantidad);
+			String textoSpliteado[] = lista.get(i).split(" ");	
+			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));
 		}
 	}
 

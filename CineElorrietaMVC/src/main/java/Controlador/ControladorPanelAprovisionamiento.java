@@ -43,6 +43,4 @@ public class ControladorPanelAprovisionamiento {
 		return new PanelAprovisionamiento(controladorPanelAprovisionamiento);
 	}
 	
-	
-	
 }
