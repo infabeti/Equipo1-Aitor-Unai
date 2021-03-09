@@ -47,18 +47,17 @@ public class ControladorLogin {
 	}
 
 	public boolean login(String userName, String password) {
-
 		Usuario res = this.modelo.getConexion().login(userName, password);
-
 		this.modelo.setUser(res);
-
 		if (res.getNombre().equals("")) {
 			return false;
 		} else {
 			modelo.actualizarListaProductosLocal();
+			if(modelo.getUser().getTipoLocal().equals("RESTAURANTE")) {
+				modelo.setListaPlatos(modelo.getConexion().cogerListaPlatos(modelo.getUser().getNifLocal()));
+			}
 			return true;
 		}
-
 	}
 
 	public PanelLogin makePanelLogin(ControladorLogin controladorLogin) {
