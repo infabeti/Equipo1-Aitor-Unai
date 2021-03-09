@@ -34,4 +34,8 @@ public class ControladorPanelComandas {
 		return modelo.getListaProductos().getListaProductosString();
 	}
 	
+	public String[] cogerListaPlatos() {
+		return modelo.getListaPlatos().getListaPlatosString();
+	}
+	
 }

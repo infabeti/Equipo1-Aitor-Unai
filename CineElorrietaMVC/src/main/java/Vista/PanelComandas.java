@@ -45,8 +45,15 @@ public class PanelComandas extends JPanel {
 			scrollPane.setBounds(292, 103, 216, 298);
 			add(scrollPane);
 			
-			JList listProductos = new JList();
-			scrollPane.setViewportView(listProductos);
+			JList listaProductos = new JList(controladorPanelComandas.cogerListaProductos());
+			scrollPane.setViewportView(listaProductos);
+			
+			JScrollPane scrollPane_1 = new JScrollPane();
+			scrollPane_1.setBounds(605, 103, 216, 298);
+			add(scrollPane_1);
+			
+			JList listaPlatos = new JList(controladorPanelComandas.cogerListaPlatos());
+			scrollPane_1.setViewportView(listaPlatos);
 			
 			initializeEvents();
 	}

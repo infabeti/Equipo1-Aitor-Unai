@@ -316,6 +316,31 @@ public class Conexion {
 		}
 		return listaProd;
 	}
+	
+	public ListaPlatos cogerListaPlatos(String NIFLocal) {
+		ListaPlatos listaPlatos = new ListaPlatos();
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"Select p.Nombre, p.pvp from plato p join carta c on p.codigoplato = c.codigoplato where c.nif=?");
+			
+			st.setString(1, NIFLocal);
+
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				String nombre = rs.getString("p.Nombre");
+				double pvp = rs.getDouble("p.pvp");
+				Plato plato = new Plato(nombre, pvp);
+				listaPlatos.addPlato(plato);
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return listaPlatos;
+	}
 
 	public void insertarPedido(int transaccion, String domicilio) {
 		try {
@@ -469,8 +494,4 @@ public class Conexion {
 			return false;
 		}
 	}
-	
-	
-	
-	
 }
