@@ -2,7 +2,6 @@ package Controlador;
 
 import Modelo.Modelo;
 import Vista.Vista;
-import Vista.PanelAprovisionamiento;
 import Vista.PanelComandas;
 
 public class ControladorPanelComandas {
@@ -30,4 +29,9 @@ public class ControladorPanelComandas {
 	public PanelComandas makePanelComandas(ControladorPanelComandas controladorPanelComandas) {
 		return new PanelComandas(controladorPanelComandas);
 	}
+	
+	public String[] cogerListaProductos() {
+		return modelo.getListaProductos().getListaProductosString();
+	}
+	
 }
