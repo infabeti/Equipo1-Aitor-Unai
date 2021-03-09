@@ -85,12 +85,8 @@ public class ControladorPanelRegistro {
 		return this.modelo.util.comprobarFormatoNombre(nombre);
 	}
 
-	public boolean comprobarContraNoVacia(String pass) {
-		if (pass.length() >= 5) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean comprobarContraNoVacia(String pass) {		
+		return pass.length() >= 5;
 	}
 
 	public boolean comprobarFormatoApellido(String apellido) {

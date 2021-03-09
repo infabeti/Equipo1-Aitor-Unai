@@ -56,7 +56,8 @@ public class TestControladorPanelPedidos {
 
 	@Test
 	public void testDevolverFechaHora() {
-		when(controladorPanelPedidos.devolverFechaHora()).thenReturn("999");
+
+		when(modeloMock.getFechaHoraSys()).thenReturn("999");
 
 		resultadoString = controladorPanelPedidos.devolverFechaHora();
 		resultadoEsperadoString = "999";
@@ -114,7 +115,7 @@ public class TestControladorPanelPedidos {
 	@Test
 	public void TestAccionadoBotonAnnadirProducto() {
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.annadirProducto("saludos")).thenReturn("bocata de calamares");
 		
@@ -169,7 +170,7 @@ public class TestControladorPanelPedidos {
 
 		String producto = "1 - Calabaza";
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.cambiarCantidadProductos(producto, 4)).thenReturn("ZAPATO");
 		
@@ -186,27 +187,13 @@ public class TestControladorPanelPedidos {
 	}
 
 	@Test
-	public void TestCantidadProducto() {
-
-		String primer = "Hola";
-		String segun = "que tal";
-
-		resultadoString = controladorPanelPedidos.cantidadProducto(primer, segun);
-
-		resultadoEsperadoString = primer + " " + segun;
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-
-	}
-
-	@Test
 	public void TestCantidadTotal() {
 
 		String primer = "2";
 		String segun = "3";
 		double tercer = 0;
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.cantidadTotal(primer, segun, tercer)).thenReturn(999.0);
 
@@ -222,12 +209,12 @@ public class TestControladorPanelPedidos {
 	public void TestAccionadoBotonEliminar() {
 
 		int pos = 0;
-		String eliminar = "1 Anfeta";
-
-		when(modeloMock.util).thenReturn(utilesMock);
+		String eliminar = "1 Piedra";
+		
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
-	
+
 		resultadoString = controladorPanelPedidos.accionadoBotonEliminar(pos, eliminar);
 
 		resultadoEsperadoString = "99.0";
@@ -251,15 +238,13 @@ public class TestControladorPanelPedidos {
 	public void TestDevolverFechaFormateada() {
 
 		String input = "colchon";
-
-		when(modeloMock.util).thenReturn(utilesMock);
-		
+				
 		when(utilesMock.devolverFechaFormateada(input)).thenReturn("pedro");
 	
-		resultadoString = controladorPanelPedidos.devolverFechaFormateada(input);
+		resultadoString = utilesMock.devolverFechaFormateada(input);
 
 		resultadoEsperadoString = "pedro";
-
+		
 		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
@@ -269,7 +254,7 @@ public class TestControladorPanelPedidos {
 		
 		int i = 2;
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.devolverNombreProducto(i)).thenReturn("solero");
 		

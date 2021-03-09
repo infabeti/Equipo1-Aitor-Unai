@@ -2,7 +2,6 @@ package Controlador;
 
 import Modelo.Modelo;
 import javax.swing.DefaultListModel;
-import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
 
@@ -55,19 +54,17 @@ public class ControladorPanelFacturas {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarLista();
+		modelo.getListaTemporal().limpiarLista();
 		this.total = 0.0;
 	}
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
 		String[] devolver = new String[2];
-		String productoAnadir = this.modelo.util.annadirProducto(producto);
-		devolver[0] = cantidadProducto(cantidad, productoAnadir);
+		devolver[0] = cantidad + " " + this.modelo.util.annadirProducto(producto);
 		devolver[1] = cantidadTotal(cantidad, producto);
 		return devolver;
 	}
-	
+
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
 		String[] devolver = new String[2];
 		devolver[0] = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
@@ -83,16 +80,14 @@ public class ControladorPanelFacturas {
 		return modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
 
-	public String cantidadProducto(String cantidad, String productoAnadir) {
-		return cantidad + " " + productoAnadir;
-	}
-
 	public String cantidadTotal(String cantidad, String producto) {
-		return String.valueOf(this.modelo.util.cantidadTotal(cantidad, producto, total));
+		total = this.modelo.util.cantidadTotal(cantidad, producto, total);
+		return String.valueOf(total);
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		return String.valueOf(this.modelo.util.eliminarProducto(pos, eliminar, total));
+		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
+		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {
@@ -109,18 +104,17 @@ public class ControladorPanelFacturas {
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 		String producto = devolverNombreProducto(nombreProducto);
-		this.modelo.getInserciones().insertarProductoActividad(transaccion,	this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad, cogerPrecioString(producto));
+		this.modelo.getInserciones().insertarProductoActividad(transaccion,
+				this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad,
+				cogerPrecioString(producto));
 	}
 
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
-		if (total > 0 && this.modelo.util.comprobarCamposString(nif, nombre, apellido)) {
-			return true;
-		} else {
-			return false;
-		}
+		return total > 0 && this.modelo.util.comprobarCamposString(nif, nombre, apellido);
 	}
 
-	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre, String apellido, DefaultListModel<String> lista, String nifComprador) {
+	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre,
+			String apellido, DefaultListModel<String> lista, String nifComprador) {
 		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion,
 				nifLocal);
 
@@ -130,11 +124,9 @@ public class ControladorPanelFacturas {
 			this.modelo.getInserciones().insertarComprador(nifComprador, nombre, apellido);
 		}
 		this.modelo.getInserciones().insertarFactura(transaccion, nifComprador);
-
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
-			int cantidad = Integer.parseInt(textoSpliteado[0]);
-			insertarProductoActividad(i, transaccion, cantidad);
+			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));
 		}
 	}
 
