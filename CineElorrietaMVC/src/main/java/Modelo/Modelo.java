@@ -10,14 +10,11 @@ import java.util.Calendar;
 public class Modelo {
 
 	private ListaProductos listaProductos = new ListaProductos();
-	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
 	private Usuario user;
 	public Utiles util;
 	private Inserciones inserciones;
 	private Consultas consultas;
 	private ConsultasComprobaciones consultasComprobaciones;
-	
-	//Conexion a BBDD
 
 	public ConsultasComprobaciones getConsultasComprobaciones() {
 		return consultasComprobaciones;
@@ -61,32 +58,9 @@ public class Modelo {
 	public ListaProductos getListaTemporal() {
 		return this.listaTemporal;
 	}
-
-	public void setListaProductos(ListaProductos listaProductos) {
-		this.listaProductos = listaProductos;
-	}
 	
 	public ListaProductos getListaProductos() {
 		return this.listaProductos;
-	}
-
-	public LineaPedido[] getArrProdSeleccionados() {
-		return arrProdSeleccionados;
-	}
-
-	public void setArrProdSeleccionados(LineaPedido[] arrProdSeleccionados) {
-		this.arrProdSeleccionados = arrProdSeleccionados;
-	}
-
-	public void productosAlmacenados() {
-
-		Date date = new Date(0);
-
-		Producto p1 = new Producto("Bocata", date, "comida", 1.00, 1.50);
-		Producto p2 = new Producto("Coca-Cola", date, "bebida", 0.35, 1.50);
-
-		listaProductos.addProducto(p1);
-		listaProductos.addProducto(p2);
 	}
 	
 	public String getFechaHoraSys() {
@@ -116,6 +90,4 @@ public class Modelo {
 	public void setUser(Usuario user) {
 		this.user = user;
 	}
-	
-
 }
