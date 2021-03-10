@@ -1,7 +1,6 @@
 package TestModelo;
 
 import Modelo.Usuario;
-import Modelo.Producto;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
