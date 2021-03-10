@@ -16,10 +16,10 @@ public class Controlador {
 	private ControladorPanelRegistro controladorPanelRegistro;
 	private ControladorPanelComandas controladorPanelComandas;
 	private ControladorLogin controladorLogin;
+
 	public Controlador(Modelo modelo, Vista vista) {
 		this.modelo = modelo;
 		this.vista = vista;
-
 		this.controladorLogin = new ControladorLogin(this.modelo, this.vista, this);
 		this.controladorPanelPrincipal = new ControladorPanelPrincipal(this.modelo, this.vista, this);
 		this.controladorPanelPedidos = new ControladorPanelPedidos(this.modelo, this.vista, this);
@@ -28,7 +28,6 @@ public class Controlador {
 		this.controladorPanelTickets = new ControladorPanelTickets(this.modelo, this.vista, this);
 		this.controladorPanelRegistro = new ControladorPanelRegistro(this.modelo, this.vista, this);
 		this.controladorPanelComandas = new ControladorPanelComandas(this.modelo, this.vista, this);
-
 		this.navegarPanelLogin();
 	}
 
@@ -36,7 +35,7 @@ public class Controlador {
 		System.out.println("Login de los usuarios");
 		controladorLoginMostrarPanelLogin();
 	}
-	
+
 	public void controladorLoginMostrarPanelLogin() {
 		this.controladorLogin.mostrarPanelLogin();
 	}
@@ -45,7 +44,7 @@ public class Controlador {
 		System.out.println("Navegar panel de registro");
 		controladorPanelRegistroMostrarPanelegistro();
 	}
-	
+
 	public void controladorPanelRegistroMostrarPanelegistro() {
 		this.controladorPanelRegistro.mostrarPanelRegistro();
 	}
@@ -54,7 +53,7 @@ public class Controlador {
 		System.out.println("Navegar panel principal");
 		controladorPanelPrincipalMostrarPanelPrincipal();
 	}
-	
+
 	public void controladorPanelPrincipalMostrarPanelPrincipal() {
 		this.controladorPanelPrincipal.mostrarPanelPrincipal();
 	}
@@ -66,7 +65,7 @@ public class Controlador {
 			controladorPanelPedidosMostrarPanelPedidos();
 		}
 	}
-	
+
 	public void controladorPanelPedidosMostrarPanelPedidos() {
 		this.controladorPanelPedidos.mostrarPanelPedidos();
 	}
@@ -75,7 +74,7 @@ public class Controlador {
 		System.out.println("Navegar panel Aprovisionamiento");
 		controladorPanelAprovisionamientoMostrarPanelAprovisionamiento();
 	}
-	
+
 	public void controladorPanelAprovisionamientoMostrarPanelAprovisionamiento() {
 		this.controladorPanelAprovisionamiento.mostrarPanelAprovisionamiento();
 	}
@@ -84,7 +83,7 @@ public class Controlador {
 		System.out.println("Navegar panel Facturas");
 		controladorPanelFacturasMostrarPanelFacturas();
 	}
-	
+
 	public void controladorPanelFacturasMostrarPanelFacturas() {
 		this.controladorPanelFacturas.mostrarPanelFacturas();
 	}
@@ -93,7 +92,7 @@ public class Controlador {
 		System.out.println("Navegar panel Tickets");
 		controladorPanelTicketsMostrarPanelTickets();
 	}
-	
+
 	public void controladorPanelTicketsMostrarPanelTickets() {
 		this.controladorPanelTickets.mostrarPanelTickets();
 	}
@@ -101,36 +100,36 @@ public class Controlador {
 	public void navegarPanelComandas() {
 		System.out.println("Navegar panel Comandas");
 		Usuario user = modelo.getUser();
-		if(user.getTipoLocal().equals("RESTAURANTE")) {
-			 this.controladorPanelComandas.mostrarPanelComandas();
+		if (user.getTipoLocal().equalsIgnoreCase("RESTAURANTE")) {
+			controladorPanelComandasMostrarPanelComandas();
 		}
+	}
+
+	public void controladorPanelComandasMostrarPanelComandas() {
+		this.controladorPanelComandas.mostrarPanelComandas();
 	}
 
 	public ControladorPanelAprovisionamiento makeControladorPanelAprovisionamiento(Modelo modelo, Vista vista,
 			Controlador controlador) {
 		return new ControladorPanelAprovisionamiento(this.modelo, this.vista, this);
 	}
-	
-	public ControladorPanelPedidos makeControladorPanelPedidos(Modelo modelo, Vista vista,
-			Controlador controlador) {
+
+	public ControladorPanelPedidos makeControladorPanelPedidos(Modelo modelo, Vista vista, Controlador controlador) {
 		return new ControladorPanelPedidos(this.modelo, this.vista, this);
 	}
-	
-	public ControladorPanelTickets makeControladorPanelTickets(Modelo modelo, Vista vista,
-			Controlador controlador) {
+
+	public ControladorPanelTickets makeControladorPanelTickets(Modelo modelo, Vista vista, Controlador controlador) {
 		return new ControladorPanelTickets(this.modelo, this.vista, this);
 	}
-	
-	public ControladorPanelFacturas makeControladorPanelFacturas(Modelo modelo, Vista vista,
-			Controlador controlador) {
+
+	public ControladorPanelFacturas makeControladorPanelFacturas(Modelo modelo, Vista vista, Controlador controlador) {
 		return new ControladorPanelFacturas(this.modelo, this.vista, this);
 	}
-	
-	public ControladorPanelRegistro makeControladorPanelRegistro(Modelo modelo, Vista vista,
-			Controlador controlador) {
+
+	public ControladorPanelRegistro makeControladorPanelRegistro(Modelo modelo, Vista vista, Controlador controlador) {
 		return new ControladorPanelRegistro(this.modelo, this.vista, this);
 	}
-	
+
 	public ControladorPanelPrincipal makeControladorPanelPrincipal(Modelo modelo, Vista vista,
 			Controlador controlador) {
 		return new ControladorPanelPrincipal(this.modelo, this.vista, this);
@@ -138,6 +137,10 @@ public class Controlador {
 
 	public ControladorLogin makeControladorPanelLogin(Modelo modelo, Vista vista, Controlador controlador) {
 		return new ControladorLogin(this.modelo, this.vista, this);
+	}
+
+	public ControladorPanelComandas makecontroladorPanelComandas(Modelo modelo, Vista vista, Controlador controlador) {
+		return new ControladorPanelComandas(this.modelo, this.vista, this);
 	}
 
 }

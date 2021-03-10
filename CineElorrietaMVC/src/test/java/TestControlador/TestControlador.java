@@ -3,11 +3,13 @@ package TestControlador;
 import Controlador.Controlador;
 import Controlador.ControladorLogin;
 import Controlador.ControladorPanelAprovisionamiento;
+import Controlador.ControladorPanelComandas;
 import Controlador.ControladorPanelFacturas;
 import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelRegistro;
 import Controlador.ControladorPanelTickets;
 import Modelo.Conexion;
+import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
@@ -32,10 +34,13 @@ public class TestControlador {
 	private ControladorLogin controladorLoginMock = mock(ControladorLogin.class);
 	private ControladorPanelTickets controladorPanelTicketsMock = mock(ControladorPanelTickets.class);
 	private ControladorPanelFacturas controladorPanelFacturasMock = mock(ControladorPanelFacturas.class);
+	private ControladorPanelComandas controladorPanelComandasMock = mock(ControladorPanelComandas.class);
 	private Controlador spyControlador;
 	private Usuario userMock = mock(Usuario.class);
 	private Conexion conexionMock = mock(Conexion.class);
+	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
+	private String[] arrString = new String[] { "a", "b" };
 
 	@Test
 	public void navegarPanelLogin() {
@@ -81,7 +86,7 @@ public class TestControlador {
 	}
 
 	@Test
-	public void navegarPanelPedidos() {
+	public void navegarPanelPedidosRESTAURANTE() {
 		spyControlador = spy(new Controlador(modeloMock, vistaMock));
 		doReturn(controladorLoginMock).when(spyControlador).makeControladorPanelLogin(any(Modelo.class),
 				any(Vista.class), any(Controlador.class));
@@ -99,11 +104,11 @@ public class TestControlador {
 		when(modeloMock.getUser()).thenReturn(userMock);
 
 		when(userMock.getTipoLocal()).thenReturn("restaurante");
-		
+
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
 		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
-		
+
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 		when(modeloMock.getUser()).thenReturn(userMock);
@@ -111,6 +116,74 @@ public class TestControlador {
 		spyControlador.navegarPanelPedidos();
 
 		verify(spyControlador).controladorPanelPedidosMostrarPanelPedidos();
+	}
+
+	@Test
+	public void navegarPanelPedidosCAFETERIA() {
+		spyControlador = spy(new Controlador(modeloMock, vistaMock));
+		doReturn(controladorLoginMock).when(spyControlador).makeControladorPanelLogin(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelPedidosMock).when(spyControlador).makeControladorPanelPedidos(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelRegistroMock).when(spyControlador).makeControladorPanelRegistro(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelAprovisionamientoMock).when(spyControlador)
+				.makeControladorPanelAprovisionamiento(any(Modelo.class), any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelTicketsMock).when(spyControlador).makeControladorPanelTickets(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		when(userMock.getTipoLocal()).thenReturn("cafeteria");
+
+		when(modeloMock.getConexion()).thenReturn(conexionMock);
+
+		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		spyControlador.navegarPanelPedidos();
+
+		verify(spyControlador).controladorPanelPedidosMostrarPanelPedidos();
+	}
+
+	@Test
+	public void navegarPanelPedidosBAR() {
+		spyControlador = spy(new Controlador(modeloMock, vistaMock));
+		doReturn(controladorLoginMock).when(spyControlador).makeControladorPanelLogin(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelPedidosMock).when(spyControlador).makeControladorPanelPedidos(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelRegistroMock).when(spyControlador).makeControladorPanelRegistro(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelAprovisionamientoMock).when(spyControlador)
+				.makeControladorPanelAprovisionamiento(any(Modelo.class), any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelTicketsMock).when(spyControlador).makeControladorPanelTickets(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelComandasMock).when(spyControlador).makecontroladorPanelComandas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		when(userMock.getTipoLocal()).thenReturn("bar");
+
+		when(modeloMock.getConexion()).thenReturn(conexionMock);
+
+		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		spyControlador.navegarPanelPedidos();
+
+		// NO PUEDO VERIFICAR QUE ENTRE YA QUE NO DEBE ENTRAR
 	}
 
 	@Test
@@ -127,6 +200,8 @@ public class TestControlador {
 		doReturn(controladorPanelTicketsMock).when(spyControlador).makeControladorPanelTickets(any(Modelo.class),
 				any(Vista.class), any(Controlador.class));
 		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelComandasMock).when(spyControlador).makecontroladorPanelComandas(any(Modelo.class),
 				any(Vista.class), any(Controlador.class));
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
@@ -160,6 +235,8 @@ public class TestControlador {
 				any(Vista.class), any(Controlador.class));
 		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
 				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelComandasMock).when(spyControlador).makecontroladorPanelComandas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
 
 		when(modeloMock.getUser()).thenReturn(userMock);
 
@@ -168,6 +245,144 @@ public class TestControlador {
 		spyControlador.navegarPanelPrincipal();
 
 		verify(spyControlador).controladorPanelPrincipalMostrarPanelPrincipal();
+	}
+
+	@Test
+	public void navegarPanelAprovisionamiento() {
+		spyControlador = spy(new Controlador(modeloMock, vistaMock));
+		doReturn(controladorLoginMock).when(spyControlador).makeControladorPanelLogin(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelPedidosMock).when(spyControlador).makeControladorPanelPedidos(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelRegistroMock).when(spyControlador).makeControladorPanelRegistro(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelAprovisionamientoMock).when(spyControlador)
+				.makeControladorPanelAprovisionamiento(any(Modelo.class), any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelTicketsMock).when(spyControlador).makeControladorPanelTickets(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelComandasMock).when(spyControlador).makecontroladorPanelComandas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+
+		when(modeloMock.getConexion()).thenReturn(conexionMock);
+
+		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+
+		when(conexionMock.cogerProductosAprovisionamiento()).thenReturn(listaProductosMock);
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		when(userMock.getTipoLocal()).thenReturn("test");
+
+		spyControlador.navegarPanelAprovisionamiento();
+
+		verify(spyControlador).controladorPanelAprovisionamientoMostrarPanelAprovisionamiento();
+	}
+
+	@Test
+	public void navegarPanelFacturas() {
+		spyControlador = spy(new Controlador(modeloMock, vistaMock));
+		doReturn(controladorLoginMock).when(spyControlador).makeControladorPanelLogin(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelPedidosMock).when(spyControlador).makeControladorPanelPedidos(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelRegistroMock).when(spyControlador).makeControladorPanelRegistro(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelAprovisionamientoMock).when(spyControlador)
+				.makeControladorPanelAprovisionamiento(any(Modelo.class), any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelTicketsMock).when(spyControlador).makeControladorPanelTickets(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelComandasMock).when(spyControlador).makecontroladorPanelComandas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+
+		when(modeloMock.getConexion()).thenReturn(conexionMock);
+
+		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+
+		// Objeto tipo listaproductos
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		when(userMock.getTipoLocal()).thenReturn("test");
+
+		spyControlador.navegarPanelFacturas();
+
+		verify(spyControlador).controladorPanelFacturasMostrarPanelFacturas();
+	}
+
+	@Test
+	public void navegarPanelComandas() {
+		spyControlador = spy(new Controlador(modeloMock, vistaMock));
+		doReturn(controladorLoginMock).when(spyControlador).makeControladorPanelLogin(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelPedidosMock).when(spyControlador).makeControladorPanelPedidos(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelRegistroMock).when(spyControlador).makeControladorPanelRegistro(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelAprovisionamientoMock).when(spyControlador)
+				.makeControladorPanelAprovisionamiento(any(Modelo.class), any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelTicketsMock).when(spyControlador).makeControladorPanelTickets(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelComandasMock).when(spyControlador).makecontroladorPanelComandas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+
+		when(modeloMock.getConexion()).thenReturn(conexionMock);
+
+		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+
+		// Objeto tipo listaproductos
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		when(userMock.getTipoLocal()).thenReturn("restaurante");
+
+		when(controladorPanelComandasMock.cogerListaPlatos()).thenReturn(arrString);
+
+		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
+
+		spyControlador.navegarPanelComandas();
+
+		verify(spyControlador).controladorPanelComandasMostrarPanelComandas();
+	}
+
+	@Test
+	public void navegarPanelComandasNORESTAURANTE() {
+		spyControlador = spy(new Controlador(modeloMock, vistaMock));
+		doReturn(controladorLoginMock).when(spyControlador).makeControladorPanelLogin(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelPedidosMock).when(spyControlador).makeControladorPanelPedidos(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelRegistroMock).when(spyControlador).makeControladorPanelRegistro(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelAprovisionamientoMock).when(spyControlador)
+				.makeControladorPanelAprovisionamiento(any(Modelo.class), any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelTicketsMock).when(spyControlador).makeControladorPanelTickets(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelFacturasMock).when(spyControlador).makeControladorPanelFacturas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+		doReturn(controladorPanelComandasMock).when(spyControlador).makecontroladorPanelComandas(any(Modelo.class),
+				any(Vista.class), any(Controlador.class));
+
+		when(modeloMock.getConexion()).thenReturn(conexionMock);
+
+		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
+		when(modeloMock.getUser()).thenReturn(userMock);
+
+		when(userMock.getTipoLocal()).thenReturn("test");
+
+		spyControlador.navegarPanelComandas();
+
+		// NO TENGO QUE VERIFICAR QUE ENTRE YA QUE NO PUEDE HACERLO
 	}
 
 }
