@@ -99,10 +99,7 @@ public class ControladorPanelFacturas {
 		return cambiada;
 	}
 
-	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para
-																				// a�adir en la lista de a�adidos,
-																				// el cual se creaba antes en la propia
-																				// vista
+	public String cantidadProducto(String cantidad, String productoAnadir) { 
 		return cantidad + " " + productoAnadir;
 	}
 
