@@ -16,9 +16,11 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.awt.SystemColor;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class PanelComandas extends JPanel {
@@ -40,6 +42,9 @@ public class PanelComandas extends JPanel {
 	private JFormattedTextField textCantidadProductos;
 	private JFormattedTextField textCantidadPlatos;
 	private JTextField textTotal;
+	private JTextField textFieldNumTrans;
+	private JTextField textFieldFecha;
+	private JTextField textLocal;
 
 	public PanelComandas(ControladorPanelComandas controladorPanelComandas) {
 		setBackground(SystemColor.activeCaption);
@@ -132,6 +137,29 @@ public class PanelComandas extends JPanel {
 			add(textTotal);
 			textTotal.setColumns(10);
 			textTotal.setText("0");
+
+			textLocal = new JTextField();
+			textLocal.setBounds(120, 126, 114, 19);
+			add(textLocal);
+			textLocal.setColumns(10);
+			textLocal.setText(controladorPanelComandas.conseguirLocal());
+			textLocal.setEditable(false);
+			textLocal.setHorizontalAlignment(SwingConstants.CENTER);
+			
+			textFieldFecha = new JTextField();
+			textFieldFecha.setColumns(10);
+			textFieldFecha.setBounds(448, 71, 106, 30);
+			add(textFieldFecha);
+			textFieldFecha.setText(this.controladorPanelComandas.devolverFechaHora());
+			textFieldFecha.setEditable(false);
+			
+			textFieldNumTrans = new JTextField();
+			textFieldNumTrans.setBounds(120, 76, 114, 19);
+			add(textFieldNumTrans);
+			textFieldNumTrans.setColumns(10);
+			textFieldNumTrans.setText(controladorPanelComandas.leerNumTransBBDD());
+			textFieldNumTrans.setEditable(false);
+			textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
 			
 			initializeEvents();
 	}
@@ -265,7 +293,47 @@ public class PanelComandas extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Pedidos");
-				controladorPanelComandas.accionadoBotonVolverPanelPrincipal();
+				System.out.println("Ejecutando evento Boton Finalizar");
+				if (Double.parseDouble(textTotal.getText()) > 0) {
+					// insertar datos en actividad
+					controladorPanelComandas.insertarComanda(Integer.parseInt(textFieldNumTrans.getText()),controladorPanelComandas.devolverFechaFormateada(textFieldFecha.getText()),Double.parseDouble(textTotal.getText()), textLocal.getText());
+
+					// insertar datos de productos
+					for (int i = 0; i < productosAnadidosString.getSize(); i++) {
+						String textoRecogido = productosAnadidosString.get(i);
+						String textoSpliteado[] = textoRecogido.split(" ");
+
+						int cantidad = Integer.parseInt(textoSpliteado[0]);
+
+						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
+
+						String producto = controladorPanelComandas.devolverNombreProducto(i);
+						double precioFinal = controladorPanelComandas.cogerPrecioString(producto);
+
+						controladorPanelComandas.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
+					}
+					
+					for (int i = 0; i < platosAnadidosString.getSize(); i++) {
+						String textoRecogido = platosAnadidosString.get(i);
+						String textoSpliteado[] = textoRecogido.split(" ");
+
+						int cantidad = Integer.parseInt(textoSpliteado[0]);
+
+						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
+
+						String plato = controladorPanelComandas.devolverNombrePlato(i);
+						double precioFinal = controladorPanelComandas.cogerPrecioStringPlato(plato);
+
+						controladorPanelComandas.insertarProductoActividad(plato, transaccion, cantidad, precioFinal);
+					}
+
+					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
+					controladorPanelComandas.accionadoBotonVolverPanelPrincipal();
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+				}
+
 			}
 		};
 	}

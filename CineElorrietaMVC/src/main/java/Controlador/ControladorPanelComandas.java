@@ -2,6 +2,9 @@ package Controlador;
 
 import Modelo.ListaProductos;
 import Modelo.Plato;
+
+import java.text.SimpleDateFormat;
+
 import Modelo.ListaPlatos;
 import Modelo.Modelo;
 import Modelo.Producto;
@@ -136,4 +139,64 @@ public class ControladorPanelComandas {
 		return totalStr;
 	}
 	
+	
+	public String devolverNombreProducto(int i) {
+		
+		ListaProductos listaTemporal = this.modelo.getListaTemporal();
+		
+		String[] lista = listaTemporal.getListaProductosString();		
+		
+		return lista[i];
+	}
+	
+	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
+		// aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
+		// consulta a bbdd comparando el nombre para sacar el codalimento
+		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
+		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
+
+	}
+	
+	public String devolverFechaFormateada(String input) {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		String dateInString = input;
+
+		try {
+
+			java.util.Date date1 = formatter.parse(dateInString);
+			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "Error";
+	}
+	
+	public String conseguirLocal() {
+		return modelo.getUser().getNifLocal();
+	}
+	
+	public String devolverFechaHora() {
+		return modelo.getFechaHoraSys();
+	}
+	
+	public String leerNumTransBBDD() {
+
+		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+
+	}
+	
+	public void insertarComanda(int transaccion, String fecha, double totalOperacion, String nif) {
+		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
+	}
+	
+	public String devolverNombrePlato(int i) {
+		
+		ListaPlatos listaTemporal = this.modelo.getListaTemporalPlatos();
+		
+		String[] lista = listaTemporal.getListaPlatosString();		
+		
+		return lista[i];
+	}
 }
