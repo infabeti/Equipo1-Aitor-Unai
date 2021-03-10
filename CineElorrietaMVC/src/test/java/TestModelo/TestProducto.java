@@ -51,4 +51,12 @@ public class TestProducto {
 		precioV = prod.getPrecioVenta();
 		assertEquals(precioV, 5.0, 0);
 	}
+	
+	@Test
+	public void testToString() {
+		String resultadoString = prod.toString();
+		String resultadoEsperadoString = " - prod x 4.5�";
+		
+		assertEquals(resultadoEsperadoString, resultadoString);
+	}
 }
