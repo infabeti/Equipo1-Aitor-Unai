@@ -55,7 +55,7 @@ public class PanelComandas extends JPanel {
 			setLayout(null);
 			
 			btnVolver = new JButton("Volver");
-			btnVolver.setBounds(12, 481, 117, 25);
+			btnVolver.setBounds(67, 574, 117, 25);
 			add(btnVolver);
 			
 			JLabel lblComandas = new JLabel("COMANDAS");
@@ -64,51 +64,51 @@ public class PanelComandas extends JPanel {
 			add(lblComandas);
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(363, 103, 216, 298);
+			scrollPane.setBounds(367, 194, 216, 298);
 			add(scrollPane);
 			
 			listaProductos = new JList(controladorPanelComandas.cogerListaProductos());
 			scrollPane.setViewportView(listaProductos);
 			
 			JScrollPane scrollPane_1 = new JScrollPane();
-			scrollPane_1.setBounds(605, 103, 216, 298);
+			scrollPane_1.setBounds(610, 194, 216, 298);
 			add(scrollPane_1);
 			
 			listaPlatos = new JList(controladorPanelComandas.cogerListaPlatos());
 			scrollPane_1.setViewportView(listaPlatos);
 			
 			JScrollPane scrollPane_2 = new JScrollPane();
-			scrollPane_2.setBounds(60, 103, 263, 108);
+			scrollPane_2.setBounds(67, 182, 263, 108);
 			add(scrollPane_2);
 			
 			productosAnadidos = new JList(productosAnadidosString);
 			scrollPane_2.setViewportView(productosAnadidos);
 			
 			JScrollPane scrollPane_3 = new JScrollPane();
-			scrollPane_3.setBounds(60, 293, 263, 108);
+			scrollPane_3.setBounds(67, 384, 263, 108);
 			add(scrollPane_3);
 			
 			platosAnadidos = new JList(platosAnadidosString);
 			scrollPane_3.setViewportView(platosAnadidos);
 			
 			btnAnadirProducto = new JButton("Anadir producto");
-			btnAnadirProducto.setBounds(396, 413, 163, 25);
+			btnAnadirProducto.setBounds(390, 510, 163, 25);
 			add(btnAnadirProducto);
 			
 			btnAnadirPlato = new JButton("Anadir plato");
-			btnAnadirPlato.setBounds(638, 413, 156, 25);
+			btnAnadirPlato.setBounds(628, 510, 156, 25);
 			add(btnAnadirPlato);
 			
 			btnFinalizar = new JButton("Finalizar");
-			btnFinalizar.setBounds(185, 481, 117, 25);
+			btnFinalizar.setBounds(226, 574, 117, 25);
 			add(btnFinalizar);
 			
 			btnEliminarProducto = new JButton("Eliminar Producto");
-			btnEliminarProducto.setBounds(109, 223, 168, 25);
+			btnEliminarProducto.setBounds(109, 301, 168, 25);
 			add(btnEliminarProducto);
 			
 			btnEliminarPlato = new JButton("Eliminar Plato");
-			btnEliminarPlato.setBounds(109, 260, 168, 25);
+			btnEliminarPlato.setBounds(109, 337, 168, 25);
 			add(btnEliminarPlato);
 			
 			NumberFormat format = NumberFormat.getInstance();
@@ -122,24 +122,24 @@ public class PanelComandas extends JPanel {
 
 			textCantidadProductos = new JFormattedTextField(formatter);
 			textCantidadProductos.setFont(new Font("Arial", Font.PLAIN, 12));
-			textCantidadProductos.setBounds(455, 450, 51, 20);
+			textCantidadProductos.setBounds(447, 546, 51, 20);
 			add(textCantidadProductos);
 			textCantidadProductos.setText("1");
 
 			textCantidadPlatos = new JFormattedTextField(formatter);
 			textCantidadPlatos.setFont(new Font("Arial", Font.PLAIN, 12));
-			textCantidadPlatos.setBounds(702, 450, 51, 20);
+			textCantidadPlatos.setBounds(706, 546, 51, 20);
 			add(textCantidadPlatos);
 			textCantidadPlatos.setText("1");
 			
 			textTotal = new JTextField();
-			textTotal.setBounds(139, 413, 114, 19);
+			textTotal.setBounds(143, 503, 114, 19);
 			add(textTotal);
 			textTotal.setColumns(10);
 			textTotal.setText("0");
 
 			textLocal = new JTextField();
-			textLocal.setBounds(367, 26, 114, 19);
+			textLocal.setBounds(205, 128, 125, 25);
 			add(textLocal);
 			textLocal.setColumns(10);
 			textLocal.setText(controladorPanelComandas.conseguirLocal());
@@ -148,18 +148,43 @@ public class PanelComandas extends JPanel {
 			
 			textFieldFecha = new JTextField();
 			textFieldFecha.setColumns(10);
-			textFieldFecha.setBounds(522, 21, 106, 30);
+			textFieldFecha.setBounds(463, 86, 117, 25);
 			add(textFieldFecha);
 			textFieldFecha.setText(this.controladorPanelComandas.devolverFechaHora());
 			textFieldFecha.setEditable(false);
 			
 			textFieldNumTrans = new JTextField();
-			textFieldNumTrans.setBounds(680, 26, 114, 19);
+			textFieldNumTrans.setBounds(205, 86, 125, 25);
 			add(textFieldNumTrans);
 			textFieldNumTrans.setColumns(10);
 			textFieldNumTrans.setText(controladorPanelComandas.leerNumTransBBDD());
 			textFieldNumTrans.setEditable(false);
 			textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
+			
+			JLabel lblNumTrans = new JLabel("Numero de transacci\u00F3n: \r\n");
+			lblNumTrans.setFont(new Font("Arial", Font.PLAIN, 17));
+			lblNumTrans.setBounds(22, 86, 187, 23);
+			add(lblNumTrans);
+			
+			JLabel lblLocal = new JLabel("Local:\r\n");
+			lblLocal.setFont(new Font("Arial", Font.PLAIN, 17));
+			lblLocal.setBounds(21, 125, 113, 23);
+			add(lblLocal);
+			
+			JLabel lblFecha = new JLabel("Fecha y hora: ");
+			lblFecha.setFont(new Font("Arial", Font.PLAIN, 17));
+			lblFecha.setBounds(352, 88, 113, 23);
+			add(lblFecha);
+			
+			JLabel lblProductos = new JLabel("Productos");
+			lblProductos.setFont(new Font("Arial", Font.PLAIN, 17));
+			lblProductos.setBounds(416, 160, 113, 23);
+			add(lblProductos);
+			
+			JLabel lblPlatos = new JLabel("Platos");
+			lblPlatos.setFont(new Font("Arial", Font.PLAIN, 17));
+			lblPlatos.setBounds(676, 160, 113, 23);
+			add(lblPlatos);
 			
 			initializeEvents();
 	}
