@@ -10,13 +10,15 @@ import java.util.Calendar;
 public class Modelo {
 
 	private ListaProductos listaProductos = new ListaProductos();
-	private LineaPedido[] arrProdSeleccionados = new LineaPedido[256];
+	private ListaPlatos listaPlatos = new ListaPlatos();
+	
 	private Usuario user;
 	
 	//Conexion a BBDD
 
 	private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
+	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 
 	
 	//obtenemos la conexion en el formato que necesitamos para hacer consultas
@@ -43,6 +45,14 @@ public class Modelo {
 	public ListaProductos getListaTemporal() {
 		return this.listaTemporal;
 	}
+	
+	public void setListaTemporalPlatos(ListaPlatos listaTemporalPlatos) {
+		this.listaTemporalPlatos = listaTemporalPlatos;
+	}
+	
+	public ListaPlatos getListaTemporalPlatos() {
+		return this.listaTemporalPlatos;
+	}
 
 	public void setListaProductos(ListaProductos listaProductos) {
 		this.listaProductos = listaProductos;
@@ -51,13 +61,13 @@ public class Modelo {
 	public ListaProductos getListaProductos() {
 		return this.listaProductos;
 	}
-
-	public LineaPedido[] getArrProdSeleccionados() {
-		return arrProdSeleccionados;
+	
+	public ListaPlatos getListaPlatos() {
+		return this.listaPlatos;
 	}
-
-	public void setArrProdSeleccionados(LineaPedido[] arrProdSeleccionados) {
-		this.arrProdSeleccionados = arrProdSeleccionados;
+	
+	public void setListaPlatos(ListaPlatos listaPlatos) {
+		this.listaPlatos = listaPlatos;
 	}
 
 	public void productosAlmacenados() {

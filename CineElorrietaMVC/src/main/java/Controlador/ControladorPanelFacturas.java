@@ -99,10 +99,7 @@ public class ControladorPanelFacturas {
 		return cambiada;
 	}
 
-	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para
-																				// a�adir en la lista de a�adidos,
-																				// el cual se creaba antes en la propia
-																				// vista
+	public String cantidadProducto(String cantidad, String productoAnadir) { 
 		return cantidad + " " + productoAnadir;
 	}
 
@@ -199,9 +196,9 @@ public class ControladorPanelFacturas {
 
 	public boolean comprobarFormatoApellido(String apellido) {
 		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 20, por ello comprobamos el length
+		// nombre es un varchar de 25, por ello comprobamos el length
 		if (contieneSoloLetras(apellido) && apellido.length() <= 25) {
-			if (apellido.length() >= 2) {
+			if (apellido.length() >= 3) {
 				return true;
 			}
 			return false;

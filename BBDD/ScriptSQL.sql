@@ -386,6 +386,41 @@ values (10,'Tarta de queso', 5.99);
 insert into plato
 values (11,'Tarta tres chocolates', 6.99);
 
+/*Inserciones en la carta*/
+
+insert into carta
+values ('23456789J', 1);
+
+insert into carta
+values ('23456789J', 2);
+
+insert into carta
+values ('23456789J', 3);
+
+insert into carta
+values ('23456789J', 4);
+
+insert into carta
+values ('23456789J', 5);
+
+insert into carta
+values ('23456789J', 6);
+
+insert into carta
+values ('23456789J', 7);
+
+insert into carta
+values ('23456789J', 8);
+
+insert into carta
+values ('23456789J', 9);
+
+insert into carta
+values ('23456789J', 10);
+
+insert into carta
+values ('23456789J', 11);
+
 /*TRIGGERS*/
 
 /* actualizar el stock cuando alimento se actualize*/
