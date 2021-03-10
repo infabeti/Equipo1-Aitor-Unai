@@ -75,6 +75,18 @@ public class TestControladorPanelPrincipal {
 	}
 	
 	@Test
+	public void testAccionadoBottonMostrarPanelComandas() {
+		
+		controladorPanelPrincipal = new ControladorPanelPrincipal(modeloMock,
+				vistaMock, controladorMock);
+			
+		controladorPanelPrincipal.accionadoBottonMostrarPanelComandas();
+			
+		verify(controladorMock).navegarPanelComandas();
+
+	}
+	
+	@Test
 	public void testAccionadoBottonMostrarPanelPedidos() {
 		
 		controladorPanelPrincipal = new ControladorPanelPrincipal(modeloMock,

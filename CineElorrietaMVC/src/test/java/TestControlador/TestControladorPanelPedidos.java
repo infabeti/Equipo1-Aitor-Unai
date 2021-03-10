@@ -80,19 +80,6 @@ public class TestControladorPanelPedidos {
 	}
 
 	@Test
-	public void testLeerNumTransBBDD() {
-
-		when(modeloMock.getConexion()).thenReturn(conexionMock);
-
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
-
-		resultadoString = controladorPanelPedidos.leerNumTransBBDD();
-		resultadoEsperadoString = "69";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-	}
-
-	@Test
 	public void testMostrarPanelPedidos() {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
