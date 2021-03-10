@@ -194,17 +194,37 @@ public class PanelComandas extends JPanel {
 	private ActionListener listenerBotonAnadirPlato(ControladorPanelComandas controladorPanelComandas) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento Boton Pedidos");
-				controladorPanelComandas.accionadoBotonVolverPanelPrincipal();
-			}
-		};
-	}
-	
-	private ActionListener listenerBotonFinalizar(ControladorPanelComandas controladorPanelComandas) {
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento Boton Pedidos");
-				controladorPanelComandas.accionadoBotonVolverPanelPrincipal();
+				System.out.println("Ejecutando evento Boton Anadir Plato");
+				boolean existePlato = false;
+				String plato = "";
+				String platoAnadir = "";
+				String cantidad = textCantidadPlatos.getText();
+				try {
+					plato = (String) listaPlatos.getSelectedValue();
+					if(plato != null) {
+						existePlato = true;
+					}
+					
+				} catch (Exception e) {
+					System.out.println("No se ha seleccionado un producto");
+				}
+				if (existePlato) {
+					try {
+						if (controladorPanelComandas.existePlato(plato) == -1) {
+							platoAnadir = controladorPanelComandas.accionadoBotonAnnadirPlato(plato);
+							platosAnadidosString.addElement(controladorPanelComandas.cantidadProducto(cantidad, platoAnadir));
+							textTotal.setText(controladorPanelComandas.cantidadTotalPlatos(cantidad, textTotal.getText(), plato));
+						} else {
+							String yaAnnadido = platosAnadidosString.get(controladorPanelComandas.existePlato(plato));
+							platosAnadidosString.set(controladorPanelComandas.existePlato(plato), controladorPanelComandas.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
+							String total = Double.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)* controladorPanelComandas.cogerPrecioStringPlato(plato)));
+							textTotal.setText(total);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						System.out.println("El campo cantidad no contiene un entero");
+					}
+				}
 			}
 		};
 	}
@@ -212,13 +232,36 @@ public class PanelComandas extends JPanel {
 	private ActionListener listenerBotonEliminarProducto(ControladorPanelComandas controladorPanelComandas) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Ejecutando evento Boton Pedidos");
-				controladorPanelComandas.accionadoBotonVolverPanelPrincipal();
+				System.out.println("Ejecutando evento eliminar");
+				try {
+					int pos = productosAnadidos.getSelectedIndex();
+					String total = controladorPanelComandas.accionadoBotonEliminar(pos, productosAnadidosString.get(pos),textTotal.getText());
+					productosAnadidosString.remove(pos);
+					textTotal.setText(total);
+				} catch (Exception e) {
+					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+				}
 			}
 		};
 	}
 	
 	private ActionListener listenerBotonEliminarPlato(ControladorPanelComandas controladorPanelComandas) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento eliminar");
+				try {
+					int pos = platosAnadidos.getSelectedIndex();
+					String total = controladorPanelComandas.accionadoBotonEliminarPlato(pos, platosAnadidosString.get(pos),textTotal.getText());
+					platosAnadidosString.remove(pos);
+					textTotal.setText(total);
+				} catch (Exception e) {
+					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+				}
+			}
+		};
+	}
+	
+	private ActionListener listenerBotonFinalizar(ControladorPanelComandas controladorPanelComandas) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Pedidos");

@@ -32,7 +32,7 @@ public class ListaPlatos {
 		}
 	}
 	
-	public boolean eliminarProducto(int pos) {
+	public boolean eliminarPlato(int pos) {
 		try {
 			listaP.remove(pos);
 			return true;
@@ -63,7 +63,7 @@ public class ListaPlatos {
 	
 	public Plato devolverPlatoPorString(String nombre) {
 		for (int i = 0; i < listaP.size(); i++) {
-			if(listaP.get(i).getNombre() == nombre) {
+			if(listaP.get(i).getNombre().equalsIgnoreCase(nombre)) {
 				return listaP.get(i);
 			}
 		}

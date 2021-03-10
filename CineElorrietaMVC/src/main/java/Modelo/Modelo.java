@@ -18,6 +18,7 @@ public class Modelo {
 
 	private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
+	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 
 	
 	//obtenemos la conexion en el formato que necesitamos para hacer consultas
@@ -43,6 +44,14 @@ public class Modelo {
 	
 	public ListaProductos getListaTemporal() {
 		return this.listaTemporal;
+	}
+	
+	public void setListaTemporalPlatos(ListaPlatos listaTemporalPlatos) {
+		this.listaTemporalPlatos = listaTemporalPlatos;
+	}
+	
+	public ListaPlatos getListaTemporalPlatos() {
+		return this.listaTemporalPlatos;
 	}
 
 	public void setListaProductos(ListaProductos listaProductos) {

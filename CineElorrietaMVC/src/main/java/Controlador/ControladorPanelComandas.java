@@ -1,6 +1,8 @@
 package Controlador;
 
 import Modelo.ListaProductos;
+import Modelo.Plato;
+import Modelo.ListaPlatos;
 import Modelo.Modelo;
 import Modelo.Producto;
 import Vista.Vista;
@@ -29,6 +31,8 @@ public class ControladorPanelComandas {
 	}
 	
 	public void accionadoBotonVolverPanelPrincipal() {
+		this.modelo.getListaTemporal().limpiarLista();
+		this.modelo.getListaTemporalPlatos().limpiarLista();
 		this.controlador.navegarPanelPrincipal();
 	}
 	
@@ -84,6 +88,52 @@ public class ControladorPanelComandas {
 		double totalDouble = Double.parseDouble(total);
 		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
 		return String.valueOf(totalDouble + precioTotalProducto);
+	}
+	
+	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
+		ListaProductos listaProd = modelo.getListaTemporal();
+		int cantidad = modelo.cogerCantidadString(eliminar);
+		double precio = listaProd.getPrecioProducto(pos);
+		double totalDouble = Double.parseDouble(total);
+		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
+		listaProd.eliminarProducto(pos);
+		return totalStr;
+	}
+	
+	public int existePlato(String plato) {
+		int pos = modelo.getListaTemporalPlatos().devolverPosPlatoString(plato);
+		return pos;
+	}
+	
+	public String accionadoBotonAnnadirPlato(String plato) {
+		ListaPlatos listaPl = modelo.getListaPlatos();
+		Plato plat = listaPl.devolverPlatoPorString(plato);
+		ListaPlatos listaTemporal = modelo.getListaTemporalPlatos();
+		listaTemporal.addPlato(plat);
+		return plato.toString();
+	}
+	
+	public String cantidadTotalPlatos(String cantidad, String total, String plato) {
+		ListaPlatos listaPlatos = this.modelo.getListaPlatos();
+		int cantidadInt = Integer.parseInt(cantidad);
+		double totalDouble = Double.parseDouble(total);
+		double precioTotalPlato = cantidadInt * listaPlatos.precioProductoString(plato);
+		return String.valueOf(totalDouble + precioTotalPlato);
+	}
+	
+	public double cogerPrecioStringPlato(String plato) {
+		double precio = modelo.getListaTemporalPlatos().precioProductoString(plato);
+		return precio;
+	}
+	
+	public String accionadoBotonEliminarPlato(int pos, String eliminar, String total) {
+		ListaPlatos listaPl = modelo.getListaTemporalPlatos();
+		int cantidad = modelo.cogerCantidadString(eliminar);
+		double precio = listaPl.getPrecioPlato(pos);
+		double totalDouble = Double.parseDouble(total);
+		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
+		listaPl.eliminarPlato(pos);
+		return totalStr;
 	}
 	
 }
