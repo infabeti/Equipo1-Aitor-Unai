@@ -60,5 +60,25 @@ public class TestControladorPanelLogin {
 
 	}
 	
+	@Test
+	public void TestAccionadoBotonAceptarPanelPrincipal() {
+		controladorLogin = new ControladorLogin(modeloMock,
+				vistaMock, controladorMock);
+		
+		controladorLogin.accionadoBottonAceptarPanelPrincipal();
+		
+		verify(controladorMock).navegarPanelPrincipal();
+	}
+	
+	@Test
+	public void TestaccionadoBottonRegistroPanelLogin() {
+		controladorLogin = new ControladorLogin(modeloMock,
+				vistaMock, controladorMock);
+		
+		controladorLogin.accionadoBottonRegistroPanelLogin();
+		
+		verify(controladorMock).navegarPanelRegistro();
+	}
+	
 
 }

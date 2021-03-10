@@ -67,19 +67,6 @@ public class TestControladorPanelFacturas {
 	}
 
 	@Test
-	public void testLeerNumTransBBDD() {
-
-		when(modeloMock.getConexion()).thenReturn(conexionMock);
-
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
-
-		resultadoString = controladorPanelFacturas.leerNumTransBBDD();
-		resultadoEsperadoString = "69";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-	}
-
-	@Test
 	public void testMostrarPanelFacturas() {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);

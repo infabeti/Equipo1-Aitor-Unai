@@ -1,14 +1,9 @@
 package Controlador;
 
 import java.text.SimpleDateFormat;
-
-import javax.swing.JOptionPane;
-
-import Modelo.LineaPedido;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Producto;
-import Vista.PanelFacturas;
 import Vista.PanelPedidos;
 import Vista.Vista;
 
@@ -20,7 +15,6 @@ public class ControladorPanelPedidos {
 	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelPedidos panelPedidos;
-	private String[] listaProductos;
 
 	public ControladorPanelPedidos(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;

@@ -11,7 +11,6 @@ public class ControladorLogin {
 
 	private Modelo modelo;
 	private Vista vista;
-
 	private Controlador controlador;
 	private PanelLogin panelLogin;
 
@@ -53,7 +52,7 @@ public class ControladorLogin {
 			return false;
 		} else {
 			modelo.actualizarListaProductosLocal();
-			if(modelo.getUser().getTipoLocal().equals("RESTAURANTE")) {
+			if (modelo.getUser().getTipoLocal().equals("RESTAURANTE")) {
 				modelo.setListaPlatos(modelo.getConexion().cogerListaPlatos(modelo.getUser().getNifLocal()));
 			}
 			return true;
