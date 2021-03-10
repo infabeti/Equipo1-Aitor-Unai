@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 import Controlador.ControladorPanelAprovisionamiento;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
+import javax.swing.SwingConstants;
 
 public class PanelAprovisionamiento extends JPanel {
 
@@ -26,6 +28,10 @@ public class PanelAprovisionamiento extends JPanel {
 	private JList listaProductos;
 	private JFormattedTextField textFieldCantidad;
 	private JButton btnAnnadir;
+	private JTextField textFieldLocl;
+	private JTextField textFieldNumTrans;
+	private JTextField textFieldFecha;
+	private JLabel lblProd;
 
 	public PanelAprovisionamiento(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
 
@@ -41,11 +47,11 @@ public class PanelAprovisionamiento extends JPanel {
 		add(lblTextoPanel);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(37, 471, 89, 23);
+		btnVolver.setBounds(620, 553, 89, 23);
 		add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(241, 79, 295, 342);
+		scrollPane.setBounds(98, 187, 295, 304);
 		add(scrollPane);
 		
 		listaProductos = new JList(this.controladorPanelAprovisionamiento.pasarListaProductos());
@@ -63,17 +69,60 @@ public class PanelAprovisionamiento extends JPanel {
 		
 		textFieldCantidad = new JFormattedTextField(formatter);
 		textFieldCantidad.setFont(new Font("Arial", Font.PLAIN, 12));
-		textFieldCantidad.setBounds(58, 329, 114, 19);
+		textFieldCantidad.setBounds(189, 512, 58, 19);
 		add(textFieldCantidad);
 		textFieldCantidad.setText("1");
 		
 		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(56, 302, 70, 15);
+		lblCantidad.setBounds(109, 515, 70, 15);
 		add(lblCantidad);
 		
-		btnAnnadir = new JButton("Annadir");
-		btnAnnadir.setBounds(58, 376, 117, 25);
+		btnAnnadir = new JButton("A\u00F1adir");
+		btnAnnadir.setBounds(257, 510, 117, 25);
 		add(btnAnnadir);
+		
+		JLabel lblLocal = new JLabel("Local:\r\n");
+		lblLocal.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblLocal.setBounds(22, 111, 113, 23);
+		add(lblLocal);
+		
+		JLabel lblNumTrans = new JLabel("Numero de transacci\u00F3n: \r\n");
+		lblNumTrans.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblNumTrans.setBounds(22, 69, 187, 23);
+		add(lblNumTrans);
+		
+		textFieldLocl = new JTextField();
+		textFieldLocl.setText(controladorPanelAprovisionamiento.conseguirLocal());
+		textFieldLocl.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldLocl.setEditable(false);
+		textFieldLocl.setColumns(10);
+		textFieldLocl.setBounds(212, 109, 125, 30);
+		add(textFieldLocl);
+		
+		textFieldNumTrans = new JTextField();
+		textFieldNumTrans.setText(controladorPanelAprovisionamiento.leerNumTransBBDD());
+		textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldNumTrans.setEditable(false);
+		textFieldNumTrans.setColumns(10);
+		textFieldNumTrans.setBounds(212, 67, 125, 30);
+		add(textFieldNumTrans);
+		
+		JLabel lblFecha = new JLabel("Fecha y hora: ");
+		lblFecha.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblFecha.setBounds(347, 69, 113, 23);
+		add(lblFecha);
+		
+		textFieldFecha = new JTextField();
+		textFieldFecha.setText(controladorPanelAprovisionamiento.devolverFechaHora());
+		textFieldFecha.setEditable(false);
+		textFieldFecha.setColumns(10);
+		textFieldFecha.setBounds(463, 67, 106, 30);
+		add(textFieldFecha);
+		
+		lblProd = new JLabel("PRODUCTOS");
+		lblProd.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblProd.setBounds(189, 162, 113, 23);
+		add(lblProd);
 
 		initializeEvents();
 
@@ -97,9 +146,21 @@ public class PanelAprovisionamiento extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Annadir");
-				int cantidad = Integer.parseInt(textFieldCantidad.getText());
-				int seleccionado = listaProductos.getSelectedIndex();
-				controladorPanelAprovisionamiento.accionadoBotonAnnadir(cantidad, seleccionado);
+				System.out.println(listaProductos.getSelectedIndex());
+				if(listaProductos.getSelectedIndex()<0)
+				{
+					int cantidad = Integer.parseInt(textFieldCantidad.getText());
+					int seleccionado = listaProductos.getSelectedIndex();
+					controladorPanelAprovisionamiento.accionadoBotonAnnadir(cantidad, seleccionado);
+					JOptionPane.showMessageDialog(null, "Aprovisionado " + cantidad + " " + listaProductos.getSelectedValue() + " Correctamente");
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento");
+
+				}
+				
+
 			}
 		};
 	}

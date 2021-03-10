@@ -7,19 +7,18 @@ import Vista.Vista;
 
 public class ControladorPanelAprovisionamiento {
 
-
 	private Modelo modelo;
 	private Vista vista;
 	private Controlador controlador;
 	private PanelAprovisionamiento panelAprovisionamiento;
 	private ListaProductos listaP;
-	
+
 	public ControladorPanelAprovisionamiento(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
-		this.controlador = controlador;	
+		this.controlador = controlador;
 	}
-	
+
 	public Modelo getModelo() {
 		return modelo;
 	}
@@ -31,7 +30,7 @@ public class ControladorPanelAprovisionamiento {
 	public Controlador getControlador() {
 		return controlador;
 	}
-	
+
 	public void mostrarPanelAprovisionamiento() {
 		this.panelAprovisionamiento = makePanelAprovisionamiento(this);
 		this.vista.mostrarPanel(this.panelAprovisionamiento);
@@ -40,21 +39,34 @@ public class ControladorPanelAprovisionamiento {
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
 	}
-	
-	public PanelAprovisionamiento makePanelAprovisionamiento(ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
+
+	public String leerNumTransBBDD() {
+
+		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+	}
+
+	public String conseguirLocal() {
+
+		return modelo.getUser().getNifLocal();
+	}
+
+	public String devolverFechaHora() {
+		return modelo.getFechaHoraSys();
+	}
+
+	public PanelAprovisionamiento makePanelAprovisionamiento(
+			ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
 		return new PanelAprovisionamiento(controladorPanelAprovisionamiento);
 	}
-	
+
 	public String[] pasarListaProductos() {
 		listaP = modelo.getConexion().cogerProductosAprovisionamiento();
 		return listaP.getListaProductosString();
 	}
-	
+
 	public boolean accionadoBotonAnnadir(int cantidad, int indice) {
-		boolean realizado = modelo.getConexion().insertarAprovisionamiento(cantidad, indice+1, this.modelo.getUser().getNifLocal());
+		boolean realizado = modelo.getConexion().insertarAprovisionamiento(cantidad, indice + 1,
+				this.modelo.getUser().getNifLocal());
 		return realizado;
 	}
-	
-	
-	
 }
