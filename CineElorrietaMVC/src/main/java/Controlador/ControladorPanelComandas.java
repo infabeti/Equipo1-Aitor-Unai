@@ -157,6 +157,12 @@ public class ControladorPanelComandas {
 
 	}
 	
+	public void insertarPlatoActividad(String nombrePlato, int transaccion, int cantidad) {
+		String codigoPlato = this.modelo.getConexion().obtenerCodigoPlato(nombrePlato);
+		this.modelo.getConexion().insertarPlatoActividad(transaccion, codigoPlato, cantidad);
+
+	}
+	
 	public String devolverFechaFormateada(String input) {
 
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");

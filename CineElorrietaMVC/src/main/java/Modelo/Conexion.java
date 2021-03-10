@@ -196,6 +196,32 @@ public class Conexion {
 		}
 		return null;
 	}
+	
+	public String obtenerCodigoPlato(String plato) {
+
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("select * from plato ;");
+
+			ResultSet rs = st.executeQuery();
+
+			try {
+				while (rs.next()) {
+					if (rs.getString("nombre").equalsIgnoreCase(plato)) {
+						return rs.getString("codigoalimento");
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return null;
+	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
 		try {
@@ -250,6 +276,28 @@ public class Conexion {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
 					"insert into lineaproducto (codigoalimento,transaccion,cantidad,preciofinal)" + "values("
 							+ codigoAlimento + ",'" + transaccion + "'," + cantidad + ",'" + precioFinal + "');");
+			/**************/
+			try {
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+	}
+	
+	public void insertarPlatoActividad(int transaccion, String codigoPlato, int cantidad) {
+		try {
+			java.sql.Connection conexionConn = this.getConn();
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into lineaplato (codigoplato,transaccion,cantidad)" + "values("
+							+ codigoPlato + ",'" + transaccion + "'," + cantidad + "');");
 			/**************/
 			try {
 				st.executeUpdate();

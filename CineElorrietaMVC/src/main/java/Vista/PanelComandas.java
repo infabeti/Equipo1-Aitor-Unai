@@ -322,9 +322,8 @@ public class PanelComandas extends JPanel {
 						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
 
 						String plato = controladorPanelComandas.devolverNombrePlato(i);
-						double precioFinal = controladorPanelComandas.cogerPrecioStringPlato(plato);
 
-						controladorPanelComandas.insertarProductoActividad(plato, transaccion, cantidad, precioFinal);
+						controladorPanelComandas.insertarPlatoActividad(plato, transaccion, cantidad);
 					}
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
