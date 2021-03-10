@@ -139,7 +139,7 @@ public class PanelComandas extends JPanel {
 			textTotal.setText("0");
 
 			textLocal = new JTextField();
-			textLocal.setBounds(120, 126, 114, 19);
+			textLocal.setBounds(367, 26, 114, 19);
 			add(textLocal);
 			textLocal.setColumns(10);
 			textLocal.setText(controladorPanelComandas.conseguirLocal());
@@ -148,13 +148,13 @@ public class PanelComandas extends JPanel {
 			
 			textFieldFecha = new JTextField();
 			textFieldFecha.setColumns(10);
-			textFieldFecha.setBounds(448, 71, 106, 30);
+			textFieldFecha.setBounds(522, 21, 106, 30);
 			add(textFieldFecha);
 			textFieldFecha.setText(this.controladorPanelComandas.devolverFechaHora());
 			textFieldFecha.setEditable(false);
 			
 			textFieldNumTrans = new JTextField();
-			textFieldNumTrans.setBounds(120, 76, 114, 19);
+			textFieldNumTrans.setBounds(680, 26, 114, 19);
 			add(textFieldNumTrans);
 			textFieldNumTrans.setColumns(10);
 			textFieldNumTrans.setText(controladorPanelComandas.leerNumTransBBDD());
