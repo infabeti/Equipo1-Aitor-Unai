@@ -1,7 +1,7 @@
 package TestModelo;
 
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +18,7 @@ public class TestUtiles {
 	
 	private Modelo modeloMock = mock(Modelo.class);
 	private String resultadoEsperadoString, resultadoString;
+	private String[] resultadoEsperadoArrayString, resultadoArrayString;
 	private boolean resultadoEsperadoBoolean, resultadoBoolean;
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
@@ -376,5 +377,45 @@ public class TestUtiles {
 
 		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
 
+	}
+	
+	@Test
+	public void TestAccionadoBotonAnadirProducto() {
+		String producto = "prod";
+		String cantidad = "3";
+		double total = 0.0;
+		
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+		when(listaProductosMock.devolverProductoPorString(producto)).thenReturn(productoMock);
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		when(productoMock.toString()).thenReturn("string");
+		when(listaProductosMock.precioProductoString(producto)).thenReturn(3.0);
+		
+		resultadoArrayString = utiles.accionadoBotonAnnadirProducto(producto, cantidad, total);
+		
+		String [] resultadoEsperadoArrayString = new String[2];
+		resultadoEsperadoArrayString[0] = "3 string";
+		resultadoEsperadoArrayString[1] = "9.0";
+		
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+	}
+	
+	@Test
+	public void cambiarCantidadProductos() {
+		String nombreProductoAnadido = "1 producto";
+		int cantidadAnadir = 3;
+		String nombreProducto = "producto";
+		double total = 3.0;
+		
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+		when(listaProductosMock.precioProductoString(nombreProducto)).thenReturn(3.0);
+		
+		resultadoArrayString = utiles.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total);
+		
+		String [] resultadoEsperadoArrayString = new String[2];
+		resultadoEsperadoArrayString[0] = "4 producto";
+		resultadoEsperadoArrayString[1] = "12.0";
+		
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 	}
 }
