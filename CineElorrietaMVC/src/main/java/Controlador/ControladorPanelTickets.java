@@ -47,7 +47,7 @@ public class ControladorPanelTickets {
 	}
 
 	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
+		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, "TICKET", nif);
 	}
 
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {

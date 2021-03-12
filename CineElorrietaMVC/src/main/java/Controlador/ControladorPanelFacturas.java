@@ -215,7 +215,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, nif);
+		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, "FACTURA" , nif);
 	}
 
 	public boolean contieneSoloLetras(String cadena) {

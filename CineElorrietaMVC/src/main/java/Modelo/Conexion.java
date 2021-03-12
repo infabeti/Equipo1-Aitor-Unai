@@ -15,7 +15,7 @@ public class Conexion {
 	private final String NOMBREBD = "reto3";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
-	private final String URL = "jdbc:mysql://localhost:3306/" + NOMBREBD + "?useUnicode=true&use"
+	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private Connection conn = null;
@@ -223,13 +223,19 @@ public class Conexion {
 		return null;
 	}
 
-	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
+	public void insertarActividad(int transaccion, String fecha, double totalOperacion,String tipo, String nif) {
 		try {
 			java.sql.Connection conexionConn = this.getConn();
 			PreparedStatement st = null;
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into actividad (Transaccion, Fecha, TotalOperacion, NIF) "
-					+ "values(" + transaccion + ",'" + fecha + "'," + totalOperacion + ",'" + nif + "');");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into actividad "
+					+ "values(?,?,?,?,?);");
+			
+			st.setInt(1, transaccion);
+			st.setString(2, fecha);
+			st.setDouble(3, totalOperacion);
+			st.setString(4, tipo);
+			st.setString(5, nif);
 
 			try {
 				st.executeUpdate();
