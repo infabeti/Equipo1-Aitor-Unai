@@ -319,43 +319,49 @@ public class PanelComandas extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Pedidos");
 				System.out.println("Ejecutando evento Boton Finalizar");
-				if (Double.parseDouble(textTotal.getText()) > 0) {
-					// insertar datos en actividad
-					controladorPanelComandas.insertarComanda(Integer.parseInt(textFieldNumTrans.getText()),controladorPanelComandas.devolverFechaFormateada(textFieldFecha.getText()),Double.parseDouble(textTotal.getText()), textLocal.getText());
-
-					// insertar datos de productos
-					for (int i = 0; i < productosAnadidosString.getSize(); i++) {
-						String textoRecogido = productosAnadidosString.get(i);
-						String textoSpliteado[] = textoRecogido.split(" ");
-
-						int cantidad = Integer.parseInt(textoSpliteado[0]);
-
-						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-						String producto = controladorPanelComandas.devolverNombreProducto(i);
-						double precioFinal = controladorPanelComandas.cogerPrecioString(producto);
-
-						controladorPanelComandas.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
-					}
+				try {
 					
-					for (int i = 0; i < platosAnadidosString.getSize(); i++) {
-						String textoRecogido = platosAnadidosString.get(i);
-						String textoSpliteado[] = textoRecogido.split(" ");
-
-						int cantidad = Integer.parseInt(textoSpliteado[0]);
-
-						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-						String plato = controladorPanelComandas.devolverNombrePlato(i);
-
-						controladorPanelComandas.insertarPlatoActividad(plato, transaccion, cantidad);
+					if (Double.parseDouble(textTotal.getText()) > 0) {
+						// insertar datos en actividad
+						controladorPanelComandas.insertarComanda(Integer.parseInt(textFieldNumTrans.getText()),controladorPanelComandas.devolverFechaFormateada(textFieldFecha.getText()),Double.parseDouble(textTotal.getText()), textLocal.getText());
+	
+						// insertar datos de productos
+						for (int i = 0; i < productosAnadidosString.getSize(); i++) {
+							String textoRecogido = productosAnadidosString.get(i);
+							String textoSpliteado[] = textoRecogido.split(" ");
+	
+							int cantidad = Integer.parseInt(textoSpliteado[0]);
+	
+							int transaccion = Integer.parseInt(textFieldNumTrans.getText());
+	
+							String producto = controladorPanelComandas.devolverNombreProducto(i);
+							double precioFinal = controladorPanelComandas.cogerPrecioString(producto);
+	
+							controladorPanelComandas.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
+						}
+						
+						for (int i = 0; i < platosAnadidosString.getSize(); i++) {
+							String textoRecogido = platosAnadidosString.get(i);
+							String textoSpliteado[] = textoRecogido.split(" ");
+	
+							int cantidad = Integer.parseInt(textoSpliteado[0]);
+	
+							int transaccion = Integer.parseInt(textFieldNumTrans.getText());
+	
+							String plato = controladorPanelComandas.devolverNombrePlato(i);
+	
+							controladorPanelComandas.insertarPlatoActividad(plato, transaccion, cantidad);
+						}
+	
+						JOptionPane.showMessageDialog(null, "Comanda introducida correctamente");
+						controladorPanelComandas.accionadoBotonVolverPanelPrincipal();
+	
+					} else {
+						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
 					}
-
-					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
-					controladorPanelComandas.accionadoBotonVolverPanelPrincipal();
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+				}
+				catch(Exception e) {
+					JOptionPane.showMessageDialog(null, "Error al introducir la comanda");
 				}
 
 			}
