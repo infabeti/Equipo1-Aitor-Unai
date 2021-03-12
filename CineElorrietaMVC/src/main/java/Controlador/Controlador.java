@@ -71,6 +71,4 @@ public class Controlador {
 		System.out.println("Navegar panel Pedidos");
 		this.controladorPanelTickets.mostrarPanelTickets();
 	}
-	
-	
 }

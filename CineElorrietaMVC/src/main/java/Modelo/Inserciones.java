@@ -44,7 +44,7 @@ public class Inserciones {
 			st.setString(1, codigoAlimento);
 			st.setInt(2, transaccion);
 			st.setInt(3, cantidad);
-			st.setDouble(4, cantidad);
+			st.setDouble(4, precioFinal);
 			try {
 				st.executeUpdate();
 			} catch (Exception e) {

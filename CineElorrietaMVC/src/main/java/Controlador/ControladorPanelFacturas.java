@@ -1,13 +1,9 @@
 package Controlador;
 
 import Modelo.Modelo;
-
 import javax.swing.DefaultListModel;
-
-import Modelo.ListaProductos;
 import Vista.PanelFacturas;
 import Vista.Vista;
-
 
 public class ControladorPanelFacturas {
 
@@ -36,11 +32,11 @@ public class ControladorPanelFacturas {
 	}
 
 	public String devolverFechaHora() {
-		return modelo.getFechaHoraSys();
+		return this.modelo.getFechaHoraSys();
 	}
 
 	public String conseguirLocal() {
-		return modelo.getUser().getNifLocal();
+		return this.modelo.getUser().getNifLocal();
 	}
 
 	public String leerNumTransBBDD() {
@@ -58,43 +54,28 @@ public class ControladorPanelFacturas {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarLista();
+		this.modelo.getListaTemporal().limpiarLista();
 		this.total = 0.0;
 	}
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = new String[2];
-		String productoAnadir = this.modelo.util.annadirProducto(producto);
-		devolver[0] = cantidadProducto(cantidad, productoAnadir);
-		devolver[1] = cantidadTotal(cantidad, producto);
+		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
+	}
+
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
 
 	public int existeProducto(String nombreProducto) {
-		int pos = modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
-		return pos;
+		return this.modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
 
 	public double cogerPrecioString(String nombreProducto) {
-		double precio = modelo.getListaTemporal().precioProductoString(nombreProducto);
-		return precio;
-	}
-
-	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
-		String[] devolver =  new String[2];
-		devolver[0] = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
-		devolver[1] = this.cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto);
-		return devolver;
-	}
-
-	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para a�adir en la lista de a�adidos,el cual se creaba antes en la propiavista
-		return cantidad + " " + productoAnadir;
-	}
-
-	public String cantidadTotal(String cantidad, String producto) {
-		total = this.modelo.util.cantidadTotal(cantidad, producto, total);
-		return String.valueOf(total);
+		return this.modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
@@ -103,58 +84,43 @@ public class ControladorPanelFacturas {
 	}
 
 	public String devolverFechaFormateada(String input) {
-		String fecha = this.modelo.util.devolverFechaFormateada(input);
-		return fecha;
+		return this.modelo.util.devolverFechaFormateada(input);
 	}
 
 	public String devolverNombreProducto(int i) {
 		return this.modelo.util.devolverNombreProducto(i);
 	}
 
+	public boolean contieneSoloLetras(String cadena) {
+		return this.modelo.util.contieneSoloLetras(cadena);
+	}
+
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 		String producto = devolverNombreProducto(nombreProducto);
-		double precioFinal = cogerPrecioString(producto);
-		String codigoAlimento = this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto);
-		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion,
+				this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad,
+				cogerPrecioString(producto));
 	}
+
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
-		boolean comprobarTotal = total > 0;
-		boolean comprobarCampos = this.modelo.util.comprobarCamposString(nif, nombre, apellido);
-		if (comprobarTotal && comprobarCampos) {
-			return true;
-		} else {
-			return false;
-		}
+		return total > 0 && this.modelo.util.comprobarCamposString(nif, nombre, apellido);
 	}
-	
-	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre, String apellido, DefaultListModel<String> lista, String nifComprador) {
-		String fechaFormateada = devolverFechaFormateada(fecha);
-		this.modelo.getInserciones().insertarActividad(transaccion, fechaFormateada, totalOperacion, nifLocal);
-				
-		if(this.modelo.getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
+
+	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre,
+			String apellido, DefaultListModel<String> lista, String nifComprador) {
+		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion,
+				nifLocal);
+
+		if (this.modelo.getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
 			System.out.println("El comprador ya existe, no se hace la insert en la tabla comprador");
-		}
-		else
-		{
+		} else {
 			this.modelo.getInserciones().insertarComprador(nifComprador, nombre, apellido);
 		}
-		
-		
 		this.modelo.getInserciones().insertarFactura(transaccion, nifComprador);
-		
 		for (int i = 0; i < lista.getSize(); i++) {
-			String textoRecogido = lista.get(i);
-			String textoSpliteado[] = textoRecogido.split(" ");
-
-			int cantidad = Integer.parseInt(textoSpliteado[0]);
-			
-			insertarProductoActividad(i, transaccion, cantidad);
+			String textoSpliteado[] = lista.get(i).split(" ");
+			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));
 		}
-	}
-
-	public boolean contieneSoloLetras(String cadena) {
-		boolean correcto = this.modelo.util.contieneSoloLetras(cadena);
-		return correcto;
 	}
 
 	public PanelFacturas makePanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {

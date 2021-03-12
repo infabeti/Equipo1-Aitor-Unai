@@ -114,19 +114,17 @@ public class TestControladorPanelFacturas {
 	@Test
 	public void TestAccionadoBotonAnnadirProducto() {
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
-		when(utilesMock.annadirProducto("saludos")).thenReturn("bocata de calamares");
+		String producto = "Patata";
+		String cantidad = "2";
+		Double total = 0.0;
 		
-		when(utilesMock.cantidadTotal("1", "saludos", 0.0)).thenReturn(0.0);
-
-		resultadoArrayString = controladorPanelFacturas.accionadoBotonAnnadirProducto("saludos", "1");
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		resultadoEsperadoArrayString = new String[2];
-
-		resultadoEsperadoArrayString[0] = "1 bocata de calamares";
+		when(utilesMock.accionadoBotonAnnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
-		resultadoEsperadoArrayString[1] = "0.0";
+		resultadoArrayString = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto, cantidad);
 
 		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 	}
@@ -167,54 +165,20 @@ public class TestControladorPanelFacturas {
 	@Test
 	public void TestCambiarCantidadProductos() {
 
-		String producto = "1 - Calabaza";
+		modeloMock.util = utilesMock;
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		String nombreProductoAnadido = "Patata";
+		int cantidadAnadir = 2;
+		Double total = 0.0;
+		String nombreProducto = "3 x Patata";
 		
-		when(utilesMock.cambiarCantidadProductos(producto, 4)).thenReturn("ZAPATO");
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.cantidadTotal("4", producto, 2.0)).thenReturn(0.0);
-
-		resultadoArrayString = controladorPanelFacturas.cambiarCantidadProductos(producto, 4, producto);
-
-		resultadoEsperadoArrayString = new String[2];
-		resultadoEsperadoArrayString[0]= "ZAPATO";
-		resultadoEsperadoArrayString[1] = "0.0";
+		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total)).thenReturn(resultadoEsperadoArrayString);
+		
+		resultadoArrayString = controladorPanelFacturas.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto);
 
 		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
-
-	}
-
-	@Test
-	public void TestCantidadProducto() {
-
-		String primer = "Hola";
-		String segun = "que tal";
-
-		resultadoString = controladorPanelFacturas.cantidadProducto(primer, segun);
-
-		resultadoEsperadoString = primer + " " + segun;
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-
-	}
-
-	@Test
-	public void TestCantidadTotal() {
-
-		String primer = "2";
-		String segun = "3";
-		double tercer = 0;
-		
-		when(modeloMock.util).thenReturn(utilesMock);
-		
-		when(utilesMock.cantidadTotal(primer, segun, tercer)).thenReturn(999.0);
-
-		resultadoString = controladorPanelFacturas.cantidadTotal(primer, segun);
-
-		resultadoEsperadoString = "999.0";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
 
@@ -224,7 +188,7 @@ public class TestControladorPanelFacturas {
 		int pos = 0;
 		String eliminar = "1 Anfeta";
 
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
 	
@@ -240,14 +204,14 @@ public class TestControladorPanelFacturas {
 	public void TestDevolverFechaFormateada() {
 
 		String input = "colchon";
-
-		when(modeloMock.util).thenReturn(utilesMock);
 		
 		when(utilesMock.devolverFechaFormateada(input)).thenReturn("pedro");
 	
-		resultadoString = controladorPanelFacturas.devolverFechaFormateada(input);
+		modeloMock.util = utilesMock;
 
 		resultadoEsperadoString = "pedro";
+		
+		resultadoString = controladorPanelFacturas.devolverFechaFormateada(input);
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 
@@ -258,7 +222,7 @@ public class TestControladorPanelFacturas {
 		
 		int i = 2;
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.devolverNombreProducto(i)).thenReturn("solero");
 		
@@ -276,7 +240,7 @@ public class TestControladorPanelFacturas {
 		
 		String input = "123";
 		
-		when(modeloMock.util).thenReturn(utilesMock);
+		modeloMock.util = utilesMock;
 		
 		when(utilesMock.contieneSoloLetras(input)).thenReturn(false);
 		

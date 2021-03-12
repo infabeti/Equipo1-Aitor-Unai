@@ -5,73 +5,58 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConsultasComprobaciones {
-	
+
 	private Modelo modelo;
 	private java.sql.Connection conexionConn;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	
+
 	public ConsultasComprobaciones(Modelo modelo) {
 		this.modelo = modelo;
-		conexionConn =  this.modelo.conexionConn;
+		conexionConn = this.modelo.conexionConn;
 	}
 
 	public boolean comprobarSiExisteNIF(String nif) {
+
+		PreparedStatement st = null;
 		try {
-
-			PreparedStatement st = null;
-
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULTANIF);
-			st.setString(1, nif);
-			ResultSet rs = st.executeQuery();
-
-			if (rs.next()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return false;
+		return consultaReal(st, nif);
 	}
-	
+
 	public boolean comprobarSiExisteComprador(String nif) {
+		PreparedStatement st = null;
 		try {
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.EXISTECOMPRADOR);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return consultaReal(st, nif);
+	}
 
-			PreparedStatement st = null;
+	public boolean comprobarSiExisteDNI(String nif) {
+		PreparedStatement st = null;
+		try {
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULATDNI);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return consultaReal(st, nif);
+	}
 
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.EXISTECOMPRADOR);
+	public boolean consultaReal(PreparedStatement st, String nif) {
+		try {
 			st.setString(1, nif);
 			ResultSet rs = st.executeQuery();
 
-			if (rs.next()) {
-				return true;
-			} else {
-				return false;
-			}
+			return rs.next();
+
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
 		return false;
 	}
-
-	public boolean comprobarSiExisteDNI(String dni) {
-		try {
-			PreparedStatement st = null;
-
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULATDNI);
-			st.setString(1, dni);
-			ResultSet rs = st.executeQuery();
-
-			if (rs.next()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
-		return false;
-	}
-	
 }

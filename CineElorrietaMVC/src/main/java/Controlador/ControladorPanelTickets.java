@@ -1,10 +1,7 @@
 package Controlador;
 
 import javax.swing.DefaultListModel;
-
-import Modelo.ListaProductos;
 import Modelo.Modelo;
-
 import Vista.PanelTickets;
 import Vista.Vista;
 
@@ -43,25 +40,21 @@ public class ControladorPanelTickets {
 		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 
-	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif, DefaultListModel<String> lista) {
-		String fechaFormateada = devolverFechaFormateada(fecha);
-		this.modelo.getInserciones().insertarActividad(transaccion, fechaFormateada, totalOperacion, nif);
-		
+	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif,
+			DefaultListModel<String> lista) {
+		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion,
+				nif);
 		for (int i = 0; i < lista.getSize(); i++) {
-			String textoRecogido = lista.get(i);
-			String textoSpliteado[] = textoRecogido.split(" ");
-
-			int cantidad = Integer.parseInt(textoSpliteado[0]);
-			
-			insertarProductoActividad(i, transaccion, cantidad);
+			String textoSpliteado[] = lista.get(i).split(" ");
+			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));
 		}
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 		String producto = devolverNombreProducto(nombreProducto);
-		double precioFinal = cogerPrecioString(producto);
-		String codigoAlimento = this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto);
-		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, precioFinal);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion,
+				this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad,
+				cogerPrecioString(producto));
 	}
 
 	public String conseguirLocal() {
@@ -74,8 +67,7 @@ public class ControladorPanelTickets {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarLista();
+		modelo.getListaTemporal().limpiarLista();
 		this.total = 0.0;
 	}
 
@@ -83,38 +75,24 @@ public class ControladorPanelTickets {
 		return this.modelo.getListaProductos().getListaProductosString();
 	}
 
-	// M�todos para la l�gica de a�adir un producto
-
-	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = new String[2];
-		String productoAnadir = this.modelo.util.annadirProducto(producto);
-		devolver[0] = cantidadProducto(cantidad, productoAnadir);
-		devolver[1] = cantidadTotal(cantidad, producto);
-		return devolver;
-	}
-
 	public int existeProducto(String nombreProducto) {
-		int pos = modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
-		return pos;
+		return modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
 
 	public double cogerPrecioString(String nombreProducto) {
-		double precio = modelo.getListaTemporal().precioProductoString(nombreProducto);
-		return precio;
+		return modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
 
-	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
-		String[] devolver =  new String[2];
-		devolver[0] = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
-		devolver[1] = this.cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto);
+	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
+		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
 
-	public String cantidadProducto(String cantidad, String productoAnadir) { // Este m�todo crea el mensaje para
-																				// a�adir en la lista de a�adidos,
-																				// el cual se creaba antes en la propia
-																				// vista
-		return cantidad + " " + productoAnadir;
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
@@ -122,25 +100,15 @@ public class ControladorPanelTickets {
 		return String.valueOf(total);
 	}
 
-	// M�todo para la l�gica de eliminar un producto
-
-	public String cantidadTotal(String cantidad, String producto) {
-		total = this.modelo.util.cantidadTotal(cantidad, producto, total);
-		return String.valueOf(total);
-	}
-
 	public String devolverFechaFormateada(String input) {
-		String fecha = this.modelo.util.devolverFechaFormateada(input);
-		return fecha;
+		return this.modelo.util.devolverFechaFormateada(input);
 	}
 
 	public String devolverNombreProducto(int i) {
-
 		return this.modelo.util.devolverNombreProducto(i);
 	}
 
 	public PanelTickets makePanelTickets(ControladorPanelTickets controladorPanelTickets) {
 		return new PanelTickets(controladorPanelTickets);
 	}
-
 }

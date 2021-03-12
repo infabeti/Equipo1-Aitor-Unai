@@ -1,6 +1,6 @@
 package TestModelo;
 
-import static org.junit.Assert.assertArrayEquals;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,8 +22,7 @@ public class TestUtiles {
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
 	private Producto productoMock = mock(Producto.class);
-	private String[] resultadoEsperadoArrayString;
-	private String[] listaProductos;
+
 	
 	private Utiles utiles = new Utiles(modeloMock);
 	
@@ -56,7 +55,7 @@ public class TestUtiles {
 
 		String producto = "1 - Calabaza";
 
-		resultadoString = utiles.cambiarCantidadProductos(producto, 4);
+		resultadoString = utiles.cambioProductos(producto, 4);
 
 		resultadoEsperadoString = "5 - Calabaza";
 
@@ -274,7 +273,7 @@ public class TestUtiles {
 	}
 
 	@Test
-	public void TestContieneSoloLetras() {
+	public void TestContieneSoloLetrasTRUE() {
 
 		String input = "hola";
 
@@ -298,5 +297,84 @@ public class TestUtiles {
 		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
 
 	}
+	
+	@Test
+	public void TestComprobarCamposStringTODOTRUE() {
 
+		String NIF = "78945632C";
+		String nombre = "Joni";
+		String apellido = "Mela";
+		
+
+		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
+
+		resultadoEsperadoBoolean = true;
+
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarCamposStringTODOFALSE() {
+
+		String NIF = "A1D3";
+		String nombre = "12 ";
+		String apellido = "2 ";
+		
+
+		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
+
+		resultadoEsperadoBoolean = false;
+
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarCamposStringFALSETRUETRUE() {
+
+		String NIF = "A1D3";
+		String nombre = "Abraham";
+		String apellido = "Burguesa";
+		
+
+		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
+
+		resultadoEsperadoBoolean = false;
+
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarCamposStringTRUEFALSETRUE() {
+
+		String NIF = "78965478S";
+		String nombre = "1";
+		String apellido = "Burguesa";
+		
+
+		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
+
+		resultadoEsperadoBoolean = false;
+
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
+	
+	@Test
+	public void TestComprobarCamposStringTRUETRUEFALSE() {
+
+		String NIF = "78965478S";
+		String nombre = "Arrengamie";
+		String apellido = "1";
+		
+
+		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
+
+		resultadoEsperadoBoolean = false;
+
+		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
+
+	}
 }
