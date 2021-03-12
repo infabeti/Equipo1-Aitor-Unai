@@ -75,13 +75,6 @@ public class ControladorPanelTickets {
 		return this.modelo.getListaProductos().getListaProductosString();
 	}
 
-	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = new String[2];
-		devolver[0] = cantidad + " " + this.modelo.util.annadirProducto(producto);
-		devolver[1] = cantidadTotal(cantidad, producto);
-		return devolver;
-	}
-
 	public int existeProducto(String nombreProducto) {
 		return modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
@@ -90,20 +83,20 @@ public class ControladorPanelTickets {
 		return modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
 
+	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
+		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
+	}
+
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
-		String[] devolver = new String[2];
-		devolver[0] = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
-		devolver[1] = this.cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto);
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
 		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
-		return String.valueOf(total);
-	}
-
-	public String cantidadTotal(String cantidad, String producto) {
-		total = this.modelo.util.cantidadTotal(cantidad, producto, total);
 		return String.valueOf(total);
 	}
 

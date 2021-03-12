@@ -123,17 +123,15 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		
 		modeloMock.util = utilesMock;
 		
-		when(utilesMock.annadirProducto("saludos")).thenReturn("bocata de calamares");
+		String producto = "Patata";
+		String cantidad = "2";
+		Double total = 0.0;
 		
-		when(utilesMock.cantidadTotal("1", "saludos", 0.0)).thenReturn(0.0);
-
-		resultadoArrayString = controladorPanelTickets.accionadoBotonAnnadirProducto("saludos", "1");
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		resultadoEsperadoArrayString = new String[2];
-
-		resultadoEsperadoArrayString[0] = "1 bocata de calamares";
+		when(utilesMock.accionadoBotonAnnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
-		resultadoEsperadoArrayString[1] = "0.0";
+		resultadoArrayString = controladorPanelTickets.accionadoBotonAnnadirProducto(producto, cantidad);
 
 		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 	}
@@ -174,43 +172,23 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 	@Test
 	public void TestCambiarCantidadProductos() {
 
-		String producto = "1 - Calabaza";
-		
 		modeloMock.util = utilesMock;
 		
-		when(utilesMock.cambiarCantidadProductos(producto, 4)).thenReturn("ZAPATO");
+		String nombreProductoAnadido = "Patata";
+		int cantidadAnadir = 2;
+		Double total = 0.0;
+		String nombreProducto = "3 x Patata";
 		
-		when(utilesMock.cantidadTotal("4", producto, 2.0)).thenReturn(0.0);
-
-		resultadoArrayString = controladorPanelTickets.cambiarCantidadProductos(producto, 4, producto);
-
-		resultadoEsperadoArrayString = new String[2];
-		resultadoEsperadoArrayString[0]= "ZAPATO";
-		resultadoEsperadoArrayString[1] = "0.0";
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
+		
+		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total)).thenReturn(resultadoEsperadoArrayString);
+		
+		resultadoArrayString = controladorPanelTickets.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto);
 
 		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 
 	}
-
-	@Test
-	public void TestCantidadTotal() {
-
-		String primer = "2";
-		String segun = "3";
-		double tercer = 0;
-
-		modeloMock.util = utilesMock;
-
-		when(utilesMock.cantidadTotal(primer, segun, tercer)).thenReturn(999.0);
-
-		resultadoString = controladorPanelTickets.cantidadTotal(primer, segun);
-
-		resultadoEsperadoString = "999.0";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-
-	}
-
+	
 	@Test
 	public void TestAccionadoBotonEliminar() {
 

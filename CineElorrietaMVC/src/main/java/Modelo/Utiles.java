@@ -33,7 +33,7 @@ public class Utiles {
 		return prod.toString();
 	}
 	
-	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
+	public String cambioProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
 		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
 			pos = i;
@@ -70,7 +70,6 @@ public class Utiles {
 		if (matcher.matches()) {
 			correcto = true;
 		} else {
-
 			correcto = false;
 		}
 		return correcto;
@@ -133,5 +132,19 @@ public class Utiles {
 			e.printStackTrace();
 		}
 		return "Error";
+	}
+	
+	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad, double total) {
+		String[] devolver = new String[2];
+		devolver[0] = cantidad + " " + annadirProducto(producto);
+		devolver[1] = String.valueOf(cantidadTotal(cantidad, producto, total));
+		return devolver;
+	}
+
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto, double total) {
+		String[] devolver = new String[2];
+		devolver[0] = cambioProductos(nombreProductoAnadido, cantidadAnadir);
+		devolver[1] = String.valueOf(cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto, total));
+		return devolver;
 	}
 }

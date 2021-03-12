@@ -32,11 +32,11 @@ public class ControladorPanelFacturas {
 	}
 
 	public String devolverFechaHora() {
-		return modelo.getFechaHoraSys();
+		return this.modelo.getFechaHoraSys();
 	}
 
 	public String conseguirLocal() {
-		return modelo.getUser().getNifLocal();
+		return this.modelo.getUser().getNifLocal();
 	}
 
 	public String leerNumTransBBDD() {
@@ -54,35 +54,28 @@ public class ControladorPanelFacturas {
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		modelo.getListaTemporal().limpiarLista();
+		this.modelo.getListaTemporal().limpiarLista();
 		this.total = 0.0;
 	}
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = new String[2];
-		devolver[0] = cantidad + " " + this.modelo.util.annadirProducto(producto);
-		devolver[1] = cantidadTotal(cantidad, producto);
+		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
 
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
-		String[] devolver = new String[2];
-		devolver[0] = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir);
-		devolver[1] = this.cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto);
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
 
 	public int existeProducto(String nombreProducto) {
-		return modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
+		return this.modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
 
 	public double cogerPrecioString(String nombreProducto) {
-		return modelo.getListaTemporal().precioProductoString(nombreProducto);
-	}
-
-	public String cantidadTotal(String cantidad, String producto) {
-		total = this.modelo.util.cantidadTotal(cantidad, producto, total);
-		return String.valueOf(total);
+		return this.modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {

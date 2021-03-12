@@ -55,7 +55,7 @@ public class TestUtiles {
 
 		String producto = "1 - Calabaza";
 
-		resultadoString = utiles.cambiarCantidadProductos(producto, 4);
+		resultadoString = utiles.cambioProductos(producto, 4);
 
 		resultadoEsperadoString = "5 - Calabaza";
 
@@ -377,7 +377,4 @@ public class TestUtiles {
 		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
 
 	}
-	
-	
-
 }
