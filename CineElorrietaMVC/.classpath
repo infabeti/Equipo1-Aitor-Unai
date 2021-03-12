@@ -20,6 +20,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="lib" path="conector/mysql-connector-java-8.0.23.jar"/>
-	<classpathentry kind="lib" path="librerias/mockito-core-3.2.4.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
