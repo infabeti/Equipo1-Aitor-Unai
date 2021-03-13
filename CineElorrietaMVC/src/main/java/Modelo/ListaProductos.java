@@ -10,16 +10,37 @@ public class ListaProductos {
 		listaProd  = new ArrayList<Producto>();
 	}
 	
-	public void addProductoTemporal(Producto prod) {
-		listaProd.add(prod);
+	public boolean addProducto(Producto prod) {
+		try {
+			listaProd.add(prod);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
-	public void limpiarListTemporal() {
-		listaProd.clear();
+	public boolean limpiarLista() {
+		try {
+			listaProd.clear();
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
-	public void eliminarProductoTemporal(int pos) {
-		listaProd.remove(pos);
+	public boolean eliminarProducto(int pos) {
+		try {
+			listaProd.remove(pos);
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public Producto cogerProducto(int pos) {
@@ -49,9 +70,22 @@ public class ListaProductos {
 		return null;
 	}
 	
+	public int devolverPosProductoString(String nombre) { //Devuelve la posición de un producto dado su string
+		for(int i = 0; i <listaProd.size(); i++) {
+			if(listaProd.get(i).getNombre() == nombre) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	public double precioProductoString(String nombre) {
-		System.out.println(nombre);
 		Producto prod = this.devolverProductoPorString(nombre);
-		return prod.getPrecioVenta();
+		if(prod != null) {
+			return prod.getPrecioVenta();
+		}
+		else {
+			return -1;
+		}
 	}
 }

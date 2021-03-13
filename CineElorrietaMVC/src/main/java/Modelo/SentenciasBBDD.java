@@ -1,0 +1,23 @@
+package Modelo;
+
+public class SentenciasBBDD {
+
+	// CONSULTAS BBDD
+		protected final String CONSULTALOGUEAR = "Select e.nombre, es.nombre, tipoNegocio, e.NIF from empleado e join establecimiento es on e.NIF = es.NIF where dni=? and contrasena=?";
+		protected final String CONSULTANIF = "Select nif from empleado where NIF=?";
+		protected final String CONSULATDNI = "Select dni from empleado where dni=?";
+		protected final String CONSULTAACTIVIDAD = "select * from actividad;";
+		protected final String CONSULTAALIMENTO = "select * from alimento ;";
+		protected final String INSERTARACTIVIDAD = "insert into actividad " + "values(?,?,?,?);";
+		protected final String INSERTAREMPLEADO = "insert into empleado " + "values(?, ?, ?, ?, ?)";
+
+		protected final String INSERTARPRODUCTOACTIVIDAD = "insert into lineaproducto (codigoalimento,transaccion,cantidad,preciofinal)"
+				+ "values(?,?,?,?);";
+		protected final String CONSULTAPRODUCTOLOCAL = "Select a.Nombre, a.PCompra, p.PVenta, a.Tipo, a.FeCad from alimento a join producto p on a.CodigoAlimento = p.CodigoAlimento join stock s on a.CodigoAlimento = s.CodigoAlimento where s.NIF=?";
+		protected final String INSERTARPEDIDO = "insert into pedido " + "values(?, ?)";
+		protected final String INSERTARFACTURA = "insert into factura " + "values(?,?);";
+		protected final String INSERTARCOMPRADOR = "insert into comprador " + "values(?,?,?);";
+		protected final String EXISTECOMPRADOR = "select * from comprador where NIF=?;";
+
+	
+}

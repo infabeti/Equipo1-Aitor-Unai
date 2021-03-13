@@ -4,25 +4,31 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Controlador.Controlador;
-import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelTickets;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.text.NumberFormatter;
+
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import java.awt.Color;
 
 public class PanelTickets extends JPanel {
 
+	private static final long serialVersionUID = -4866340972661290326L;
 	private ControladorPanelTickets controladorPanelTickets;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
-	private JTextField textField;
+	private JTextField textFieldNumTrans;
 	private JButton btnFinalizar;
 	private JLabel lblTransaccion;
 	private JList listaProductos;
@@ -31,16 +37,15 @@ public class PanelTickets extends JPanel {
 	private JScrollPane scrollPane;
 	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
 	private JScrollPane scrollPane_1;
-	private JTextField textField_1;
+	private JFormattedTextField TextFieldCantidad;
 	private JLabel lblCantidad;
 	private JLabel lblError;
 	private JTextField textLocal;
-	private JTextField textFecha;
 	private JButton btnEliminar;
 	private JLabel lblTotal;
 	private JTextField textTotal;
-	
-	
+	private JTextField textFieldFecha;
+
 	public PanelTickets(ControladorPanelTickets controladorPanelTickets) {
 		setBackground(SystemColor.activeCaption);
 
@@ -52,112 +57,157 @@ public class PanelTickets extends JPanel {
 		lblTextoPanel.setFont(new Font("Arial", Font.PLAIN, 31));
 		lblTextoPanel.setBounds(0, 0, 450, 67);
 		add(lblTextoPanel);
-		
+
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(508, 451, 89, 23);
+		btnVolver.setBounds(714, 546, 89, 23);
 		add(btnVolver);
-		
-		textField = new JTextField();
-		textField.setBounds(120, 76, 114, 19);
-		add(textField);
-		textField.setColumns(10);
-		
+
+		textFieldNumTrans = new JTextField();
+		textFieldNumTrans.setBounds(120, 76, 114, 19);
+		add(textFieldNumTrans);
+		textFieldNumTrans.setColumns(10);
+		textFieldNumTrans.setText(controladorPanelTickets.leerNumTransBBDD());
+		textFieldNumTrans.setEditable(false);
+		textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
+
 		lblTransaccion = new JLabel("Transaccion");
 		lblTransaccion.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblTransaccion.setBounds(30, 78, 102, 15);
 		add(lblTransaccion);
-		
+
 		btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setBounds(30, 410, 117, 25);
+		btnFinalizar.setBounds(568, 545, 117, 25);
 		add(btnFinalizar);
-		
+
 		btnAnadir = new JButton("Seleccionar\r\n");
-		btnAnadir.setBounds(401, 261, 117, 25);
+		btnAnadir.setBounds(411, 459, 117, 25);
 		add(btnAnadir);
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(30, 244, 296, 153);
 		add(scrollPane);
-		
+
 		listaAnnadidos = new JList(listaPAnnadidos);
-		listaAnnadidos.setBackground(SystemColor.activeCaption);
+		listaAnnadidos.setBackground(Color.WHITE);
 		scrollPane.setViewportView(listaAnnadidos);
-		
+
 		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(380, 90, 150, 160);
+		scrollPane_1.setBounds(380, 240, 150, 160);
 		add(scrollPane_1);
-		
+
 		listaProductos = new JList(controladorPanelTickets.cogerListaProductos());
-		listaProductos.setBackground(SystemColor.activeCaption);
+		listaProductos.setBackground(Color.WHITE);
 		scrollPane_1.setViewportView(listaProductos);
-		
+
 		lblCantidad = new JLabel("Cantidad");
 		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblCantidad.setBounds(30, 124, 92, 22);
+		lblCantidad.setBounds(350, 411, 92, 22);
 		add(lblCantidad);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(120, 126, 86, 20);
-		add(textField_1);
-		textField_1.setColumns(10);
-		
+
+		NumberFormat format = NumberFormat.getInstance();
+		NumberFormatter formatter = new NumberFormatter(format);
+		formatter.setValueClass(Integer.class);
+		formatter.setMinimum(1); // valor mï¿½nimo
+		formatter.setMaximum(99); // valor mï¿½ximo
+		formatter.setAllowsInvalid(false);
+		// Si quieres comprobar que sea vï¿½lido, cada vez que se pulse una tecla
+		formatter.setCommitsOnValidEdit(true);
+
+		TextFieldCantidad = new JFormattedTextField(formatter);
+		TextFieldCantidad.setFont(new Font("Arial", Font.PLAIN, 12));
+		TextFieldCantidad.setBounds(425, 411, 40, 27);
+		add(TextFieldCantidad);
+		TextFieldCantidad.setText("1");
+
 		JLabel lblProdDisp = new JLabel("Productos");
 		lblProdDisp.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblProdDisp.setBounds(401, 57, 92, 22);
+		lblProdDisp.setBounds(411, 207, 92, 22);
 		add(lblProdDisp);
-		
+
 		JLabel lblProductosSeleccionados = new JLabel("Productos Seleccionados");
 		lblProductosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblProductosSeleccionados.setBounds(71, 209, 244, 22);
 		add(lblProductosSeleccionados);
-		
+
 		lblError = new JLabel("");
 		lblError.setBounds(30, 166, 332, 31);
 		add(lblError);
-		
+
 		textLocal = new JTextField();
-		textLocal.setBounds(642, 76, 114, 19);
+		textLocal.setBounds(120, 126, 114, 19);
 		add(textLocal);
 		textLocal.setColumns(10);
-		
-		textFecha = new JTextField();
-		textFecha.setBounds(642, 126, 114, 19);
-		add(textFecha);
-		textFecha.setColumns(10);
-		
+		textLocal.setText(controladorPanelTickets.conseguirLocal());
+		textLocal.setEditable(false);
+		textLocal.setHorizontalAlignment(SwingConstants.CENTER);
+
+		textFieldFecha = new JTextField();
+		textFieldFecha.setColumns(10);
+		textFieldFecha.setBounds(448, 71, 106, 30);
+		add(textFieldFecha);
+		textFieldFecha.setText(this.controladorPanelTickets.devolverFechaHora());
+		textFieldFecha.setEditable(false);
+
 		JLabel lblLocal = new JLabel("Local");
-		lblLocal.setBounds(554, 78, 70, 15);
+		lblLocal.setBounds(30, 128, 70, 15);
+		lblLocal.setFont(new Font("Arial", Font.PLAIN, 15));
 		add(lblLocal);
-		
+
 		JLabel lblFecha = new JLabel("Fecha");
-		lblFecha.setBounds(554, 128, 70, 15);
+		lblFecha.setBounds(380, 78, 70, 15);
+		lblFecha.setFont(new Font("Arial", Font.PLAIN, 15));
 		add(lblFecha);
-		
+
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(198, 410, 117, 25);
+		btnEliminar.setBounds(105, 408, 117, 25);
 		add(btnEliminar);
-		
+
 		lblTotal = new JLabel("Total");
-		lblTotal.setBounds(344, 309, 70, 15);
+		lblTotal.setBounds(52, 464, 70, 15);
 		add(lblTotal);
-		
+
 		textTotal = new JTextField();
 		textTotal.setEditable(false);
-		textTotal.setBounds(338, 352, 114, 19);
+		textTotal.setBounds(92, 461, 114, 19);
 		add(textTotal);
 		textTotal.setColumns(10);
 		textTotal.setText("0");
-		
+
 		initializeEvents();
 
 	}
-	
+
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelTickets));
 		this.btnAnadir.addActionListener(listenerBotonAnadir(this.controladorPanelTickets));
 		this.btnEliminar.addActionListener(listenerBotonEliminar(this.controladorPanelTickets));
+		this.btnFinalizar.addActionListener(listenerBotonFinalizar(this.controladorPanelTickets));
+
 	}
-	
+
+	private ActionListener listenerBotonFinalizar(ControladorPanelTickets controladorPanelTickets) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Finalizar");
+
+				if (Double.parseDouble(textTotal.getText()) > 0) {
+					// insertar datos en actividad
+					controladorPanelTickets.insertarTicket(Integer.parseInt(textFieldNumTrans.getText()),
+							textFieldFecha.getText(),
+							Double.parseDouble(textTotal.getText()), textLocal.getText(),listaPAnnadidos);
+
+					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
+					controladorPanelTickets.accionadoBottonVolverPanelPrincipal();
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+				}
+
+			}
+
+		};
+	}
+
 	private ActionListener listenerBotonVolver(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -166,58 +216,77 @@ public class PanelTickets extends JPanel {
 			}
 		};
 	}
-	
+
 	private ActionListener listenerBotonAnadir(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*Este es el mínimo de lógica que puede haber (va para todos las vistas)
-				 * En el primer try catch necesita hacer un cast a String ya que no se puede pasar el valor directo
-				 * de getSelectedValue()
-				 * existeProd necesita estar para asegurarse de que se añade primero el producto antes de seguir 
-				 * Todos estos comentarios valen para las tres vistas*/
+				/*
+				 * Este es el mï¿½nimo de lï¿½gica que puede haber (va para todos las vistas) En
+				 * el primer try catch necesita hacer un cast a String ya que no se puede pasar
+				 * el valor directo de getSelectedValue() existeProd necesita estar para
+				 * asegurarse de que se aï¿½ade primero el producto antes de seguir Todos estos
+				 * comentarios valen para las tres vistas
+				 */
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
-				String productoAnadir = "";
-				String cantidad = textField_1.getText();
+				String[] productosAnadir = new String[2];
+				String cantidad = TextFieldCantidad.getText();
+				System.out.println(cantidad);
 				try {
-					producto = (String) listaProductos.getSelectedValue(); //Necesito hacer aquí el cast porque getSelectedValue() devuelve un objeto por lo que no se le puede pasar directamente a accionadoBotonAnadirProducto
-					productoAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto);
-					existeProd = true;
-				}
-				catch(Exception e) {
+					producto = (String) listaProductos.getSelectedValue(); // Necesito hacer aquï¿½ el cast porque
+																			// getSelectedValue() devuelve un objeto por
+																			// lo que no se le puede pasar directamente
+																			// a accionadoBotonAnadirProducto
+					if(producto !=null) {
+						existeProd = true;
+					}
+				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
 				}
 				if (existeProd) {
 					try {
-						listaPAnnadidos.addElement(controladorPanelTickets.cantidadProducto(cantidad, productoAnadir));
-						textTotal.setText(controladorPanelTickets.cantidadTotal(cantidad, textTotal.getText(), producto));
-					}
-					catch(Exception e) {
+						if (controladorPanelTickets.existeProducto(producto) == -1) {
+							productosAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto, cantidad);
+							listaPAnnadidos.addElement(productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
+							lblError.setText("");
+						} else {
+							int indice = controladorPanelTickets.existeProducto(producto);
+							String yaAnnadido = listaPAnnadidos.get(indice);
+							productosAnadir = controladorPanelTickets.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), producto);
+							listaPAnnadidos.set(indice, productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
+						}
+					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
+						e.printStackTrace();
 						lblError.setText("No se ha introducido una cantidad");
 					}
 				}
 			}
 		};
 	}
-	
+
 	private ActionListener listenerBotonEliminar(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento eliminar");
 				try {
-					/*Este es el mínimo de lógica necesaria en la vista para eliminar un elemento
-					 * Primero se coge el índice seleccionado, luego se le pasa al controlador junto al string que representa
-					 * El producto a eliminar y el total actual
-					 * Se elimina el producto de la lista y luego se cambia el total por el devuelto por el controlador */
+					/*
+					 * Este es el mï¿½nimo de lï¿½gica necesaria en la vista para eliminar un
+					 * elemento Primero se coge el ï¿½ndice seleccionado, luego se le pasa al
+					 * controlador junto al string que representa El producto a eliminar y el total
+					 * actual Se elimina el producto de la lista y luego se cambia el total por el
+					 * devuelto por el controlador
+					 */
 					int pos = listaAnnadidos.getSelectedIndex();
-					String total = controladorPanelTickets.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos), textTotal.getText());
+					String total = controladorPanelTickets.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos));
 					listaPAnnadidos.remove(pos);
 					textTotal.setText(total);
-				}
-				catch(Exception e) {
+					lblError.setText("");
+				} catch (Exception e) {
 					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionÃ³ ningÃºn producto");
 					lblError.setText("No se pudo eliminar");
 				}

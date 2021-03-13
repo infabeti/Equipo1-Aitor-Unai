@@ -59,7 +59,8 @@ public class Producto {
 	
 	@Override
 	public String toString() {
-		return nombre.concat(" Precio de compra: ").concat(Double.toString(precioCompra)).concat(" Precio de venta: ").concat(Double.toString(precioVenta)).concat(" Fecha de caducidad ").concat(fechaCaducidad.toString()).concat(" Tipo de producto: ").concat(tipo);
+		return " - " + this.nombre + " x " + this.precioVenta + "€";
+				
 	}
 	
 }

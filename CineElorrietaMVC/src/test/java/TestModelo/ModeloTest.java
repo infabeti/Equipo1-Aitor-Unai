@@ -1,14 +1,14 @@
 package TestModelo;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-public class ModeloTest {
+import Modelo.Modelo;
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+
+
+public class ModeloTest {
+	
+	private Modelo modelo = new Modelo();
 
 }

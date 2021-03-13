@@ -1,85 +1,111 @@
 package Controlador;
 
-import Modelo.LineaPedido;
-import Modelo.ListaProductos;
+import javax.swing.DefaultListModel;
 import Modelo.Modelo;
-import Modelo.Producto;
 import Vista.PanelPedidos;
 import Vista.Vista;
 
 public class ControladorPanelPedidos {
 
-	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelPedidos panelPedidos;
-	private String[] listaProductos;
-	
+	private double total;
+
 	public ControladorPanelPedidos(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
-		this.controlador = controlador;	
+		this.controlador = controlador;
 	}
-	
+
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
+
+	public String leerNumTransBBDD() {
+		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
+	}
+
+	public String conseguirLocal() {
+		return this.modelo.getUser().getNifLocal();
+	}
+
 	public void mostrarPanelPedidos() {
-		this.panelPedidos = new PanelPedidos(this);
+		this.panelPedidos = makePanelPedidos(this);
 		this.vista.mostrarPanel(this.panelPedidos);
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarListTemporal();
+		this.modelo.getListaTemporal().limpiarLista();
+		this.total = 0.0;
 	}
-	
-	
-	public String[] pasarListaProductos() {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		String[] lista = listaProd.getListaProductosString();
-		return lista;
+
+	public String[] cogerListaProductos() {
+		return this.modelo.getListaProductos().getListaProductosString();
 	}
-	
-	public Producto devolverProducto(String input) {
-		ListaProductos listaProd = modelo.getListaProductos();
-		Producto p1 = listaProd.devolverProductoPorString(input);
-		return p1;
-		
-	}
-	
+
 	public String devolverFechaHora() {
-		return modelo.getFechaHoraSys();
+		return this.modelo.getFechaHoraSys();
 	}
-	
-	public String accionadoBotonAnnadirProducto(String producto) {
-		ListaProductos listaProd = modelo.getListaProductos();
-		Producto prod = listaProd.devolverProductoPorString(producto);
-		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProductoTemporal(prod);
-		return prod.toString();
+
+	public int existeProducto(String nombreProducto) {
+		return this.modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
-	
-	public String cantidadProducto(String cantidad, String productoAnadir) {
-		return cantidad + " " + productoAnadir;
- 	}
-	
-	public String cantidadTotal(String cantidad, String total, String producto) {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		int cantidadInt = Integer.parseInt(cantidad);
-		double totalDouble = Double.parseDouble(total);
-		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
-		return String.valueOf(totalDouble + precioTotalProducto);
+
+	public double cogerPrecioString(String nombreProducto) {
+		return this.modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
-	
-	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		int cantidad = modelo.cogerCantidadString(eliminar);
-		double precio = listaProd.getPrecioProducto(pos);
-		double totalDouble = Double.parseDouble(total);
-		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
-		listaProd.eliminarProductoTemporal(pos);
-		return totalStr;
+
+	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
+		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
 	}
-	
+
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
+	}
+
+	public String accionadoBotonEliminar(int pos, String eliminar) {
+		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
+		return String.valueOf(total);	
+	}
+
+	public String devolverFechaFormateada(String input) {
+		return this.modelo.util.devolverFechaFormateada(input);
+	}
+
+	public String devolverNombreProducto(int i) {
+		return this.modelo.util.devolverNombreProducto(i);
+	}
+
+	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
+		String producto = devolverNombreProducto(nombreProducto);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion, this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad, cogerPrecioString(producto));
+	}
+
+	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif, String domicilio, DefaultListModel<String> lista) {
+		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, nif);
+		this.modelo.getInserciones().insertarPedido(transaccion, domicilio);
+		for (int i = 0; i < lista.getSize(); i++) {
+			String textoSpliteado[] = lista.get(i).split(" ");
+			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));
+		}
+	}
+
+	public PanelPedidos makePanelPedidos(ControladorPanelPedidos controladorPanelPedidos) {
+		return new PanelPedidos(controladorPanelPedidos);
+	}
 }
