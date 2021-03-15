@@ -59,7 +59,7 @@ public class ControladorPanelAprovisionamiento {
 	}
 
 	public String[] pasarListaProductos() {
-		listaP = modelo.getConexion().cogerProductosAprovisionamiento();
+		listaP = modelo.getConsultas2().cogerProductosAprovisionamiento();
 		return listaP.getListaProductosString();
 	}
 

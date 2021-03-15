@@ -152,14 +152,14 @@ public class ControladorPanelComandas {
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
 		// aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
 		// consulta a bbdd comparando el nombre para sacar el codalimento
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
+		String codigoAlimento = this.modelo.getConsultas2().obtenerCodigoAlimentoProducto(nombreProducto);
 		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
 
 	}
 	
 	public void insertarPlatoActividad(String nombrePlato, int transaccion, int cantidad) {
-		String codigoPlato = this.modelo.getConexion().obtenerCodigoPlato(nombrePlato);
-		this.modelo.getConexion().insertarPlatoActividad(transaccion, codigoPlato, cantidad);
+		String codigoPlato = this.modelo.getConsultas2().obtenerCodigoPlato(nombrePlato);
+		this.modelo.getInserciones().insertarPlatoActividad(transaccion, codigoPlato, cantidad);
 
 	}
 	

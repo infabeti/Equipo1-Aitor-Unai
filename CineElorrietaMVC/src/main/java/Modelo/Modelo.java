@@ -13,6 +13,7 @@ public class Modelo {
 	public Utiles util;
 	private Inserciones inserciones;
 	private Consultas consultas;
+	private Consultas2 consultas2;
 	private Registro registro;
 
 	public Registro getRegistro() {
@@ -46,7 +47,12 @@ public class Modelo {
 		inserciones = new Inserciones(this);
 		consultasComprobaciones = new ConsultasComprobaciones(this);
 		consultas = new Consultas(this);
+		consultas2 = new Consultas2(this);
 		registro = new Registro(this);
+	}
+
+	public Consultas2 getConsultas2() {
+		return consultas2;
 	}
 
 	public void setConexion(Conexion conexion) {

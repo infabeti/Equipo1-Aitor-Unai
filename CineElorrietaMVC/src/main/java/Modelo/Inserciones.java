@@ -211,4 +211,24 @@ public class Inserciones {
 			return false;
 		}
 	}
+	
+	public void insertarPlatoActividad(int transaccion, String codigoPlato, int cantidad) {
+		try {
+			PreparedStatement st = null;
+
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
+					"insert into lineaplato (codigoplato,transaccion,cantidad)" + " values("
+							+ codigoPlato + "," + transaccion + "," + cantidad + ");");
+			try {
+				st.executeUpdate();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+	}
 }
