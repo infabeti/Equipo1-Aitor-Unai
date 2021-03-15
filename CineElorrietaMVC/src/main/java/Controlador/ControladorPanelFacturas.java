@@ -1,13 +1,7 @@
 package Controlador;
 
 import Modelo.Modelo;
-import Modelo.Producto;
-
-import java.text.SimpleDateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import Modelo.ListaProductos;
+import javax.swing.DefaultListModel;
 import Vista.PanelFacturas;
 import Vista.Vista;
 
@@ -17,6 +11,7 @@ public class ControladorPanelFacturas {
 	private Vista vista;
 	private Controlador controlador;
 	private PanelFacturas panelFacturas;
+	private double total;
 
 	public ControladorPanelFacturas(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
@@ -37,19 +32,15 @@ public class ControladorPanelFacturas {
 	}
 
 	public String devolverFechaHora() {
-		return modelo.getFechaHoraSys();
+		return this.modelo.getFechaHoraSys();
 	}
 
 	public String conseguirLocal() {
-
-		return modelo.getUser().getNifLocal();
-
+		return this.modelo.getUser().getNifLocal();
 	}
 
 	public String leerNumTransBBDD() {
-
-		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
-
+		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 
 	public void mostrarPanelFacturas() {
@@ -58,175 +49,80 @@ public class ControladorPanelFacturas {
 	}
 
 	public String[] cogerListaProductos() {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		String[] lista = listaProd.getListaProductosString();
-		return lista;
+		return this.modelo.getListaProductos().getListaProductosString();
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
-		ListaProductos listaProd = modelo.getListaTemporal();
-		listaProd.limpiarLista();
+		this.modelo.getListaTemporal().limpiarLista();
+		this.total = 0.0;
 	}
 
-	public String accionadoBotonAnnadirProducto(String producto) {
-		ListaProductos listaProd = modelo.getListaProductos();
-		Producto prod = listaProd.devolverProductoPorString(producto);
-		ListaProductos listaTemporal = modelo.getListaTemporal();
-		listaTemporal.addProducto(prod);
-		return prod.toString();
+	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
+		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
 	}
 
-	public int existeProducto(String producto) {
-		int pos = modelo.getListaTemporal().devolverPosProductoString(producto);
-		return pos;
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
 	}
 
-	public double cogerPrecioString(String producto) {
-		double precio = modelo.getListaTemporal().precioProductoString(producto);
-		return precio;
+	public int existeProducto(String nombreProducto) {
+		return this.modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
 
-	public String cambiarCantidadProductos(String producto, int cantidadAnadir) {
-		int pos = 0;
-		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
-			pos = i;
-		}
-		String cantString = producto.substring(0, pos + 1);
-		int cantidad = Integer.parseInt(cantString);
-		cantidad = cantidad + cantidadAnadir;
-		String cambiada = cantidad + producto.substring(pos + 1);
-		return cambiada;
+	public double cogerPrecioString(String nombreProducto) {
+		return this.modelo.getListaTemporal().precioProductoString(nombreProducto);
 	}
 
-	public String cantidadProducto(String cantidad, String productoAnadir) { 
-		return cantidad + " " + productoAnadir;
-	}
 
-	public String cantidadTotal(String cantidad, String total, String producto) {
-		ListaProductos listaProd = this.modelo.getListaProductos();
-		int cantidadInt = Integer.parseInt(cantidad);
-		double totalDouble = Double.parseDouble(total);
-		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
-		return String.valueOf(totalDouble + precioTotalProducto);
-	}
-
-	public String accionadoBotonEliminar(int pos, String eliminar, String total) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		int cantidad = modelo.cogerCantidadString(eliminar);
-		double precio = listaProd.getPrecioProducto(pos);
-		double totalDouble = Double.parseDouble(total);
-		String totalStr = String.valueOf(totalDouble - (precio * cantidad));
-		listaProd.eliminarProducto(pos);
-		return totalStr;
+	public String accionadoBotonEliminar(int pos, String eliminar) {
+		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
+		return String.valueOf(total);
 	}
 
 	public String devolverFechaFormateada(String input) {
-
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		String dateInString = input;
-
-		try {
-
-			java.util.Date date1 = formatter.parse(dateInString);
-			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "Error";
+		return this.modelo.util.devolverFechaFormateada(input);
 	}
 
 	public String devolverNombreProducto(int i) {
-
-		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-
-		String[] lista = listaTemporal.getListaProductosString();
-
-		return lista[i];
-	}
-
-	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
-
-		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
-
-	}
-
-	public void insertarFactura(int transaccion, String nif) {
-		this.modelo.getConexion().insertarFactura(transaccion, nif);
-	}
-
-	public boolean comprobarNif(String nif) {
-
-		boolean correcto = false;
-
-		Pattern pattern = Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
-
-		Matcher matcher = pattern.matcher(nif);
-
-		if (matcher.matches()) {
-
-			correcto = true;
-
-		} else {
-
-			correcto = false;
-
-		}
-
-		return correcto;
-
-	}
-
-	public boolean comprobarFormatoNombre(String nombre) {
-		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 20, por ello comprobamos el length
-		if (contieneSoloLetras(nombre) && nombre.length() <= 20) {
-			if (nombre.length() >= 3) {
-				return true;
-			}
-			return false;
-
-		} else {
-
-			return false;
-		}
-	}
-
-	public boolean comprobarFormatoApellido(String apellido) {
-		// Comprobar tamano nombre y apellido
-		// nombre es un varchar de 25, por ello comprobamos el length
-		if (contieneSoloLetras(apellido) && apellido.length() <= 25) {
-			if (apellido.length() >= 3) {
-				return true;
-			}
-			return false;
-		} else {
-
-			return false;
-		}
-	}
-
-	public void insertarComprador(String nif, String nombre, String apellido) {
-
-		this.modelo.getConexion().insertarComprador(nif, nombre, apellido);
-
-	}
-
-	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion, "FACTURA" , nif);
+		return this.modelo.util.devolverNombreProducto(i);
 	}
 
 	public boolean contieneSoloLetras(String cadena) {
-		for (int x = 0; x < cadena.length(); x++) {
-			char c = cadena.charAt(x);
-			// Si no est� entre a y z, ni entre A y Z, ni es un espacio
-			if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-				return false;
-			}
+		return this.modelo.util.contieneSoloLetras(cadena);
+	}
+
+	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
+		String producto = devolverNombreProducto(nombreProducto);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion,
+				this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad,
+				cogerPrecioString(producto));
+	}
+
+	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
+		return total > 0 && this.modelo.util.comprobarCamposString(nif, nombre, apellido);
+	}
+
+	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre,
+			String apellido, DefaultListModel<String> lista, String nifComprador) {
+		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion,
+				nifLocal);
+
+		if (this.modelo.getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
+			System.out.println("El comprador ya existe, no se hace la insert en la tabla comprador");
+		} else {
+			this.modelo.getInserciones().insertarComprador(nifComprador, nombre, apellido);
 		}
-		return true;
+
+		this.modelo.getInserciones().insertarFactura(transaccion, nifComprador);
+		for (int i = 0; i < lista.getSize(); i++) {
+			String textoSpliteado[] = lista.get(i).split(" ");
+			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));
+		}
 	}
 
 	public PanelFacturas makePanelFacturas(ControladorPanelFacturas controladorPanelFacturas) {

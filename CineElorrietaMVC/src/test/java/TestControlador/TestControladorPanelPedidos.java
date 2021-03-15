@@ -17,14 +17,11 @@ import Modelo.Conexion;
 
 import Modelo.ListaProductos;
 import Modelo.Modelo;
-import Modelo.Producto;
 import Modelo.Usuario;
-
+import Modelo.Utiles;
 import Vista.PanelPedidos;
 import Vista.Vista;
 
-//Mockito Runner para junit
-//@RunWith(MockitoJUnitRunner.class)
 public class TestControladorPanelPedidos {
 
 	private Modelo modeloMock = mock(Modelo.class);
@@ -37,9 +34,10 @@ public class TestControladorPanelPedidos {
 	private Usuario userMock = mock(Usuario.class);
 	private Conexion conexionMock = mock(Conexion.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
-	private Producto productoMock = mock(Producto.class);
-	private String[] resultadoEsperadoArrayString;
+
+	private String[] resultadoEsperadoArrayString, resultadoArrayString;
 	private String[] listaProductos;
+	private Utiles utilesMock = mock(Utiles.class);
 
 	private ControladorPanelPedidos controladorPanelPedidos = new ControladorPanelPedidos(modeloMock, vistaMock,
 			controladorMock);
@@ -58,7 +56,8 @@ public class TestControladorPanelPedidos {
 
 	@Test
 	public void testDevolverFechaHora() {
-		when(controladorPanelPedidos.devolverFechaHora()).thenReturn("999");
+
+		when(modeloMock.getFechaHoraSys()).thenReturn("999");
 
 		resultadoString = controladorPanelPedidos.devolverFechaHora();
 		resultadoEsperadoString = "999";
@@ -112,27 +111,7 @@ public class TestControladorPanelPedidos {
 
 	}
 
-	@Test
-	public void TestAccionadoBotonAnnadirProducto() {
 
-		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
-
-		// Le digo que cuando se llame a ese producto con un string "saludos" y luego le
-		// llamo
-		when(listaProductosMock.devolverProductoPorString("saludos")).thenReturn(productoMock);
-
-		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
-
-		when(listaProductosMock.addProducto(productoMock)).thenReturn(true);
-
-		when(productoMock.toString()).thenReturn("hola");
-
-		resultadoString = controladorPanelPedidos.accionadoBotonAnnadirProducto("saludos");
-
-		resultadoEsperadoString = "hola";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-	}
 
 	@Test
 	public void TestExisteProducto() {
@@ -168,48 +147,40 @@ public class TestControladorPanelPedidos {
 	}
 
 	@Test
+	public void TestAccionadoBotonAnnadirProducto() {
+		
+		modeloMock.util = utilesMock;
+		
+		String producto = "Patata";
+		String cantidad = "2";
+		Double total = 0.0;
+		
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
+		
+		when(utilesMock.accionadoBotonAnnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		
+		resultadoArrayString = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto, cantidad);
+
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+	}
+	
+	@Test
 	public void TestCambiarCantidadProductos() {
 
-		String producto = "1 - Calabaza";
+		modeloMock.util = utilesMock;
+		
+		String nombreProductoAnadido = "Patata";
+		int cantidadAnadir = 2;
+		Double total = 0.0;
+		String nombreProducto = "3 x Patata";
+		
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
+		
+		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total)).thenReturn(resultadoEsperadoArrayString);
+		
+		resultadoArrayString = controladorPanelPedidos.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto);
 
-		resultadoString = controladorPanelPedidos.cambiarCantidadProductos(producto, 4);
-
-		resultadoEsperadoString = "5 - Calabaza";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-
-	}
-
-	@Test
-	public void TestCantidadProducto() {
-
-		String primer = "Hola";
-		String segun = "que tal";
-
-		resultadoString = controladorPanelPedidos.cantidadProducto(primer, segun);
-
-		resultadoEsperadoString = primer + " " + segun;
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-
-	}
-
-	@Test
-	public void TestCantidadTotal() {
-
-		String primer = "2";
-		String segun = "3";
-		String tercer = "Coca-Cola";
-
-		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
-
-		when(listaProductosMock.precioProductoString(tercer)).thenReturn(3.0);
-
-		resultadoString = controladorPanelPedidos.cantidadTotal(primer, segun, tercer);
-
-		resultadoEsperadoString = "9.0";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 
 	}
 
@@ -217,18 +188,15 @@ public class TestControladorPanelPedidos {
 	public void TestAccionadoBotonEliminar() {
 
 		int pos = 0;
-		String eliminar = "1 Anfeta";
-		String total = "19.0";
+		String eliminar = "1 Piedra";
+		
+		modeloMock.util = utilesMock;
+		
+		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
 
-		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		resultadoString = controladorPanelPedidos.accionadoBotonEliminar(pos, eliminar);
 
-		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
-
-		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
-
-		resultadoString = controladorPanelPedidos.accionadoBotonEliminar(pos, eliminar, total);
-
-		resultadoEsperadoString = "3.0";
+		resultadoEsperadoString = "99.0";
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 
@@ -236,53 +204,47 @@ public class TestControladorPanelPedidos {
 	
 	@Test
 	public void testPasarListaProductos() {
-		// Objeto tipo listaproductos
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
-
-		// array de string
+		
 		when(listaProductosMock.getListaProductosString()).thenReturn(listaProductos);
 
-		resultadoEsperadoArrayString = controladorPanelPedidos.pasarListaProductos();
+		resultadoEsperadoArrayString = controladorPanelPedidos.cogerListaProductos();
 
 		assertArrayEquals(resultadoEsperadoArrayString, listaProductos);
 	}
-
+	
 	@Test
 	public void TestDevolverFechaFormateada() {
 
-		resultadoString = controladorPanelPedidos.devolverFechaFormateada("01/03/2021 21:12");
+		String input = "colchon";
+				
+		when(utilesMock.devolverFechaFormateada(input)).thenReturn("pedro");
+	
+		resultadoString = utilesMock.devolverFechaFormateada(input);
 
-		resultadoEsperadoString = "2021-03-01 21:12";
-
+		resultadoEsperadoString = "pedro";
+		
 		assertEquals(resultadoEsperadoString, resultadoString);
-
-	}
-
-	@Test
-	public void TestDevolverFechaFormateadaCatchException() throws Exception {
-
-		resultadoString = controladorPanelPedidos.devolverFechaFormateada(null);
 
 	}
 	
 	@Test
 	public void TestDevolverNombreProducto() {
 		
-		int i = 1;
+		int i = 2;
 		
-		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		modeloMock.util = utilesMock;
 		
-		String[] arrStringProductos = {"PepsiCola", "Zapatilla"};
-		
-		when(listaProductosMock.getListaProductosString()).thenReturn(arrStringProductos);
+		when(utilesMock.devolverNombreProducto(i)).thenReturn("solero");
 		
 		resultadoString = controladorPanelPedidos.devolverNombreProducto(i);
 
-		resultadoEsperadoString = "Zapatilla";
+		resultadoEsperadoString = "solero";
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
+	
 	
 
 	

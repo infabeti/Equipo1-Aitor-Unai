@@ -173,7 +173,7 @@ public class PanelPedidos extends JPanel {
 		scrollPane_1.setBounds(17, 267, 171, 135);
 		add(scrollPane_1);
 
-		productosAlmacenados = new JList(controladorPanelPedidos.pasarListaProductos());
+		productosAlmacenados = new JList(controladorPanelPedidos.cogerListaProductos());
 		scrollPane_1.setViewportView(productosAlmacenados);
 		productosAlmacenados.setBackground(Color.WHITE);
 
@@ -194,15 +194,15 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
-				String productoAnadir = "";
+				String[] productosAnadir = new String[2];
 				String cantidad = TextFieldCantidad.getText();
 				try {
 					producto = (String) productosAlmacenados.getSelectedValue();
-					
-					if(producto != null) {
+
+					if (producto != null) {
 						existeProd = true;
 					}
-					
+
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
@@ -210,21 +210,17 @@ public class PanelPedidos extends JPanel {
 				if (existeProd) {
 					try {
 						if (controladorPanelPedidos.existeProducto(producto) == -1) {
-							productoAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto);
-							listaPAnnadidos
-									.addElement(controladorPanelPedidos.cantidadProducto(cantidad, productoAnadir));
-							textTotal.setText(
-									controladorPanelPedidos.cantidadTotal(cantidad, textTotal.getText(), producto));
+
+							productosAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto, cantidad);
+							listaPAnnadidos.addElement(productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 							lblError.setText("");
 						} else {
-							String yaAnnadido = listaPAnnadidos.get(controladorPanelPedidos.existeProducto(producto));
-							listaPAnnadidos.set(controladorPanelPedidos.existeProducto(producto),
-									controladorPanelPedidos.cambiarCantidadProductos(yaAnnadido,
-											Integer.parseInt(cantidad)));
-							String total = Double
-									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
-											* controladorPanelPedidos.cogerPrecioString(producto)));
-							textTotal.setText(total);
+							int indice = controladorPanelPedidos.existeProducto(producto);
+							String yaAnnadido = listaPAnnadidos.get(indice);
+							productosAnadir = controladorPanelPedidos.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), producto);
+							listaPAnnadidos.set(indice, productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -245,42 +241,20 @@ public class PanelPedidos extends JPanel {
 		};
 	}
 
-	private ActionListener listenerBotonFinalizar(ControladorPanelPedidos ControladorPanelPedidos) {
+	private ActionListener listenerBotonFinalizar(ControladorPanelPedidos controladorPanelPedidos) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
 
 				if (Double.parseDouble(textTotal.getText()) > 0) {
+					String domicilio = textFieldDomicilio.getText();
 					// insertar datos en actividad
 					controladorPanelPedidos.insertarActividad(Integer.parseInt(textFieldNumTrans.getText()),
-							ControladorPanelPedidos.devolverFechaFormateada(textFieldFecha.getText()),
-							Double.parseDouble(textTotal.getText()), textFieldLocal.getText());
-
-					
-					String domicilio = textFieldDomicilio.getText();
-					System.out.println("Domicilio:" + domicilio);
-
-					// insertar datos en pedido
-					controladorPanelPedidos.insertarPedido(Integer.parseInt(textFieldNumTrans.getText()),
-							domicilio);
-
-					// insertar datos de productos
-					for (int i = 0; i < listaPAnnadidos.getSize(); i++) {
-						String textoRecogido = listaPAnnadidos.get(i);
-						String textoSpliteado[] = textoRecogido.split(" ");
-
-						int cantidad = Integer.parseInt(textoSpliteado[0]);
-
-						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-						String producto = ControladorPanelPedidos.devolverNombreProducto(i);
-						double precioFinal = ControladorPanelPedidos.cogerPrecioString(producto);
-
-						ControladorPanelPedidos.insertarProductoActividad(producto, transaccion, cantidad, precioFinal);
-					}
+							textFieldFecha.getText(), Double.parseDouble(textTotal.getText()), textFieldLocal.getText(),
+							domicilio, listaPAnnadidos);
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
-					ControladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
+					controladorPanelPedidos.accionadoBottonVolverPanelPrincipal();
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes introducir articulos");
@@ -297,8 +271,7 @@ public class PanelPedidos extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
-					String total = controladorPanelPedidos.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos),
-							textTotal.getText());
+					String total = controladorPanelPedidos.accionadoBotonEliminar(pos, listaPAnnadidos.get(pos));
 					listaPAnnadidos.remove(pos);
 					textTotal.setText(total);
 					lblError.setText("");

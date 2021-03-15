@@ -11,8 +11,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Controlador.ControladorPanelFacturas;
-import Controlador.ControladorPanelTickets;
-
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
@@ -34,7 +32,9 @@ public class PanelFacturas extends JPanel {
 	private JTextField textFieldFecha;
 	private JTextField textFieldNumTrans;
 	private JTextField textCantidad;
+	@SuppressWarnings("rawtypes")
 	private JList listaProductos;
+	@SuppressWarnings("rawtypes")
 	private JList listaAnnadidos;
 	private DefaultListModel<String> annadidos = new DefaultListModel<String>();
 	private JButton btnAnnadir;
@@ -233,14 +233,14 @@ public class PanelFacturas extends JPanel {
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
-				String productoAnadir = "";
+				String[] productosAnadir = new String[2];
 				String cantidad = textCantidad.getText();
 				try {
 					producto = (String) listaProductos.getSelectedValue();
-					if(producto != null) {
+					if (producto != null) {
 						existeProd = true;
 					}
-					
+
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
@@ -248,19 +248,16 @@ public class PanelFacturas extends JPanel {
 				if (existeProd) {
 					try {
 						if (controladorPanelFacturas.existeProducto(producto) == -1) {
-							productoAnadir = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto);
-							annadidos.addElement(controladorPanelFacturas.cantidadProducto(cantidad, productoAnadir));
-							textTotal.setText(
-									controladorPanelFacturas.cantidadTotal(cantidad, textTotal.getText(), producto));
+							productosAnadir = controladorPanelFacturas.accionadoBotonAnnadirProducto(producto, cantidad);
+							annadidos.addElement(productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 							lblError.setText("");
 						} else {
-							String yaAnnadido = annadidos.get(controladorPanelFacturas.existeProducto(producto));
-							annadidos.set(controladorPanelFacturas.existeProducto(producto), controladorPanelFacturas
-									.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							String total = Double
-									.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)
-											* controladorPanelFacturas.cogerPrecioString(producto)));
-							textTotal.setText(total);
+							int indice = controladorPanelFacturas.existeProducto(producto);
+							String yaAnnadido = annadidos.get(indice);
+							productosAnadir = controladorPanelFacturas.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), producto);
+							annadidos.set(indice, productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -275,69 +272,26 @@ public class PanelFacturas extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
-				// Comprobamos si los campos DNI, Nombre, Apellido y si hay algun articulo metido  
-				if (Double.parseDouble(textTotal.getText()) > 0 && 
-						controladorPanelFacturas.comprobarNif(textNIF.getText()) &&
-						controladorPanelFacturas.comprobarFormatoApellido(textNombre.getText()) &&
-						controladorPanelFacturas.comprobarFormatoApellido(textApellido.getText())
-						) {
+				// Comprobamos si los campos DNI, Nombre, Apellido y si hay algun articulo
+				// metido
+				if (controladorPanelFacturas.comprobarCampos(Double.parseDouble(textTotal.getText()), textNIF.getText(),
+						textNombre.getText(), textApellido.getText())) {
 					
-					
-					// insertar datos en actividad
-					controladorPanelFacturas.insertarActividad(Integer.parseInt(textFieldNumTrans.getText()),
-							controladorPanelFacturas.devolverFechaFormateada(textFieldFecha.getText()),
-							Double.parseDouble(textTotal.getText()), textLocal.getText());
-					
-					// insertar datos en la tabla comprador la cual tiene transaccion, nombre y
-					// apellido
-					controladorPanelFacturas.insertarComprador(textNIF.getText(),
-							textNombre.getText(), textApellido.getText());
-
-					// insertar datos en la tabla factura la cual solo tiene transaccion y nif
 					controladorPanelFacturas.insertarFactura(Integer.parseInt(textFieldNumTrans.getText()),
-							textNIF.getText());
-
-					
-
-					// insertar datos de productos
-					for (int i = 0; i < annadidos.getSize(); i++) {
-						String textoRecogido = annadidos.get(i);
-						String textoSpliteado[] = textoRecogido.split(" ");
-
-						int cantidad = Integer.parseInt(textoSpliteado[0]);
-
-						int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-						String producto = controladorPanelFacturas.devolverNombreProducto(i);
-						double precioFinal = controladorPanelFacturas.cogerPrecioString(producto);
-
-						controladorPanelFacturas.insertarProductoActividad(producto, transaccion, cantidad,
-								precioFinal);
-					}
+							textFieldFecha.getText(), Double.parseDouble(textTotal.getText()), textLocal.getText() , textNombre.getText(), textApellido.getText(),annadidos,textNIF.getText());
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
+					
 					controladorPanelFacturas.accionadoBottonVolverPanelPrincipal();
 
 				} else {
-					if (Double.parseDouble(textTotal.getText()) == 0) {
-						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+					if (!controladorPanelFacturas.comprobarCampos(Double.parseDouble(textTotal.getText()), textNIF.getText(), textNombre.getText(), textApellido.getText())) {
+						JOptionPane.showMessageDialog(null, "Asegurate que todos los campos son correctos");
 					}
-					if (controladorPanelFacturas.comprobarNif(textNIF.getText()) == false ) {
-						JOptionPane.showMessageDialog(null, "El nif introducido es incorrecto");
-					}
-					if (controladorPanelFacturas.comprobarFormatoNombre(textNombre.getText()) == false) {
-						JOptionPane.showMessageDialog(null, "El nombre no puede contener caracteres que no sean letras ni puede ser mayor de 20 caracteres ni menor que 3");
-					}
-					if (controladorPanelFacturas.comprobarFormatoApellido(textApellido.getText()) == false) {
-						JOptionPane.showMessageDialog(null, "El Apellido no puede contener caracteres que no sean letras ni puede ser mayor de 25 caracteres ni menor que 2");
-					}
-
 				}
-
-			}
-
+				}
 		};
-	}
+		}
 
 	private ActionListener listenerBotonEliminar(ControladorPanelFacturas controladorPanelFacturas) {
 		return new ActionListener() {
@@ -345,8 +299,7 @@ public class PanelFacturas extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaAnnadidos.getSelectedIndex();
-					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos),
-							textTotal.getText());
+					String total = controladorPanelFacturas.accionadoBotonEliminar(pos, annadidos.get(pos));
 					annadidos.remove(pos);
 					textTotal.setText(total);
 					lblError.setText("");
