@@ -41,8 +41,7 @@ public class ControladorPanelAprovisionamiento {
 	}
 
 	public String leerNumTransBBDD() {
-
-		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
+		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 
 	public String conseguirLocal() {
@@ -65,7 +64,7 @@ public class ControladorPanelAprovisionamiento {
 	}
 
 	public boolean accionadoBotonAnnadir(int cantidad, int indice) {
-		boolean realizado = modelo.getConexion().insertarAprovisionamiento(cantidad, indice + 1,
+		boolean realizado = modelo.getInserciones().insertarAprovisionamiento(cantidad, indice + 1,
 				this.modelo.getUser().getNifLocal());
 		return realizado;
 	}

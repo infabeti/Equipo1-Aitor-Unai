@@ -1,9 +1,6 @@
 package Controlador;
-
-
 import Modelo.Modelo;
 import Modelo.Usuario;
-
 import Vista.PanelPrincipal;
 import Vista.Vista;
 
@@ -66,7 +63,6 @@ public class ControladorPanelPrincipal {
 	public PanelPrincipal makePanelPrincipal(ControladorPanelPrincipal controladorPanelPrincipal) {
 		Usuario user = this.modelo.getUser();
 		return new PanelPrincipal(controladorPanelPrincipal, user.getTipoLocal(), user.getNombre(), user.getLocal());
-		JOptionPane.showMessageDialog(null, "Desconectado correctamente");
 	}
 
 }

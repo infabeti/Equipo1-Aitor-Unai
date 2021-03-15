@@ -147,7 +147,7 @@ public class PanelAprovisionamiento extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Annadir");
 				System.out.println(listaProductos.getSelectedIndex());
-				if(listaProductos.getSelectedIndex()<0)
+				if(listaProductos.getSelectedIndex()!=-1)
 				{
 					int cantidad = Integer.parseInt(textFieldCantidad.getText());
 					int seleccionado = listaProductos.getSelectedIndex();

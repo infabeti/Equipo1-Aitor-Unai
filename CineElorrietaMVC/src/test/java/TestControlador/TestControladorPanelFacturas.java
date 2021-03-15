@@ -66,10 +66,6 @@ public class TestControladorPanelFacturas {
 		assertEquals(resultadoEsperadoString, resultadoString);
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e2bf1d65c1ed437c010fc6db10b7dad6c13a5c64
 	@Test
 	public void testMostrarPanelFacturas() {
 

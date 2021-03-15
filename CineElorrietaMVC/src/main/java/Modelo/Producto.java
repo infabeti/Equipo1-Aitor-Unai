@@ -66,7 +66,7 @@ public class Producto {
 	
 	@Override
 	public String toString() {
-		return " - " + this.nombre + " x " + this.precioVenta + "ï¿½";
+		return " - " + this.nombre + " x " + this.precioVenta + "€";
 	}
 	
 }

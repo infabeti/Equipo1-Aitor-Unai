@@ -9,6 +9,7 @@ import Controlador.ControladorPanelPedidos;
 import Controlador.ControladorPanelRegistro;
 import Controlador.ControladorPanelTickets;
 import Modelo.Conexion;
+import Modelo.Consultas;
 import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
@@ -37,6 +38,7 @@ public class TestControlador {
 	private ControladorPanelComandas controladorPanelComandasMock = mock(ControladorPanelComandas.class);
 	private Controlador spyControlador;
 	private Usuario userMock = mock(Usuario.class);
+	private Consultas consultasMock = mock(Consultas.class);
 	private Conexion conexionMock = mock(Conexion.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
@@ -107,7 +109,9 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
@@ -140,7 +144,9 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
@@ -175,8 +181,9 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
 
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 		when(modeloMock.getUser()).thenReturn(userMock);
@@ -206,8 +213,9 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
 
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 		// Objeto tipo listaproductos
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
@@ -267,8 +275,9 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
 
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 		when(conexionMock.cogerProductosAprovisionamiento()).thenReturn(listaProductosMock);
 
 		when(modeloMock.getUser()).thenReturn(userMock);
@@ -300,10 +309,12 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
-
 		// Objeto tipo listaproductos
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 
 		when(modeloMock.getUser()).thenReturn(userMock);
 
@@ -334,8 +345,9 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
 
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 		// Objeto tipo listaproductos
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
@@ -372,7 +384,9 @@ public class TestControlador {
 
 		when(modeloMock.getConexion()).thenReturn(conexionMock);
 
-		when(conexionMock.leerNumTransBBDD()).thenReturn(69);
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
 
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 

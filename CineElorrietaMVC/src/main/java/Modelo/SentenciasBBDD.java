@@ -8,7 +8,7 @@ public class SentenciasBBDD {
 		protected final String CONSULATDNI = "Select dni from empleado where dni=?";
 		protected final String CONSULTAACTIVIDAD = "select * from actividad;";
 		protected final String CONSULTAALIMENTO = "select * from alimento ;";
-		protected final String INSERTARACTIVIDAD = "insert into actividad " + "values(?,?,?,?);";
+		protected final String INSERTARACTIVIDAD = "insert into actividad " + "values(?,?,?,?,?);";
 		protected final String INSERTAREMPLEADO = "insert into empleado " + "values(?, ?, ?, ?, ?)";
 
 		protected final String INSERTARPRODUCTOACTIVIDAD = "insert into lineaproducto (codigoalimento,transaccion,cantidad,preciofinal)"
@@ -18,6 +18,9 @@ public class SentenciasBBDD {
 		protected final String INSERTARFACTURA = "insert into factura " + "values(?,?);";
 		protected final String INSERTARCOMPRADOR = "insert into comprador " + "values(?,?,?);";
 		protected final String EXISTECOMPRADOR = "select * from comprador where NIF=?;";
-
-	
+		
+		protected final String CONSEGUIRCANTIDADSTOCK = "select Cantidad from stock where NIF =? and CodigoAlimento = ?";
+		protected final String REPLACESTOCK = "replace into stock " + "values(?, ?, ?)";
+		protected final String INSERTARCOMANDA = "insert into comanda " + "values(?)";
+			
 }

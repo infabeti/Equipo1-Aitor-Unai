@@ -109,7 +109,7 @@ public class ControladorPanelFacturas {
 
 	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre,
 			String apellido, DefaultListModel<String> lista, String nifComprador) {
-		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion,
+		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "FACTURA",
 				nifLocal);
 
 		if (this.modelo.getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {

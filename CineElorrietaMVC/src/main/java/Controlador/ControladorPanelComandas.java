@@ -153,7 +153,7 @@ public class ControladorPanelComandas {
 		// aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
 		// consulta a bbdd comparando el nombre para sacar el codalimento
 		String codigoAlimento = this.modelo.getConexion().obtenerCodigoAlimentoProducto(nombreProducto);
-		this.modelo.getConexion().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
+		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
 
 	}
 	
@@ -188,13 +188,12 @@ public class ControladorPanelComandas {
 	}
 	
 	public String leerNumTransBBDD() {
-
-		return String.valueOf(this.modelo.getConexion().leerNumTransBBDD());
-
+		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 	
 	public void insertarComanda(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.getConexion().insertarActividad(transaccion, fecha, totalOperacion,"COMANDA", nif);
+		this.modelo.getInserciones().insertarActividad(transaccion, fecha, totalOperacion,"COMANDA", nif);
+		this.modelo.getInserciones().insertarComanda(transaccion);
 	}
 	
 	public String devolverNombrePlato(int i) {

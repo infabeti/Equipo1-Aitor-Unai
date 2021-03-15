@@ -1,14 +1,7 @@
 package Controlador;
 
-<<<<<<< HEAD
-import java.text.SimpleDateFormat;
-import Modelo.ListaProductos;
 import Modelo.Modelo;
-import Modelo.Producto;
-=======
 import javax.swing.DefaultListModel;
-import Modelo.Modelo;
->>>>>>> e2bf1d65c1ed437c010fc6db10b7dad6c13a5c64
 import Vista.PanelPedidos;
 import Vista.Vista;
 
