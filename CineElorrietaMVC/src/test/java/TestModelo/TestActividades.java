@@ -4,9 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import java.sql.Date;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import Modelo.*;
 

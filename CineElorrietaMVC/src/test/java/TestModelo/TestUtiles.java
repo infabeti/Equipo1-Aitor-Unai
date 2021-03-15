@@ -18,7 +18,7 @@ public class TestUtiles {
 	
 	private Modelo modeloMock = mock(Modelo.class);
 	private String resultadoEsperadoString, resultadoString;
-	private String[] resultadoEsperadoArrayString, resultadoArrayString;
+	private String[] resultadoArrayString;
 	private boolean resultadoEsperadoBoolean, resultadoBoolean;
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
