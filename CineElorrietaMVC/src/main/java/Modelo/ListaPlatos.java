@@ -10,6 +10,10 @@ public class ListaPlatos {
 		listaP  = new ArrayList<Plato>();
 	}
 	
+	public ArrayList<Plato> getListaP() {
+		return listaP;
+	}
+
 	public boolean addPlato(Plato plat) {
 		try {
 			listaP.add(plat);
