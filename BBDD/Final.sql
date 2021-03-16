@@ -351,6 +351,7 @@ values('23456789J', 12, 150);
 insert into stock
 values('23456789J', 10, 14);
 
+
 /* INSERCIONES PLATOS */
 insert into plato
 values (1,'Espaguetis a la carbonara', 11.99);
@@ -371,22 +372,18 @@ insert into plato
 values (6,'Pimientos rellenos de bacalao', 9.99);
 
 insert into plato
-
-values (7,'Filete de ternera con patatas', 15.99);
+values (7,'Filete de ternera con patatas panaderas', 15.99);
 
 insert into plato
 values (8,'Entrecot con pimientos y patatas', 15.99);
 
 insert into plato
-
-values (9,'Brownie con helado de vainilla', 7.99);
-
+values (9,'Brownie con helado de vainilla y sirope de chocolate', 7.99);
 
 insert into plato
 values (10,'Tarta de queso', 5.99);
 
 insert into plato
-
 values (11,'Tarta tres chocolates', 6.99);
 
 /*Inserciones en la carta*/
@@ -426,8 +423,27 @@ values ('23456789J', 11);
 
 /*TRIGGERS*/
 
-/* actualizar el stock cuando alimento se actualize*/
-/* Aumenta y reduce el stock*/
+ delimiter &&
+create trigger actualizar1_stock
+after insert on lineaproducto 
+for each row
 
-
+begin
+	if(select tipo 
+    from actividad 
+		where Transaccion = New.Transaccion)='APROVISIONAMIENTO'
+then
+	update stock 
+    set cantidad = cantidad + new.Cantidad
+		where NIF = (select NIF 
+    from actividad 
+		where Transaccion = new.Transaccion) and CodigoAlimento = new.CodigoAlimento;
+else 
+	update stock 
+    set cantidad = cantidad - new.Cantidad
+		where NIF = (select NIF 
+    from actividad 
+		where Transaccion = new.Transaccion) and CodigoAlimento = new.CodigoAlimento;
+end if;
+end; &&
 
