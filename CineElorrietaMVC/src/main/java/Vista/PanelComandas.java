@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 
 import Controlador.ControladorPanelComandas;
+import Controlador.ControladorPanelFacturas;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -194,7 +195,7 @@ public class PanelComandas extends JPanel {
 		this.btnAnadirProducto.addActionListener(listenerBotonAnadirProducto(controladorPanelComandas));
 		this.btnAnadirPlato.addActionListener(listenerBotonAnadirPlato(controladorPanelComandas));
 		this.btnFinalizar.addActionListener(listenerBotonFinalizar(controladorPanelComandas));
-		this.btnEliminarProducto.addActionListener(listenerBotonEliminarProducto(controladorPanelComandas));
+		this.btnEliminarProducto.addActionListener(listenerBotonEliminar(controladorPanelComandas));
 		this.btnEliminarPlato.addActionListener(listenerBotonEliminarPlato(controladorPanelComandas));
 	}
 	
@@ -213,7 +214,7 @@ public class PanelComandas extends JPanel {
 				System.out.println("Ejecutando evento Boton Anadir Producto");
 				boolean existeProd = false;
 				String producto = "";
-				String productoAnadir = "";
+				String[] productosAnadir = new String[2];
 				String cantidad = textCantidadProductos.getText();
 				try {
 					producto = (String) listaProductos.getSelectedValue();
@@ -227,14 +228,15 @@ public class PanelComandas extends JPanel {
 				if (existeProd) {
 					try {
 						if (controladorPanelComandas.existeProducto(producto) == -1) {
-							productoAnadir = controladorPanelComandas.accionadoBotonAnnadirProducto(producto);
-							productosAnadidosString.addElement(controladorPanelComandas.cantidadProducto(cantidad, productoAnadir));
-							textTotal.setText(controladorPanelComandas.cantidadTotal(cantidad, textTotal.getText(), producto));
+							productosAnadir = controladorPanelComandas.accionadoBotonAnnadirProducto(producto, cantidad);
+							productosAnadidosString.addElement(productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 						} else {
-							String yaAnnadido = productosAnadidosString.get(controladorPanelComandas.existeProducto(producto));
-							productosAnadidosString.set(controladorPanelComandas.existeProducto(producto), controladorPanelComandas.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							String total = Double.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)* controladorPanelComandas.cogerPrecioString(producto)));
-							textTotal.setText(total);
+							int indice = controladorPanelComandas.existeProducto(producto);
+							String yaAnnadido = productosAnadidosString.get(indice);
+							productosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), producto);
+							productosAnadidosString.set(indice, productosAnadir[0]);
+							textTotal.setText(productosAnadir[1]);
 						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -250,7 +252,7 @@ public class PanelComandas extends JPanel {
 				System.out.println("Ejecutando evento Boton Anadir Plato");
 				boolean existePlato = false;
 				String plato = "";
-				String platoAnadir = "";
+				String[] platosAnadir = new String[2];
 				String cantidad = textCantidadPlatos.getText();
 				try {
 					plato = (String) listaPlatos.getSelectedValue();
@@ -264,14 +266,15 @@ public class PanelComandas extends JPanel {
 				if (existePlato) {
 					try {
 						if (controladorPanelComandas.existePlato(plato) == -1) {
-							platoAnadir = controladorPanelComandas.accionadoBotonAnnadirPlato(plato);
-							platosAnadidosString.addElement(controladorPanelComandas.cantidadProducto(cantidad, platoAnadir));
-							textTotal.setText(controladorPanelComandas.cantidadTotalPlatos(cantidad, textTotal.getText(), plato));
+							platosAnadir = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
+							productosAnadidosString.addElement(platosAnadir[0]);
+							textTotal.setText(platosAnadir[1]);
 						} else {
-							String yaAnnadido = platosAnadidosString.get(controladorPanelComandas.existePlato(plato));
-							platosAnadidosString.set(controladorPanelComandas.existePlato(plato), controladorPanelComandas.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad)));
-							String total = Double.toString(Double.parseDouble(textTotal.getText()) + (Double.parseDouble(cantidad)* controladorPanelComandas.cogerPrecioStringPlato(plato)));
-							textTotal.setText(total);
+							int indice = controladorPanelComandas.existePlato(plato);
+							String yaAnnadido = productosAnadidosString.get(indice);
+							platosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), plato);
+							productosAnadidosString.set(indice, platosAnadir[0]);
+							textTotal.setText(platosAnadir[1]);
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -282,13 +285,13 @@ public class PanelComandas extends JPanel {
 		};
 	}
 	
-	private ActionListener listenerBotonEliminarProducto(ControladorPanelComandas controladorPanelComandas) {
+	private ActionListener listenerBotonEliminar(ControladorPanelComandas controladorPanelComandas) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = productosAnadidos.getSelectedIndex();
-					String total = controladorPanelComandas.accionadoBotonEliminar(pos, productosAnadidosString.get(pos),textTotal.getText());
+					String total = controladorPanelComandas.accionadoBotonEliminar(pos, productosAnadidosString.get(pos));
 					productosAnadidosString.remove(pos);
 					textTotal.setText(total);
 				} catch (Exception e) {
@@ -304,7 +307,7 @@ public class PanelComandas extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = platosAnadidos.getSelectedIndex();
-					String total = controladorPanelComandas.accionadoBotonEliminarPlato(pos, platosAnadidosString.get(pos),textTotal.getText());
+					String total = controladorPanelComandas.accionadoBotonEliminarPlato(pos, platosAnadidosString.get(pos));
 					platosAnadidosString.remove(pos);
 					textTotal.setText(total);
 				} catch (Exception e) {

@@ -33,6 +33,14 @@ public class Utiles {
 		return prod.toString();
 	}
 	
+	public String annadirPlato(String plato) {
+		ListaPlatos listaPlatos = modelo.getListaPlatos();
+		Plato plat = listaPlatos.devolverPlatoPorString(plato);
+		ListaPlatos listaTemporal = modelo.getListaTemporalPlatos();
+		listaTemporal.addPlato(plat);
+		return plat.toString();
+	}
+	
 	public String cambioProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
 		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
@@ -50,6 +58,12 @@ public class Utiles {
 		String[] lista = listaTemporal.getListaProductosString();
 		return lista[i];
 	}
+	
+	public String devolverNombrePlato(int i) {
+		ListaPlatos listaTemporal = this.modelo.getListaTemporalPlatos();
+		String[] lista = listaTemporal.getListaPlatosString();
+		return lista[i];
+	}
 
 	public double eliminarProducto(int pos, String eliminar, double total) {
 		ListaProductos listaProd = modelo.getListaTemporal();
@@ -60,6 +74,18 @@ public class Utiles {
 	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
 	    total = bd.doubleValue();
 		listaProd.eliminarProducto(pos);
+		return total;
+	}
+	
+	public double eliminarPlato(int pos, String eliminar, double total) {
+		ListaPlatos listaPlatos = modelo.getListaTemporalPlatos();
+		int cantidad = modelo.cogerCantidadString(eliminar);
+		double precio = listaPlatos.getPrecioPlato(pos);
+		total = total - (precio * cantidad);
+		BigDecimal bd = BigDecimal.valueOf(total);
+	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
+	    total = bd.doubleValue();
+		listaPlatos.eliminarPlato(pos);
 		return total;
 	}
 	
@@ -145,6 +171,13 @@ public class Utiles {
 		String[] devolver = new String[2];
 		devolver[0] = cambioProductos(nombreProductoAnadido, cantidadAnadir);
 		devolver[1] = String.valueOf(cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto, total));
+		return devolver;
+	}
+	
+	public String[] accionadoBotonAnnadirPlato(String plato, String cantidad, double total) {
+		String[] devolver = new String[2];
+		devolver[0] = cantidad + " " + annadirPlato(plato);
+		devolver[1] = String.valueOf(cantidadTotal(cantidad, plato, total));
 		return devolver;
 	}
 }
