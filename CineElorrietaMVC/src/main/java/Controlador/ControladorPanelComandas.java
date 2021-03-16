@@ -1,13 +1,9 @@
 package Controlador;
 
 import Modelo.ListaProductos;
-import Modelo.Plato;
-
 import java.text.SimpleDateFormat;
-
 import Modelo.ListaPlatos;
 import Modelo.Modelo;
-import Modelo.Producto;
 import Vista.Vista;
 import Vista.PanelComandas;
 

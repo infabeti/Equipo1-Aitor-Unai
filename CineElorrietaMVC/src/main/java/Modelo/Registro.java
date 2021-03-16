@@ -8,6 +8,10 @@ public class Registro {
 		this.modelo = modelo;
 	}
 
+	public Modelo getModelo() {
+		return modelo;
+	}
+
 	public boolean comprobarBBDDnif(String nif) {
 		return this.modelo.getConsultasComprobaciones().comprobarSiExisteNIF(nif);
 	}
