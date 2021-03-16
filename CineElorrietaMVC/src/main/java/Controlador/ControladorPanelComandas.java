@@ -156,8 +156,8 @@ public class ControladorPanelComandas {
 	}
 	
 	public void insertarComanda(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.getInserciones().insertarActividad(transaccion, fecha, totalOperacion,"COMANDA", nif);
-		this.modelo.getInserciones().insertarComanda(transaccion);
+		this.modelo.insercionesActividades.insertarActividad(transaccion, fecha, totalOperacion,"COMANDA", nif);
+		this.modelo.insercionesActividades.insertarComanda(transaccion);
 	}
 	
 	public String devolverNombrePlato(int i) {

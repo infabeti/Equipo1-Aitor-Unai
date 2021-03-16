@@ -109,7 +109,7 @@ public class ControladorPanelFacturas {
 
 	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre,
 			String apellido, DefaultListModel<String> lista, String nifComprador) {
-		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "FACTURA",
+		this.modelo.insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "FACTURA",
 				nifLocal);
 
 		if (this.modelo.getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
@@ -118,7 +118,7 @@ public class ControladorPanelFacturas {
 			this.modelo.getInserciones().insertarComprador(nifComprador, nombre, apellido);
 		}
 
-		this.modelo.getInserciones().insertarFactura(transaccion, nifComprador);
+		this.modelo.insercionesActividades.insertarFactura(transaccion, nifComprador);
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));

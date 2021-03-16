@@ -43,7 +43,7 @@ public class ControladorPanelTickets {
 	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif,
 			DefaultListModel<String> lista) {
 
-		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "TICKET", nif);
+		this.modelo.insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "TICKET", nif);
 
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");

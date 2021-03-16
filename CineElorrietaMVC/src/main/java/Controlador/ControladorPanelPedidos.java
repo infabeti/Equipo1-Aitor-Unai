@@ -97,8 +97,8 @@ public class ControladorPanelPedidos {
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String nif, String domicilio, DefaultListModel<String> lista) {
-		this.modelo.getInserciones().insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "PEDIDO", nif);
-		this.modelo.getInserciones().insertarPedido(transaccion, domicilio);
+		this.modelo.insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "PEDIDO", nif);
+		this.modelo.insercionesActividades.insertarPedido(transaccion, domicilio);
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]));

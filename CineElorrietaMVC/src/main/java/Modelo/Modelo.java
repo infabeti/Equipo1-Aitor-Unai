@@ -15,6 +15,7 @@ public class Modelo {
 	private Consultas consultas;
 	private Consultas2 consultas2;
 	private Registro registro;
+	public InsercionesActividades insercionesActividades;
 
 	public Registro getRegistro() {
 		return registro;
@@ -49,6 +50,7 @@ public class Modelo {
 		consultas = new Consultas(this);
 		consultas2 = new Consultas2(this);
 		registro = new Registro(this);
+		insercionesActividades = new InsercionesActividades(this);
 	}
 
 	public Consultas2 getConsultas2() {
