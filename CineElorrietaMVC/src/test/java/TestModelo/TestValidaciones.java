@@ -23,17 +23,6 @@ public class TestValidaciones {
 
 	}
 	
-
-	@Test
-	public void TestDevolverFechaFormateadaCatchException() throws Exception {
-
-		resultadoString = validaciones.devolverFechaFormateada(null);
-
-	}
-	
-
-	
-
 	@Test
 	public void TestComprobarNifTRUE() {
 
