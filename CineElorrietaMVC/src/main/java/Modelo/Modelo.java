@@ -16,6 +16,7 @@ public class Modelo {
 	private Consultas2 consultas2;
 	private Registro registro;
 	public InsercionesActividades insercionesActividades;
+	public Validaciones validaciones;
 
 	public Registro getRegistro() {
 		return registro;
@@ -51,6 +52,7 @@ public class Modelo {
 		consultas2 = new Consultas2(this);
 		registro = new Registro(this);
 		insercionesActividades = new InsercionesActividades(this);
+		validaciones = new Validaciones();
 	}
 
 	public Consultas2 getConsultas2() {

@@ -7,8 +7,10 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
+import Modelo.Plato;
 import Modelo.Producto;
 
 import Modelo.Utiles;
@@ -19,16 +21,17 @@ public class TestUtiles {
 	private Modelo modeloMock = mock(Modelo.class);
 	private String resultadoEsperadoString, resultadoString;
 	private String[] resultadoArrayString;
-	private boolean resultadoEsperadoBoolean, resultadoBoolean;
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
+	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
+	private Plato platoMock = mock(Plato.class);
 	private Producto productoMock = mock(Producto.class);
 
 	
 	private Utiles utiles = new Utiles(modeloMock);
 	
 	@Test
-	public void TestAccionadoBotonAnnadirProducto() {
+	public void TestAnnadirProducto() {
 
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
@@ -45,6 +48,28 @@ public class TestUtiles {
 		resultadoString = utiles.annadirProducto("saludos");
 
 		resultadoEsperadoString = "hola";
+
+		assertEquals(resultadoEsperadoString, resultadoString);
+	}
+	
+	@Test
+	public void TestAnnadirPlato() {
+
+		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
+
+		String input = "Macarroni";
+		
+		when(listaPlatosMock.devolverPlatoPorString(input)).thenReturn(platoMock);
+
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+
+		when(listaPlatosMock.addPlato(platoMock)).thenReturn(true);
+
+		when(platoMock.toString()).thenReturn("mentos");
+
+		resultadoString = utiles.annadirPlato(input);
+
+		resultadoEsperadoString = "mentos";
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 	}
@@ -84,7 +109,7 @@ public class TestUtiles {
 	}
 
 	@Test
-	public void TestAccionadoBotonEliminar() {
+	public void TestEliminarProducto() {
 
 		int pos = 0;
 		String eliminar = "1 Pepito";
@@ -103,26 +128,27 @@ public class TestUtiles {
 		assertEquals(resultadoEsperadoDouble, resultadoDouble, 0.01);
 
 	}
-
+	
 	@Test
-	public void TestDevolverFechaFormateada() {
+	public void TestEliminarPlato() {
 
-		resultadoString = utiles.devolverFechaFormateada("01/03/2021 21:12");
+		int pos = 0;
+		String eliminar = "1 Pepito";
+		double total = 19.0;
 
-		resultadoEsperadoString = "2021-03-01 21:12";
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
 
-		assertEquals(resultadoEsperadoString, resultadoString);
+		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
+
+		when(listaPlatosMock.getPrecioPlato(pos)).thenReturn(16.0);
+
+		resultadoDouble = utiles.eliminarPlato(pos, eliminar, total);
+
+		resultadoEsperadoDouble = 3.0;
+
+		assertEquals(resultadoEsperadoDouble, resultadoDouble, 0.01);
 
 	}
-	
-
-	@Test
-	public void TestDevolverFechaFormateadaCatchException() throws Exception {
-
-		resultadoString = utiles.devolverFechaFormateada(null);
-
-	}
-	
 
 	@Test
 	public void TestDevolverNombreProducto() {
@@ -142,242 +168,6 @@ public class TestUtiles {
 		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
-
-	@Test
-	public void TestComprobarNifTRUE() {
-
-		String nif = "12345678M";
-
-		resultadoBoolean = utiles.comprobarNif(nif);
-
-		resultadoEsperadoBoolean = true;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarNifFALSE() {
-
-		String nif = "ESTO NO ES UN NIF POR LO QUE ME DEVOLVERA FALSO";
-
-		resultadoBoolean = utiles.comprobarNif(nif);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoNombreTODOTRUE() {
-
-		String nombre = "Pepito";
-
-		resultadoBoolean = utiles.comprobarFormatoNombre(nombre);
-
-		resultadoEsperadoBoolean = true;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoNombreTODOFALSE() {
-
-		String nombre = "1a";
-
-		resultadoBoolean = utiles.comprobarFormatoNombre(nombre);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoNombreTRUEFALSE() {
-
-		String nombre = "asdasdasdasdasdasdasdasdasdasdasdasdad";
-
-		resultadoBoolean = utiles.comprobarFormatoNombre(nombre);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoNombreSEGUNDOIFFALSO() {
-
-		String nombre = "ab";
-
-		resultadoBoolean = utiles.comprobarFormatoNombre(nombre);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoApellidoTODOTRUE() {
-
-		String apellido = "Pepito";
-		
-		resultadoBoolean = utiles.comprobarFormatoApellido(apellido);
-
-		resultadoEsperadoBoolean = true;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoApellidoTODOFALSE() {
-
-		String apellido = "P1";
-
-		resultadoBoolean = utiles.comprobarFormatoApellido(apellido);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoApellidoTRUEFALSE() {
-
-		String apellido = "ALFJKSDYHWBFMDKWENJJJFIJRHDUFIWELFNUIFGIOENFGOGNM";
-
-		resultadoBoolean = utiles.comprobarFormatoApellido(apellido);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestComprobarFormatoApellidoSEGUNDOIFFALSO() {
-
-		String apellido = "A";
-
-		resultadoBoolean = utiles.comprobarFormatoApellido(apellido);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestContieneSoloLetrasTRUE() {
-
-		String input = "hola";
-
-		resultadoBoolean = utiles.contieneSoloLetras(input);
-
-		resultadoEsperadoBoolean = true;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-
-	@Test
-	public void TestContieneSoloLetrasFALSE() {
-
-		String input = "123";
-
-		resultadoBoolean = utiles.contieneSoloLetras(input);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-	
-	@Test
-	public void TestComprobarCamposStringTODOTRUE() {
-
-		String NIF = "78945632C";
-		String nombre = "Joni";
-		String apellido = "Mela";
-		
-
-		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
-
-		resultadoEsperadoBoolean = true;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-	
-	@Test
-	public void TestComprobarCamposStringTODOFALSE() {
-
-		String NIF = "A1D3";
-		String nombre = "12 ";
-		String apellido = "2 ";
-		
-
-		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-	
-	@Test
-	public void TestComprobarCamposStringFALSETRUETRUE() {
-
-		String NIF = "A1D3";
-		String nombre = "Abraham";
-		String apellido = "Burguesa";
-		
-
-		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-	
-	@Test
-	public void TestComprobarCamposStringTRUEFALSETRUE() {
-
-		String NIF = "78965478S";
-		String nombre = "1";
-		String apellido = "Burguesa";
-		
-
-		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
-	
-	@Test
-	public void TestComprobarCamposStringTRUETRUEFALSE() {
-
-		String NIF = "78965478S";
-		String nombre = "Arrengamie";
-		String apellido = "1";
-		
-
-		resultadoBoolean = utiles.comprobarCamposString(NIF, nombre, apellido);
-
-		resultadoEsperadoBoolean = false;
-
-		assertEquals(resultadoEsperadoBoolean, resultadoBoolean);
-
-	}
 	
 	@Test
 	public void TestAccionadoBotonAnadirProducto() {
@@ -392,6 +182,27 @@ public class TestUtiles {
 		when(listaProductosMock.precioProductoString(producto)).thenReturn(3.0);
 		
 		resultadoArrayString = utiles.accionadoBotonAnnadirProducto(producto, cantidad, total);
+		
+		String [] resultadoEsperadoArrayString = new String[2];
+		resultadoEsperadoArrayString[0] = "3 string";
+		resultadoEsperadoArrayString[1] = "9.0";
+		
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+	}
+	
+	@Test
+	public void TestAccionadoBotonAnadirPlato() {
+		String plato = "prod";
+		String cantidad = "3";
+		double total = 0.0;
+		
+		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
+		when(listaPlatosMock.devolverPlatoPorString(plato)).thenReturn(platoMock);
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+		when(platoMock.toString()).thenReturn("string");
+		when(listaPlatosMock.precioProductoString(plato)).thenReturn(3.0);
+		
+		resultadoArrayString = utiles.accionadoBotonAnnadirPlato(plato, cantidad, total);
 		
 		String [] resultadoEsperadoArrayString = new String[2];
 		resultadoEsperadoArrayString[0] = "3 string";

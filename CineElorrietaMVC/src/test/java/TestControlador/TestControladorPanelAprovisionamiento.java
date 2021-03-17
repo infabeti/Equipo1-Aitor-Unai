@@ -31,7 +31,7 @@ public class TestControladorPanelAprovisionamiento {
 	private ControladorPanelAprovisionamiento controladorPanelAprovisionamiento = new ControladorPanelAprovisionamiento(modeloMock, vistaMock,
 			controladorMock);
 
-	// Test mostrarPanelFacturas
+	// Test mostrarPanel
 	private PanelAprovisionamiento panelAprovisionamientoMock = mock(PanelAprovisionamiento.class);
 	private ControladorPanelAprovisionamiento spyControladorPanelAprovisionamiento= spy(
 			new ControladorPanelAprovisionamiento(modeloMock, vistaMock, controladorMock));

@@ -6,6 +6,7 @@ import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
 import Modelo.Utiles;
+import Modelo.Validaciones;
 import Vista.PanelFacturas;
 import Vista.Vista;
 import static org.mockito.Mockito.*;
@@ -27,6 +28,7 @@ public class TestControladorPanelFacturas {
 	private String[] resultadoEsperadoArrayString, resultadoArrayString;
 	private String[] listaProductos;
 	private Utiles utilesMock = mock(Utiles.class);
+	private Validaciones validacionesMock = mock(Validaciones.class);
 
 	private ControladorPanelFacturas controladorPanelFacturas = new ControladorPanelFacturas(modeloMock, vistaMock,
 			controladorMock);
@@ -204,9 +206,9 @@ public class TestControladorPanelFacturas {
 
 		String input = "colchon";
 		
-		when(utilesMock.devolverFechaFormateada(input)).thenReturn("pedro");
+		when(validacionesMock.devolverFechaFormateada(input)).thenReturn("pedro");
 	
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 
 		resultadoEsperadoString = "pedro";
 		
@@ -239,9 +241,9 @@ public class TestControladorPanelFacturas {
 		
 		String input = "123";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.contieneSoloLetras(input)).thenReturn(false);
+		when(validacionesMock.contieneSoloLetras(input)).thenReturn(false);
 		
 		resultadoBoolean = controladorPanelFacturas.contieneSoloLetras(input); 
 

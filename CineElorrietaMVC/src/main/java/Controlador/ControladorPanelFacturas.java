@@ -85,7 +85,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String devolverFechaFormateada(String input) {
-		return this.modelo.util.devolverFechaFormateada(input);
+		return this.modelo.validaciones.devolverFechaFormateada(input);
 	}
 
 	public String devolverNombreProducto(int i) {
@@ -93,7 +93,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public boolean contieneSoloLetras(String cadena) {
-		return this.modelo.util.contieneSoloLetras(cadena);
+		return this.modelo.validaciones.contieneSoloLetras(cadena);
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
@@ -104,7 +104,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
-		return total > 0 && this.modelo.util.comprobarCamposString(nif, nombre, apellido);
+		return total > 0 && this.modelo.validaciones.comprobarCamposString(nif, nombre, apellido);
 	}
 
 	public void insertarFactura(int transaccion, String fecha, double totalOperacion, String nifLocal, String nombre,
