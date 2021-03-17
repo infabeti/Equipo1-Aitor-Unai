@@ -17,15 +17,11 @@ public class Consultas2 {
 	}
 
 	public String obtenerCodigoPlato(String plato) {
-
 		try {
 			PreparedStatement st = null;
-
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.CONSULTAPLATO);
-
 			ResultSet rs = st.executeQuery();
-
 			try {
 				while (rs.next()) {
 					if (rs.getString("nombre").equalsIgnoreCase(plato)) {
@@ -35,7 +31,6 @@ public class Consultas2 {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
@@ -46,12 +41,9 @@ public class Consultas2 {
 		ListaProductos listaProd = new ListaProductos();
 		try {
 			PreparedStatement st = null;
-
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.ALIMENTOORDENADO);
-
 			ResultSet rs = st.executeQuery();
-
 			while (rs.next()) {
 				String nombre = rs.getString("a.nombre");
 				double pCompra = rs.getDouble("a.PCompra");
@@ -67,14 +59,10 @@ public class Consultas2 {
 	}
 
 	public String obtenerCodigoAlimentoProducto(String producto) {
-
 		try {
 			PreparedStatement st = null;
-
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULTAALIMENTO);
-
 			ResultSet rs = st.executeQuery();
-
 			try {
 				while (rs.next()) {
 					if (rs.getString("nombre").equalsIgnoreCase(producto)) {
@@ -84,7 +72,6 @@ public class Consultas2 {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
@@ -95,14 +82,10 @@ public class Consultas2 {
 		ListaPlatos listaPlatos = new ListaPlatos();
 		try {
 			PreparedStatement st = null;
-
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(
 					sentenciasBBDD.PLATOJOINCARTA);
-
 			st.setString(1, NIFLocal);
-
 			ResultSet rs = st.executeQuery();
-
 			while (rs.next()) {
 				String nombre = rs.getString("p.Nombre");
 				double pvp = rs.getDouble("p.pvp");
@@ -114,4 +97,5 @@ public class Consultas2 {
 		}
 		return listaPlatos;
 	}
+	
 }

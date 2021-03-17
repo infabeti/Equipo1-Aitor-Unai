@@ -67,11 +67,12 @@ public class ControladorPanelAprovisionamiento {
 		return listaP.getListaProductosString();
 	}
 
-	public boolean accionadoBotonAnnadir(int cantidad, int indice) {
+	public boolean accionadoBotonAnnadir(int cantidad, int indice, String nombre) {
 		boolean realizado = modelo.getInserciones().insertarAprovisionamientoProductos(cantidad, indice + 1,
 				this.modelo.getUser().getNifLocal());
 		modelo.insercionesActividades.insertarActividad(modelo.getConsultas().leerNumTransBBDD(), devolverFechaFormateada(modelo.getFechaHoraSys()), 0, "aprovisionamiento", modelo.getUser().getNifLocal());
 		modelo.insercionesActividades.insertarAprovisionamiento(modelo.getConsultas().leerNumTransBBDD()-1);
+		modelo.getInserciones().insertarProductoActividad(modelo.getConsultas().leerNumTransBBDD()-1, modelo.getConsultas2().obtenerCodigoAlimentoProducto(nombre), cantidad, 0);
 		return realizado;
 	}
 }
