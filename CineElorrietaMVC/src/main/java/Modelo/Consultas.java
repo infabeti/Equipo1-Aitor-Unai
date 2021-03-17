@@ -10,12 +10,14 @@ public class Consultas {
 	private Modelo modelo;
 	private java.sql.Connection conexionConn;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
+	static final String Transaccion="select max(Transaccion) from actividad";
+
 	
 	public Consultas(Modelo modelo) {
 		this.modelo = modelo;
 		conexionConn =  this.modelo.conexionConn;
 	}
-
+	
 	public Usuario login(String dni, String password) {
 		try {
 			PreparedStatement st = null;

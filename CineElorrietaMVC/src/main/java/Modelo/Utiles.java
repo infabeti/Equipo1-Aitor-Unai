@@ -2,9 +2,7 @@ package Modelo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Utiles {
 	
@@ -18,6 +16,17 @@ public class Utiles {
 		ListaProductos listaProd = this.modelo.getListaProductos();
 		int cantidadInt = Integer.parseInt(cantidad);
 		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
+		total = total + precioTotalProducto;
+		BigDecimal bd = BigDecimal.valueOf(total);
+	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
+	    total = bd.doubleValue();
+		return total;
+	}
+	
+	public double cantidadTotalPlatos(String cantidad, String producto, double total) {
+		ListaPlatos listaPlatos = this.modelo.getListaPlatos();
+		int cantidadInt = Integer.parseInt(cantidad);
+		double precioTotalProducto = cantidadInt * listaPlatos.precioProductoString(producto);
 		total = total + precioTotalProducto;
 		BigDecimal bd = BigDecimal.valueOf(total);
 	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
@@ -108,7 +117,7 @@ public class Utiles {
 	public String[] accionadoBotonAnnadirPlato(String plato, String cantidad, double total) {
 		String[] devolver = new String[2];
 		devolver[0] = cantidad + " " + annadirPlato(plato);
-		devolver[1] = String.valueOf(cantidadTotal(cantidad, plato, total));
+		devolver[1] = String.valueOf(cantidadTotalPlatos(cantidad, plato, total));
 		return devolver;
 	}
 }
