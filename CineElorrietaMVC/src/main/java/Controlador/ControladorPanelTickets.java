@@ -102,7 +102,7 @@ public class ControladorPanelTickets {
 	}
 
 	public String devolverFechaFormateada(String input) {
-		return this.modelo.util.devolverFechaFormateada(input);
+		return this.modelo.validaciones.devolverFechaFormateada(input);
 	}
 
 	public String devolverNombreProducto(int i) {

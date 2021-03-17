@@ -19,6 +19,7 @@ import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
 import Modelo.Utiles;
+import Modelo.Validaciones;
 import Vista.PanelPedidos;
 import Vista.Vista;
 
@@ -38,6 +39,7 @@ public class TestControladorPanelPedidos {
 	private String[] resultadoEsperadoArrayString, resultadoArrayString;
 	private String[] listaProductos;
 	private Utiles utilesMock = mock(Utiles.class);
+	private Validaciones validacionesMock = mock(Validaciones.class);
 
 	private ControladorPanelPedidos controladorPanelPedidos = new ControladorPanelPedidos(modeloMock, vistaMock,
 			controladorMock);
@@ -218,9 +220,9 @@ public class TestControladorPanelPedidos {
 
 		String input = "colchon";
 				
-		when(utilesMock.devolverFechaFormateada(input)).thenReturn("pedro");
+		when(validacionesMock.devolverFechaFormateada(input)).thenReturn("pedro");
 	
-		resultadoString = utilesMock.devolverFechaFormateada(input);
+		resultadoString = validacionesMock.devolverFechaFormateada(input);
 
 		resultadoEsperadoString = "pedro";
 		
