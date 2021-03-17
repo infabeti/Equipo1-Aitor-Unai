@@ -85,4 +85,21 @@ public class InsercionesActividades {
 			return false;
 		}
 	}
+	public boolean insertarAprovisionamiento(int transaccion) {
+		try {
+			PreparedStatement st = null;
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.INSERTARAPROVISIONAMIENTO);
+			try {
+				st.setInt(1, transaccion);	
+				st.executeUpdate();
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+			return false;
+		}
+	}
 }

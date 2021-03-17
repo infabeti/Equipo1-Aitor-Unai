@@ -74,7 +74,7 @@ public class Inserciones {
 		}
 	}
 	
-	public boolean insertarAprovisionamiento(int cantidad, int codAlimento, String nifLocal) {
+	public boolean insertarAprovisionamientoProductos(int cantidad, int codAlimento, String nifLocal) {
 		int cantidadActual = 0;
 		try {
 			PreparedStatement st = null;

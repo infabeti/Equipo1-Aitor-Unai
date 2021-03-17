@@ -57,6 +57,10 @@ public class ControladorPanelAprovisionamiento {
 			ControladorPanelAprovisionamiento controladorPanelAprovisionamiento) {
 		return new PanelAprovisionamiento(controladorPanelAprovisionamiento);
 	}
+	
+	public String devolverFechaFormateada(String input) {
+		return this.modelo.validaciones.devolverFechaFormateada(input);
+	}
 
 	public String[] pasarListaProductos() {
 		listaP = modelo.getConsultas2().cogerProductosAprovisionamiento();
@@ -64,8 +68,10 @@ public class ControladorPanelAprovisionamiento {
 	}
 
 	public boolean accionadoBotonAnnadir(int cantidad, int indice) {
-		boolean realizado = modelo.getInserciones().insertarAprovisionamiento(cantidad, indice + 1,
+		boolean realizado = modelo.getInserciones().insertarAprovisionamientoProductos(cantidad, indice + 1,
 				this.modelo.getUser().getNifLocal());
+		modelo.insercionesActividades.insertarActividad(modelo.getConsultas().leerNumTransBBDD(), devolverFechaFormateada(modelo.getFechaHoraSys()), 0, "aprovisionamiento", modelo.getUser().getNifLocal());
+		modelo.insercionesActividades.insertarAprovisionamiento(modelo.getConsultas().leerNumTransBBDD()-1);
 		return realizado;
 	}
 }
