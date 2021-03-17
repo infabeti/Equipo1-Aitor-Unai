@@ -138,6 +138,7 @@ public class PanelComandas extends JPanel {
 			add(textTotal);
 			textTotal.setColumns(10);
 			textTotal.setText("0");
+			textTotal.setEditable(false);
 
 			textLocal = new JTextField();
 			textLocal.setBounds(205, 128, 125, 25);

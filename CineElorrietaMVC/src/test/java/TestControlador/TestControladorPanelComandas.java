@@ -16,6 +16,7 @@ import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
 import Modelo.Utiles;
+import Modelo.ListaPlatos;
 import Vista.PanelComandas;
 import Vista.Vista;
 
@@ -29,6 +30,7 @@ public class TestControladorPanelComandas {
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
 	private Utiles utilesMock = mock(Utiles.class);
+	private ListaPlatos listaPatosMock = mock(ListaPlatos.class);
 	private String[] resultadoArrayString, resultadoEsperadoArrayString;
 	
 	private ControladorPanelComandas controladorPanelComandas = new ControladorPanelComandas(modeloMock, vistaMock,
@@ -104,4 +106,108 @@ public class TestControladorPanelComandas {
 		assertEquals(2, resultado);
 	}
 	
+	@Test
+	public void TestCambiarCantidadProductos() {
+
+		modeloMock.util = utilesMock;
+		
+		String nombreProductoAnadido = "Patata";
+		int cantidadAnadir = 2;
+		Double total = 0.0;
+		String nombreProducto = "3 x Patata";
+		
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
+		
+		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total)).thenReturn(resultadoEsperadoArrayString);
+		
+		resultadoArrayString = controladorPanelComandas.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto);
+
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+
+	}
+	
+	@Test
+	public void TestCogerPrecioString() {
+		String nombreProducto = "Patata";
+		
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		
+		when(listaProductosMock.precioProductoString(nombreProducto)).thenReturn(2.0);
+		
+		double resultado = controladorPanelComandas.cogerPrecioString(nombreProducto);
+		
+		assertEquals(2.0, resultado, 0);
+	}
+	
+	@Test
+	public void TestAccionadoBotonEliminar() {
+		int pos = 1;
+		String eliminar = "elim";
+		double total = 0.0;
+		
+		modeloMock.util = utilesMock;
+		
+		when(utilesMock.eliminarProducto(pos, eliminar,total)).thenReturn(2.0);
+		
+		String resultado = controladorPanelComandas.accionadoBotonEliminar(pos, eliminar);
+		
+		assertEquals("2.0", resultado);
+	}
+	
+	@Test
+	public void testExistePlato() {
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+		
+		when(listaPlatosMock.devolverPosPlatoString("patata")).thenReturn(2);
+		
+		int resultado = controladorPanelComandas.existePlato("patata");
+		
+		assertEquals(2, resultado);
+	}
+	
+	@Test
+	public void testAccionadoBotonAnadirPlato() {
+		
+		modeloMock.util = utilesMock;
+		
+		String plato = "Patata";
+		String cantidad = "2";
+		Double total = 0.0;
+		
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
+		
+		when(utilesMock.accionadoBotonAnnadirPlato(plato, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		
+		resultadoArrayString = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
+
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+	}
+	
+	@Test
+	public void TestCogerPrecioPlato() {
+		String nombrePlato = "Patata";
+		
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+			
+		when(listaPlatosMock.precioProductoString(nombrePlato)).thenReturn(2.0);
+			
+		double resultado = controladorPanelComandas.cogerPrecioStringPlato(nombrePlato);
+			
+		assertEquals(2.0, resultado, 0);
+	}
+	
+	@Test
+	public void TestAccionadoBotonEliminarPlato() {
+		int pos = 1;
+		String eliminar = "elim";
+		double total = 0.0;
+		
+		modeloMock.util = utilesMock;
+		
+		when(utilesMock.eliminarPlato(pos, eliminar,total)).thenReturn(0.0);
+		
+		String resultado = controladorPanelComandas.accionadoBotonEliminarPlato(pos, eliminar);
+		
+		assertEquals("0.0", resultado);
+	}
 }
