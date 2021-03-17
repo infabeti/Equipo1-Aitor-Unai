@@ -7,6 +7,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import Controlador.Controlador;
 import Controlador.ControladorPanelComandas;
 import Modelo.Conexion;
@@ -14,6 +15,7 @@ import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
+import Modelo.Utiles;
 import Vista.PanelComandas;
 import Vista.Vista;
 
@@ -26,6 +28,8 @@ public class TestControladorPanelComandas {
 	private Usuario userMock = mock(Usuario.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
+	private Utiles utilesMock = mock(Utiles.class);
+	private String[] resultadoArrayString, resultadoEsperadoArrayString;
 	
 	private ControladorPanelComandas controladorPanelComandas = new ControladorPanelComandas(modeloMock, vistaMock,
 			controladorMock);
@@ -69,6 +73,35 @@ public class TestControladorPanelComandas {
 		spyControladorPanelComandas.mostrarPanelComandas();
 		verify(vistaMock).mostrarPanel(panelComandasMock);
 
+	}
+	
+	@Test
+	public void testAccionadoBotonAnadirProducto() {
+		
+		modeloMock.util = utilesMock;
+		
+		String producto = "Patata";
+		String cantidad = "2";
+		Double total = 0.0;
+		
+		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
+		
+		when(utilesMock.accionadoBotonAnnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		
+		resultadoArrayString = controladorPanelComandas.accionadoBotonAnnadirProducto(producto, cantidad);
+
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+	}
+	
+	@Test
+	public void testExisteProducto() {
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		
+		when(listaProductosMock.devolverPosProductoString("patata")).thenReturn(2);
+		
+		int resultado = controladorPanelComandas.existeProducto("patata");
+		
+		assertEquals(2, resultado);
 	}
 	
 }
