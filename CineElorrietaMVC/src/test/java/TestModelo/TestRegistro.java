@@ -10,11 +10,13 @@ import Modelo.ConsultasComprobaciones;
 import Modelo.Modelo;
 import Modelo.Registro;
 import Modelo.Utiles;
+import Modelo.Validaciones;
 
 public class TestRegistro {
 
 	private Modelo modeloMock = mock(Modelo.class);
 	private Utiles utilesMock = mock(Utiles.class);
+	private Validaciones validacionesMock = mock(Validaciones.class);
 	private Registro registro = new Registro(modeloMock);
 	private ConsultasComprobaciones consultasComprobacionesMock = mock(ConsultasComprobaciones.class);
 	
@@ -52,9 +54,9 @@ public class TestRegistro {
 	public void testcomprobarNif() {
 		String dni = "18932321S";
 				
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 
 		
 		assertEquals(false , registro.comprobarNif(dni));
@@ -65,9 +67,9 @@ public class TestRegistro {
 	public void testContieneSoloLetras() {
 		String input = "abc";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.contieneSoloLetras(input)).thenReturn(false);
+		when(validacionesMock.contieneSoloLetras(input)).thenReturn(false);
 
 		
 		assertEquals(false , registro.contieneSoloLetras(input));
@@ -83,9 +85,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "llegoal80";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 
@@ -113,9 +115,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "llegoal80";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 
@@ -141,9 +143,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "llegoal80";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 
@@ -169,9 +171,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "llegoal80";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 
@@ -197,9 +199,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "llegoal80";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 
@@ -225,9 +227,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "llegoal80";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 
@@ -253,9 +255,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "asadasdasdasdasdasdasdsa";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 
@@ -281,9 +283,9 @@ public class TestRegistro {
 		String dni = "45658965f"; 
 		String password = "a";
 		
-		modeloMock.util = utilesMock;
+		modeloMock.validaciones = validacionesMock;
 		
-		when(utilesMock.comprobarNif(dni)).thenReturn(false);
+		when(validacionesMock.comprobarNif(dni)).thenReturn(false);
 		
 		when(modeloMock.getConsultasComprobaciones()).thenReturn(consultasComprobacionesMock);
 

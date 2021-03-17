@@ -21,7 +21,7 @@ public class Registro {
 	}
 
 	public boolean comprobarNif(String nif) {
-		return this.modelo.util.comprobarNif(nif);
+		return this.modelo.validaciones.comprobarNif(nif);
 	}
 
 	public String comprobarCamposRegistro(String nombre, String apellido, String nif, String dni, String password) {
@@ -64,7 +64,7 @@ public class Registro {
 	}
 
 	public boolean comprobarFormatoNombre(String nombre) {
-		return this.modelo.util.comprobarFormatoNombre(nombre);
+		return this.modelo.validaciones.comprobarFormatoNombre(nombre);
 	}
 
 	public boolean comprobarContraNoVacia(String pass) {		
@@ -72,11 +72,11 @@ public class Registro {
 	}
 
 	public boolean comprobarFormatoApellido(String apellido) {
-		return this.modelo.util.comprobarFormatoApellido(apellido);
+		return this.modelo.validaciones.comprobarFormatoApellido(apellido);
 	}
 
 	public boolean contieneSoloLetras(String cadena) {
-		return this.modelo.util.contieneSoloLetras(cadena);
+		return this.modelo.validaciones.contieneSoloLetras(cadena);
 	}
 	
 }
