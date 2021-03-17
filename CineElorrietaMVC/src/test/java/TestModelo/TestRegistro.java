@@ -9,13 +9,11 @@ import org.junit.Test;
 import Modelo.ConsultasComprobaciones;
 import Modelo.Modelo;
 import Modelo.Registro;
-import Modelo.Utiles;
 import Modelo.Validaciones;
 
 public class TestRegistro {
 
 	private Modelo modeloMock = mock(Modelo.class);
-	private Utiles utilesMock = mock(Utiles.class);
 	private Validaciones validacionesMock = mock(Validaciones.class);
 	private Registro registro = new Registro(modeloMock);
 	private ConsultasComprobaciones consultasComprobacionesMock = mock(ConsultasComprobaciones.class);

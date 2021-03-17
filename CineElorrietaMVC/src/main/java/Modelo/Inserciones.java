@@ -18,13 +18,65 @@ public class Inserciones {
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
 		try {
 			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.INSERTARPRODUCTOACTIVIDAD);
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.INSERTARPRODUCTOACTIVIDAD);
 			st.setString(1, codigoAlimento);
 			st.setInt(2, transaccion);
 			st.setInt(3, cantidad);
 			st.setDouble(4, precioFinal);
 			try {
 				st.executeUpdate();
+				actualizarStockMenorQueCinco(codigoAlimento);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+	}
+
+	public void actualizarStockMenorQueCinco(String codigoAlimento) {
+
+		String nif = this.modelo.getUser().getNifLocal();
+
+		try {
+			PreparedStatement st = null;
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.CODIGOALIMENTO);
+			st.setString(1, codigoAlimento);
+			st.setString(2, nif);
+
+			try {
+				ResultSet rs = st.executeQuery();
+				rs.next();
+				int cantidad = rs.getInt("cantidad");
+				if (cantidad < 5) {
+
+					updateStock(nif, codigoAlimento, cantidad);
+					
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+	}
+	
+	public void updateStock(String nif, String codigoAlimento, int cantidad) {
+
+		try {
+			PreparedStatement st = null;
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.ACTUALIZARSTOCK);
+			st.setInt(1, (cantidad+50));
+			st.setString(2, nif);
+			st.setString(3, codigoAlimento);
+
+			try {
+				st.executeUpdate();			
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -55,7 +107,8 @@ public class Inserciones {
 	public boolean insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
 		try {
 			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.INSERTAREMPLEADO);
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.INSERTAREMPLEADO);
 			try {
 				st.setString(1, dni);
 				st.setString(2, Nombre);
@@ -73,12 +126,13 @@ public class Inserciones {
 			return false;
 		}
 	}
-	
+
 	public boolean insertarAprovisionamientoProductos(int cantidad, int codAlimento, String nifLocal) {
 		int cantidadActual = 0;
 		try {
 			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSEGUIRCANTIDADSTOCK);
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.CONSEGUIRCANTIDADSTOCK);
 			st.setString(1, nifLocal);
 			st.setInt(2, codAlimento);
 			ResultSet rs = st.executeQuery();
@@ -107,11 +161,13 @@ public class Inserciones {
 			return false;
 		}
 	}
-	
+
 	public void insertarPlatoActividad(int transaccion, String codigoPlato, int cantidad) {
 		try {
 			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement("insert into lineaplato (codigoplato,transaccion,cantidad)" + " values("+ codigoPlato + "," + transaccion + "," + cantidad + ");");
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement("insert into lineaplato (codigoplato,transaccion,cantidad)" + " values("
+							+ codigoPlato + "," + transaccion + "," + cantidad + ");");
 			try {
 				st.executeUpdate();
 			} catch (Exception e) {

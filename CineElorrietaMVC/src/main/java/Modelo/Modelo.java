@@ -17,11 +17,6 @@ public class Modelo {
 	private Registro registro;
 	public InsercionesActividades insercionesActividades;
 	public Validaciones validaciones;
-	public Trigger_Stock trigger;
-
-	public Trigger_Stock getTrigger() {
-		return trigger;
-	}
 
 	public Registro getRegistro() {
 		return registro;
@@ -58,7 +53,6 @@ public class Modelo {
 		registro = new Registro(this);
 		insercionesActividades = new InsercionesActividades(this);
 		validaciones = new Validaciones();
-		trigger = new Trigger_Stock(this);
 	}
 
 	public Consultas2 getConsultas2() {
