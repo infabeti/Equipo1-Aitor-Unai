@@ -22,16 +22,13 @@ public class SentenciasBBDD {
 		protected final String CONSULTAPLATO = "select * from plato ;";
 		protected final String ALIMENTOORDENADO = "Select a.Nombre, a.PCompra, a.Tipo, a.FeCad from alimento a order by a.CodigoAlimento asc";
 		protected final String PLATOJOINCARTA = "Select p.Nombre, p.pvp from plato p join carta c on p.codigoplato = c.codigoplato where c.nif=?";
-		
-		
-		static final String NIF = "SELECT NIF FROM empleado where dni = ";
-		static final String Transaccion="SELECT max(Transaccion) from actividad";
-		static final String CodigoAlimento = "SELECT cantidad from stock where CodigoAlimento =";
-		static final String ComprobarStock = "select CodigoAlimento ,Transaccion from lineaproducto where CodigoAlimento = ";
-		static final String actividad = "INSERT INTO actividad VALUES";
-		static final String Stock = "INSERT INTO lineaproducto VALUES";
-		static final String actualizarStock = "update lineaproducto set N_Unidades =";
-		static final String actualizacion50 = "update stock set cantidad = cantidad + 50 where CodigoAlimento = ";
+			
+		protected final String CONSEGUIRNIFEMPLEADO = "SELECT NIF FROM empleado where dni =?";
+		protected final String Transaccion="SELECT max(Transaccion) from actividad";
+		protected final String CODIGOALIMENTO = "SELECT cantidad from stock where CodigoAlimento =? and nif=?";
+		protected final String ComprobarStock = "select CodigoAlimento ,Transaccion from lineaproducto where CodigoAlimento =?";
+		protected final String actualizarStock = "update stock set cantidad=? where nif=? and codigoalimento=?";
+
 }
 
 	
