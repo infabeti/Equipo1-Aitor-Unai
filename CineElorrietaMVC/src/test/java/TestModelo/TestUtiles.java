@@ -7,8 +7,10 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
+import Modelo.Plato;
 import Modelo.Producto;
 
 import Modelo.Utiles;
@@ -22,13 +24,15 @@ public class TestUtiles {
 	private boolean resultadoEsperadoBoolean, resultadoBoolean;
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
+	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
+	private Plato platoMock = mock(Plato.class);
 	private Producto productoMock = mock(Producto.class);
 
 	
 	private Utiles utiles = new Utiles(modeloMock);
 	
 	@Test
-	public void TestAccionadoBotonAnnadirProducto() {
+	public void TestAnnadirProducto() {
 
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
@@ -45,6 +49,28 @@ public class TestUtiles {
 		resultadoString = utiles.annadirProducto("saludos");
 
 		resultadoEsperadoString = "hola";
+
+		assertEquals(resultadoEsperadoString, resultadoString);
+	}
+	
+	@Test
+	public void TestAnnadirPlato() {
+
+		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
+
+		String input = "Macarroni";
+		
+		when(listaPlatosMock.devolverPlatoPorString(input)).thenReturn(platoMock);
+
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+
+		when(listaPlatosMock.addPlato(platoMock)).thenReturn(true);
+
+		when(platoMock.toString()).thenReturn("mentos");
+
+		resultadoString = utiles.annadirPlato(input);
+
+		resultadoEsperadoString = "mentos";
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 	}
@@ -84,7 +110,7 @@ public class TestUtiles {
 	}
 
 	@Test
-	public void TestAccionadoBotonEliminar() {
+	public void TestEliminarProducto() {
 
 		int pos = 0;
 		String eliminar = "1 Pepito";
@@ -97,6 +123,27 @@ public class TestUtiles {
 		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
 
 		resultadoDouble = utiles.eliminarProducto(pos, eliminar, total);
+
+		resultadoEsperadoDouble = 3.0;
+
+		assertEquals(resultadoEsperadoDouble, resultadoDouble, 0.01);
+
+	}
+	
+	@Test
+	public void TestEliminarPlato() {
+
+		int pos = 0;
+		String eliminar = "1 Pepito";
+		double total = 19.0;
+
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+
+		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
+
+		when(listaPlatosMock.getPrecioPlato(pos)).thenReturn(16.0);
+
+		resultadoDouble = utiles.eliminarPlato(pos, eliminar, total);
 
 		resultadoEsperadoDouble = 3.0;
 
@@ -136,6 +183,25 @@ public class TestUtiles {
 		when(listaProductosMock.getListaProductosString()).thenReturn(arrStringProductos);
 
 		resultadoString = utiles.devolverNombreProducto(i);
+
+		resultadoEsperadoString = "Zapatilla";
+
+		assertEquals(resultadoEsperadoString, resultadoString);
+
+	}
+	
+	@Test
+	public void TestDevolverNombrePlato() {
+
+		int i = 1;
+
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+
+		String[] arrLp = { "PepsiCola", "Zapatilla" };
+
+		when(listaPlatosMock.getListaPlatosString()).thenReturn(arrLp);
+
+		resultadoString = utiles.devolverNombrePlato(i);
 
 		resultadoEsperadoString = "Zapatilla";
 
@@ -392,6 +458,27 @@ public class TestUtiles {
 		when(listaProductosMock.precioProductoString(producto)).thenReturn(3.0);
 		
 		resultadoArrayString = utiles.accionadoBotonAnnadirProducto(producto, cantidad, total);
+		
+		String [] resultadoEsperadoArrayString = new String[2];
+		resultadoEsperadoArrayString[0] = "3 string";
+		resultadoEsperadoArrayString[1] = "9.0";
+		
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
+	}
+	
+	@Test
+	public void TestAccionadoBotonAnadirPlato() {
+		String plato = "prod";
+		String cantidad = "3";
+		double total = 0.0;
+		
+		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
+		when(listaPlatosMock.devolverPlatoPorString(plato)).thenReturn(platoMock);
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+		when(platoMock.toString()).thenReturn("string");
+		when(listaPlatosMock.precioProductoString(plato)).thenReturn(3.0);
+		
+		resultadoArrayString = utiles.accionadoBotonAnnadirPlato(plato, cantidad, total);
 		
 		String [] resultadoEsperadoArrayString = new String[2];
 		resultadoEsperadoArrayString[0] = "3 string";

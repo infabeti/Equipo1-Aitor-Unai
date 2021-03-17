@@ -25,6 +25,17 @@ public class Utiles {
 		return total;
 	}
 	
+	public double cantidadTotalPlatos(String cantidad, String producto, double total) {
+		ListaPlatos listaPlatos = this.modelo.getListaPlatos();
+		int cantidadInt = Integer.parseInt(cantidad);
+		double precioTotalProducto = cantidadInt * listaPlatos.precioProductoString(producto);
+		total = total + precioTotalProducto;
+		BigDecimal bd = BigDecimal.valueOf(total);
+	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
+	    total = bd.doubleValue();
+		return total;
+	}
+	
 	public String annadirProducto(String producto) {
 		ListaProductos listaProd = modelo.getListaProductos();
 		Producto prod = listaProd.devolverProductoPorString(producto);
@@ -177,7 +188,7 @@ public class Utiles {
 	public String[] accionadoBotonAnnadirPlato(String plato, String cantidad, double total) {
 		String[] devolver = new String[2];
 		devolver[0] = cantidad + " " + annadirPlato(plato);
-		devolver[1] = String.valueOf(cantidadTotal(cantidad, plato, total));
+		devolver[1] = String.valueOf(cantidadTotalPlatos(cantidad, plato, total));
 		return devolver;
 	}
 }
