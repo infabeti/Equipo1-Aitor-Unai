@@ -185,7 +185,10 @@ values ('85296365L', 'Maria', 'Zambrano','maria123', '34567899K') ;
 /* Inserciones Alimentos y productos */
 
 insert into alimento 
-values(1, 'Huevo', 'Comida', '2021/02/20', '0.10', true,true,false,true,true);
+values(1, 'Aquarius', 'Bebida', null, '0.35', true,true,true,true,true);
+
+insert into producto
+values(2, 2.00);
 
 insert into alimento 
 values(2, 'Coca-cola', 'Bebida', null, '0.35', true,true,true,true,true);
@@ -262,6 +265,9 @@ values(13, 2);
 /* Stock de establecimiento */
 
 insert into stock
+values('12345678H', 1, 20);
+
+insert into stock
 values('12345678H', 2, 20);
 
 insert into stock
@@ -292,6 +298,9 @@ insert into stock
 values('12345678H', 10, 14);
 
 insert into stock
+values('34567899K', 1, 20);
+
+insert into stock
 values('34567899K', 2, 20);
 
 insert into stock
@@ -320,6 +329,9 @@ values('34567899K', 12, 150);
 
 insert into stock
 values('34567899K', 10, 14);
+
+insert into stock
+values('23456789J', 1, 20);
 
 insert into stock
 values('23456789J', 2, 20);
