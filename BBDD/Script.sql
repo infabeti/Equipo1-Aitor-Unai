@@ -188,7 +188,7 @@ insert into alimento
 values(1, 'Aquarius', 'Bebida', null, '0.35', true,true,true,true,true);
 
 insert into producto
-values(2, 2.00);
+values(1, 2.00);
 
 insert into alimento 
 values(2, 'Coca-cola', 'Bebida', null, '0.35', true,true,true,true,true);
