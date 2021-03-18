@@ -127,41 +127,6 @@ public class Inserciones {
 		}
 	}
 
-	public boolean insertarAprovisionamientoProductos(int cantidad, int codAlimento, String nifLocal) {
-		int cantidadActual = 0;
-		try {
-			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.CONSEGUIRCANTIDADSTOCK);
-			st.setString(1, nifLocal);
-			st.setInt(2, codAlimento);
-			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				cantidadActual = rs.getInt("cantidad");
-			}
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
-		try {
-			PreparedStatement st = null;
-			cantidad = cantidad + cantidadActual;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.REPLACESTOCK);
-			try {
-				st.setString(1, nifLocal);
-				st.setInt(2, codAlimento);
-				st.setInt(3, cantidad);
-				st.executeUpdate();
-				return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-			return false;
-		}
-	}
-
 	public void insertarPlatoActividad(int transaccion, String codigoPlato, int cantidad) {
 		try {
 			PreparedStatement st = null;
