@@ -16,7 +16,7 @@ public class SentenciasBBDD {
 		protected final String INSERTARFACTURA = "insert into factura " + "values(?,?);";
 		protected final String INSERTARCOMPRADOR = "insert into comprador " + "values(?,?,?);";
 		protected final String EXISTECOMPRADOR = "select * from comprador where NIF=?;";
-		protected final String CONSEGUIRCANTIDADSTOCK = "select Cantidad from stock where NIF =? and CodigoAlimento = ?";
+		protected final String CONSEGUIRCANTIDADSTOCK = "select Cantidad from stock where CodigoAlimento = (select CodigoAlimento from alimento where nombre=?) and nif =?;";
 		protected final String REPLACESTOCK = "replace into stock " + "values(?, ?, ?)";
 		protected final String INSERTARCOMANDA = "insert into comanda " + "values(?)";
 		protected final String CONSULTAPLATO = "select * from plato ;";

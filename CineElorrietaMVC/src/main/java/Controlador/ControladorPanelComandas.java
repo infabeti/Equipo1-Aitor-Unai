@@ -45,6 +45,10 @@ public class ControladorPanelComandas {
 		return modelo.getListaProductos().getListaProductosString();
 	}
 	
+	public int conseguirStockProductos(String nif, String producto) {
+		return this.modelo.getConsultas().obtenerStock(nif, producto);
+	}
+	
 	public String[] cogerListaPlatos() {
 		return modelo.getListaPlatos().getListaPlatosString();
 	}

@@ -35,6 +35,10 @@ public class ControladorPanelPedidos {
 		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 
+	public int conseguirStock(String nif, String producto) {
+		return this.modelo.getConsultas().obtenerStock(nif, producto);
+	}
+	
 	public String conseguirLocal() {
 		return this.modelo.getUser().getNifLocal();
 	}

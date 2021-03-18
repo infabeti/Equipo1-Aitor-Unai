@@ -39,6 +39,11 @@ public class ControladorPanelTickets {
 	public String leerNumTransBBDD() {
 		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
+	
+	public int conseguirStock(String nif, String producto) {
+		return this.modelo.getConsultas().obtenerStock(nif, producto);
+	}
+	
 
 	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif,
 			DefaultListModel<String> lista) {

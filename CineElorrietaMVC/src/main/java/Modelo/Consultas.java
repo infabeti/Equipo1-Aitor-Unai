@@ -65,6 +65,25 @@ public class Consultas {
 		}
 		return 1;
 	}
+	
+	public int obtenerStock(String nif, String codigoAlimento) {
+		int cantidadActual = 0;
+		try {
+			PreparedStatement st = null;
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.CONSEGUIRCANTIDADSTOCK);
+			
+			st.setString(1, codigoAlimento);
+			st.setString(2, nif);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				cantidadActual = rs.getInt("cantidad");
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return cantidadActual;
+	}
 
 	public String obtenerCodigoAlimentoProducto(String producto) {
 		try {

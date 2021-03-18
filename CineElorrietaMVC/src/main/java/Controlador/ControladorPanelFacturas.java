@@ -34,6 +34,10 @@ public class ControladorPanelFacturas {
 	public String devolverFechaHora() {
 		return this.modelo.getFechaHoraSys();
 	}
+	
+	public int conseguirStock(String nif, String producto) {
+		return this.modelo.getConsultas().obtenerStock(nif, producto);
+	}
 
 	public String conseguirLocal() {
 		return this.modelo.getUser().getNifLocal();

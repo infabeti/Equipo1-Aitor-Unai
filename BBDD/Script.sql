@@ -384,13 +384,13 @@ insert into plato
 values (6,'Pimientos rellenos de bacalao', 9.99);
 
 insert into plato
-values (7,'Filete de ternera con patatas panaderas', 15.99);
+values (7,'Filete de ternera con patatas', 15.99);
 
 insert into plato
 values (8,'Entrecot con pimientos y patatas', 15.99);
 
 insert into plato
-values (9,'Brownie con helado de vainilla y sirope de chocolate', 7.99);
+values (9,'Brownie con helado ', 7.99);
 
 insert into plato
 values (10,'Tarta de queso', 5.99);
