@@ -17,6 +17,10 @@ public class Modelo {
 	private Registro registro;
 	public InsercionesActividades insercionesActividades;
 	public Validaciones validaciones;
+	private Conexion conexion = new Conexion();
+	private ListaProductos listaTemporal = new ListaProductos();
+	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
+	public java.sql.Connection conexionConn = conexion.getConn();
 
 	public Registro getRegistro() {
 		return registro;
@@ -35,13 +39,6 @@ public class Modelo {
 	public Inserciones getInserciones() {
 		return inserciones;
 	}
-
-	private Conexion conexion = new Conexion();
-	private ListaProductos listaTemporal = new ListaProductos();
-	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
-
-	// obtenemos la conexion en el formato que necesitamos para hacer consultas
-	java.sql.Connection conexionConn = conexion.getConn();
 
 	public Modelo() {
 		user = new Usuario("", "", "", "");
@@ -93,17 +90,6 @@ public class Modelo {
 	
 	public void setListaPlatos(ListaPlatos listaPlatos) {
 		this.listaPlatos = listaPlatos;
-	}
-
-	public void productosAlmacenados() {
-
-		Date date = new Date(0);
-
-		Producto p1 = new Producto("Bocata", date, "comida", 1.00, 1.50);
-		Producto p2 = new Producto("Coca-Cola", date, "bebida", 0.35, 1.50);
-
-		listaProductos.addProducto(p1);
-		listaProductos.addProducto(p2);
 	}
 
 	public String getFechaHoraSys() {

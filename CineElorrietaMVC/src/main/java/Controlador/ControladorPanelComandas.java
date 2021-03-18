@@ -1,12 +1,9 @@
 package Controlador;
-
 import Modelo.ListaProductos;
-import java.text.SimpleDateFormat;
 import Modelo.ListaPlatos;
 import Modelo.Modelo;
 import Vista.Vista;
 import Vista.PanelComandas;
-
 public class ControladorPanelComandas {
 	
 	private Modelo modelo;
@@ -101,42 +98,23 @@ public class ControladorPanelComandas {
 	
 	
 	public String devolverNombreProducto(int i) {
-		
 		ListaProductos listaTemporal = this.modelo.getListaTemporal();
-		
 		String[] lista = listaTemporal.getListaProductosString();		
-		
 		return lista[i];
 	}
 	
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
-		// aqui necesitamos cambiar el nombreproducto por el CodigoAlimento
-		// consulta a bbdd comparando el nombre para sacar el codalimento
 		String codigoAlimento = this.modelo.getConsultas().obtenerCodigoAlimentoProducto(nombreProducto);
 		this.modelo.getInserciones().insertarProductoActividad(transaccion, codigoAlimento, cantidad, preciofinal);
-
 	}
 	
 	public void insertarPlatoActividad(String nombrePlato, int transaccion, int cantidad) {
 		String codigoPlato = this.modelo.getConsultas2().obtenerCodigoPlato(nombrePlato);
 		this.modelo.getInserciones().insertarPlatoActividad(transaccion, codigoPlato, cantidad);
-
 	}
 	
 	public String devolverFechaFormateada(String input) {
-
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		String dateInString = input;
-
-		try {
-
-			java.util.Date date1 = formatter.parse(dateInString);
-			return (new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date1));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "Error";
+		return this.modelo.validaciones.devolverFechaFormateada(input);
 	}
 	
 	public String conseguirLocal() {
@@ -157,11 +135,8 @@ public class ControladorPanelComandas {
 	}
 	
 	public String devolverNombrePlato(int i) {
-		
 		ListaPlatos listaTemporal = this.modelo.getListaTemporalPlatos();
-		
 		String[] lista = listaTemporal.getListaPlatosString();		
-		
 		return lista[i];
 	}
 }

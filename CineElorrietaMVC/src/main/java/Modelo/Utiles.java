@@ -3,7 +3,6 @@ package Modelo;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-
 public class Utiles {
 	
 	private Modelo modelo;
@@ -97,8 +96,6 @@ public class Utiles {
 		listaPlatos.eliminarPlato(pos);
 		return total;
 	}
-	
-	
 	
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad, double total) {
 		String[] devolver = new String[2];

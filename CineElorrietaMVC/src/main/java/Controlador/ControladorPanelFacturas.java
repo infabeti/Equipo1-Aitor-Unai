@@ -20,15 +20,15 @@ public class ControladorPanelFacturas {
 	}
 
 	public Modelo getModelo() {
-		return modelo;
+		return this.modelo;
 	}
 
 	public Vista getVista() {
-		return vista;
+		return this.vista;
 	}
 
 	public Controlador getControlador() {
-		return controlador;
+		return this.controlador;
 	}
 
 	public String devolverFechaHora() {

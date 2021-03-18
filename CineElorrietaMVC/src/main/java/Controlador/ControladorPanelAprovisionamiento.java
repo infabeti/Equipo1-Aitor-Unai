@@ -20,15 +20,15 @@ public class ControladorPanelAprovisionamiento {
 	}
 
 	public Modelo getModelo() {
-		return modelo;
+		return this.modelo;
 	}
 
 	public Vista getVista() {
-		return vista;
+		return this.vista;
 	}
 
 	public Controlador getControlador() {
-		return controlador;
+		return this.controlador;
 	}
 
 	public void mostrarPanelAprovisionamiento() {
@@ -46,11 +46,11 @@ public class ControladorPanelAprovisionamiento {
 
 	public String conseguirLocal() {
 
-		return modelo.getUser().getNifLocal();
+		return this.modelo.getUser().getNifLocal();
 	}
 
 	public String devolverFechaHora() {
-		return modelo.getFechaHoraSys();
+		return this.modelo.getFechaHoraSys();
 	}
 
 	public PanelAprovisionamiento makePanelAprovisionamiento(
@@ -63,13 +63,13 @@ public class ControladorPanelAprovisionamiento {
 	}
 
 	public String[] pasarListaProductos() {
-		listaP = modelo.getConsultas2().cogerProductosAprovisionamiento();
+		listaP = this.modelo.getConsultas2().cogerProductosAprovisionamiento();
 		return listaP.getListaProductosString();
 	}
 
 	public void accionadoBotonAnnadir(int cantidad, int indice, String nombre) {
-		modelo.insercionesActividades.insertarActividad(modelo.getConsultas().leerNumTransBBDD(), devolverFechaFormateada(modelo.getFechaHoraSys()), 0, "aprovisionamiento", modelo.getUser().getNifLocal());
-		modelo.insercionesActividades.insertarAprovisionamiento(modelo.getConsultas().leerNumTransBBDD()-1);
-		modelo.getInserciones().insertarProductoActividad(modelo.getConsultas().leerNumTransBBDD()-1, modelo.getConsultas2().obtenerCodigoAlimentoProducto(nombre), cantidad, 0);
+		this.modelo.insercionesActividades.insertarActividad(modelo.getConsultas().leerNumTransBBDD(), devolverFechaFormateada(modelo.getFechaHoraSys()), 0, "aprovisionamiento", modelo.getUser().getNifLocal());
+		this.modelo.insercionesActividades.insertarAprovisionamiento(modelo.getConsultas().leerNumTransBBDD()-1);
+		this.modelo.getInserciones().insertarProductoActividad(modelo.getConsultas().leerNumTransBBDD()-1, modelo.getConsultas2().obtenerCodigoAlimentoProducto(nombre), cantidad, 0);
 	}
 }
