@@ -28,7 +28,7 @@ public class Plato {
 	
 	@Override
 	public String toString() {
-		return nombre + " " + precio + "â‚¬";
+		return " - " + this.nombre + " " + this.precio + "€";
 	}
 	
 }

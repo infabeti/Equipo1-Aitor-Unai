@@ -296,14 +296,14 @@ public class PanelComandas extends JPanel {
 					try {
 						if (controladorPanelComandas.existePlato(plato) == -1) {
 							platosAnadir = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
-							productosAnadidosString.addElement(platosAnadir[0]);
+							platosAnadidosString.addElement(platosAnadir[0]);
 							textTotal.setText(platosAnadir[1]);
 						} else {
 							int indice = controladorPanelComandas.existePlato(plato);
-							String yaAnnadido = productosAnadidosString.get(indice);
+							String yaAnnadido = platosAnadidosString.get(indice);
 							platosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido,
 									Integer.parseInt(cantidad), plato);
-							productosAnadidosString.set(indice, platosAnadir[0]);
+							platosAnadidosString.set(indice, platosAnadir[0]);
 							textTotal.setText(platosAnadir[1]);
 						}
 					} catch (Exception e) {

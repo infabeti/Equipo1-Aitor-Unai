@@ -32,7 +32,7 @@ public class TestPlato {
 	@Test
 	public void testToString() {
 		String resultadoString = pl.toString();
-		String resultadoEsperadoString = "Espaguetis carbonara 9.99â‚¬";
+		String resultadoEsperadoString = "Espaguetis carbonara 9.99€";
 		
 		assertEquals(resultadoEsperadoString, resultadoString);
 	}
