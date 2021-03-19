@@ -109,7 +109,7 @@ public class ControladorPanelComandas {
 	}
 	
 	public void insertarPlatoActividad(String nombrePlato, int transaccion, int cantidad) {
-		String codigoPlato = this.modelo.getConsultas2().obtenerCodigoPlato(nombrePlato);
+		String codigoPlato = this.modelo.getConsultas().obtenerCodigoPlato(nombrePlato);
 		this.modelo.getInserciones().insertarPlatoActividad(transaccion, codigoPlato, cantidad);
 	}
 	

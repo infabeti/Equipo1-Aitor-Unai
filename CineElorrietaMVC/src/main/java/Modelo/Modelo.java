@@ -13,7 +13,7 @@ public class Modelo {
 	public Utiles util;
 	private Inserciones inserciones;
 	private Consultas consultas;
-	private Consultas2 consultas2;
+	private ConsultasListas consultasListas;
 	private Registro registro;
 	public InsercionesActividades insercionesActividades;
 	public Validaciones validaciones;
@@ -46,14 +46,14 @@ public class Modelo {
 		inserciones = new Inserciones(this);
 		consultasComprobaciones = new ConsultasComprobaciones(this);
 		consultas = new Consultas(this);
-		consultas2 = new Consultas2(this);
+		consultasListas = new ConsultasListas(this);
 		registro = new Registro(this);
 		insercionesActividades = new InsercionesActividades(this);
 		validaciones = new Validaciones();
 	}
 
-	public Consultas2 getConsultas2() {
-		return consultas2;
+	public ConsultasListas getConsultasListas() {
+		return consultasListas;
 	}
 
 	public void setConexion(Conexion conexion) {
@@ -109,7 +109,7 @@ public class Modelo {
 	}
 
 	public void actualizarListaProductosLocal() {
-		this.listaProductos = consultas.cogerProductosLocal(user.getNifLocal());
+		this.listaProductos = consultasListas.cogerProductosLocal(user.getNifLocal());
 	}
 
 	public Usuario getUser() {

@@ -10,7 +10,7 @@ import Controlador.ControladorPanelRegistro;
 import Controlador.ControladorPanelTickets;
 import Modelo.Conexion;
 import Modelo.Consultas;
-import Modelo.Consultas2;
+import Modelo.ConsultasListas;
 import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
@@ -40,7 +40,7 @@ public class TestControlador {
 	private Controlador spyControlador;
 	private Usuario userMock = mock(Usuario.class);
 	private Consultas consultasMock = mock(Consultas.class);
-	private Consultas2 consultas2Mock = mock(Consultas2.class);
+	private ConsultasListas consultasListasMock = mock(ConsultasListas.class);
 	private Conexion conexionMock = mock(Conexion.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
@@ -279,10 +279,10 @@ public class TestControlador {
 
 		when(modeloMock.getConsultas()).thenReturn(consultasMock);
 		
-		when(modeloMock.getConsultas2()).thenReturn(consultas2Mock);
+		when(modeloMock.getConsultasListas()).thenReturn(consultasListasMock);
 
 		when(consultasMock.leerNumTransBBDD()).thenReturn(66);
-		when(consultas2Mock.cogerProductosAprovisionamiento()).thenReturn(listaProductosMock);
+		when(consultasListasMock.cogerProductosAprovisionamiento()).thenReturn(listaProductosMock);
 
 		when(modeloMock.getUser()).thenReturn(userMock);
 

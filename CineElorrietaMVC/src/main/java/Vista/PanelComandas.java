@@ -292,13 +292,12 @@ public class PanelComandas extends JPanel {
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 				}
-				if (existePlato) {
 					try {
-						if (controladorPanelComandas.existePlato(plato) == -1) {
+						if (controladorPanelComandas.existePlato(plato) == -1 && existePlato) {
 							platosAnadir = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
 							platosAnadidosString.addElement(platosAnadir[0]);
 							textTotal.setText(platosAnadir[1]);
-						} else {
+						} else if(controladorPanelComandas.existePlato(plato) != -1 && existePlato) {
 							int indice = controladorPanelComandas.existePlato(plato);
 							String yaAnnadido = platosAnadidosString.get(indice);
 							platosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido,
@@ -311,7 +310,6 @@ public class PanelComandas extends JPanel {
 						System.out.println("El campo cantidad no contiene un entero");
 					}
 				}
-			}
 		};
 	}
 

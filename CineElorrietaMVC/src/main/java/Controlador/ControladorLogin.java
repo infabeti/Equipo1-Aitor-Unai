@@ -55,7 +55,7 @@ public class ControladorLogin {
 		} else {
 			this.modelo.actualizarListaProductosLocal();
 			if (this.modelo.getUser().getTipoLocal().equals("RESTAURANTE")) {
-				this.modelo.setListaPlatos(this.modelo.getConsultas2().cogerListaPlatos(this.modelo.getUser().getNifLocal()));
+				this.modelo.setListaPlatos(this.modelo.getConsultasListas().cogerListaPlatos(this.modelo.getUser().getNifLocal()));
 			}
 			return true;
 		}
