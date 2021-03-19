@@ -3,19 +3,15 @@ package Vista;
 import javax.swing.JPanel;
 
 import Controlador.ControladorPanelComandas;
-import Controlador.ControladorPanelFacturas;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.awt.SystemColor;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
 import javax.swing.JScrollPane;
@@ -85,7 +81,7 @@ public class PanelComandas extends JPanel {
 		scrollPane_2.setViewportView(productosAnadidos);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(67, 384, 263, 108);
+		scrollPane_3.setBounds(67, 337, 263, 108);
 		add(scrollPane_3);
 
 		platosAnadidos = new JList(platosAnadidosString);
@@ -108,7 +104,7 @@ public class PanelComandas extends JPanel {
 		add(btnEliminarProducto);
 
 		btnEliminarPlato = new JButton("Eliminar Plato");
-		btnEliminarPlato.setBounds(109, 337, 168, 25);
+		btnEliminarPlato.setBounds(109, 456, 168, 25);
 		add(btnEliminarPlato);
 
 		NumberFormat format = NumberFormat.getInstance();
@@ -259,7 +255,7 @@ public class PanelComandas extends JPanel {
 													+ " unidades");
 								} else {
 									productosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido,
-											Integer.parseInt(cantidad), producto);
+											Integer.parseInt(cantidad), producto, "producto");
 									productosAnadidosString.set(indice, productosAnadir[0]);
 									textTotal.setText(productosAnadir[1]);
 								}
@@ -301,7 +297,7 @@ public class PanelComandas extends JPanel {
 							int indice = controladorPanelComandas.existePlato(plato);
 							String yaAnnadido = platosAnadidosString.get(indice);
 							platosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido,
-									Integer.parseInt(cantidad), plato);
+									Integer.parseInt(cantidad), plato, "plato");
 							platosAnadidosString.set(indice, platosAnadir[0]);
 							textTotal.setText(platosAnadir[1]);
 						}

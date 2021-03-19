@@ -60,8 +60,8 @@ public class ControladorPanelComandas {
 		return this.modelo.getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
 	
-	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
-		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto, String tipo) {
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, tipo);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
@@ -92,7 +92,7 @@ public class ControladorPanelComandas {
 	}
 	
 	public String accionadoBotonEliminarPlato(int pos, String eliminar) {
-		total = this.modelo.util.eliminarPlato(pos, eliminar, pos);
+		this.total = this.modelo.util.eliminarPlato(pos, eliminar, this.total);
 		return String.valueOf(total);
 	}
 	

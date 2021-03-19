@@ -69,7 +69,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
-		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total);
+		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, "producto");
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}

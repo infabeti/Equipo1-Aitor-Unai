@@ -11,10 +11,21 @@ public class Utiles {
 		this.modelo = modelo;
 	}
 	
-	public double cantidadTotal(String cantidad, String producto, double total) {
-		ListaProductos listaProd = this.modelo.getListaProductos();
+	public double cantidadTotal(String cantidad, String producto, double total, String tipo) {
+		
+		double precioTotalProducto = 0;
 		int cantidadInt = Integer.parseInt(cantidad);
-		double precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
+		
+		if(tipo.equalsIgnoreCase("producto"))
+		{
+			ListaProductos listaProd = this.modelo.getListaProductos();
+			precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
+		}
+		else
+		{
+			ListaPlatos listaPlatos = this.modelo.getListaPlatos();
+			precioTotalProducto = cantidadInt * listaPlatos.precioProductoString(producto);
+		}
 		total = total + precioTotalProducto;
 		BigDecimal bd = BigDecimal.valueOf(total);
 	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
@@ -100,14 +111,14 @@ public class Utiles {
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad, double total) {
 		String[] devolver = new String[2];
 		devolver[0] = cantidad + " " + annadirProducto(producto);
-		devolver[1] = String.valueOf(cantidadTotal(cantidad, producto, total));
+		devolver[1] = String.valueOf(cantidadTotal(cantidad, producto, total, "producto"));
 		return devolver;
 	}
 
-	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto, double total) {
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto, double total, String tipo) {
 		String[] devolver = new String[2];
 		devolver[0] = cambioProductos(nombreProductoAnadido, cantidadAnadir);
-		devolver[1] = String.valueOf(cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto, total));
+		devolver[1] = String.valueOf(cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto, total, tipo));
 		return devolver;
 	}
 	
