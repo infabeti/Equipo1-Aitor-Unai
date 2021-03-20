@@ -182,7 +182,7 @@ public class PanelComandas extends JPanel {
 		lblPlatos.setFont(new Font("Arial", Font.PLAIN, 17));
 		lblPlatos.setBounds(676, 160, 113, 23);
 		add(lblPlatos);
-		
+
 		lblError = new JLabel("");
 		lblError.setBounds(425, 590, 332, 31);
 		add(lblError);
@@ -288,24 +288,24 @@ public class PanelComandas extends JPanel {
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 				}
-					try {
-						if (controladorPanelComandas.existePlato(plato) == -1 && existePlato) {
-							platosAnadir = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
-							platosAnadidosString.addElement(platosAnadir[0]);
-							textTotal.setText(platosAnadir[1]);
-						} else if(controladorPanelComandas.existePlato(plato) != -1 && existePlato) {
-							int indice = controladorPanelComandas.existePlato(plato);
-							String yaAnnadido = platosAnadidosString.get(indice);
-							platosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido,
-									Integer.parseInt(cantidad), plato, "plato");
-							platosAnadidosString.set(indice, platosAnadir[0]);
-							textTotal.setText(platosAnadir[1]);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
-						System.out.println("El campo cantidad no contiene un entero");
+				try {
+					if (controladorPanelComandas.existePlato(plato) == -1 && existePlato) {
+						platosAnadir = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
+						platosAnadidosString.addElement(platosAnadir[0]);
+						textTotal.setText(platosAnadir[1]);
+					} else if (controladorPanelComandas.existePlato(plato) != -1 && existePlato) {
+						int indice = controladorPanelComandas.existePlato(plato);
+						String yaAnnadido = platosAnadidosString.get(indice);
+						platosAnadir = controladorPanelComandas.cambiarCantidadProductos(yaAnnadido,
+								Integer.parseInt(cantidad), plato, "plato");
+						platosAnadidosString.set(indice, platosAnadir[0]);
+						textTotal.setText(platosAnadir[1]);
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("El campo cantidad no contiene un entero");
 				}
+			}
 		};
 	}
 
@@ -320,7 +320,7 @@ public class PanelComandas extends JPanel {
 					productosAnadidosString.remove(pos);
 					textTotal.setText(total);
 				} catch (Exception e) {
-					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+					System.out.println("No se pudo borrar el producto seleccionado o No se seleccionado ningun producto");
 				}
 			}
 		};
@@ -337,7 +337,7 @@ public class PanelComandas extends JPanel {
 					platosAnadidosString.remove(pos);
 					textTotal.setText(total);
 				} catch (Exception e) {
-					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+					System.out.println("No se pudo borrar el producto seleccionado o No se seleccionado ningun producto");
 				}
 			}
 		};
@@ -353,37 +353,8 @@ public class PanelComandas extends JPanel {
 					if (Double.parseDouble(textTotal.getText()) > 0) {
 						// insertar datos en actividad
 						controladorPanelComandas.insertarComanda(Integer.parseInt(textFieldNumTrans.getText()),
-								controladorPanelComandas.devolverFechaFormateada(textFieldFecha.getText()),
-								Double.parseDouble(textTotal.getText()), textLocal.getText());
-
-						// insertar datos de productos
-						for (int i = 0; i < productosAnadidosString.getSize(); i++) {
-							String textoRecogido = productosAnadidosString.get(i);
-							String textoSpliteado[] = textoRecogido.split(" ");
-
-							int cantidad = Integer.parseInt(textoSpliteado[0]);
-
-							int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-							String producto = controladorPanelComandas.devolverNombreProducto(i);
-							double precioFinal = controladorPanelComandas.cogerPrecioString(producto);
-
-							controladorPanelComandas.insertarProductoActividad(producto, transaccion, cantidad,
-									precioFinal);
-						}
-
-						for (int i = 0; i < platosAnadidosString.getSize(); i++) {
-							String textoRecogido = platosAnadidosString.get(i);
-							String textoSpliteado[] = textoRecogido.split(" ");
-
-							int cantidad = Integer.parseInt(textoSpliteado[0]);
-
-							int transaccion = Integer.parseInt(textFieldNumTrans.getText());
-
-							String plato = controladorPanelComandas.devolverNombrePlato(i);
-
-							controladorPanelComandas.insertarPlatoActividad(plato, transaccion, cantidad);
-						}
+								textFieldFecha.getText(), Double.parseDouble(textTotal.getText()), textLocal.getText(),
+								productosAnadidosString, platosAnadidosString);
 
 						JOptionPane.showMessageDialog(null, "Comanda introducida correctamente");
 						controladorPanelComandas.accionadoBotonVolverPanelPrincipal();

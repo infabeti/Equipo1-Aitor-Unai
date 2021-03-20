@@ -63,7 +63,7 @@ public class ControladorPanelFacturas {
 	}
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		String[] devolver = this.modelo.util.funcionalidadAnadirProducto(producto, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
@@ -84,8 +84,9 @@ public class ControladorPanelFacturas {
 
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
-		return String.valueOf(total);
+		this.total = this.modelo.util.funcionalidadeliminarProducto(pos, eliminar, this.total);
+
+		return String.valueOf(this.total);
 	}
 
 	public String devolverFechaFormateada(String input) {
@@ -103,8 +104,7 @@ public class ControladorPanelFacturas {
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {
 		String producto = devolverNombreProducto(nombreProducto);
 		this.modelo.getInserciones().insertarProductoActividad(transaccion,
-				this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad,
-				cogerPrecioString(producto));
+				this.modelo.getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad, cogerPrecioString(producto));
 	}
 
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
@@ -115,13 +115,11 @@ public class ControladorPanelFacturas {
 			String apellido, DefaultListModel<String> lista, String nifComprador) {
 		this.modelo.insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "FACTURA",
 				nifLocal);
-
 		if (this.modelo.getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
 			System.out.println("El comprador ya existe, no se hace la insert en la tabla comprador");
 		} else {
 			this.modelo.getInserciones().insertarComprador(nifComprador, nombre, apellido);
 		}
-
 		this.modelo.insercionesActividades.insertarFactura(transaccion, nifComprador);
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");

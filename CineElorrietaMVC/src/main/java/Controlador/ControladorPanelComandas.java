@@ -1,5 +1,8 @@
 package Controlador;
 import Modelo.ListaProductos;
+
+import javax.swing.DefaultListModel;
+
 import Modelo.ListaPlatos;
 import Modelo.Modelo;
 import Vista.Vista;
@@ -51,7 +54,7 @@ public class ControladorPanelComandas {
 	}
 	
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		String[] devolver = this.modelo.util.funcionalidadAnadirProducto(producto, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
@@ -71,7 +74,7 @@ public class ControladorPanelComandas {
 	}
 	
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
+		total = this.modelo.util.funcionalidadeliminarProducto(pos, eliminar, this.total);
 		return String.valueOf(total);
 	}
 	
@@ -81,7 +84,7 @@ public class ControladorPanelComandas {
 	}
 	
 	public String[] accionadoBotonAnnadirPlato(String plato, String cantidad) {
-		String[] devolver = this.modelo.util.accionadoBotonAnnadirPlato(plato, cantidad, this.total);
+		String[] devolver = this.modelo.util.funcionalidadAnadirPlato(plato, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
@@ -92,10 +95,10 @@ public class ControladorPanelComandas {
 	}
 	
 	public String accionadoBotonEliminarPlato(int pos, String eliminar) {
-		this.total = this.modelo.util.eliminarPlato(pos, eliminar, this.total);
+		this.total = this.modelo.util.funcionalidadeliminarPlato(pos, eliminar, this.total);
+
 		return String.valueOf(total);
 	}
-	
 	
 	public String devolverNombreProducto(int i) {
 		ListaProductos listaTemporal = this.modelo.getListaTemporal();
@@ -129,9 +132,21 @@ public class ControladorPanelComandas {
 		return String.valueOf(this.modelo.getConsultas().leerNumTransBBDD());
 	}
 	
-	public void insertarComanda(int transaccion, String fecha, double totalOperacion, String nif) {
-		this.modelo.insercionesActividades.insertarActividad(transaccion, fecha, totalOperacion,"COMANDA", nif);
+	public void insertarComanda(int transaccion, String fecha, double totalOperacion, String nif, DefaultListModel<String> listaProductos, DefaultListModel<String> listaPlatos) {
+		this.modelo.insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion,"COMANDA", nif);
 		this.modelo.insercionesActividades.insertarComanda(transaccion);
+		for (int i = 0; i < listaProductos.getSize(); i++) {
+			String textoRecogido = listaProductos.get(i);
+			String textoSpliteado[] = textoRecogido.split(" ");
+			String producto = devolverNombreProducto(i);
+			insertarProductoActividad(producto, transaccion, Integer.parseInt(textoSpliteado[0]),
+					cogerPrecioString(producto));
+		}
+		for (int i = 0; i < listaPlatos.getSize(); i++) {
+			String textoRecogido = listaPlatos.get(i);
+			String textoSpliteado[] = textoRecogido.split(" ");
+			insertarPlatoActividad(devolverNombrePlato(i), transaccion, Integer.parseInt(textoSpliteado[0]));
+		}
 	}
 	
 	public String devolverNombrePlato(int i) {

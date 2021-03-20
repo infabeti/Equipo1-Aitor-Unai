@@ -88,7 +88,7 @@ public class ControladorPanelTickets {
 	}
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = this.modelo.util.accionadoBotonAnnadirProducto(producto, cantidad, this.total);
+		String[] devolver = this.modelo.util.funcionalidadAnadirProducto(producto, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
@@ -100,8 +100,8 @@ public class ControladorPanelTickets {
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		total = this.modelo.util.eliminarProducto(pos, eliminar, total);
-		return String.valueOf(total);
+		this.total = this.modelo.util.funcionalidadeliminarProducto(pos, eliminar, this.total);
+		return String.valueOf(this.total);
 	}
 
 	public String devolverFechaFormateada(String input) {

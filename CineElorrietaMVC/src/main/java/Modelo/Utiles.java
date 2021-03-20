@@ -52,7 +52,7 @@ public class Utiles {
 		return prod.toString();
 	}
 	
-	public String annadirPlato(String plato) {
+	public String funcionalidadAnnadirPlato(String plato) {
 		ListaPlatos listaPlatos = modelo.getListaPlatos();
 		Plato plat = listaPlatos.devolverPlatoPorString(plato);
 		ListaPlatos listaTemporal = modelo.getListaTemporalPlatos();
@@ -60,7 +60,7 @@ public class Utiles {
 		return plat.toString();
 	}
 	
-	public String cambioProductos(String producto, int cantidadAnadir) {
+	public String funcionalidadCambioProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
 		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
 			pos = i;
@@ -84,7 +84,7 @@ public class Utiles {
 		return lista[i];
 	}
 
-	public double eliminarProducto(int pos, String eliminar, double total) {
+	public double funcionalidadeliminarProducto(int pos, String eliminar, double total) {
 		ListaProductos listaProd = modelo.getListaTemporal();
 		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = listaProd.getPrecioProducto(pos);
@@ -96,7 +96,7 @@ public class Utiles {
 		return total;
 	}
 	
-	public double eliminarPlato(int pos, String eliminar, double total) {
+	public double funcionalidadeliminarPlato(int pos, String eliminar, double total) {
 		ListaPlatos listaPlatos = modelo.getListaTemporalPlatos();
 		int cantidad = modelo.cogerCantidadString(eliminar);
 		double precio = listaPlatos.getPrecioPlato(pos);
@@ -108,7 +108,7 @@ public class Utiles {
 		return total;
 	}
 	
-	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad, double total) {
+	public String[] funcionalidadAnadirProducto(String producto, String cantidad, double total) {
 		String[] devolver = new String[2];
 		devolver[0] = cantidad + " " + annadirProducto(producto);
 		devolver[1] = String.valueOf(cantidadTotal(cantidad, producto, total, "producto"));
@@ -117,14 +117,14 @@ public class Utiles {
 
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto, double total, String tipo) {
 		String[] devolver = new String[2];
-		devolver[0] = cambioProductos(nombreProductoAnadido, cantidadAnadir);
+		devolver[0] = funcionalidadCambioProductos(nombreProductoAnadido, cantidadAnadir);
 		devolver[1] = String.valueOf(cantidadTotal(Integer.toString(cantidadAnadir), nombreProducto, total, tipo));
 		return devolver;
 	}
 	
-	public String[] accionadoBotonAnnadirPlato(String plato, String cantidad, double total) {
+	public String[] funcionalidadAnadirPlato(String plato, String cantidad, double total) {
 		String[] devolver = new String[2];
-		devolver[0] = cantidad + " " + annadirPlato(plato);
+		devolver[0] = cantidad + " " + funcionalidadAnnadirPlato(plato);
 		devolver[1] = String.valueOf(cantidadTotalPlatos(cantidad, plato, total));
 		return devolver;
 	}
