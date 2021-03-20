@@ -67,7 +67,7 @@ public class TestUtiles {
 
 		when(platoMock.toString()).thenReturn("mentos");
 
-		resultadoString = utiles.annadirPlato(input);
+		resultadoString = utiles.funcionalidadAnnadirPlato(input);
 
 		resultadoEsperadoString = "mentos";
 
@@ -81,7 +81,7 @@ public class TestUtiles {
 
 		String producto = "1 - Calabaza";
 
-		resultadoString = utiles.cambioProductos(producto, 4);
+		resultadoString = utiles.funcionalidadCambioProductos(producto, 4);
 
 		resultadoEsperadoString = "5 - Calabaza";
 
@@ -100,7 +100,7 @@ public class TestUtiles {
 
 		when(listaProductosMock.precioProductoString(segun)).thenReturn(3.0);
 
-		resultadoDouble = utiles.cantidadTotal(primer, segun, tercer);
+		resultadoDouble = utiles.cantidadTotal(primer, segun, tercer, "producto");
 
 		resultadoEsperadoDouble = 9.0;
 
@@ -121,7 +121,7 @@ public class TestUtiles {
 
 		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
 
-		resultadoDouble = utiles.eliminarProducto(pos, eliminar, total);
+		resultadoDouble = utiles.funcionalidadeliminarProducto(pos, eliminar, total);
 
 		resultadoEsperadoDouble = 3.0;
 
@@ -142,7 +142,7 @@ public class TestUtiles {
 
 		when(listaPlatosMock.getPrecioPlato(pos)).thenReturn(16.0);
 
-		resultadoDouble = utiles.eliminarPlato(pos, eliminar, total);
+		resultadoDouble = utiles.funcionalidadeliminarPlato(pos, eliminar, total);
 
 		resultadoEsperadoDouble = 3.0;
 
@@ -181,7 +181,7 @@ public class TestUtiles {
 		when(productoMock.toString()).thenReturn("string");
 		when(listaProductosMock.precioProductoString(producto)).thenReturn(3.0);
 		
-		resultadoArrayString = utiles.accionadoBotonAnnadirProducto(producto, cantidad, total);
+		resultadoArrayString = utiles.funcionalidadAnadirProducto(producto, cantidad, total);
 		
 		String [] resultadoEsperadoArrayString = new String[2];
 		resultadoEsperadoArrayString[0] = "3 string";
@@ -202,7 +202,7 @@ public class TestUtiles {
 		when(platoMock.toString()).thenReturn("string");
 		when(listaPlatosMock.precioProductoString(plato)).thenReturn(3.0);
 		
-		resultadoArrayString = utiles.accionadoBotonAnnadirPlato(plato, cantidad, total);
+		resultadoArrayString = utiles.funcionalidadAnadirPlato(plato, cantidad, total);
 		
 		String [] resultadoEsperadoArrayString = new String[2];
 		resultadoEsperadoArrayString[0] = "3 string";
@@ -221,7 +221,7 @@ public class TestUtiles {
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		when(listaProductosMock.precioProductoString(nombreProducto)).thenReturn(3.0);
 		
-		resultadoArrayString = utiles.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total);
+		resultadoArrayString = utiles.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto");
 		
 		String [] resultadoEsperadoArrayString = new String[2];
 		resultadoEsperadoArrayString[0] = "4 producto";

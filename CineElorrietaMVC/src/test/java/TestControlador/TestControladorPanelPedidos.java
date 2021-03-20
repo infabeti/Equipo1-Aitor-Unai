@@ -159,7 +159,7 @@ public class TestControladorPanelPedidos {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.accionadoBotonAnnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		when(utilesMock.funcionalidadAnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto, cantidad);
 
@@ -178,7 +178,7 @@ public class TestControladorPanelPedidos {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total)).thenReturn(resultadoEsperadoArrayString);
+		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto")).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelPedidos.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto);
 
@@ -194,7 +194,7 @@ public class TestControladorPanelPedidos {
 		
 		modeloMock.util = utilesMock;
 		
-		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
+		when(utilesMock.funcionalidadeliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
 
 		resultadoString = controladorPanelPedidos.accionadoBotonEliminar(pos, eliminar);
 

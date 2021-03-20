@@ -131,7 +131,7 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.accionadoBotonAnnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		when(utilesMock.funcionalidadAnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelTickets.accionadoBotonAnnadirProducto(producto, cantidad);
 
@@ -183,7 +183,7 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total)).thenReturn(resultadoEsperadoArrayString);
+		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto")).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelTickets.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto);
 
@@ -199,7 +199,7 @@ when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 
 		modeloMock.util = utilesMock;
 
-		when(utilesMock.eliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
+		when(utilesMock.funcionalidadeliminarProducto(pos, eliminar, pos)).thenReturn(99.0);
 
 		resultadoString = controladorPanelTickets.accionadoBotonEliminar(pos, eliminar);
 

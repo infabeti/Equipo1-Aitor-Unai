@@ -96,7 +96,6 @@ public class ControladorPanelComandas {
 	
 	public String accionadoBotonEliminarPlato(int pos, String eliminar) {
 		this.total = this.modelo.util.funcionalidadeliminarPlato(pos, eliminar, this.total);
-
 		return String.valueOf(total);
 	}
 	

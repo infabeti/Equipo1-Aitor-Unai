@@ -88,7 +88,7 @@ public class TestControladorPanelComandas {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.accionadoBotonAnnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		when(utilesMock.funcionalidadAnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelComandas.accionadoBotonAnnadirProducto(producto, cantidad);
 
@@ -118,9 +118,9 @@ public class TestControladorPanelComandas {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total)).thenReturn(resultadoEsperadoArrayString);
+		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto")).thenReturn(resultadoEsperadoArrayString);
 		
-		resultadoArrayString = controladorPanelComandas.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto);
+		resultadoArrayString = controladorPanelComandas.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, "producto");
 
 		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 
@@ -147,7 +147,7 @@ public class TestControladorPanelComandas {
 		
 		modeloMock.util = utilesMock;
 		
-		when(utilesMock.eliminarProducto(pos, eliminar,total)).thenReturn(2.0);
+		when(utilesMock.funcionalidadeliminarProducto(pos, eliminar,total)).thenReturn(2.0);
 		
 		String resultado = controladorPanelComandas.accionadoBotonEliminar(pos, eliminar);
 		
@@ -176,7 +176,7 @@ public class TestControladorPanelComandas {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.accionadoBotonAnnadirPlato(plato, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		when(utilesMock.funcionalidadAnadirPlato(plato, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
 
@@ -204,7 +204,7 @@ public class TestControladorPanelComandas {
 		
 		modeloMock.util = utilesMock;
 		
-		when(utilesMock.eliminarPlato(pos, eliminar,total)).thenReturn(0.0);
+		when(utilesMock.funcionalidadeliminarPlato(pos, eliminar,total)).thenReturn(0.0);
 		
 		String resultado = controladorPanelComandas.accionadoBotonEliminarPlato(pos, eliminar);
 		
