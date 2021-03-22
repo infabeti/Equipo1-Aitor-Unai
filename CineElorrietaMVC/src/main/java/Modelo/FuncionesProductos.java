@@ -35,14 +35,6 @@ public class FuncionesProductos {
 		return prod.toString();
 	}
 	
-	public String funcionalidadAnnadirPlato(String plato) {
-		ListaPlatos listaPlatos = modelo.getListaPlatos();
-		Plato plat = listaPlatos.devolverPlatoPorString(plato);
-		ListaPlatos listaTemporal = modelo.getListaTemporalPlatos();
-		listaTemporal.addPlato(plat);
-		return plat.toString();
-	}
-	
 	public String funcionalidadCambioProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
 		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {

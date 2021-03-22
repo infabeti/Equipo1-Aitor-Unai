@@ -16,6 +16,7 @@ import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
 import Modelo.FuncionesProductos;
+import Modelo.FuncionesPlatos;
 import Modelo.Consultas;
 import Vista.PanelComandas;
 import Vista.Vista;
@@ -29,7 +30,8 @@ public class TestControladorPanelComandas {
 	private Usuario userMock = mock(Usuario.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
-	private FuncionesProductos utilesMock = mock(FuncionesProductos.class);
+	private FuncionesProductos funcionesProductosMock = mock(FuncionesProductos.class);
+	private FuncionesPlatos funcionesPlatosMock = mock(FuncionesPlatos.class);
 	private String[] resultadoArrayString, resultadoEsperadoArrayString;
 	private Consultas consultasMock = mock(Consultas.class);
 	
@@ -80,7 +82,7 @@ public class TestControladorPanelComandas {
 	@Test
 	public void testAccionadoBotonAnadirProducto() {
 		
-		modeloMock.util = utilesMock;
+		modeloMock.funProd = funcionesProductosMock;
 		
 		String producto = "Patata";
 		String cantidad = "2";
@@ -88,7 +90,7 @@ public class TestControladorPanelComandas {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.funcionalidadAnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		when(funcionesProductosMock.funcionalidadAnadirProducto(producto, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelComandas.accionadoBotonAnnadirProducto(producto, cantidad);
 
@@ -109,7 +111,7 @@ public class TestControladorPanelComandas {
 	@Test
 	public void TestCambiarCantidadProductos() {
 
-		modeloMock.util = utilesMock;
+		modeloMock.funProd = funcionesProductosMock;
 		
 		String nombreProductoAnadido = "Patata";
 		int cantidadAnadir = 2;
@@ -118,7 +120,7 @@ public class TestControladorPanelComandas {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto")).thenReturn(resultadoEsperadoArrayString);
+		when(funcionesProductosMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto")).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelComandas.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, "producto");
 
@@ -145,9 +147,9 @@ public class TestControladorPanelComandas {
 		String eliminar = "elim";
 		double total = 0.0;
 		
-		modeloMock.util = utilesMock;
+		modeloMock.funProd = funcionesProductosMock;
 		
-		when(utilesMock.funcionalidadeliminarProducto(pos, eliminar,total)).thenReturn(2.0);
+		when(funcionesProductosMock.funcionalidadeliminarProducto(pos, eliminar,total)).thenReturn(2.0);
 		
 		String resultado = controladorPanelComandas.accionadoBotonEliminar(pos, eliminar);
 		
@@ -168,7 +170,7 @@ public class TestControladorPanelComandas {
 	@Test
 	public void testAccionadoBotonAnadirPlato() {
 		
-		modeloMock.util = utilesMock;
+		modeloMock.funPlat = funcionesPlatosMock;
 		
 		String plato = "Patata";
 		String cantidad = "2";
@@ -176,7 +178,7 @@ public class TestControladorPanelComandas {
 		
 		String[] resultadoEsperadoArrayString = new String[] {"2 Patata","19.9"}; 
 		
-		when(utilesMock.funcionalidadAnadirPlato(plato, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
+		when(funcionesPlatosMock.funcionalidadAnadirPlato(plato, cantidad, total)).thenReturn(resultadoEsperadoArrayString);
 		
 		resultadoArrayString = controladorPanelComandas.accionadoBotonAnnadirPlato(plato, cantidad);
 
@@ -190,9 +192,9 @@ public class TestControladorPanelComandas {
 		String eliminar = "elim";
 		double total = 0.0;
 		
-		modeloMock.util = utilesMock;
+		modeloMock.funPlat = funcionesPlatosMock;
 		
-		when(utilesMock.funcionalidadeliminarPlato(pos, eliminar,total)).thenReturn(0.0);
+		when(funcionesPlatosMock.funcionalidadeliminarPlato(pos, eliminar,total)).thenReturn(0.0);
 		
 		String resultado = controladorPanelComandas.accionadoBotonEliminarPlato(pos, eliminar);
 		

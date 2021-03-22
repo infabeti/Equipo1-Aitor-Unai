@@ -30,12 +30,6 @@ public class FuncionesPlatos {
 		return plat.toString();
 	}
 	
-	public String devolverNombrePlato(int i) {
-		ListaPlatos listaTemporal = this.modelo.getListaTemporalPlatos();
-		String[] lista = listaTemporal.getListaPlatosString();
-		return lista[i];
-	}
-	
 	public double funcionalidadeliminarPlato(int pos, String eliminar, double total) {
 		ListaPlatos listaPlatos = modelo.getListaTemporalPlatos();
 		int cantidad = modelo.cogerCantidadString(eliminar);

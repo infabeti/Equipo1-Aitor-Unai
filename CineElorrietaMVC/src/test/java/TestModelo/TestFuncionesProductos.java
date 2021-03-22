@@ -1,34 +1,27 @@
 package TestModelo;
 
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
-import Modelo.Plato;
 import Modelo.Producto;
-
 import Modelo.FuncionesProductos;
 
-
-public class TestUtiles {
+public class TestFuncionesProductos {
+	
 	
 	private Modelo modeloMock = mock(Modelo.class);
 	private String resultadoEsperadoString, resultadoString;
 	private String[] resultadoArrayString;
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
-	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
-	private Plato platoMock = mock(Plato.class);
 	private Producto productoMock = mock(Producto.class);
-
 	
-	private FuncionesProductos utiles = new FuncionesProductos(modeloMock);
+	private FuncionesProductos funcionesProductos = new FuncionesProductos(modeloMock);
 	
 	@Test
 	public void TestAnnadirProducto() {
@@ -45,7 +38,7 @@ public class TestUtiles {
 
 		when(productoMock.toString()).thenReturn("hola");
 
-		resultadoString = utiles.annadirProducto("saludos");
+		resultadoString = funcionesProductos.annadirProducto("saludos");
 
 		resultadoEsperadoString = "hola";
 
@@ -53,42 +46,18 @@ public class TestUtiles {
 	}
 	
 	@Test
-	public void TestAnnadirPlato() {
-
-		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
-
-		String input = "Macarroni";
-		
-		when(listaPlatosMock.devolverPlatoPorString(input)).thenReturn(platoMock);
-
-		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
-
-		when(listaPlatosMock.addPlato(platoMock)).thenReturn(true);
-
-		when(platoMock.toString()).thenReturn("mentos");
-
-		resultadoString = utiles.funcionalidadAnnadirPlato(input);
-
-		resultadoEsperadoString = "mentos";
-
-		assertEquals(resultadoEsperadoString, resultadoString);
-	}
-
-	
-
-	@Test
 	public void TestCambiarCantidadProductos() {
 
 		String producto = "1 - Calabaza";
 
-		resultadoString = utiles.funcionalidadCambioProductos(producto, 4);
+		resultadoString = funcionesProductos.funcionalidadCambioProductos(producto, 4);
 
 		resultadoEsperadoString = "5 - Calabaza";
 
 		assertEquals(resultadoEsperadoString, resultadoString);
 
 	}
-
+	
 	@Test
 	public void TestCantidadTotal() {
 
@@ -100,14 +69,14 @@ public class TestUtiles {
 
 		when(listaProductosMock.precioProductoString(segun)).thenReturn(3.0);
 
-		resultadoDouble = utiles.cantidadTotal(primer, segun, tercer, "producto");
+		resultadoDouble = funcionesProductos.cantidadTotal(primer, segun, tercer, "producto");
 
 		resultadoEsperadoDouble = 9.0;
 
 		assertEquals(resultadoEsperadoDouble, resultadoDouble, 0.01);
 
 	}
-
+	
 	@Test
 	public void TestEliminarProducto() {
 
@@ -121,7 +90,7 @@ public class TestUtiles {
 
 		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
 
-		resultadoDouble = utiles.funcionalidadeliminarProducto(pos, eliminar, total);
+		resultadoDouble = funcionesProductos.funcionalidadeliminarProducto(pos, eliminar, total);
 
 		resultadoEsperadoDouble = 3.0;
 
@@ -129,27 +98,6 @@ public class TestUtiles {
 
 	}
 	
-	@Test
-	public void TestEliminarPlato() {
-
-		int pos = 0;
-		String eliminar = "1 Pepito";
-		double total = 19.0;
-
-		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
-
-		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
-
-		when(listaPlatosMock.getPrecioPlato(pos)).thenReturn(16.0);
-
-		resultadoDouble = utiles.funcionalidadeliminarPlato(pos, eliminar, total);
-
-		resultadoEsperadoDouble = 3.0;
-
-		assertEquals(resultadoEsperadoDouble, resultadoDouble, 0.01);
-
-	}
-
 	@Test
 	public void TestDevolverNombreProducto() {
 
@@ -161,7 +109,7 @@ public class TestUtiles {
 
 		when(listaProductosMock.getListaProductosString()).thenReturn(arrStringProductos);
 
-		resultadoString = utiles.devolverNombreProducto(i);
+		resultadoString = funcionesProductos.devolverNombreProducto(i);
 
 		resultadoEsperadoString = "Zapatilla";
 
@@ -181,28 +129,7 @@ public class TestUtiles {
 		when(productoMock.toString()).thenReturn("string");
 		when(listaProductosMock.precioProductoString(producto)).thenReturn(3.0);
 		
-		resultadoArrayString = utiles.funcionalidadAnadirProducto(producto, cantidad, total);
-		
-		String [] resultadoEsperadoArrayString = new String[2];
-		resultadoEsperadoArrayString[0] = "3 string";
-		resultadoEsperadoArrayString[1] = "9.0";
-		
-		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
-	}
-	
-	@Test
-	public void TestAccionadoBotonAnadirPlato() {
-		String plato = "prod";
-		String cantidad = "3";
-		double total = 0.0;
-		
-		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
-		when(listaPlatosMock.devolverPlatoPorString(plato)).thenReturn(platoMock);
-		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
-		when(platoMock.toString()).thenReturn("string");
-		when(listaPlatosMock.precioProductoString(plato)).thenReturn(3.0);
-		
-		resultadoArrayString = utiles.funcionalidadAnadirPlato(plato, cantidad, total);
+		resultadoArrayString = funcionesProductos.funcionalidadAnadirProducto(producto, cantidad, total);
 		
 		String [] resultadoEsperadoArrayString = new String[2];
 		resultadoEsperadoArrayString[0] = "3 string";
@@ -221,7 +148,7 @@ public class TestUtiles {
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		when(listaProductosMock.precioProductoString(nombreProducto)).thenReturn(3.0);
 		
-		resultadoArrayString = utiles.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto");
+		resultadoArrayString = funcionesProductos.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, total, "producto");
 		
 		String [] resultadoEsperadoArrayString = new String[2];
 		resultadoEsperadoArrayString[0] = "4 producto";
@@ -229,4 +156,5 @@ public class TestUtiles {
 		
 		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 	}
+
 }
