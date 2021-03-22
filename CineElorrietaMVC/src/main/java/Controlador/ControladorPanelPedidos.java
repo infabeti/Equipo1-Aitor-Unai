@@ -71,20 +71,20 @@ public class ControladorPanelPedidos {
 	}
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = this.modelo.util.funcionalidadAnadirProducto(producto, cantidad, this.total);
+		String[] devolver = this.modelo.funProd.funcionalidadAnadirProducto(producto, cantidad, this.total);
 
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
 
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
-		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, "producto");
+		String[] devolver = this.modelo.funProd.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, "producto");
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver;
 	}
 
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		this.total = this.modelo.util.funcionalidadeliminarProducto(pos, eliminar, this.total);
+		this.total = this.modelo.funProd.funcionalidadeliminarProducto(pos, eliminar, this.total);
 		return String.valueOf(this.total);	
 	}
 
@@ -93,7 +93,7 @@ public class ControladorPanelPedidos {
 	}
 
 	public String devolverNombreProducto(int i) {
-		return this.modelo.util.devolverNombreProducto(i);
+		return this.modelo.funProd.devolverNombreProducto(i);
 	}
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad) {

@@ -13,7 +13,7 @@ import Modelo.Modelo;
 import Modelo.Plato;
 import Modelo.Producto;
 
-import Modelo.Utiles;
+import Modelo.FuncionesProductos;
 
 
 public class TestUtiles {
@@ -28,7 +28,7 @@ public class TestUtiles {
 	private Producto productoMock = mock(Producto.class);
 
 	
-	private Utiles utiles = new Utiles(modeloMock);
+	private FuncionesProductos utiles = new FuncionesProductos(modeloMock);
 	
 	@Test
 	public void TestAnnadirProducto() {

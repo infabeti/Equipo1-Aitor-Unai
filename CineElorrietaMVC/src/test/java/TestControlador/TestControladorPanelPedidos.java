@@ -18,7 +18,7 @@ import Modelo.Conexion;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
-import Modelo.Utiles;
+import Modelo.FuncionesProductos;
 import Modelo.Validaciones;
 import Vista.PanelPedidos;
 import Vista.Vista;
@@ -38,7 +38,7 @@ public class TestControladorPanelPedidos {
 
 	private String[] resultadoEsperadoArrayString, resultadoArrayString;
 	private String[] listaProductos;
-	private Utiles utilesMock = mock(Utiles.class);
+	private FuncionesProductos utilesMock = mock(FuncionesProductos.class);
 	private Validaciones validacionesMock = mock(Validaciones.class);
 
 	private ControladorPanelPedidos controladorPanelPedidos = new ControladorPanelPedidos(modeloMock, vistaMock,

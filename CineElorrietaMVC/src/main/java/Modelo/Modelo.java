@@ -10,7 +10,8 @@ public class Modelo {
 	private ListaProductos listaProductos = new ListaProductos();
 	private ListaPlatos listaPlatos = new ListaPlatos();
 	private Usuario user;
-	public Utiles util;
+	public FuncionesProductos funProd;
+	public FuncionesPlatos funPlat;
 	private Inserciones inserciones;
 	private Consultas consultas;
 	private ConsultasListas consultasListas;
@@ -42,7 +43,8 @@ public class Modelo {
 
 	public Modelo() {
 		user = new Usuario("", "", "", "");
-		util = new Utiles(this);
+		funProd = new FuncionesProductos(this);
+		funPlat = new FuncionesPlatos(this);
 		inserciones = new Inserciones(this);
 		consultasComprobaciones = new ConsultasComprobaciones(this);
 		consultas = new Consultas(this);

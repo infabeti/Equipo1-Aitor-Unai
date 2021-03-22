@@ -15,7 +15,7 @@ import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
-import Modelo.Utiles;
+import Modelo.FuncionesProductos;
 import Modelo.Consultas;
 import Vista.PanelComandas;
 import Vista.Vista;
@@ -29,7 +29,7 @@ public class TestControladorPanelComandas {
 	private Usuario userMock = mock(Usuario.class);
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
-	private Utiles utilesMock = mock(Utiles.class);
+	private FuncionesProductos utilesMock = mock(FuncionesProductos.class);
 	private String[] resultadoArrayString, resultadoEsperadoArrayString;
 	private Consultas consultasMock = mock(Consultas.class);
 	

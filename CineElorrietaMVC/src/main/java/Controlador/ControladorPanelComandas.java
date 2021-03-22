@@ -42,7 +42,7 @@ public class ControladorPanelComandas {
 		return modelo.getListaPlatos().getListaPlatosString(); }
 	
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
-		String[] devolver = this.modelo.util.funcionalidadAnadirProducto(producto, cantidad, this.total);
+		String[] devolver = this.modelo.funProd.funcionalidadAnadirProducto(producto, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver; }
 	
@@ -50,7 +50,7 @@ public class ControladorPanelComandas {
 		return this.modelo.getListaTemporal().devolverPosProductoString(nombreProducto); }
 	
 	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto, String tipo) {
-		String[] devolver = this.modelo.util.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, tipo);
+		String[] devolver = this.modelo.funProd.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, tipo);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver; }
 	
@@ -58,19 +58,19 @@ public class ControladorPanelComandas {
 		return this.modelo.getListaTemporal().precioProductoString(nombreProducto); }
 	
 	public String accionadoBotonEliminar(int pos, String eliminar) {
-		this.total = this.modelo.util.funcionalidadeliminarProducto(pos, eliminar, this.total);
+		this.total = this.modelo.funProd.funcionalidadeliminarProducto(pos, eliminar, this.total);
 		return String.valueOf(total); }
 	
 	public int existePlato(String plato) {
 		return modelo.getListaTemporalPlatos().devolverPosPlatoString(plato); }
 	
 	public String[] accionadoBotonAnnadirPlato(String plato, String cantidad) {
-		String[] devolver = this.modelo.util.funcionalidadAnadirPlato(plato, cantidad, this.total);
+		String[] devolver = this.modelo.funPlat.funcionalidadAnadirPlato(plato, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver; }
 	
 	public String accionadoBotonEliminarPlato(int pos, String eliminar) {
-		this.total = this.modelo.util.funcionalidadeliminarPlato(pos, eliminar, this.total);
+		this.total = this.modelo.funPlat.funcionalidadeliminarPlato(pos, eliminar, this.total);
 		return String.valueOf(total); }
 	
 	public void insertarProductoActividad(String nombreProducto, int transaccion, int cantidad, double preciofinal) {
