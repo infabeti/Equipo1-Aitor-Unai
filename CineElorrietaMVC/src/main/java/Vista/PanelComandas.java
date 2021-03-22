@@ -139,7 +139,7 @@ public class PanelComandas extends JPanel {
 		textLocal.setBounds(205, 128, 125, 25);
 		add(textLocal);
 		textLocal.setColumns(10);
-		textLocal.setText(controladorPanelComandas.conseguirLocal());
+		textLocal.setText(controladorPanelComandas.conseguirDatosPanel()[0]);
 		textLocal.setEditable(false);
 		textLocal.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -147,14 +147,14 @@ public class PanelComandas extends JPanel {
 		textFieldFecha.setColumns(10);
 		textFieldFecha.setBounds(463, 86, 117, 25);
 		add(textFieldFecha);
-		textFieldFecha.setText(this.controladorPanelComandas.devolverFechaHora());
+		textFieldFecha.setText(this.controladorPanelComandas.conseguirDatosPanel()[1]);
 		textFieldFecha.setEditable(false);
 
 		textFieldNumTrans = new JTextField();
 		textFieldNumTrans.setBounds(205, 86, 125, 25);
 		add(textFieldNumTrans);
 		textFieldNumTrans.setColumns(10);
-		textFieldNumTrans.setText(controladorPanelComandas.leerNumTransBBDD());
+		textFieldNumTrans.setText(controladorPanelComandas.conseguirDatosPanel()[2]);
 		textFieldNumTrans.setEditable(false);
 		textFieldNumTrans.setHorizontalAlignment(SwingConstants.CENTER);
 

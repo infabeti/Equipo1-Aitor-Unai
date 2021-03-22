@@ -12,20 +12,14 @@ public class Utiles {
 	}
 	
 	public double cantidadTotal(String cantidad, String producto, double total, String tipo) {
-		
 		double precioTotalProducto = 0;
 		int cantidadInt = Integer.parseInt(cantidad);
-		
-		if(tipo.equalsIgnoreCase("producto"))
-		{
+		if(tipo.equalsIgnoreCase("producto")) {
 			ListaProductos listaProd = this.modelo.getListaProductos();
-			precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);
-		}
-		else
-		{
+			precioTotalProducto = cantidadInt * listaProd.precioProductoString(producto);}
+		else {
 			ListaPlatos listaPlatos = this.modelo.getListaPlatos();
-			precioTotalProducto = cantidadInt * listaPlatos.precioProductoString(producto);
-		}
+			precioTotalProducto = cantidadInt * listaPlatos.precioProductoString(producto);}
 		total = total + precioTotalProducto;
 		BigDecimal bd = BigDecimal.valueOf(total);
 	    bd = bd.setScale(2, RoundingMode.HALF_DOWN);
@@ -63,8 +57,7 @@ public class Utiles {
 	public String funcionalidadCambioProductos(String producto, int cantidadAnadir) {
 		int pos = 0;
 		for (int i = 0; Character.isDigit(producto.charAt(i)); i++) {
-			pos = i;
-		}
+			pos = i; }
 		String cantString = producto.substring(0, pos + 1);
 		int cantidad = Integer.parseInt(cantString);
 		cantidad = cantidad + cantidadAnadir;
