@@ -16,7 +16,7 @@ import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Usuario;
 import Modelo.Utiles;
-import Modelo.ListaPlatos;
+import Modelo.Consultas;
 import Vista.PanelComandas;
 import Vista.Vista;
 
@@ -30,8 +30,8 @@ public class TestControladorPanelComandas {
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
 	private Utiles utilesMock = mock(Utiles.class);
-	private ListaPlatos listaPatosMock = mock(ListaPlatos.class);
 	private String[] resultadoArrayString, resultadoEsperadoArrayString;
+	private Consultas consultasMock = mock(Consultas.class);
 	
 	private ControladorPanelComandas controladorPanelComandas = new ControladorPanelComandas(modeloMock, vistaMock,
 			controladorMock);
@@ -183,18 +183,6 @@ public class TestControladorPanelComandas {
 		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 	}
 	
-	@Test
-	public void TestCogerPrecioPlato() {
-		String nombrePlato = "Patata";
-		
-		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
-			
-		when(listaPlatosMock.precioProductoString(nombrePlato)).thenReturn(2.0);
-			
-		double resultado = controladorPanelComandas.cogerPrecioStringPlato(nombrePlato);
-			
-		assertEquals(2.0, resultado, 0);
-	}
 	
 	@Test
 	public void TestAccionadoBotonEliminarPlato() {
@@ -209,5 +197,20 @@ public class TestControladorPanelComandas {
 		String resultado = controladorPanelComandas.accionadoBotonEliminarPlato(pos, eliminar);
 		
 		assertEquals("0.0", resultado);
+	}
+	
+	@Test
+	public void TestConseguirDatosPanel() {
+		when(modeloMock.getUser()).thenReturn(userMock);
+		when(userMock.getNifLocal()).thenReturn("1");
+		when(modeloMock.getFechaHoraSys()).thenReturn("2");
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+		when(consultasMock.leerNumTransBBDD()).thenReturn(3);
+		
+		resultadoEsperadoArrayString = new String[] {"1","2","3"};
+		
+		resultadoArrayString = controladorPanelComandas.conseguirDatosPanel();
+		
+		assertArrayEquals(resultadoEsperadoArrayString, resultadoArrayString);
 	}
 }
