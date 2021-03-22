@@ -26,8 +26,9 @@ public class Inserciones {
 			st.setDouble(4, precioFinal);
 			try {
 				st.executeUpdate();
-				actualizarStockMenorQueCinco(codigoAlimento);
-
+				if(precioFinal!=0) {
+					actualizarStockMenorQueCinco(codigoAlimento);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
