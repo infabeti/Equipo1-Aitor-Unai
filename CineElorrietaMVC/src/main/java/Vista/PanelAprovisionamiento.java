@@ -154,6 +154,7 @@ public class PanelAprovisionamiento extends JPanel {
 					String nombreAlimento = (String) listaProductos.getSelectedValue();
 					controladorPanelAprovisionamiento.accionadoBotonAnnadir(cantidad, seleccionado, nombreAlimento);
 					JOptionPane.showMessageDialog(null, "Aprovisionado " + cantidad + " " + listaProductos.getSelectedValue() + " Correctamente");
+					controladorPanelAprovisionamiento.accionadoBottonVolverPanelPrincipal();
 				}
 				else
 				{
