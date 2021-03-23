@@ -9,10 +9,12 @@ public class Inserciones {
 	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
 	private java.sql.Connection conexionConn;
+	private InsercionesActividades insercionesActividades;
 
 	public Inserciones(Modelo modelo) {
 		this.modelo = modelo;
 		conexionConn = this.modelo.conexionConn;
+		insercionesActividades = new InsercionesActividades(modelo);
 	}
 
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
@@ -26,7 +28,20 @@ public class Inserciones {
 			st.setDouble(4, precioFinal);
 			try {
 				st.executeUpdate();
-				if(precioFinal!=0) {
+				try {
+					PreparedStatement st2 = null;
+					st2 = (PreparedStatement) ((java.sql.Connection) conexionConn)
+							.prepareStatement(sentenciasBBDD.COMPROBARSIESAPROVISIONAMIENTO);
+					st2.setInt(1, transaccion);
+					ResultSet rs = st2.executeQuery();
+					rs.next();
+					if (rs.getString("tipo").equalsIgnoreCase("aprovisionamiento")) {
+						actualizarStockMenorQueCinco(codigoAlimento);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (precioFinal != 0) {
 					actualizarStockMenorQueCinco(codigoAlimento);
 				}
 			} catch (Exception e) {
@@ -53,9 +68,24 @@ public class Inserciones {
 				rs.next();
 				int cantidad = rs.getInt("cantidad");
 				if (cantidad < 5) {
+					try {
+						PreparedStatement st1 = null;
+						st1 = (PreparedStatement) ((java.sql.Connection) conexionConn)
+								.prepareStatement(sentenciasBBDD.PRECIOALIMENTO);
+						st1.setString(1, codigoAlimento);
+						ResultSet rs1 = st1.executeQuery();
+						rs1.next();
+						int transaccion = this.modelo.getConsultas().leerNumTransBBDD();
+						double pcompra = rs1.getDouble("PCompra");
+						insercionesActividades.insertarActividad(transaccion,
+								this.modelo.validaciones.devolverFechaFormateada(this.modelo.getFechaHoraSys()),
+								pcompra * 50, "aprovisionamiento", this.modelo.getUser().getNifLocal());
+						insercionesActividades.insertarAprovisionamiento(transaccion);
+						insertarProductoActividad(transaccion, codigoAlimento, 50, pcompra);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 
-					updateStock(nif, codigoAlimento, cantidad);
-					
 				}
 
 			} catch (Exception e) {
@@ -65,19 +95,19 @@ public class Inserciones {
 			sqlException.printStackTrace();
 		}
 	}
-	
+
 	public void updateStock(String nif, String codigoAlimento, int cantidad) {
 
 		try {
 			PreparedStatement st = null;
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.ACTUALIZARSTOCK);
-			st.setInt(1, (cantidad+50));
+			st.setInt(1, (cantidad + 50));
 			st.setString(2, nif);
 			st.setString(3, codigoAlimento);
 
 			try {
-				st.executeUpdate();			
+				st.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

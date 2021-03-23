@@ -90,7 +90,7 @@ public class InsercionesActividades {
 			PreparedStatement st = null;
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.INSERTARAPROVISIONAMIENTO);
 			try {
-				st.setInt(1, transaccion);	
+				st.setInt(1, transaccion);
 				st.executeUpdate();
 				return true;
 			} catch (Exception e) {
