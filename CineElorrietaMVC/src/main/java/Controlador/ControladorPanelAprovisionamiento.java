@@ -68,8 +68,9 @@ public class ControladorPanelAprovisionamiento {
 	}
 
 	public void accionadoBotonAnnadir(int cantidad, int indice, String nombre) {
-		this.modelo.insercionesActividades.insertarActividad(modelo.getConsultas().leerNumTransBBDD(), devolverFechaFormateada(modelo.getFechaHoraSys()), 0, "aprovisionamiento", modelo.getUser().getNifLocal());
+		double precioTotal = this.modelo.getConsultasComprobaciones().consultaComprobarPrecio(nombre) * cantidad;
+		this.modelo.insercionesActividades.insertarActividad(modelo.getConsultas().leerNumTransBBDD(), devolverFechaFormateada(modelo.getFechaHoraSys()), precioTotal, "aprovisionamiento", modelo.getUser().getNifLocal());
 		this.modelo.insercionesActividades.insertarAprovisionamiento(modelo.getConsultas().leerNumTransBBDD()-1);
-		this.modelo.getInserciones().insertarProductoActividad(modelo.getConsultas().leerNumTransBBDD()-1, modelo.getConsultas().obtenerCodigoAlimentoProducto(nombre), cantidad, 0);
+		this.modelo.getInserciones().insertarProductoActividad(modelo.getConsultas().leerNumTransBBDD()-1, modelo.getConsultas().obtenerCodigoAlimentoProducto(nombre), cantidad, precioTotal);
 	}
 }

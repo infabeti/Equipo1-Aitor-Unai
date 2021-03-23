@@ -28,6 +28,7 @@ public class SentenciasBBDD {
 		protected final String PRECIOALIMENTO = "SELECT pcompra from alimento where CodigoAlimento =?";
 		protected final String ACTUALIZARSTOCK = "update stock set cantidad=? where nif=? and codigoalimento=?";
 		protected final String COMPROBARSIESAPROVISIONAMIENTO = "select tipo from actividad where transaccion=?";
+		protected final String CONSEGUIRPRECIOPRODUCTO = "select PCompra from alimento where nombre=?";
 
 }
 
