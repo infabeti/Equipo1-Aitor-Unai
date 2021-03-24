@@ -1,47 +1,47 @@
 package TestModelo;
 
-import Modelo.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import Modelo.LineaPedido;
+import Modelo.Producto;
 
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.junit.runner.RunWith;
 
 public class TestLineaPedido {
-	
-	private Producto prodMock = mock(Producto.class);
-	private Producto prodMock2 =  mock(Producto.class);
-	private LineaPedido lp = new LineaPedido(prodMock, 5, 3.0);
-	
+	private Producto productoMock = mock(Producto.class);
+	LineaPedido lp = new LineaPedido(productoMock, 2, 19.95);
+
 	@Test
 	public void testConstructor() {
-		assertEquals(lp.getProducto(), prodMock);
-		assertEquals(lp.getCantidad(), 5);
-		assertEquals(lp.getTotal(), 3.0, 0);
+		
+		assertEquals(2, lp.getCantidad());
+		assertEquals(19.95, lp.getTotal(),0);
+		assertEquals(productoMock,lp.getProducto());
+	}
+	
+	@Test
+	public void testToString() {
+		String test = "2 x null 19.95€";
+		assertEquals(test, lp.toString());
 	}
 	
 	@Test
 	public void testSetProducto() {
-		lp.setProducto(prodMock2);
-		assertEquals(lp.getProducto(), prodMock2);
+		lp.setProducto(productoMock);
+		assertEquals(productoMock, lp.getProducto());
 	}
 	
 	@Test
 	public void testSetCantidad() {
-		lp.setCantidad(4);
-		assertEquals(4, lp.getCantidad());
+		lp.setCantidad(9);
+		assertEquals(9, lp.getCantidad());
 	}
 	
 	@Test
 	public void testSetTotal() {
-		lp.setTotal(8.0);
-		assertEquals(8.0, lp.getTotal(), 0);
+		lp.setTotal(99.36);
+		assertEquals(99.36, lp.getTotal(), 0);
 	}
 	
 }

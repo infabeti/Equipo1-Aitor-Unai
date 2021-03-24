@@ -5,9 +5,6 @@ public class ProductoTienda {
 	private Producto prod;
 	private int cantidad = 0;
 	
-	public ProductoTienda(Producto prod) {
-		this.prod = prod;
-	}
 	
 	public ProductoTienda(Producto prod, int cantidad) {
 		this.prod = prod;

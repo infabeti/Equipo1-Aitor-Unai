@@ -1,7 +1,6 @@
 package TestModelo;
 
 import Modelo.Pedido;
-import java.sql.Connection;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.sql.Date;

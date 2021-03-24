@@ -59,4 +59,22 @@ public class ConsultasComprobaciones {
 		}
 		return false;
 	}
+	
+	public double consultaComprobarPrecio(String nombre) {
+		try {
+			PreparedStatement st = null;
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSEGUIRPRECIOPRODUCTO);
+			st.setString(1, nombre);
+			ResultSet rs = st.executeQuery();
+			try {
+				rs.next();
+				return rs.getDouble("PCompra");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+		return 0.0;
+	}
 }

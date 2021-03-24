@@ -8,11 +8,20 @@ import java.util.Calendar;
 public class Modelo {
 
 	private ListaProductos listaProductos = new ListaProductos();
+	private ListaPlatos listaPlatos = new ListaPlatos();
 	private Usuario user;
-	public Utiles util;
+	public FuncionesProductos funProd;
+	public FuncionesPlatos funPlat;
 	private Inserciones inserciones;
 	private Consultas consultas;
+	private ConsultasListas consultasListas;
 	private Registro registro;
+	public InsercionesActividades insercionesActividades;
+	public Validaciones validaciones;
+	private Conexion conexion = new Conexion();
+	private ListaProductos listaTemporal = new ListaProductos();
+	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
+	public java.sql.Connection conexionConn = conexion.getConn();
 
 	public Registro getRegistro() {
 		return registro;
@@ -32,19 +41,21 @@ public class Modelo {
 		return inserciones;
 	}
 
-	private Conexion conexion = new Conexion();
-	private ListaProductos listaTemporal = new ListaProductos();
-
-	// obtenemos la conexion en el formato que necesitamos para hacer consultas
-	java.sql.Connection conexionConn = conexion.getConn();
-
 	public Modelo() {
 		user = new Usuario("", "", "", "");
-		util = new Utiles(this);
+		funProd = new FuncionesProductos(this);
+		funPlat = new FuncionesPlatos(this);
 		inserciones = new Inserciones(this);
 		consultasComprobaciones = new ConsultasComprobaciones(this);
 		consultas = new Consultas(this);
+		consultasListas = new ConsultasListas(this);
 		registro = new Registro(this);
+		insercionesActividades = new InsercionesActividades(this);
+		validaciones = new Validaciones();
+	}
+
+	public ConsultasListas getConsultasListas() {
+		return consultasListas;
 	}
 
 	public void setConexion(Conexion conexion) {
@@ -62,9 +73,25 @@ public class Modelo {
 	public ListaProductos getListaTemporal() {
 		return this.listaTemporal;
 	}
+	
+	public void setListaTemporalPlatos(ListaPlatos listaTemporalPlatos) {
+		this.listaTemporalPlatos = listaTemporalPlatos;
+	}
+	
+	public ListaPlatos getListaTemporalPlatos() {
+		return this.listaTemporalPlatos;
+	}
 
 	public ListaProductos getListaProductos() {
 		return this.listaProductos;
+	}
+	
+	public ListaPlatos getListaPlatos() {
+		return this.listaPlatos;
+	}
+	
+	public void setListaPlatos(ListaPlatos listaPlatos) {
+		this.listaPlatos = listaPlatos;
 	}
 
 	public String getFechaHoraSys() {
@@ -84,7 +111,7 @@ public class Modelo {
 	}
 
 	public void actualizarListaProductosLocal() {
-		this.listaProductos = consultas.cogerProductosLocal(user.getNifLocal());
+		this.listaProductos = consultasListas.cogerProductosLocal(user.getNifLocal());
 	}
 
 	public Usuario getUser() {

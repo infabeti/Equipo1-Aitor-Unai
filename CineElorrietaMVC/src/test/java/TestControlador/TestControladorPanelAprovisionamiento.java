@@ -5,11 +5,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import org.junit.Test;
-
 import Controlador.Controlador;
 import Controlador.ControladorPanelAprovisionamiento;
 import Modelo.Conexion;
@@ -32,7 +31,7 @@ public class TestControladorPanelAprovisionamiento {
 	private ControladorPanelAprovisionamiento controladorPanelAprovisionamiento = new ControladorPanelAprovisionamiento(modeloMock, vistaMock,
 			controladorMock);
 
-	// Test mostrarPanelFacturas
+	// Test mostrarPanel
 	private PanelAprovisionamiento panelAprovisionamientoMock = mock(PanelAprovisionamiento.class);
 	private ControladorPanelAprovisionamiento spyControladorPanelAprovisionamiento= spy(
 			new ControladorPanelAprovisionamiento(modeloMock, vistaMock, controladorMock));
@@ -62,5 +61,19 @@ public class TestControladorPanelAprovisionamiento {
 		verify(vistaMock).mostrarPanel(panelAprovisionamientoMock);
 
 	}
+	
+	@Test
+	public void TestAccionadoBottonVolverPanelPrincipal() {
+
+		controladorPanelAprovisionamiento = new ControladorPanelAprovisionamiento(modeloMock, vistaMock, controladorMock);
+
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+
+		controladorPanelAprovisionamiento.accionadoBottonVolverPanelPrincipal();
+
+		verify(controladorMock, times(1)).navegarPanelPrincipal();
+	}
+	
+	
 	
 }

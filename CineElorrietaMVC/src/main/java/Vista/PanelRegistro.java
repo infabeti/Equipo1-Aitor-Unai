@@ -38,69 +38,74 @@ public class PanelRegistro extends JPanel {
 		setLayout(null);
 
 		lblTextoPanel = new JLabel("PANEL REGISTRO:");
-		lblTextoPanel.setFont(new Font("Arial", Font.BOLD, 20));
-		lblTextoPanel.setBounds(191, 22, 187, 46);
+		lblTextoPanel.setFont(new Font("Arial", Font.BOLD, 27));
+		lblTextoPanel.setBounds(163, 11, 331, 46);
 		add(lblTextoPanel);
 
-		JLabel lblNIF = new JLabel("NIF:");
-		lblNIF.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblNIF.setBounds(33, 225, 48, 23);
+		JLabel lblNIF = new JLabel("NIF Local:");
+		lblNIF.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblNIF.setBounds(33, 211, 101, 23);
 		add(lblNIF);
 
 		textNIF = new JTextField();
-		textNIF.setBounds(78, 228, 192, 20);
+		textNIF.setFont(new Font("Arial", Font.PLAIN, 15));
+		textNIF.setBounds(146, 212, 162, 25);
 		add(textNIF);
 		textNIF.setColumns(10);
 
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(137, 330, 89, 23);
+		btnVolver.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnVolver.setBounds(175, 323, 101, 30);
 		add(btnVolver);
 
 		btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setBounds(33, 330, 89, 23);
+		btnRegistrar.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnRegistrar.setBounds(48, 323, 101, 30);
 		add(btnRegistrar);
 
 		JLabel lblDNI = new JLabel("DNI:");
-		lblDNI.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblDNI.setBounds(330, 79, 81, 30);
+		lblDNI.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblDNI.setBounds(325, 79, 81, 30);
 		add(lblDNI);
 
 		JLabel lblContrasenna = new JLabel("Contrase\u00F1a:");
-		lblContrasenna.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblContrasenna.setBounds(33, 259, 127, 23);
+		lblContrasenna.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblContrasenna.setBounds(31, 251, 127, 23);
 		add(lblContrasenna);
 
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setFont(new Font("Arial", Font.PLAIN, 17));
+		lblNombre.setFont(new Font("Arial", Font.PLAIN, 20));
 		lblNombre.setBounds(28, 82, 89, 24);
 		add(lblNombre);
 
 		JLabel lblApellido = new JLabel("Apellido:");
-		lblApellido.setFont(new Font("Arial", Font.PLAIN, 17));
-		lblApellido.setBounds(28, 117, 106, 20);
+		lblApellido.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblApellido.setBounds(28, 128, 106, 20);
 		add(lblApellido);
 
 		textDNI = new JTextField();
 
-		textDNI.setBounds(371, 86, 141, 20);
+		textDNI.setBounds(377, 83, 162, 23);
 		add(textDNI);
 		textDNI.setColumns(10);
 
 		textNombre = new JTextField();
+		textNombre.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		textNombre.setBounds(101, 86, 169, 20);
+		textNombre.setBounds(113, 82, 181, 24);
 		add(textNombre);
 		textNombre.setColumns(10);
 
 		textApellido = new JTextField();
+		textApellido.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		textApellido.setBounds(101, 120, 169, 20);
+		textApellido.setBounds(113, 128, 181, 25);
 		add(textApellido);
 		textApellido.setColumns(10);
 
 		passwordContrasena = new JPasswordField();
 
-		passwordContrasena.setBounds(137, 262, 133, 20);
+		passwordContrasena.setBounds(146, 254, 162, 23);
 		add(passwordContrasena);
 
 		initializeEvents();
@@ -140,7 +145,6 @@ public class PanelRegistro extends JPanel {
 
 					JOptionPane.showMessageDialog(null, "Empleado introducido correctamente");
 					controladorPanelRegistro.accionadoBottonVolverPanelLogin();
-
 				}
 				else {
 					JOptionPane.showMessageDialog(null, mensaje);

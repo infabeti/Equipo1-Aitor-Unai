@@ -11,9 +11,7 @@ public class LineaPedido {
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.total = total;
-
 	}	
-
 
 	public int getCantidad() {
 		return this.cantidad;

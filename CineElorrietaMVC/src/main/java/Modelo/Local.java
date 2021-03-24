@@ -10,10 +10,7 @@ public class Local {
 	private String tipoNegocio;
 	private ArrayList<Actividad> listaAct = new ArrayList<Actividad>();
 	private ArrayList<ProductoTienda> listaProd = new ArrayList<ProductoTienda>();
-	
-	
-	public Local() {}
-	
+		
 	public Local(String NIF, String nombre, String direccion, String tipoNegocio) {
 		this.NIF = NIF;
 		this.nombre = nombre;
@@ -81,7 +78,7 @@ public class Local {
 	
 	public ProductoTienda buscarProdTienda(String nombre) {
 		Producto prod = new Producto(nombre);
-		ProductoTienda prodT = new ProductoTienda(prod);
+		ProductoTienda prodT = new ProductoTienda(prod,0);
 		int indice = listaProd.indexOf(prodT);
 		if(indice >= 0) {
 			prodT = listaProd.get(indice);

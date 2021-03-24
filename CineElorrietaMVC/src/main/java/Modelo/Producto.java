@@ -17,6 +17,13 @@ public class Producto {
 		this.precioVenta = precioVenta;
 	}
 	
+	public Producto(String nombre, Date fechaCaducidad, String tipo, double precioCompra) {
+		this.nombre = nombre;
+		this.fechaCaducidad = fechaCaducidad;
+		this.tipo = tipo;
+		this.precioCompra = precioCompra;
+	}
+	
 	public Producto(String nombre) {
 		this.nombre = nombre;
 	}
@@ -60,7 +67,6 @@ public class Producto {
 	@Override
 	public String toString() {
 		return " - " + this.nombre + " x " + this.precioVenta + "€";
-				
 	}
 	
 }

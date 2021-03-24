@@ -189,12 +189,11 @@ public class PanelTickets extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
-
 				if (Double.parseDouble(textTotal.getText()) > 0) {
 					// insertar datos en actividad
 					controladorPanelTickets.insertarTicket(Integer.parseInt(textFieldNumTrans.getText()),
-							textFieldFecha.getText(),
-							Double.parseDouble(textTotal.getText()), textLocal.getText(),listaPAnnadidos);
+							textFieldFecha.getText(), Double.parseDouble(textTotal.getText()), textLocal.getText(),
+							listaPAnnadidos);
 
 					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
 					controladorPanelTickets.accionadoBottonVolverPanelPrincipal();
@@ -220,13 +219,6 @@ public class PanelTickets extends JPanel {
 	private ActionListener listenerBotonAnadir(ControladorPanelTickets controladorPanelTickets) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*
-				 * Este es el m�nimo de l�gica que puede haber (va para todos las vistas) En
-				 * el primer try catch necesita hacer un cast a String ya que no se puede pasar
-				 * el valor directo de getSelectedValue() existeProd necesita estar para
-				 * asegurarse de que se a�ade primero el producto antes de seguir Todos estos
-				 * comentarios valen para las tres vistas
-				 */
 				System.out.println("Ejecutando evento Boton Annadir");
 				boolean existeProd = false;
 				String producto = "";
@@ -238,7 +230,7 @@ public class PanelTickets extends JPanel {
 																			// getSelectedValue() devuelve un objeto por
 																			// lo que no se le puede pasar directamente
 																			// a accionadoBotonAnadirProducto
-					if(producto !=null) {
+					if (producto != null) {
 						existeProd = true;
 					}
 				} catch (Exception e) {
@@ -247,17 +239,33 @@ public class PanelTickets extends JPanel {
 				}
 				if (existeProd) {
 					try {
-						if (controladorPanelTickets.existeProducto(producto) == -1) {
-							productosAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto, cantidad);
-							listaPAnnadidos.addElement(productosAnadir[0]);
-							textTotal.setText(productosAnadir[1]);
-							lblError.setText("");
+						int stock = controladorPanelTickets.conseguirStock(textLocal.getText(), producto);
+						if (Integer.parseInt(cantidad) > stock) {
+							JOptionPane.showMessageDialog(null, "No puedes solicitar " + cantidad
+									+ " el stock para ese articulo es de " + stock + " unidades");
+
 						} else {
-							int indice = controladorPanelTickets.existeProducto(producto);
-							String yaAnnadido = listaPAnnadidos.get(indice);
-							productosAnadir = controladorPanelTickets.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), producto);
-							listaPAnnadidos.set(indice, productosAnadir[0]);
-							textTotal.setText(productosAnadir[1]);
+							if (controladorPanelTickets.existeProducto(producto) == -1) {
+								productosAnadir = controladorPanelTickets.accionadoBotonAnnadirProducto(producto,
+										cantidad);
+								listaPAnnadidos.addElement(productosAnadir[0]);
+								textTotal.setText(productosAnadir[1]);
+								lblError.setText("");
+							} else {
+								int indice = controladorPanelTickets.existeProducto(producto);
+								String yaAnnadido = listaPAnnadidos.get(indice);
+								String cantidadEnPanel[] = yaAnnadido.split(" ");
+
+								if ((Integer.parseInt(cantidadEnPanel[0]) + Integer.parseInt(cantidad)) > stock) {
+									JOptionPane.showMessageDialog(null,
+											"No puedes a�adir esa cantidad, el stock es de " + stock + " unidades y has seleccionado ya " + cantidadEnPanel[0] + " unidades");
+								} else {
+									productosAnadir = controladorPanelTickets.cambiarCantidadProductos(yaAnnadido,
+											Integer.parseInt(cantidad), producto);
+									listaPAnnadidos.set(indice, productosAnadir[0]);
+									textTotal.setText(productosAnadir[1]);
+								}
+							}
 						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
@@ -287,7 +295,7 @@ public class PanelTickets extends JPanel {
 					textTotal.setText(total);
 					lblError.setText("");
 				} catch (Exception e) {
-					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionó ningún producto");
+					System.out.println("No se pudo borrar el producto seleccionado/No se seleccionado ningun producto");
 					lblError.setText("No se pudo eliminar");
 				}
 			}

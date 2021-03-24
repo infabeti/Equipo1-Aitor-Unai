@@ -17,8 +17,20 @@ public class ControladorPanelRegistro {
 		this.controlador = controlador;
 	}
 
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
+
 	public void mostrarPanelRegistro() {
-		this.panelRegistro = new PanelRegistro(this);
+		this.panelRegistro = makePanelRegistro(this);
 		this.vista.mostrarPanel(this.panelRegistro);
 	}
 
@@ -32,6 +44,10 @@ public class ControladorPanelRegistro {
 
 	public String comprobarCamposRegistro(String nombre, String apellido, String nif, String dni, String password) {
 		return this.modelo.getRegistro().comprobarCamposRegistro(nombre, apellido, nif, dni, password);
+	}
+
+	public PanelRegistro makePanelRegistro(ControladorPanelRegistro controladorPanelRegistro) {
+		return new PanelRegistro(controladorPanelRegistro);
 	}
 
 }

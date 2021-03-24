@@ -4,15 +4,7 @@ import Modelo.ListaProductos;
 import Modelo.Producto;
 import static org.junit.Assert.*;
 import org.junit.Test;
-
 import static org.mockito.Mockito.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.junit.runner.RunWith;
 
 public class TestListaProductos {
 	

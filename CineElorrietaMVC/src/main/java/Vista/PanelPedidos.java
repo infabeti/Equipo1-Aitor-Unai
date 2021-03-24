@@ -197,33 +197,49 @@ public class PanelPedidos extends JPanel {
 				String[] productosAnadir = new String[2];
 				String cantidad = TextFieldCantidad.getText();
 				try {
-					producto = (String) productosAlmacenados.getSelectedValue();
-
+					producto = (String) productosAlmacenados.getSelectedValue(); // Necesito hacer aquï¿½ el cast porque
+																			// getSelectedValue() devuelve un objeto por
+																			// lo que no se le puede pasar directamente
+																			// a accionadoBotonAnadirProducto
 					if (producto != null) {
 						existeProd = true;
 					}
-
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 					lblError.setText("No se ha escogido un producto");
 				}
 				if (existeProd) {
 					try {
-						if (controladorPanelPedidos.existeProducto(producto) == -1) {
+						int stock = controladorPanelPedidos.conseguirStock(textFieldLocal.getText(), producto);
+						if (Integer.parseInt(cantidad) > stock) {
+							JOptionPane.showMessageDialog(null, "No puedes solicitar " + cantidad
+									+ " el stock para ese articulo es de " + stock + " unidades");
 
-							productosAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto, cantidad);
-							listaPAnnadidos.addElement(productosAnadir[0]);
-							textTotal.setText(productosAnadir[1]);
-							lblError.setText("");
 						} else {
-							int indice = controladorPanelPedidos.existeProducto(producto);
-							String yaAnnadido = listaPAnnadidos.get(indice);
-							productosAnadir = controladorPanelPedidos.cambiarCantidadProductos(yaAnnadido, Integer.parseInt(cantidad), producto);
-							listaPAnnadidos.set(indice, productosAnadir[0]);
-							textTotal.setText(productosAnadir[1]);
+							if (controladorPanelPedidos.existeProducto(producto) == -1) {
+								productosAnadir = controladorPanelPedidos.accionadoBotonAnnadirProducto(producto,
+										cantidad);
+								listaPAnnadidos.addElement(productosAnadir[0]);
+								textTotal.setText(productosAnadir[1]);
+								lblError.setText("");
+							} else {
+								int indice = controladorPanelPedidos.existeProducto(producto);
+								String yaAnnadido = listaPAnnadidos.get(indice);
+								String cantidadEnPanel[] = yaAnnadido.split(" ");
+								if ((Integer.parseInt(cantidadEnPanel[0]) + Integer.parseInt(cantidad)) > stock) {
+									JOptionPane.showMessageDialog(null,
+											"No puedes añadir esa cantidad, el stock es de " + stock + " unidades y has seleccionado ya " + cantidadEnPanel[0] + " unidades");
+								} else {
+									productosAnadir = controladorPanelPedidos.cambiarCantidadProductos(yaAnnadido,
+											Integer.parseInt(cantidad), producto);
+									listaPAnnadidos.set(indice, productosAnadir[0]);
+									textTotal.setText(productosAnadir[1]);
+								}
+							}
 						}
 					} catch (Exception e) {
 						System.out.println("El campo cantidad no contiene un entero");
+						e.printStackTrace();
 						lblError.setText("No se ha introducido una cantidad");
 					}
 				}

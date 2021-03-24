@@ -25,6 +25,7 @@ create table actividad(
 Transaccion int primary key,
 Fecha date not null,
 TotalOperacion float not null,
+tipo enum ('TICKET', 'FACTURA', 'COMANDA', 'PEDIDO', 'APROVISIONAMIENTO') not null,
 NIF char(9) not null,
 constraint fk_NIF_actividad foreign key (NIF) references establecimiento (NIF) on update cascade
 );
@@ -184,7 +185,10 @@ values ('85296365L', 'Maria', 'Zambrano','maria123', '34567899K') ;
 /* Inserciones Alimentos y productos */
 
 insert into alimento 
-values(1, 'Huevo', 'Comida', '2021/02/20', '0.10', true,true,false,true,true);
+values(1, 'Aquarius', 'Bebida', null, '0.35', true,true,true,true,true);
+
+insert into producto
+values(1, 2.00);
 
 insert into alimento 
 values(2, 'Coca-cola', 'Bebida', null, '0.35', true,true,true,true,true);
@@ -261,6 +265,9 @@ values(13, 2);
 /* Stock de establecimiento */
 
 insert into stock
+values('12345678H', 1, 20);
+
+insert into stock
 values('12345678H', 2, 20);
 
 insert into stock
@@ -289,6 +296,9 @@ values('12345678H', 12, 150);
 
 insert into stock
 values('12345678H', 10, 14);
+
+insert into stock
+values('34567899K', 1, 20);
 
 insert into stock
 values('34567899K', 2, 20);
@@ -321,6 +331,9 @@ insert into stock
 values('34567899K', 10, 14);
 
 insert into stock
+values('23456789J', 1, 20);
+
+insert into stock
 values('23456789J', 2, 20);
 
 insert into stock
@@ -350,6 +363,7 @@ values('23456789J', 12, 150);
 insert into stock
 values('23456789J', 10, 14);
 
+
 /* INSERCIONES PLATOS */
 insert into plato
 values (1,'Espaguetis a la carbonara', 11.99);
@@ -370,16 +384,78 @@ insert into plato
 values (6,'Pimientos rellenos de bacalao', 9.99);
 
 insert into plato
-values (7,'Filete de ternera con patatas panaderas', 15.99);
+values (7,'Filete de ternera con patatas', 15.99);
 
 insert into plato
 values (8,'Entrecot con pimientos y patatas', 15.99);
 
 insert into plato
-values (9,'Brownie con helado de vainilla y sirope de chocolate', 7.99);
+values (9,'Brownie con helado ', 7.99);
 
 insert into plato
 values (10,'Tarta de queso', 5.99);
 
 insert into plato
 values (11,'Tarta tres chocolates', 6.99);
+
+/*Inserciones en la carta*/
+
+insert into carta
+values ('23456789J', 1);
+
+insert into carta
+values ('23456789J', 2);
+
+insert into carta
+values ('23456789J', 3);
+
+insert into carta
+values ('23456789J', 4);
+
+insert into carta
+values ('23456789J', 5);
+
+insert into carta
+values ('23456789J', 6);
+
+insert into carta
+values ('23456789J', 7);
+
+insert into carta
+values ('23456789J', 8);
+
+insert into carta
+values ('23456789J', 9);
+
+insert into carta
+values ('23456789J', 10);
+
+insert into carta
+values ('23456789J', 11);
+
+/*TRIGGERS*/
+
+ delimiter &&
+create trigger actualizar1_stock
+after insert on lineaproducto 
+for each row
+
+begin
+	if(select tipo 
+    from actividad 
+		where Transaccion = New.Transaccion)='APROVISIONAMIENTO'
+then
+	update stock 
+    set cantidad = cantidad + new.Cantidad
+		where NIF = (select NIF 
+    from actividad 
+		where Transaccion = new.Transaccion) and CodigoAlimento = new.CodigoAlimento;
+else 
+	update stock 
+    set cantidad = cantidad - new.Cantidad
+		where NIF = (select NIF 
+    from actividad 
+		where Transaccion = new.Transaccion) and CodigoAlimento = new.CodigoAlimento;
+end if;
+end; &&
+

@@ -2,16 +2,15 @@ package Controlador;
 
 import Modelo.Modelo;
 import Modelo.Usuario;
+
 import Vista.PanelLogin;
 
 import Vista.Vista;
 
 public class ControladorLogin {
 
-	@SuppressWarnings("unused")
 	private Modelo modelo;
 	private Vista vista;
-	@SuppressWarnings("unused")
 	private Controlador controlador;
 	private PanelLogin panelLogin;
 
@@ -21,8 +20,20 @@ public class ControladorLogin {
 		this.controlador = controlador;
 	}
 
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public Vista getVista() {
+		return vista;
+	}
+
+	public Controlador getControlador() {
+		return controlador;
+	}
+
 	public void mostrarPanelLogin() {
-		this.panelLogin = new PanelLogin(this);
+		this.panelLogin = makePanelLogin(this);
 		this.vista.mostrarPanel(this.panelLogin);
 	}
 
@@ -39,14 +50,19 @@ public class ControladorLogin {
 		Usuario res = this.modelo.getConsultas().login(user, password);
 
 		this.modelo.setUser(res);
-
 		if (res.getNombre().equals("")) {
 			return false;
 		} else {
-			modelo.actualizarListaProductosLocal();
+			this.modelo.actualizarListaProductosLocal();
+			if (this.modelo.getUser().getTipoLocal().equals("RESTAURANTE")) {
+				this.modelo.setListaPlatos(this.modelo.getConsultasListas().cogerListaPlatos(this.modelo.getUser().getNifLocal()));
+			}
 			return true;
 		}
+	}
 
+	public PanelLogin makePanelLogin(ControladorLogin controladorLogin) {
+		return new PanelLogin(controladorLogin);
 	}
 
 }
